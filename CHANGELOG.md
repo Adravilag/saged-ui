@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/Adravilag/saged-ui/compare/v1.0.0...v1.0.1) (2025-12-01)
+
+
+### 🐛 Bug Fixes
+
+* correct repository url case for npm provenance ([c6999a3](https://github.com/Adravilag/saged-ui/commit/c6999a3f94a31b254ffaef303031b780ea055e5a))
+
 ## 1.0.0 (2025-12-01)
 
 
