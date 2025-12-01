@@ -1,0 +1,15 @@
+# Auto-generated files
+src/components.d.ts
+
+# Build outputs
+dist/
+www/
+loader/
+.stencil/
+
+# Dependencies
+node_modules/
+
+# Other
+*.md
+*.json
