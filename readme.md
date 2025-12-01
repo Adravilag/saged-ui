@@ -1,111 +1,237 @@
-[![Built With Stencil](https://img.shields.io/badge/-Built%20With%20Stencil-16161d.svg?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI%2BCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI%2BCgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU%2BCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00MjQuNywzNzMuOWMwLDM3LjYtNTUuMSw2OC42LTkyLjcsNjguNkgxODAuNGMtMzcuOSwwLTkyLjctMzAuNy05Mi43LTY4LjZ2LTMuNmgzMzYuOVYzNzMuOXoiLz4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTQyNC43LDI5Mi4xSDE4MC40Yy0zNy42LDAtOTIuNy0zMS05Mi43LTY4LjZ2LTMuNkgzMzJjMzcuNiwwLDkyLjcsMzEsOTIuNyw2OC42VjI5Mi4xeiIvPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNDI0LjcsMTQxLjdIODcuN3YtMy42YzAtMzcuNiw1NC44LTY4LjYsOTIuNy02OC42SDMzMmMzNy45LDAsOTIuNywzMC43LDkyLjcsNjguNlYxNDEuN3oiLz4KPC9zdmc%2BCg%3D%3D&colorA=16161d&style=flat-square)](https://stenciljs.com)
+﻿# SagedUI
 
-# Stencil Component Starter
+[![npm version](https://img.shields.io/npm/v/saged-ui.svg)](https://www.npmjs.com/package/saged-ui)
+[![CI](https://github.com/adravilag/saged-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/adravilag/saged-ui/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![semantic-release](https://img.shields.io/badge/semantic--release-conventionalcommits-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
-> This is a starter project for building a standalone Web Components using Stencil.
+Modern Web Components Library - Reusable UI components built with Stencil.js
 
-Stencil is a compiler for building fast web apps using Web Components.
+## Features
 
-Stencil combines the best concepts of the most popular frontend frameworks into a compile-time rather than runtime tool. Stencil takes TypeScript, JSX, a tiny virtual DOM layer, efficient one-way data binding, an asynchronous rendering pipeline (similar to React Fiber), and lazy-loading out of the box, and generates 100% standards-based Web Components that run in any browser supporting the Custom Elements specification.
+-  **Themeable** - CSS Custom Properties for easy theming
+-  **Dark Mode Ready** - Built-in support for dark mode via CSS variables
+-  **Accessible** - ARIA attributes and keyboard navigation
+-  **Framework Agnostic** - Works with Angular, React, Vue, or vanilla JS
+-  **Lightweight** - Tree-shakeable, only load what you need
+-  **TypeScript** - Full TypeScript support with type definitions
 
-Stencil components are just Web Components, so they work in any major framework or with no framework at all.
-
-## Getting Started
-
-To start building a new web component using Stencil, clone this repo to a new directory:
-
-```bash
-git clone https://github.com/stenciljs/component-starter.git my-component
-cd my-component
-git remote rm origin
-```
-
-and run:
+## Installation
 
 ```bash
-npm install
-npm start
+npm install saged-ui
 ```
 
-To build the component for production, run:
+## Quick Start
 
-```bash
-npm run build
-```
-
-To run the unit tests for the components, run:
-
-```bash
-npm test
-```
-
-Need help? Check out our docs [here](https://stenciljs.com/docs/my-first-component).
-
-## Naming Components
-
-When creating new component tags, we recommend _not_ using `stencil` in the component name (ex: `<stencil-datepicker>`). This is because the generated component has little to nothing to do with Stencil; it's just a web component!
-
-Instead, use a prefix that fits your company or any name for a group of related components. For example, all of the [Ionic-generated](https://ionicframework.com/) web components use the prefix `ion`.
-
-## Using this component
-
-There are two strategies we recommend for using web components built with Stencil.
-
-The first step for all two of these strategies is to [publish to NPM](https://docs.npmjs.com/getting-started/publishing-npm-packages).
-
-You can read more about these different approaches in the [Stencil docs](https://stenciljs.com/docs/publishing).
-
-### Lazy Loading
-
-If your Stencil project is built with the [`dist`](https://stenciljs.com/docs/distribution) output target, you can import a small bootstrap script that registers all components and allows you to load individual component scripts lazily.
-
-For example, given your Stencil project namespace is called `my-design-system`, to use `my-component` on any website, inject this into your HTML:
+### Vanilla HTML/JS
 
 ```html
-<script type="module" src="https://unpkg.com/my-design-system"></script>
-<!--
-To avoid unpkg.com redirects to the actual file, you can also directly import:
-https://unpkg.com/foobar-design-system@0.0.1/dist/foobar-design-system/foobar-design-system.esm.js
--->
-<my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
+<script type="module" src="node_modules/saged-ui/dist/saged-ui/saged-ui.esm.js"></script>
+
+<sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
 ```
 
-This will only load the necessary scripts needed to render `<my-component />`. Once more components of this package are used, they will automatically be loaded lazily.
+### ES Modules (Recommended)
 
-You can also import the script as part of your `node_modules` in your applications entry file:
+```javascript
+import { defineCustomElements } from 'saged-ui/loader';
 
-```tsx
-import 'foobar-design-system/dist/foobar-design-system/foobar-design-system.esm.js';
+// Register all components
+defineCustomElements();
 ```
 
-Check out this [Live Demo](https://stackblitz.com/edit/vitejs-vite-y6v26a?file=src%2Fmain.tsx).
+### CDN
 
-### Standalone
+```html
+<script type="module" src="https://unpkg.com/saged-ui@latest/dist/saged-ui/saged-ui.esm.js"></script>
+```
 
-If you are using a Stencil component library with `dist-custom-elements`, we recommend importing Stencil components individually in those files where they are needed.
+### Angular
 
-To export Stencil components as standalone components make sure you have the [`dist-custom-elements`](https://stenciljs.com/docs/custom-elements) output target defined in your `stencil.config.ts`.
+```typescript
+// main.ts
+import { defineCustomElements } from 'saged-ui/loader';
+defineCustomElements();
 
-For example, given you'd like to use `<my-component />` as part of a React component, you can import the component directly via:
+// app.module.ts
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
-```tsx
-import 'foobar-design-system/my-component';
+@NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  // ...
+})
+export class AppModule {}
+```
+
+### React
+
+```jsx
+import { defineCustomElements } from 'saged-ui/loader';
+defineCustomElements();
 
 function App() {
-  return (
-    <>
-      <div>
-        <my-component
-          first="Stencil"
-          middle="'Don't call me a framework'"
-          last="JS"
-        ></my-component>
-      </div>
-    </>
-  );
+  return <sg-skeleton variant="circle" width="48px" height="48px" />;
 }
-
-export default App;
 ```
 
-Check out this [Live Demo](https://stackblitz.com/edit/vitejs-vite-b6zuds?file=src%2FApp.tsx).
+### Vue
+
+```javascript
+// main.js
+import { defineCustomElements } from 'saged-ui/loader';
+
+defineCustomElements();
+
+// In vue.config.js (Vue 2) or vite.config.js (Vue 3)
+// Ignore custom elements
+vue: {
+  compilerOptions: {
+    isCustomElement: (tag) => tag.startsWith('sg-')
+  }
+}
+```
+
+## Components
+
+### sg-article-editor
+
+A headless-ready rich text editor supporting HTML and Markdown modes with live preview, formatting toolbar, and optional media library integration.
+
+```html
+<sg-article-editor
+  value="<p>Hello World</p>"
+  mode="html"
+  placeholder="Start writing..."
+></sg-article-editor>
+```
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `value` | `string` | `''` | The content value |
+| `mode` | `'html' \| 'markdown' \| 'preview' \| 'split'` | `'html'` | Editor mode |
+| `placeholder` | `string` | `'Start writing...'` | Placeholder text |
+| `min-height` | `number` | `400` | Minimum height in pixels |
+| `show-word-count` | `boolean` | `true` | Show word/character count |
+| `disabled` | `boolean` | `false` | Disabled state |
+
+**Events:**
+- `editorChange` - Content changes `{ value, mode, wordCount, charCount }`
+- `editorModeChange` - Mode changes `{ previousMode, newMode }`
+- `mediaLibraryOpen` - Media library requested
+- `mediaInsert` - Media item inserted
+
+**Keyboard Shortcuts:** Ctrl+B (bold), Ctrl+I (italic), Ctrl+K (link)
+
+[Full documentation →](./src/components/article-editor/readme.md)
+
+---
+
+### sg-icon
+
+SVG Icon component with 190+ built-in icons.
+
+```html
+<sg-icon name="home" size="24"></sg-icon>
+<sg-icon name="heart" color="#e91e63"></sg-icon>
+<sg-icon name="refresh" spin></sg-icon>
+```
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `name` | `string` | - | Icon name from the built-in library |
+| `size` | `number` | `24` | Icon size in pixels |
+| `color` | `string` | `'currentColor'` | Icon color |
+| `spin` | `boolean` | `false` | Enable spin animation |
+| `rotate` | `number` | - | Rotation angle in degrees |
+| `flip-h` | `boolean` | `false` | Flip horizontally |
+| `flip-v` | `boolean` | `false` | Flip vertically |
+
+---
+
+### sg-skeleton
+
+Skeleton loading placeholder component.
+
+| Property    | Type                              | Default   | Description                |
+|-------------|-----------------------------------|-----------|----------------------------|
+| variant     | 'text' \| 'rect' \| 'circle'       | 'text'    | Shape variant              |
+| width       | string                            | '100%'    | Width of skeleton          |
+| height      | string                            | '1rem'    | Height of skeleton         |
+| animation   | 'shimmer' \| 'pulse' \| 'none'     | 'shimmer' | Animation type             |
+
+#### Examples
+
+```html
+<!-- Text placeholder -->
+<sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
+
+<!-- Image placeholder -->
+<sg-skeleton variant="rect" width="100%" height="200px"></sg-skeleton>
+
+<!-- Avatar placeholder -->
+<sg-skeleton variant="circle" width="48px" height="48px"></sg-skeleton>
+```
+
+## Theming
+
+Customize components using CSS Custom Properties:
+
+```css
+/* Light mode (default) */
+:root {
+  --skeleton-bg-start: #e2e8f0;
+  --skeleton-bg-mid: #f1f5f9;
+  --skeleton-bg-end: #e2e8f0;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --skeleton-bg-start: #334155;
+  --skeleton-bg-mid: #475569;
+  --skeleton-bg-end: #334155;
+}
+```
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm start
+
+# Run Storybook
+npm run storybook
+
+# Build for production
+npm run build
+
+# Run tests
+npm test
+
+# Icon management
+npm run icon-server    # Start icon API server
+npm run generate-icons # Regenerate icons from JSON
+```
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## Versioning
+
+We use [Semantic Versioning](https://semver.org/) with automatic releases via [semantic-release](https://github.com/semantic-release/semantic-release). Commit messages following [Conventional Commits](https://www.conventionalcommits.org/) trigger automatic version bumps:
+
+- `fix:` → Patch release (1.0.0 → 1.0.1)
+- `feat:` → Minor release (1.0.0 → 1.1.0)
+- `feat!:` or `BREAKING CHANGE:` → Major release (1.0.0 → 2.0.0)
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for a list of changes.
+
+## License
+
+MIT

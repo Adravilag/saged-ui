@@ -1,0 +1,43 @@
+# Source files
+src/
+scripts/
+.storybook/
+storybook-static/
+
+# Config files
+.editorconfig
+.prettierrc.json
+.releaserc.json
+stencil.config.ts
+tsconfig.json
+commitlint.config.js
+
+# Git and CI
+.git/
+.github/
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Build artifacts (not needed for consumers)
+www/
+.stencil/
+
+# Test files
+**/*.spec.ts
+**/*.e2e.ts
+**/*.stories.ts
+coverage/
+
+# Logs and temp files
+*.log
+*.tmp
+debug-storybook.log
+
+# OS files
+.DS_Store
+Thumbs.db

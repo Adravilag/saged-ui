@@ -1,0 +1,93 @@
+/**
+ * SVG Icon Component Styles
+ *
+ * CSS Custom Properties:
+ * --icon-size: Size of the icon (default: 24px)
+ * --icon-width: Width override
+ * --icon-height: Height override
+ * --icon-color: Icon color (default: currentColor)
+ * --icon-transform: Transform applied to icon
+ */
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-color, currentColor);
+  vertical-align: middle;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+:host(.icon--spin) svg {
+  animation: icon-spin 1s linear infinite;
+}
+
+@keyframes icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  transform: var(--icon-transform, none);
+  transition: transform 0.2s ease;
+}
+
+/* Apply color to all fill elements in custom SVGs */
+:host(.icon--custom) svg,
+:host(.icon--custom) svg * {
+  fill: var(--icon-color, currentColor);
+}
+
+/* Preserve strokes if present */
+:host(.icon--custom) svg [stroke]:not([stroke='none']) {
+  stroke: var(--icon-color, currentColor);
+  fill: none;
+}
+
+/* Error state */
+:host(.icon--error) {
+  opacity: 0.5;
+}
+
+/* Interactive states (when used in buttons) */
+:host(:hover) svg {
+  opacity: 0.9;
+}
+
+:host(:focus) {
+  outline: none;
+}
+
+/* Size presets using CSS variables */
+:host([data-size='xs']) {
+  --icon-size: 12px;
+}
+
+:host([data-size='sm']) {
+  --icon-size: 16px;
+}
+
+:host([data-size='md']) {
+  --icon-size: 24px;
+}
+
+:host([data-size='lg']) {
+  --icon-size: 32px;
+}
+
+:host([data-size='xl']) {
+  --icon-size: 48px;
+}
+
+:host([data-size='xxl']) {
+  --icon-size: 64px;
+}
