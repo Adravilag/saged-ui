@@ -345,7 +345,7 @@ export function formatCount(count: number, singular: string, plural: string): st
 }
 
 export function detectLocale(): SupportedLocale {
-  if (typeof navigator === 'undefined') return 'en';
+  if (typeof navigator === 'undefined' || !navigator.language) return 'en';
   const browserLang = navigator.language.split('-')[0].toLowerCase();
   const supportedLocales = getSupportedLocales();
   if (supportedLocales.includes(browserLang as SupportedLocale)) {
