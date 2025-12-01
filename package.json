@@ -37,12 +37,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/adravilag/saged-ui.git"
+    "url": "https://github.com/Adravilag/saged-ui.git"
   },
   "bugs": {
-    "url": "https://github.com/adravilag/saged-ui/issues"
+    "url": "https://github.com/Adravilag/saged-ui/issues"
   },
-  "homepage": "https://github.com/adravilag/saged-ui#readme",
+  "homepage": "https://github.com/Adravilag/saged-ui#readme",
   "files": [
     "dist/",
     "loader/"
