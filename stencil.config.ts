@@ -1,4 +1,5 @@
 ﻿import { Config } from '@stencil/core';
+import { angularOutputTarget } from '@stencil/angular-output-target';
 
 export const config: Config = {
   namespace: 'saged-ui',
@@ -16,6 +17,12 @@ export const config: Config = {
       customElementsExportBehavior: 'auto-define-custom-elements',
       externalRuntime: false,
     },
+    angularOutputTarget({
+      componentCorePackage: 'saged-ui',
+      outputType: 'standalone',
+      directivesProxyFile: './angular/src/directives/proxies.ts',
+      directivesArrayFile: './angular/src/directives/index.ts',
+    }),
     {
       type: 'docs-readme',
     },

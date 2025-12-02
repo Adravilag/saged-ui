@@ -145,6 +145,19 @@ A flexible, accessible SVG icon component for the MediQ UI library. Supports bot
 | `width`       | `width`        | Width of the icon (overrides size)                                                                              | `number \| string` | `undefined`      |
 
 
+## Dependencies
+
+### Used by
+
+ - [sg-button](../button)
+
+### Graph
+```mermaid
+graph TD;
+  sg-button --> sg-icon
+  style sg-icon fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

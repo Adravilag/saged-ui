@@ -7,8 +7,12 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { EditorChangeEvent, EditorMode, EditorModeChangeEvent, MediaItem } from "./components/article-editor/utils";
 import { EditorTranslations, SupportedLocale } from "./components/article-editor/utils/i18n";
+import { BadgeSize, BadgeVariant } from "./components/badge/badge";
+import { ButtonShape, ButtonSize, ButtonVariant } from "./components/button/button";
 export { EditorChangeEvent, EditorMode, EditorModeChangeEvent, MediaItem } from "./components/article-editor/utils";
 export { EditorTranslations, SupportedLocale } from "./components/article-editor/utils/i18n";
+export { BadgeSize, BadgeVariant } from "./components/badge/badge";
+export { ButtonShape, ButtonSize, ButtonVariant } from "./components/button/button";
 export namespace Components {
     /**
      * SagedUI - Article Editor Component
@@ -152,6 +156,292 @@ export namespace Components {
         "value": string;
     }
     /**
+     * @example ### Angular
+     * ```html
+     * <sg-badge variant="success">Active</sg-badge>
+     * <sg-badge variant="error" size="sm" dot>Offline</sg-badge>
+     * <sg-badge variant="info" pill>New Feature</sg-badge>
+     * <sg-badge variant="warning">
+     *   <sg-icon slot="icon" name="alert-triangle" size="12"></sg-icon>
+     *   Warning
+     * </sg-badge>
+     * ```
+     * ### React
+     * ```jsx
+     * <sg-badge variant="primary" outlined>Beta</sg-badge>
+     * <sg-badge variant="success" pulse>Live</sg-badge>
+     * ```
+     * ### Vanilla JS
+     * ```html
+     * <sg-badge variant="info" size="lg">Featured</sg-badge>
+     * <sg-badge variant="neutral" removable id="tag1">Tag 1</sg-badge>
+     * <script>
+     *   document.querySelector('#tag1').addEventListener('sgRemove', (e) => {
+     *     e.target.remove();
+     *   });
+     * </script>
+     * ```
+     */
+    interface SgBadge {
+        /**
+          * Make the badge clickable/interactive
+          * @default false
+         */
+        "clickable": boolean;
+        /**
+          * Show a status dot indicator
+          * @default false
+         */
+        "dot": boolean;
+        /**
+          * Custom icon name (if using sg-icon internally)
+         */
+        "icon": string;
+        /**
+          * Display as outlined style (transparent background with border)
+          * @default false
+         */
+        "outlined": boolean;
+        /**
+          * Display as pill shape (fully rounded)
+          * @default false
+         */
+        "pill": boolean;
+        /**
+          * Apply pulse animation to the dot
+          * @default false
+         */
+        "pulse": boolean;
+        /**
+          * Size of the badge
+          * @default 'md'
+         */
+        "size": BadgeSize;
+        /**
+          * Size of the badge
+         */
+        "size"?: "xs" | "sm" | "md" | "lg";
+        /**
+          * Display as soft/subtle style (lighter background)
+          * @default false
+         */
+        "soft": boolean;
+        /**
+          * Color variant of the badge
+          * @default 'primary'
+         */
+        "variant": BadgeVariant;
+        /**
+          * Color variant
+         */
+        "variant"?: "primary" | "secondary" | "success" | "warning" | "error" | "info" | "neutral" | "purple" | "cyan";
+    }
+    /**
+     * @component sg-button
+     * @description A versatile button component with multiple variants, sizes, and states.
+     * Framework-agnostic: works with Angular, React, Vue, and vanilla JS without wrappers.
+     * @example <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      VANILLA HTML / JS
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-button>Click me</sg-button>
+     * <sg-button variant="primary">Primary</sg-button>
+     * <sg-button variant="outline" size="lg">Large Outline</sg-button>
+     * <sg-button variant="success" leading-icon="check">Save</sg-button>
+     * <sg-button loading>Loading...</sg-button>
+     * <sg-button disabled>Disabled</sg-button>
+     * <sg-button shape="pill" variant="secondary">Pill Button</sg-button>
+     * <script>
+     *   document.querySelector('sg-button').addEventListener('sgClick', (e) => {
+     *     console.log('Button clicked!', e.detail);
+     *   });
+     * </script>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      ANGULAR (no wrapper needed, add CUSTOM_ELEMENTS_SCHEMA)
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-button
+     *   variant="primary"
+     *   [attr.loading]="isLoading || null"
+     *   [attr.disabled]="isDisabled || null"
+     *   (sgClick)="handleClick($event)">
+     *   Save Changes
+     * </sg-button>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      REACT (use kebab-case attributes)
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-button
+     *   variant="primary"
+     *   leading-icon="save"
+     *   loading={isLoading}
+     *   onSgClick={(e) => handleClick(e.detail)}>
+     *   Save Changes
+     * </sg-button>
+     * @fires sgClick - Emitted when button is clicked (not disabled/loading)
+     * @cssprop --sg-btn-bg - Button background color
+     * @cssprop --sg-btn-color - Button text color
+     * @cssprop --sg-btn-border-color - Button border color
+     * @cssprop --sg-btn-radius - Button border radius
+     * @cssprop --sg-btn-shadow - Button box shadow
+     */
+    interface SgButton {
+        /**
+          * Accessible label
+          * @attr aria-label
+         */
+        "ariaLabel"?: string;
+        /**
+          * Disable the button
+          * @attr disabled
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Leading icon name (from sg-icon)
+          * @attr leading-icon
+         */
+        "leadingIcon"?: string;
+        /**
+          * Show loading spinner
+          * @attr loading
+          * @default false
+         */
+        "loading": boolean;
+        /**
+          * Loading text (replaces content while loading)
+          * @attr loading-text
+         */
+        "loadingText"?: string;
+        /**
+          * Button shape
+          * @attr shape
+          * @default 'default'
+         */
+        "shape": ButtonShape;
+        /**
+          * Button size
+          * @attr size
+          * @default 'md'
+         */
+        "size": ButtonSize;
+        /**
+          * Trailing icon name (from sg-icon)
+          * @attr trailing-icon
+         */
+        "trailingIcon"?: string;
+        /**
+          * Button type attribute
+          * @attr type
+          * @default 'button'
+         */
+        "type": 'button' | 'submit' | 'reset';
+        /**
+          * Button color variant
+          * @attr variant
+          * @default 'primary'
+         */
+        "variant": ButtonVariant;
+    }
+    /**
+     * @example ### Angular
+     * ```html
+     * <sg-dropdown align="start" position="bottom">
+     *   <button slot="trigger">Open Menu</button>
+     *   <div slot="header">Settings</div>
+     *   <button>Option 1</button>
+     *   <button>Option 2</button>
+     *   <div slot="footer">Logged in as Admin</div>
+     * </sg-dropdown>
+     * ```
+     * ### React
+     * ```jsx
+     * <sg-dropdown align="start" closeOnSelect={false}>
+     *   <button slot="trigger">Menu</button>
+     *   <div>Content here</div>
+     * </sg-dropdown>
+     * ```
+     * ### Vanilla JS
+     * ```html
+     * <sg-dropdown id="myDropdown" align="end" close-on-select="false">
+     *   <button slot="trigger">Options</button>
+     *   <ul>
+     *     <li>Item 1</li>
+     *     <li>Item 2</li>
+     *   </ul>
+     * </sg-dropdown>
+     * <script>
+     *   const dropdown = document.querySelector('#myDropdown');
+     *   dropdown.addEventListener('sgOpen', (e) => console.log('Opened'));
+     *   dropdown.addEventListener('sgClose', (e) => console.log('Closed'));
+     * </script>
+     * ```
+     */
+    interface SgDropdown {
+        /**
+          * Horizontal alignment of the dropdown content relative to trigger
+          * @default 'start'
+         */
+        "align": 'start' | 'end' | 'center';
+        /**
+          * Horizontal alignment of the dropdown
+         */
+        "align"?: "start" | "end" | "center";
+        /**
+          * Closes the dropdown programmatically
+         */
+        "closeDropdown": () => Promise<void>;
+        /**
+          * Whether to close the dropdown when an item is selected/clicked
+          * @default true
+         */
+        "closeOnSelect": boolean;
+        /**
+          * Whether the dropdown is disabled
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Maximum height of the dropdown content for scrolling
+          * @default '320px'
+         */
+        "maxHeight": string;
+        /**
+          * Minimum width of the dropdown content (e.g., "200px", "12rem")
+          * @default '200px'
+         */
+        "minWidth": string;
+        /**
+          * Whether the dropdown is currently open
+          * @default false
+         */
+        "open": boolean;
+        /**
+          * Opens the dropdown programmatically
+         */
+        "openDropdown": () => Promise<void>;
+        /**
+          * Vertical position of the dropdown content
+          * @default 'bottom'
+         */
+        "position": 'bottom' | 'top';
+        /**
+          * Position of the dropdown relative to trigger
+         */
+        "position"?: "bottom" | "top";
+        /**
+          * Show a backdrop overlay (useful on mobile)
+          * @default false
+         */
+        "showBackdrop": boolean;
+        /**
+          * Size variant
+          * @default 'md'
+         */
+        "size": 'sm' | 'md' | 'lg';
+        /**
+          * Toggles the dropdown open/closed
+         */
+        "toggle": () => Promise<void>;
+    }
+    /**
      * @component sg-icon
      * @description SVG Icon component for SagedUI - A flexible, accessible icon system
      * @example <!-- Basic usage with built-in icons -->
@@ -264,6 +554,14 @@ export interface SgArticleEditorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSgArticleEditorElement;
 }
+export interface SgButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSgButtonElement;
+}
+export interface SgDropdownCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSgDropdownElement;
+}
 declare global {
     interface HTMLSgArticleEditorElementEventMap {
         "editorChange": EditorChangeEvent;
@@ -296,6 +594,155 @@ declare global {
     var HTMLSgArticleEditorElement: {
         prototype: HTMLSgArticleEditorElement;
         new (): HTMLSgArticleEditorElement;
+    };
+    /**
+     * @example ### Angular
+     * ```html
+     * <sg-badge variant="success">Active</sg-badge>
+     * <sg-badge variant="error" size="sm" dot>Offline</sg-badge>
+     * <sg-badge variant="info" pill>New Feature</sg-badge>
+     * <sg-badge variant="warning">
+     *   <sg-icon slot="icon" name="alert-triangle" size="12"></sg-icon>
+     *   Warning
+     * </sg-badge>
+     * ```
+     * ### React
+     * ```jsx
+     * <sg-badge variant="primary" outlined>Beta</sg-badge>
+     * <sg-badge variant="success" pulse>Live</sg-badge>
+     * ```
+     * ### Vanilla JS
+     * ```html
+     * <sg-badge variant="info" size="lg">Featured</sg-badge>
+     * <sg-badge variant="neutral" removable id="tag1">Tag 1</sg-badge>
+     * <script>
+     *   document.querySelector('#tag1').addEventListener('sgRemove', (e) => {
+     *     e.target.remove();
+     *   });
+     * </script>
+     * ```
+     */
+    interface HTMLSgBadgeElement extends Components.SgBadge, HTMLStencilElement {
+    }
+    var HTMLSgBadgeElement: {
+        prototype: HTMLSgBadgeElement;
+        new (): HTMLSgBadgeElement;
+    };
+    interface HTMLSgButtonElementEventMap {
+        "sgClick": MouseEvent;
+    }
+    /**
+     * @component sg-button
+     * @description A versatile button component with multiple variants, sizes, and states.
+     * Framework-agnostic: works with Angular, React, Vue, and vanilla JS without wrappers.
+     * @example <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      VANILLA HTML / JS
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-button>Click me</sg-button>
+     * <sg-button variant="primary">Primary</sg-button>
+     * <sg-button variant="outline" size="lg">Large Outline</sg-button>
+     * <sg-button variant="success" leading-icon="check">Save</sg-button>
+     * <sg-button loading>Loading...</sg-button>
+     * <sg-button disabled>Disabled</sg-button>
+     * <sg-button shape="pill" variant="secondary">Pill Button</sg-button>
+     * <script>
+     *   document.querySelector('sg-button').addEventListener('sgClick', (e) => {
+     *     console.log('Button clicked!', e.detail);
+     *   });
+     * </script>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      ANGULAR (no wrapper needed, add CUSTOM_ELEMENTS_SCHEMA)
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-button
+     *   variant="primary"
+     *   [attr.loading]="isLoading || null"
+     *   [attr.disabled]="isDisabled || null"
+     *   (sgClick)="handleClick($event)">
+     *   Save Changes
+     * </sg-button>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      REACT (use kebab-case attributes)
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-button
+     *   variant="primary"
+     *   leading-icon="save"
+     *   loading={isLoading}
+     *   onSgClick={(e) => handleClick(e.detail)}>
+     *   Save Changes
+     * </sg-button>
+     * @fires sgClick - Emitted when button is clicked (not disabled/loading)
+     * @cssprop --sg-btn-bg - Button background color
+     * @cssprop --sg-btn-color - Button text color
+     * @cssprop --sg-btn-border-color - Button border color
+     * @cssprop --sg-btn-radius - Button border radius
+     * @cssprop --sg-btn-shadow - Button box shadow
+     */
+    interface HTMLSgButtonElement extends Components.SgButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSgButtonElementEventMap>(type: K, listener: (this: HTMLSgButtonElement, ev: SgButtonCustomEvent<HTMLSgButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSgButtonElementEventMap>(type: K, listener: (this: HTMLSgButtonElement, ev: SgButtonCustomEvent<HTMLSgButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSgButtonElement: {
+        prototype: HTMLSgButtonElement;
+        new (): HTMLSgButtonElement;
+    };
+    interface HTMLSgDropdownElementEventMap {
+        "sgOpen": void;
+        "sgClose": void;
+        "sgToggle": boolean;
+    }
+    /**
+     * @example ### Angular
+     * ```html
+     * <sg-dropdown align="start" position="bottom">
+     *   <button slot="trigger">Open Menu</button>
+     *   <div slot="header">Settings</div>
+     *   <button>Option 1</button>
+     *   <button>Option 2</button>
+     *   <div slot="footer">Logged in as Admin</div>
+     * </sg-dropdown>
+     * ```
+     * ### React
+     * ```jsx
+     * <sg-dropdown align="start" closeOnSelect={false}>
+     *   <button slot="trigger">Menu</button>
+     *   <div>Content here</div>
+     * </sg-dropdown>
+     * ```
+     * ### Vanilla JS
+     * ```html
+     * <sg-dropdown id="myDropdown" align="end" close-on-select="false">
+     *   <button slot="trigger">Options</button>
+     *   <ul>
+     *     <li>Item 1</li>
+     *     <li>Item 2</li>
+     *   </ul>
+     * </sg-dropdown>
+     * <script>
+     *   const dropdown = document.querySelector('#myDropdown');
+     *   dropdown.addEventListener('sgOpen', (e) => console.log('Opened'));
+     *   dropdown.addEventListener('sgClose', (e) => console.log('Closed'));
+     * </script>
+     * ```
+     */
+    interface HTMLSgDropdownElement extends Components.SgDropdown, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSgDropdownElementEventMap>(type: K, listener: (this: HTMLSgDropdownElement, ev: SgDropdownCustomEvent<HTMLSgDropdownElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSgDropdownElementEventMap>(type: K, listener: (this: HTMLSgDropdownElement, ev: SgDropdownCustomEvent<HTMLSgDropdownElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSgDropdownElement: {
+        prototype: HTMLSgDropdownElement;
+        new (): HTMLSgDropdownElement;
     };
     /**
      * @component sg-icon
@@ -332,6 +779,9 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "sg-article-editor": HTMLSgArticleEditorElement;
+        "sg-badge": HTMLSgBadgeElement;
+        "sg-button": HTMLSgButtonElement;
+        "sg-dropdown": HTMLSgDropdownElement;
         "sg-icon": HTMLSgIconElement;
         "sg-skeleton": HTMLSgSkeletonElement;
     }
@@ -471,6 +921,296 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     /**
+     * @example ### Angular
+     * ```html
+     * <sg-badge variant="success">Active</sg-badge>
+     * <sg-badge variant="error" size="sm" dot>Offline</sg-badge>
+     * <sg-badge variant="info" pill>New Feature</sg-badge>
+     * <sg-badge variant="warning">
+     *   <sg-icon slot="icon" name="alert-triangle" size="12"></sg-icon>
+     *   Warning
+     * </sg-badge>
+     * ```
+     * ### React
+     * ```jsx
+     * <sg-badge variant="primary" outlined>Beta</sg-badge>
+     * <sg-badge variant="success" pulse>Live</sg-badge>
+     * ```
+     * ### Vanilla JS
+     * ```html
+     * <sg-badge variant="info" size="lg">Featured</sg-badge>
+     * <sg-badge variant="neutral" removable id="tag1">Tag 1</sg-badge>
+     * <script>
+     *   document.querySelector('#tag1').addEventListener('sgRemove', (e) => {
+     *     e.target.remove();
+     *   });
+     * </script>
+     * ```
+     */
+    interface SgBadge {
+        /**
+          * Make the badge clickable/interactive
+          * @default false
+         */
+        "clickable"?: boolean;
+        /**
+          * Show a status dot indicator
+          * @default false
+         */
+        "dot"?: boolean;
+        /**
+          * Custom icon name (if using sg-icon internally)
+         */
+        "icon"?: string;
+        /**
+          * Display as outlined style (transparent background with border)
+          * @default false
+         */
+        "outlined"?: boolean;
+        /**
+          * Display as pill shape (fully rounded)
+          * @default false
+         */
+        "pill"?: boolean;
+        /**
+          * Apply pulse animation to the dot
+          * @default false
+         */
+        "pulse"?: boolean;
+        /**
+          * Size of the badge
+          * @default 'md'
+         */
+        "size"?: BadgeSize;
+        /**
+          * Size of the badge
+         */
+        "size"?: "xs" | "sm" | "md" | "lg";
+        /**
+          * Display as soft/subtle style (lighter background)
+          * @default false
+         */
+        "soft"?: boolean;
+        /**
+          * Color variant of the badge
+          * @default 'primary'
+         */
+        "variant"?: BadgeVariant;
+        /**
+          * Color variant
+         */
+        "variant"?: "primary" | "secondary" | "success" | "warning" | "error" | "info" | "neutral" | "purple" | "cyan";
+    }
+    /**
+     * @component sg-button
+     * @description A versatile button component with multiple variants, sizes, and states.
+     * Framework-agnostic: works with Angular, React, Vue, and vanilla JS without wrappers.
+     * @example <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      VANILLA HTML / JS
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-button>Click me</sg-button>
+     * <sg-button variant="primary">Primary</sg-button>
+     * <sg-button variant="outline" size="lg">Large Outline</sg-button>
+     * <sg-button variant="success" leading-icon="check">Save</sg-button>
+     * <sg-button loading>Loading...</sg-button>
+     * <sg-button disabled>Disabled</sg-button>
+     * <sg-button shape="pill" variant="secondary">Pill Button</sg-button>
+     * <script>
+     *   document.querySelector('sg-button').addEventListener('sgClick', (e) => {
+     *     console.log('Button clicked!', e.detail);
+     *   });
+     * </script>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      ANGULAR (no wrapper needed, add CUSTOM_ELEMENTS_SCHEMA)
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-button
+     *   variant="primary"
+     *   [attr.loading]="isLoading || null"
+     *   [attr.disabled]="isDisabled || null"
+     *   (sgClick)="handleClick($event)">
+     *   Save Changes
+     * </sg-button>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      REACT (use kebab-case attributes)
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-button
+     *   variant="primary"
+     *   leading-icon="save"
+     *   loading={isLoading}
+     *   onSgClick={(e) => handleClick(e.detail)}>
+     *   Save Changes
+     * </sg-button>
+     * @fires sgClick - Emitted when button is clicked (not disabled/loading)
+     * @cssprop --sg-btn-bg - Button background color
+     * @cssprop --sg-btn-color - Button text color
+     * @cssprop --sg-btn-border-color - Button border color
+     * @cssprop --sg-btn-radius - Button border radius
+     * @cssprop --sg-btn-shadow - Button box shadow
+     */
+    interface SgButton {
+        /**
+          * Accessible label
+          * @attr aria-label
+         */
+        "ariaLabel"?: string;
+        /**
+          * Disable the button
+          * @attr disabled
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Leading icon name (from sg-icon)
+          * @attr leading-icon
+         */
+        "leadingIcon"?: string;
+        /**
+          * Show loading spinner
+          * @attr loading
+          * @default false
+         */
+        "loading"?: boolean;
+        /**
+          * Loading text (replaces content while loading)
+          * @attr loading-text
+         */
+        "loadingText"?: string;
+        /**
+          * Click event (emitted when not disabled/loading)
+         */
+        "onSgClick"?: (event: SgButtonCustomEvent<MouseEvent>) => void;
+        /**
+          * Button shape
+          * @attr shape
+          * @default 'default'
+         */
+        "shape"?: ButtonShape;
+        /**
+          * Button size
+          * @attr size
+          * @default 'md'
+         */
+        "size"?: ButtonSize;
+        /**
+          * Trailing icon name (from sg-icon)
+          * @attr trailing-icon
+         */
+        "trailingIcon"?: string;
+        /**
+          * Button type attribute
+          * @attr type
+          * @default 'button'
+         */
+        "type"?: 'button' | 'submit' | 'reset';
+        /**
+          * Button color variant
+          * @attr variant
+          * @default 'primary'
+         */
+        "variant"?: ButtonVariant;
+    }
+    /**
+     * @example ### Angular
+     * ```html
+     * <sg-dropdown align="start" position="bottom">
+     *   <button slot="trigger">Open Menu</button>
+     *   <div slot="header">Settings</div>
+     *   <button>Option 1</button>
+     *   <button>Option 2</button>
+     *   <div slot="footer">Logged in as Admin</div>
+     * </sg-dropdown>
+     * ```
+     * ### React
+     * ```jsx
+     * <sg-dropdown align="start" closeOnSelect={false}>
+     *   <button slot="trigger">Menu</button>
+     *   <div>Content here</div>
+     * </sg-dropdown>
+     * ```
+     * ### Vanilla JS
+     * ```html
+     * <sg-dropdown id="myDropdown" align="end" close-on-select="false">
+     *   <button slot="trigger">Options</button>
+     *   <ul>
+     *     <li>Item 1</li>
+     *     <li>Item 2</li>
+     *   </ul>
+     * </sg-dropdown>
+     * <script>
+     *   const dropdown = document.querySelector('#myDropdown');
+     *   dropdown.addEventListener('sgOpen', (e) => console.log('Opened'));
+     *   dropdown.addEventListener('sgClose', (e) => console.log('Closed'));
+     * </script>
+     * ```
+     */
+    interface SgDropdown {
+        /**
+          * Horizontal alignment of the dropdown content relative to trigger
+          * @default 'start'
+         */
+        "align"?: 'start' | 'end' | 'center';
+        /**
+          * Horizontal alignment of the dropdown
+         */
+        "align"?: "start" | "end" | "center";
+        /**
+          * Whether to close the dropdown when an item is selected/clicked
+          * @default true
+         */
+        "closeOnSelect"?: boolean;
+        /**
+          * Whether the dropdown is disabled
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Maximum height of the dropdown content for scrolling
+          * @default '320px'
+         */
+        "maxHeight"?: string;
+        /**
+          * Minimum width of the dropdown content (e.g., "200px", "12rem")
+          * @default '200px'
+         */
+        "minWidth"?: string;
+        /**
+          * Emitted when the dropdown closes
+         */
+        "onSgClose"?: (event: SgDropdownCustomEvent<void>) => void;
+        /**
+          * Emitted when the dropdown opens
+         */
+        "onSgOpen"?: (event: SgDropdownCustomEvent<void>) => void;
+        /**
+          * Emitted when the open state changes
+         */
+        "onSgToggle"?: (event: SgDropdownCustomEvent<boolean>) => void;
+        /**
+          * Whether the dropdown is currently open
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * Vertical position of the dropdown content
+          * @default 'bottom'
+         */
+        "position"?: 'bottom' | 'top';
+        /**
+          * Position of the dropdown relative to trigger
+         */
+        "position"?: "bottom" | "top";
+        /**
+          * Show a backdrop overlay (useful on mobile)
+          * @default false
+         */
+        "showBackdrop"?: boolean;
+        /**
+          * Size variant
+          * @default 'md'
+         */
+        "size"?: 'sm' | 'md' | 'lg';
+    }
+    /**
      * @component sg-icon
      * @description SVG Icon component for SagedUI - A flexible, accessible icon system
      * @example <!-- Basic usage with built-in icons -->
@@ -580,6 +1320,9 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "sg-article-editor": SgArticleEditor;
+        "sg-badge": SgBadge;
+        "sg-button": SgButton;
+        "sg-dropdown": SgDropdown;
         "sg-icon": SgIcon;
         "sg-skeleton": SgSkeleton;
     }
@@ -601,6 +1344,116 @@ declare module "@stencil/core" {
              * ```
              */
             "sg-article-editor": LocalJSX.SgArticleEditor & JSXBase.HTMLAttributes<HTMLSgArticleEditorElement>;
+            /**
+             * @example ### Angular
+             * ```html
+             * <sg-badge variant="success">Active</sg-badge>
+             * <sg-badge variant="error" size="sm" dot>Offline</sg-badge>
+             * <sg-badge variant="info" pill>New Feature</sg-badge>
+             * <sg-badge variant="warning">
+             *   <sg-icon slot="icon" name="alert-triangle" size="12"></sg-icon>
+             *   Warning
+             * </sg-badge>
+             * ```
+             * ### React
+             * ```jsx
+             * <sg-badge variant="primary" outlined>Beta</sg-badge>
+             * <sg-badge variant="success" pulse>Live</sg-badge>
+             * ```
+             * ### Vanilla JS
+             * ```html
+             * <sg-badge variant="info" size="lg">Featured</sg-badge>
+             * <sg-badge variant="neutral" removable id="tag1">Tag 1</sg-badge>
+             * <script>
+             *   document.querySelector('#tag1').addEventListener('sgRemove', (e) => {
+             *     e.target.remove();
+             *   });
+             * </script>
+             * ```
+             */
+            "sg-badge": LocalJSX.SgBadge & JSXBase.HTMLAttributes<HTMLSgBadgeElement>;
+            /**
+             * @component sg-button
+             * @description A versatile button component with multiple variants, sizes, and states.
+             * Framework-agnostic: works with Angular, React, Vue, and vanilla JS without wrappers.
+             * @example <!-- ═══════════════════════════════════════════════════════════════════════════════
+             *      VANILLA HTML / JS
+             *      ═══════════════════════════════════════════════════════════════════════════════ -->
+             * <sg-button>Click me</sg-button>
+             * <sg-button variant="primary">Primary</sg-button>
+             * <sg-button variant="outline" size="lg">Large Outline</sg-button>
+             * <sg-button variant="success" leading-icon="check">Save</sg-button>
+             * <sg-button loading>Loading...</sg-button>
+             * <sg-button disabled>Disabled</sg-button>
+             * <sg-button shape="pill" variant="secondary">Pill Button</sg-button>
+             * <script>
+             *   document.querySelector('sg-button').addEventListener('sgClick', (e) => {
+             *     console.log('Button clicked!', e.detail);
+             *   });
+             * </script>
+             * <!-- ═══════════════════════════════════════════════════════════════════════════════
+             *      ANGULAR (no wrapper needed, add CUSTOM_ELEMENTS_SCHEMA)
+             *      ═══════════════════════════════════════════════════════════════════════════════ -->
+             * <sg-button
+             *   variant="primary"
+             *   [attr.loading]="isLoading || null"
+             *   [attr.disabled]="isDisabled || null"
+             *   (sgClick)="handleClick($event)">
+             *   Save Changes
+             * </sg-button>
+             * <!-- ═══════════════════════════════════════════════════════════════════════════════
+             *      REACT (use kebab-case attributes)
+             *      ═══════════════════════════════════════════════════════════════════════════════ -->
+             * <sg-button
+             *   variant="primary"
+             *   leading-icon="save"
+             *   loading={isLoading}
+             *   onSgClick={(e) => handleClick(e.detail)}>
+             *   Save Changes
+             * </sg-button>
+             * @fires sgClick - Emitted when button is clicked (not disabled/loading)
+             * @cssprop --sg-btn-bg - Button background color
+             * @cssprop --sg-btn-color - Button text color
+             * @cssprop --sg-btn-border-color - Button border color
+             * @cssprop --sg-btn-radius - Button border radius
+             * @cssprop --sg-btn-shadow - Button box shadow
+             */
+            "sg-button": LocalJSX.SgButton & JSXBase.HTMLAttributes<HTMLSgButtonElement>;
+            /**
+             * @example ### Angular
+             * ```html
+             * <sg-dropdown align="start" position="bottom">
+             *   <button slot="trigger">Open Menu</button>
+             *   <div slot="header">Settings</div>
+             *   <button>Option 1</button>
+             *   <button>Option 2</button>
+             *   <div slot="footer">Logged in as Admin</div>
+             * </sg-dropdown>
+             * ```
+             * ### React
+             * ```jsx
+             * <sg-dropdown align="start" closeOnSelect={false}>
+             *   <button slot="trigger">Menu</button>
+             *   <div>Content here</div>
+             * </sg-dropdown>
+             * ```
+             * ### Vanilla JS
+             * ```html
+             * <sg-dropdown id="myDropdown" align="end" close-on-select="false">
+             *   <button slot="trigger">Options</button>
+             *   <ul>
+             *     <li>Item 1</li>
+             *     <li>Item 2</li>
+             *   </ul>
+             * </sg-dropdown>
+             * <script>
+             *   const dropdown = document.querySelector('#myDropdown');
+             *   dropdown.addEventListener('sgOpen', (e) => console.log('Opened'));
+             *   dropdown.addEventListener('sgClose', (e) => console.log('Closed'));
+             * </script>
+             * ```
+             */
+            "sg-dropdown": LocalJSX.SgDropdown & JSXBase.HTMLAttributes<HTMLSgDropdownElement>;
             /**
              * @component sg-icon
              * @description SVG Icon component for SagedUI - A flexible, accessible icon system
