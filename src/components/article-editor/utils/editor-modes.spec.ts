@@ -134,12 +134,6 @@ describe('editor-modes utilities', () => {
       const content = '<p>Test</p>';
       expect(convertContent(content, 'html', 'html')).toBe(content);
     });
-
-    it('returns same content for preview modes', () => {
-      const content = '<p>Test</p>';
-      expect(convertContent(content, 'html', 'preview')).toBe(content);
-      expect(convertContent(content, 'preview', 'html')).toBe(content);
-    });
   });
 
   // =====================================================

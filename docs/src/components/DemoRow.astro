@@ -1,0 +1,353 @@
+---
+interface Props {
+  label?: string;
+  code?: string;
+}
+
+const { label, code } = Astro.props;
+
+// Simple syntax highlighting for HTML/JSX
+function highlightCode(codeStr: string): string {
+  // First escape HTML
+  let result = codeStr
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  // Use placeholders to avoid regex conflicts
+  const placeholders: string[] = [];
+  const placeholder = (content: string) => {
+    const id = `__PH${placeholders.length}__`;
+    placeholders.push(content);
+    return id;
+  };
+
+  // Comments first
+  result = result.replace(/(&lt;!--[\s\S]*?--&gt;)/g, (match) =>
+    placeholder(`<span class="hl-comment">${match}</span>`)
+  );
+
+  // Strings (attribute values)
+  result = result.replace(/"([^"]*)"/g, (match, p1) =>
+    placeholder(`<span class="hl-string">"${p1}"</span>`)
+  );
+
+  // Opening tags with tag name
+  result = result.replace(/(&lt;)(sg-[\w-]+|button|div|span|p|pre|code)(\s|&gt;)/g, (match, lt, tag, after) =>
+    `${lt}${placeholder(`<span class="hl-tag">${tag}</span>`)}${after}`
+  );
+
+  // Closing tags
+  result = result.replace(/(&lt;\/)(sg-[\w-]+|button|div|span|p|pre|code)(&gt;)/g, (match, lt, tag, gt) =>
+    `${lt}${placeholder(`<span class="hl-tag">${tag}</span>`)}${gt}`
+  );
+
+  // Attributes (but not inside placeholders)
+  result = result.replace(/\s([\w-]+)=/g, (match, attr) =>
+    ` ${placeholder(`<span class="hl-attr">${attr}</span>`)}=`
+  );
+
+  // Restore placeholders
+  placeholders.forEach((content, i) => {
+    result = result.replace(`__PH${i}__`, content);
+  });
+
+  return result;
+}
+---
+
+<div class="demo-section">
+  <div class="demo-section-header">
+    {label && <p class="demo-label">{label}</p>}
+    {code && (
+      <div class="code-actions">
+        <button class="section-toggle-code" title="Mostrar/ocultar código - Click para ver el código fuente del ejemplo">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>
+          </svg>
+          <span class="btn-label">Código</span>
+        </button>
+      </div>
+    )}
+  </div>
+  <div class="demo-row">
+    <slot />
+  </div>
+  {code && (
+    <div class="section-code">
+      <div class="code-header">
+        <span class="code-lang">HTML</span>
+        <span class="code-hint">Copia este código para usar el componente</span>
+      </div>
+      <pre><code set:html={highlightCode(code)} /></pre>
+      <button class="section-copy-btn" data-code={code} title="Copiar código al portapapeles">
+        <svg class="copy-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2"/>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+        <svg class="check-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+        <span class="copy-label">Copiar</span>
+        <span class="copied-label">¡Copiado!</span>
+      </button>
+    </div>
+  )}
+</div>
+
+<style>
+  .demo-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px dashed var(--border-subtle);
+  }
+
+  .demo-section:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .demo-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .demo-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .demo-label::before {
+    content: '';
+    width: 3px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  .code-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-toggle-code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.5rem;
+    height: 24px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-subtle);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    opacity: 0.6;
+    font-size: 0.625rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .section-toggle-code .btn-label {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .section-toggle-code .btn-label {
+      display: inline;
+    }
+  }
+
+  .section-toggle-code:hover {
+    opacity: 1;
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .demo-section.code-visible .section-toggle-code {
+    opacity: 1;
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .demo-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-code {
+    display: none;
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .demo-section.code-visible .section-code {
+    display: block;
+    animation: slideDown 0.2s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .code-lang {
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.125rem 0.375rem;
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+  }
+
+  .code-hint {
+    font-size: 0.625rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .section-code pre {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.7rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .section-code code {
+    color: var(--text);
+  }
+
+  .section-copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.5rem;
+    height: 24px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 0.625rem;
+    font-weight: 500;
+  }
+
+  .section-copy-btn:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .section-copy-btn .check-icon,
+  .section-copy-btn .copied-label {
+    display: none;
+  }
+
+  .section-copy-btn.copied .copy-icon,
+  .section-copy-btn.copied .copy-label {
+    display: none;
+  }
+
+  .section-copy-btn.copied .check-icon,
+  .section-copy-btn.copied .copied-label {
+    display: inline;
+  }
+
+  .section-copy-btn.copied {
+    background: var(--success);
+    border-color: var(--success);
+    color: white;
+  }
+
+  /* Syntax Highlighting */
+  .section-code :global(.hl-comment) {
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  .section-code :global(.hl-tag) {
+    color: #f472b6;
+  }
+
+  .section-code :global(.hl-attr) {
+    color: #a78bfa;
+  }
+
+  .section-code :global(.hl-string) {
+    color: #86efac;
+  }
+
+  .section-code :global(.hl-keyword) {
+    color: #fbbf24;
+  }
+</style>
+
+<script>
+  // Toggle code visibility for each section
+  document.querySelectorAll('.section-toggle-code').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const section = btn.closest('.demo-section');
+      if (section) {
+        section.classList.toggle('code-visible');
+      }
+    });
+  });
+
+  // Copy button for sections
+  document.querySelectorAll('.section-copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const code = btn.getAttribute('data-code') || '';
+      await navigator.clipboard.writeText(code);
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 2000);
+    });
+  });
+</script>

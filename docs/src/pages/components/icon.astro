@@ -1,0 +1,128 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+
+const props = [
+  { name: 'name', type: 'string', default: 'undefined', description: 'Nombre del icono de la librería integrada' },
+  { name: 'src', type: 'string', default: 'undefined', description: 'URL a un SVG personalizado' },
+  { name: 'size', type: 'number | string', default: '24', description: 'Tamaño del icono en pixels' },
+  { name: 'color', type: 'string', default: "'currentColor'", description: 'Color del icono (valor CSS)' },
+  { name: 'spin', type: 'boolean', default: 'false', description: 'Animación de rotación continua' },
+  { name: 'rotate', type: 'number', default: 'undefined', description: 'Ángulo de rotación en grados' },
+  { name: 'flip-h', type: 'boolean', default: 'false', description: 'Voltear horizontalmente' },
+  { name: 'flip-v', type: 'boolean', default: 'false', description: 'Voltear verticalmente' },
+  { name: 'decorative', type: 'boolean', default: 'false', description: 'Oculto para lectores de pantalla' },
+  { name: 'aria-label', type: 'string', default: 'undefined', description: 'Etiqueta accesible' },
+  { name: 'width', type: 'number | string', default: 'undefined', description: 'Ancho personalizado (sobreescribe size)' },
+  { name: 'height', type: 'number | string', default: 'undefined', description: 'Alto personalizado (sobreescribe size)' },
+  { name: 'stroke-width', type: 'number', default: 'undefined', description: 'Grosor del trazo' },
+];
+---
+
+<ComponentLayout
+  title="Icon"
+  tag="sg-icon"
+  description="Componente de iconos SVG flexible con más de 70 iconos integrados. Soporta colores personalizados, tamaños, animaciones y SVGs externos."
+  props={props}
+>
+  <Fragment slot="examples">
+    <DemoBox label="Iconos de navegación" code={`<sg-icon name="home" size="24"></sg-icon>
+<sg-icon name="search" size="24"></sg-icon>
+<sg-icon name="menu" size="24"></sg-icon>
+<sg-icon name="settings" size="24"></sg-icon>
+<sg-icon name="user" size="24"></sg-icon>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+        <sg-icon name="home" size="24"></sg-icon>
+        <sg-icon name="search" size="24"></sg-icon>
+        <sg-icon name="menu" size="24"></sg-icon>
+        <sg-icon name="settings" size="24"></sg-icon>
+        <sg-icon name="user" size="24"></sg-icon>
+        <sg-icon name="close" size="24"></sg-icon>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Iconos de acciones" code={`<sg-icon name="add" size="24"></sg-icon>
+<sg-icon name="edit" size="24"></sg-icon>
+<sg-icon name="delete" size="24"></sg-icon>
+<sg-icon name="save" size="24"></sg-icon>
+<sg-icon name="copy" size="24"></sg-icon>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+        <sg-icon name="add" size="24"></sg-icon>
+        <sg-icon name="edit" size="24"></sg-icon>
+        <sg-icon name="delete" size="24"></sg-icon>
+        <sg-icon name="save" size="24"></sg-icon>
+        <sg-icon name="copy" size="24"></sg-icon>
+        <sg-icon name="download" size="24"></sg-icon>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Con colores" code={`<sg-icon name="heart" size="24" color="#ef4444"></sg-icon>
+<sg-icon name="star" size="24" color="#f59e0b"></sg-icon>
+<sg-icon name="check" size="24" color="#22c55e"></sg-icon>
+<sg-icon name="info" size="24" color="#3b82f6"></sg-icon>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: center;">
+        <sg-icon name="heart" size="24" color="#ef4444"></sg-icon>
+        <sg-icon name="star" size="24" color="#f59e0b"></sg-icon>
+        <sg-icon name="check" size="24" color="#22c55e"></sg-icon>
+        <sg-icon name="info" size="24" color="#3b82f6"></sg-icon>
+        <sg-icon name="warning" size="24" color="#f97316"></sg-icon>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Tamaños" code={`<sg-icon name="star" size="16"></sg-icon>
+<sg-icon name="star" size="24"></sg-icon>
+<sg-icon name="star" size="32"></sg-icon>
+<sg-icon name="star" size="48"></sg-icon>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: center;">
+        <sg-icon name="star" size="16"></sg-icon>
+        <sg-icon name="star" size="24"></sg-icon>
+        <sg-icon name="star" size="32"></sg-icon>
+        <sg-icon name="star" size="48"></sg-icon>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Animaciones y transformaciones" code={`<sg-icon name="refresh" size="24" spin></sg-icon>
+<sg-icon name="chevron-right" size="24" rotate="90"></sg-icon>
+<sg-icon name="arrow-right" size="24" flip-h></sg-icon>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: center;">
+        <sg-icon name="refresh" size="24" spin></sg-icon>
+        <sg-icon name="chevron-right" size="24" rotate="90"></sg-icon>
+        <sg-icon name="arrow-right" size="24" flip-h></sg-icon>
+      </div>
+    </DemoBox>
+  </Fragment>
+
+  <Fragment slot="usage">
+    <div class="usage-block">
+      <h3>Iconos disponibles</h3>
+      <p>La librería incluye más de 70 iconos organizados por categorías:</p>
+      <ul>
+        <li><strong>Navegación:</strong> home, menu, close, chevron-*, arrow-*</li>
+        <li><strong>Acciones:</strong> add, edit, delete, save, copy, download, upload</li>
+        <li><strong>Estado:</strong> check, error, warning, info, help</li>
+        <li><strong>Usuario:</strong> user, users, login, logout</li>
+        <li><strong>Medios:</strong> image, video, audio, file, folder</li>
+        <li><strong>Comunicación:</strong> email, chat, phone, send</li>
+      </ul>
+    </div>
+
+    <div class="usage-block">
+      <h3>SVG personalizado</h3>
+      <pre><code>&lt;sg-icon src="/icons/custom.svg" size="24"&gt;&lt;/sg-icon&gt;</code></pre>
+    </div>
+  </Fragment>
+</ComponentLayout>
+
+<style>
+  .usage-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+  }
+  .usage-block h3 { font-size: 0.875rem; font-weight: 600; margin: 0 0 0.75rem 0; }
+  .usage-block p { font-size: 0.8125rem; color: var(--text-muted); margin: 0 0 0.75rem 0; }
+  .usage-block pre { background: var(--bg); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.75rem; margin: 0; overflow-x: auto; }
+  .usage-block code { font-family: monospace; font-size: 0.75rem; }
+  .usage-block ul { margin: 0; padding-left: 1.25rem; font-size: 0.8125rem; color: var(--text-muted); line-height: 1.8; }
+</style>

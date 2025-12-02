@@ -1,10 +1,19 @@
-{
+﻿{
   "name": "saged-ui-angular",
   "version": "1.1.0",
   "description": "Angular wrappers for SagedUI web components",
+  "type": "module",
   "main": "./fesm2022/saged-ui-angular.mjs",
   "module": "./fesm2022/saged-ui-angular.mjs",
   "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "esm2022": "./esm2022/saged-ui-angular.mjs",
+      "esm": "./esm2022/saged-ui-angular.mjs",
+      "default": "./fesm2022/saged-ui-angular.mjs"
+    }
+  },
   "peerDependencies": {
     "@angular/core": ">=17.0.0",
     "@angular/common": ">=17.0.0",

@@ -7,20 +7,40 @@
 // EDITOR MODES
 // =====================================================
 
-export type EditorMode = 'html' | 'markdown' | 'preview' | 'split';
+/** Content syntax type */
+export type ContentType = 'html' | 'markdown';
 
-export interface EditorModeConfig {
-  mode: EditorMode;
+/** View mode for the editor */
+export type ViewMode = 'editor' | 'preview' | 'split';
+
+/** @deprecated Use ContentType and ViewMode separately */
+export type EditorMode = ContentType;
+
+export interface ContentTypeConfig {
+  type: ContentType;
   label: string;
   icon: string;
 }
 
-export const EDITOR_MODES: EditorModeConfig[] = [
-  { mode: 'html', label: 'HTML', icon: 'code' },
-  { mode: 'markdown', label: 'Markdown', icon: 'markdown' },
+export interface ViewModeConfig {
+  mode: ViewMode;
+  label: string;
+  icon: string;
+}
+
+export const CONTENT_TYPES: ContentTypeConfig[] = [
+  { type: 'html', label: 'HTML', icon: 'code' },
+  { type: 'markdown', label: 'Markdown', icon: 'markdown' },
+];
+
+export const VIEW_MODES: ViewModeConfig[] = [
+  { mode: 'editor', label: 'Editor', icon: 'edit' },
   { mode: 'preview', label: 'Preview', icon: 'eye' },
   { mode: 'split', label: 'Split', icon: 'columns' },
 ];
+
+/** @deprecated Use CONTENT_TYPES and VIEW_MODES instead */
+export const EDITOR_MODES = CONTENT_TYPES.map(c => ({ mode: c.type, label: c.label, icon: c.icon }));
 
 // =====================================================
 // TOOLBAR ACTIONS
@@ -103,16 +123,28 @@ export interface MediaAdapter {
 
 export interface RichEditorConfig {
   /**
-   * Initial editor mode
+   * Initial content type (syntax)
    * @default 'html'
    */
-  initialMode?: EditorMode;
+  initialContentType?: ContentType;
 
   /**
-   * Available modes for the editor
-   * @default ['html', 'markdown', 'preview', 'split']
+   * Initial view mode
+   * @default 'editor'
    */
-  availableModes?: EditorMode[];
+  initialViewMode?: ViewMode;
+
+  /**
+   * Available content types for the editor
+   * @default ['html', 'markdown']
+   */
+  availableContentTypes?: ContentType[];
+
+  /**
+   * Available view modes
+   * @default ['editor', 'preview', 'split']
+   */
+  availableViewModes?: ViewMode[];
 
   /**
    * Toolbar buttons to display
@@ -167,14 +199,26 @@ export interface RichEditorConfig {
 
 export interface EditorChangeEvent {
   value: string;
-  mode: EditorMode;
+  contentType: ContentType;
+  viewMode: ViewMode;
   wordCount: number;
   charCount: number;
 }
 
+export interface ContentTypeChangeEvent {
+  previousType: ContentType;
+  newType: ContentType;
+}
+
+export interface ViewModeChangeEvent {
+  previousMode: ViewMode;
+  newMode: ViewMode;
+}
+
+/** @deprecated Use ContentTypeChangeEvent or ViewModeChangeEvent */
 export interface EditorModeChangeEvent {
-  previousMode: EditorMode;
-  newMode: EditorMode;
+  previousMode: ContentType;
+  newMode: ContentType;
 }
 
 export interface MediaInsertEvent {
@@ -198,7 +242,8 @@ export interface TextSelection {
 
 export interface EditorState {
   content: string;
-  mode: EditorMode;
+  contentType: ContentType;
+  viewMode: ViewMode;
   selection: TextSelection | null;
   isDirty: boolean;
   wordCount: number;
@@ -207,9 +252,10 @@ export interface EditorState {
   isExternalPreviewOpen: boolean;
 }
 
-export const createInitialState = (initialContent = '', initialMode: EditorMode = 'html'): EditorState => ({
+export const createInitialState = (initialContent = '', initialContentType: ContentType = 'html', initialViewMode: ViewMode = 'editor'): EditorState => ({
   content: initialContent,
-  mode: initialMode,
+  contentType: initialContentType,
+  viewMode: initialViewMode,
   selection: null,
   isDirty: false,
   wordCount: countWords(initialContent),

@@ -1,0 +1,461 @@
+---
+import { navigation, siteConfig } from '../config/navigation';
+
+// Get base URL from Astro config
+const base = import.meta.env.BASE_URL;
+
+// Icon mapping for each component
+const icons: Record<string, string> = {
+  // General
+  button: `<path d="M4 6h16M4 12h16M4 18h16"/><rect x="2" y="4" width="20" height="16" rx="2"/>`,
+  badge: `<circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/>`,
+  image: `<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>`,
+  // Form
+  dropdown: `<path d="m6 9 6 6 6-6"/><rect x="3" y="3" width="18" height="18" rx="2"/>`,
+  // Feedback
+  skeleton: `<rect x="3" y="3" width="18" height="4" rx="1"/><rect x="3" y="10" width="12" height="4" rx="1"/><rect x="3" y="17" width="15" height="4" rx="1"/>`,
+  // Content
+  editor: `<path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"/>`,
+  // Utils
+  moon: `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`,
+  // Default
+  default: `<rect x="3" y="3" width="18" height="18" rx="2"/>`,
+};
+
+function getIcon(iconName: string | undefined): string {
+  return icons[iconName || 'default'] || icons.default;
+}
+
+function resolveHref(href: string | undefined, id: string): string {
+  if (!href) return `${base}#${id}`;
+  // Remove leading slash and prepend base
+  const path = href.startsWith('/') ? href.slice(1) : href;
+  return `${base}${path}`;
+}
+---
+
+<aside class="sidebar">
+  <header class="sidebar-header">
+    <a href={base} class="logo">
+      <span class="logo-icon">
+        <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="2" width="12" height="12" rx="3" fill="url(#g1)"/>
+          <rect x="18" y="2" width="12" height="12" rx="3" fill="url(#g2)"/>
+          <rect x="2" y="18" width="12" height="12" rx="3" fill="url(#g2)"/>
+          <rect x="18" y="18" width="12" height="12" rx="3" fill="url(#g3)"/>
+          <defs>
+            <linearGradient id="g1" x1="2" y1="2" x2="14" y2="14" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#818cf8"/>
+              <stop offset="1" stop-color="#6366f1"/>
+            </linearGradient>
+            <linearGradient id="g2" x1="2" y1="2" x2="14" y2="14" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#a5b4fc"/>
+              <stop offset="1" stop-color="#818cf8"/>
+            </linearGradient>
+            <linearGradient id="g3" x1="2" y1="2" x2="14" y2="14" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#c7d2fe"/>
+              <stop offset="1" stop-color="#a5b4fc"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <span class="logo-text">{siteConfig.name}</span>
+      <span class="version">{siteConfig.version}</span>
+    </a>
+  </header>
+
+  <div class="search-box">
+    <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <span class="search-text">Search...</span>
+    <kbd class="search-kbd">⌘K</kbd>
+  </div>
+
+  <nav class="nav-container">
+    <ul class="nav">
+      {navigation.map(section => (
+        <>
+          <li class="nav-group">
+            <span class="nav-group-icon">
+              {section.icon === 'layers' && (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+                </svg>
+              )}
+              {section.icon === 'form' && (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 15h6"/>
+                </svg>
+              )}
+              {section.icon === 'activity' && (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+              )}
+              {section.icon === 'file-text' && (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+              )}
+              {section.icon === 'settings' && (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+              )}
+            </span>
+            {section.group}
+          </li>
+          {section.items.map(item => (
+            <li>
+              <a href={resolveHref(item.href, item.id)} class="nav-link">
+                <span class="nav-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <Fragment set:html={getIcon(item.icon)} />
+                  </svg>
+                </span>
+                {item.name}
+              </a>
+            </li>
+          ))}
+        </>
+      ))}
+    </ul>
+  </nav>
+
+  <footer class="sidebar-footer">
+    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">
+      <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+      </svg>
+      <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <span class="theme-label">Theme</span>
+    </button>
+    <a href="https://github.com/adravilag/saged-ui" target="_blank" class="footer-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+      </svg>
+    </a>
+  </footer>
+</aside>
+
+<style>
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 250px;
+  }
+
+  .sidebar-header {
+    padding: 1rem 1rem 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .version {
+    font-size: 0.5rem;
+    font-weight: 700;
+    background: var(--accent);
+    color: white;
+    padding: 0.125rem 0.375rem;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+
+  /* Search Box */
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0.75rem 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+  }
+
+  .search-box:hover {
+    border-color: var(--border-muted);
+    background: var(--surface-hover);
+  }
+
+  .search-icon {
+    color: var(--text-subtle);
+    flex-shrink: 0;
+  }
+
+  .search-text {
+    flex: 1;
+    font-size: 0.75rem;
+    color: var(--text-subtle);
+  }
+
+  .search-kbd {
+    font-family: system-ui, sans-serif;
+    font-size: 0.625rem;
+    font-weight: 500;
+    color: var(--text-subtle);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.125rem 0.3rem;
+    border-radius: var(--radius-xs);
+    flex-shrink: 0;
+  }
+
+  /* Navigation */
+  .nav-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.25rem 0;
+    min-height: 0;
+  }
+
+  .nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.25rem 1.25rem 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .nav-group:first-child {
+    padding-top: 0.5rem;
+  }
+
+  .nav-group-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+  }
+
+  .nav-group-icon svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.4rem 0.75rem;
+    margin: 0.0625rem 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 450;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-xs);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-subtle);
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+  }
+
+  .nav-icon svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+    background: var(--surface-hover);
+  }
+
+  .nav-link:hover .nav-icon {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .nav-link.active {
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    font-weight: 500;
+  }
+
+  .nav-link.active .nav-icon {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+  }
+
+  /* Footer */
+  .sidebar-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+  }
+
+  .theme-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.625rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    transition: all var(--transition-fast);
+  }
+
+  .theme-btn:hover {
+    background: var(--surface-hover);
+    border-color: var(--border-muted);
+    color: var(--text);
+  }
+
+  .theme-label {
+    flex: 1;
+    text-align: left;
+  }
+
+  .moon-icon { display: none; }
+  [data-theme="dark"] .sun-icon { display: none; }
+  [data-theme="dark"] .moon-icon { display: block; }
+
+  .footer-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+  }
+
+  .footer-link:hover {
+    color: var(--text);
+    background: var(--surface-hover);
+    border-color: var(--border-muted);
+  }
+
+  .footer-link svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Scrollbar */
+  .nav-container::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .nav-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .nav-container::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+
+  .nav-container::-webkit-scrollbar-thumb:hover {
+    background: var(--border-muted);
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      position: relative;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .search-box {
+      display: none;
+    }
+
+    .nav-container {
+      overflow: visible;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0.75rem;
+      gap: 0.375rem;
+    }
+
+    .nav-group {
+      display: none;
+    }
+
+    .nav-link {
+      border-radius: var(--radius-md);
+      padding: 0.5rem 0.875rem;
+      margin: 0;
+    }
+
+    .nav-icon {
+      display: none;
+    }
+
+    .sidebar-footer {
+      display: none;
+    }
+  }
+</style>

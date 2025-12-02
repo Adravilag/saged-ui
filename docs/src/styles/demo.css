@@ -1,0 +1,86 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SagedUI Docs - Demo Utilities
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Grid layouts */
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.demo-col {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dropdown trigger button */
+.demo-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.demo-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+/* Dropdown menu items */
+.demo-menu-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  text-align: left;
+  border: none;
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+}
+
+.demo-menu-item:hover {
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+
+/* Dropdown header/footer */
+.demo-menu-header,
+.demo-menu-footer {
+  padding: 0.5rem 1rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Dropdown z-index fix */
+sg-dropdown {
+  position: relative;
+  z-index: 1000;
+}

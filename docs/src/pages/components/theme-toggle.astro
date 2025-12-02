@@ -1,0 +1,143 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+
+const props = [
+  { name: 'theme', type: "'light' | 'dark' | 'system'", default: "'system'", description: 'Modo de tema actual' },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Tamaño del botón toggle' },
+];
+
+const events = [
+  { name: 'sgThemeChange', type: "CustomEvent<'light' | 'dark' | 'system'>", description: 'Emitido cuando el tema cambia' },
+];
+---
+
+<ComponentLayout
+  title="Theme Toggle"
+  tag="sg-theme-toggle"
+  description="Interruptor de tema claro/oscuro con soporte para preferencia del sistema. Persiste la selección en localStorage y sincroniza con la preferencia del OS."
+  props={props}
+  events={events}
+>
+  <Fragment slot="examples">
+    <DemoBox label="Default (System)" code={`<sg-theme-toggle></sg-theme-toggle>`}>
+      <sg-theme-toggle></sg-theme-toggle>
+    </DemoBox>
+
+    <DemoBox label="Tamaños" code={`<sg-theme-toggle size="sm"></sg-theme-toggle>
+<sg-theme-toggle size="md"></sg-theme-toggle>
+<sg-theme-toggle size="lg"></sg-theme-toggle>`}>
+      <div style="display: flex; gap: 1.5rem; align-items: center; justify-content: center;">
+        <div style="text-align: center;">
+          <sg-theme-toggle size="sm"></sg-theme-toggle>
+          <small style="display: block; color: var(--text-muted); font-size: 0.625rem; margin-top: 0.5rem;">Small</small>
+        </div>
+        <div style="text-align: center;">
+          <sg-theme-toggle size="md"></sg-theme-toggle>
+          <small style="display: block; color: var(--text-muted); font-size: 0.625rem; margin-top: 0.5rem;">Medium</small>
+        </div>
+        <div style="text-align: center;">
+          <sg-theme-toggle size="lg"></sg-theme-toggle>
+          <small style="display: block; color: var(--text-muted); font-size: 0.625rem; margin-top: 0.5rem;">Large</small>
+        </div>
+      </div>
+    </DemoBox>
+  </Fragment>
+
+  <Fragment slot="usage">
+    <div class="usage-block">
+      <h3>Comportamiento</h3>
+      <p>El componente automáticamente:</p>
+      <ul>
+        <li>Detecta la preferencia del sistema (prefers-color-scheme)</li>
+        <li>Aplica el atributo <code>data-theme</code> al documento</li>
+        <li>Persiste la preferencia en <code>localStorage</code></li>
+        <li>Anima las transiciones entre temas</li>
+      </ul>
+    </div>
+
+    <div class="usage-block">
+      <h3>Ciclo de temas</h3>
+      <p>Al hacer click, el tema rota en este orden:</p>
+      <ol>
+        <li><strong>System</strong> → Sigue la preferencia del OS</li>
+        <li><strong>Light</strong> → Tema claro forzado</li>
+        <li><strong>Dark</strong> → Tema oscuro forzado</li>
+      </ol>
+    </div>
+
+    <div class="usage-block">
+      <h3>Escuchar cambios</h3>
+      <pre><code set:html={`const toggle = document.querySelector('sg-theme-toggle');
+
+toggle.addEventListener('sgThemeChange', (event) => {
+  console.log('Nuevo tema:', event.detail);
+  // 'light' | 'dark' | 'system'
+});`}></code></pre>
+    </div>
+
+    <div class="usage-block">
+      <h3>CSS Variables</h3>
+      <p>Asegúrate de definir estilos para ambos temas:</p>
+      <pre><code set:html={`:root, [data-theme="light"] {
+  --bg: #ffffff;
+  --text: #1a1a1a;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --text: #ffffff;
+}`}></code></pre>
+    </div>
+  </Fragment>
+</ComponentLayout>
+
+<style>
+  .usage-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .usage-block h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    color: var(--text);
+  }
+  .usage-block p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+  }
+  .usage-block pre {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin: 0;
+    overflow-x: auto;
+  }
+  .usage-block pre code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.8125rem;
+    color: var(--code-text);
+    line-height: 1.7;
+  }
+  .usage-block ul, .usage-block ol {
+    margin: 0;
+    padding-left: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+  .usage-block code:not(pre code) {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 0.1875rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+</style>

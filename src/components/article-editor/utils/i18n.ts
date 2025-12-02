@@ -9,6 +9,7 @@ export interface EditorTranslations {
   modes: {
     html: string;
     markdown: string;
+    editor: string;
     preview: string;
     split: string;
   };
@@ -57,7 +58,7 @@ export interface EditorTranslations {
 
 const translations: Record<SupportedLocale, EditorTranslations> = {
   en: {
-    modes: { html: 'HTML', markdown: 'Markdown', preview: 'Preview', split: 'Split' },
+    modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Preview', split: 'Split' },
     toolbar: {
       bold: 'Bold',
       italic: 'Italic',
@@ -81,7 +82,7 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     aria: { editor: 'Rich text editor', toolbar: 'Editor toolbar', modeSelector: 'Editor mode selector', formatToolbar: 'Text formatting toolbar', preview: 'Content preview' },
   },
   es: {
-    modes: { html: 'HTML', markdown: 'Markdown', preview: 'Vista previa', split: 'Dividido' },
+    modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Vista previa', split: 'Dividido' },
     toolbar: {
       bold: 'Negrita',
       italic: 'Cursiva',
@@ -111,7 +112,7 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     },
   },
   fr: {
-    modes: { html: 'HTML', markdown: 'Markdown', preview: 'Apercu', split: 'Divise' },
+    modes: { html: 'HTML', markdown: 'Markdown', editor: 'Éditeur', preview: 'Apercu', split: 'Divise' },
     toolbar: {
       bold: 'Gras',
       italic: 'Italique',
@@ -141,7 +142,7 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     },
   },
   de: {
-    modes: { html: 'HTML', markdown: 'Markdown', preview: 'Vorschau', split: 'Geteilt' },
+    modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Vorschau', split: 'Geteilt' },
     toolbar: {
       bold: 'Fett',
       italic: 'Kursiv',
@@ -171,7 +172,7 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     },
   },
   pt: {
-    modes: { html: 'HTML', markdown: 'Markdown', preview: 'Visualizacao', split: 'Dividido' },
+    modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Visualizacao', split: 'Dividido' },
     toolbar: {
       bold: 'Negrito',
       italic: 'Italico',
@@ -201,7 +202,7 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     },
   },
   it: {
-    modes: { html: 'HTML', markdown: 'Markdown', preview: 'Anteprima', split: 'Diviso' },
+    modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Anteprima', split: 'Diviso' },
     toolbar: {
       bold: 'Grassetto',
       italic: 'Corsivo',
@@ -231,7 +232,7 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     },
   },
   zh: {
-    modes: { html: 'HTML', markdown: 'Markdown', preview: 'Preview', split: 'Split' },
+    modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Preview', split: 'Split' },
     toolbar: {
       bold: 'Bold',
       italic: 'Italic',
@@ -255,7 +256,7 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     aria: { editor: 'Rich text editor', toolbar: 'Editor toolbar', modeSelector: 'Mode selector', formatToolbar: 'Format toolbar', preview: 'Content preview' },
   },
   ja: {
-    modes: { html: 'HTML', markdown: 'Markdown', preview: 'Preview', split: 'Split' },
+    modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Preview', split: 'Split' },
     toolbar: {
       bold: 'Bold',
       italic: 'Italic',
@@ -279,7 +280,7 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     aria: { editor: 'Rich text editor', toolbar: 'Editor toolbar', modeSelector: 'Mode selector', formatToolbar: 'Format toolbar', preview: 'Content preview' },
   },
   ko: {
-    modes: { html: 'HTML', markdown: 'Markdown', preview: 'Preview', split: 'Split' },
+    modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Preview', split: 'Split' },
     toolbar: {
       bold: 'Bold',
       italic: 'Italic',
@@ -303,7 +304,7 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     aria: { editor: 'Rich text editor', toolbar: 'Editor toolbar', modeSelector: 'Mode selector', formatToolbar: 'Format toolbar', preview: 'Content preview' },
   },
   ar: {
-    modes: { html: 'HTML', markdown: 'Markdown', preview: 'Preview', split: 'Split' },
+    modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Preview', split: 'Split' },
     toolbar: {
       bold: 'Bold',
       italic: 'Italic',

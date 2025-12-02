@@ -1,0 +1,173 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+
+const props = [
+  { name: 'value', type: 'string', default: "''", description: 'Contenido del editor' },
+  { name: 'content-type', type: "'html' | 'markdown'", default: "'html'", description: 'Tipo de sintaxis del contenido' },
+  { name: 'view-mode', type: "'editor' | 'preview' | 'split'", default: "'editor'", description: 'Modo de visualización' },
+  { name: 'min-height', type: 'number', default: '400', description: 'Altura mínima en pixels' },
+  { name: 'placeholder', type: 'string', default: "'Start writing...'", description: 'Texto placeholder' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Estado deshabilitado' },
+  { name: 'readonly', type: 'boolean', default: 'false', description: 'Modo solo lectura' },
+  { name: 'spellcheck', type: 'boolean', default: 'true', description: 'Habilitar corrección ortográfica' },
+  { name: 'show-word-count', type: 'boolean', default: 'true', description: 'Mostrar contador de palabras' },
+  { name: 'enable-external-preview', type: 'boolean', default: 'true', description: 'Habilitar preview en ventana externa' },
+  { name: 'locale', type: "'en' | 'es' | 'fr' | 'de' | ...", default: "'en'", description: 'Idioma de la interfaz' },
+  { name: 'available-content-types', type: 'string', default: "'html,markdown'", description: 'Tipos de contenido disponibles' },
+  { name: 'available-view-modes', type: 'string', default: "'editor,preview,split'", description: 'Modos de vista disponibles' },
+];
+
+const events = [
+  { name: 'editorChange', type: 'CustomEvent<EditorChangeEvent>', description: 'Emitido cuando el contenido cambia' },
+  { name: 'contentTypeChange', type: 'CustomEvent<ContentTypeChangeEvent>', description: 'Emitido al cambiar el tipo de contenido' },
+  { name: 'viewModeChange', type: 'CustomEvent<ViewModeChangeEvent>', description: 'Emitido al cambiar el modo de vista' },
+  { name: 'mediaLibraryOpen', type: 'CustomEvent<void>', description: 'Emitido al solicitar la librería de medios' },
+  { name: 'mediaInsert', type: 'CustomEvent<MediaItem>', description: 'Emitido al insertar un medio' },
+];
+
+const methods = [
+  { name: 'getContent', returns: 'Promise<string>', description: 'Obtiene el contenido actual' },
+  { name: 'setContent', returns: 'Promise<void>', description: 'Establece el contenido programáticamente' },
+  { name: 'getHtml', returns: 'Promise<string>', description: 'Obtiene el contenido convertido a HTML' },
+  { name: 'focusEditor', returns: 'Promise<void>', description: 'Da foco al área de edición' },
+  { name: 'insertAtCursor', returns: 'Promise<void>', description: 'Inserta contenido en la posición del cursor' },
+  { name: 'insertMedia', returns: 'Promise<void>', description: 'Inserta un elemento multimedia' },
+];
+---
+
+<ComponentLayout
+  title="Article Editor"
+  tag="sg-article-editor"
+  description="Editor de texto enriquecido con soporte para HTML y Markdown. Incluye barra de herramientas de formato, vista previa en tiempo real, y contador de palabras."
+  props={props}
+  events={events}
+  methods={methods}
+>
+  <Fragment slot="examples">
+    <DemoBox label="Editor completo" code={`<sg-article-editor
+  value="<p>Empieza a escribir...</p>"
+  view-mode="split"
+  min-height="300"
+  placeholder="Escribe tu artículo aquí..."
+  locale="es">
+</sg-article-editor>`}>
+      <sg-article-editor
+        value="<p>Empieza a escribir tu contenido aquí...</p>"
+        view-mode="split"
+        min-height="280"
+        placeholder="Escribe tu artículo aquí..."
+        locale="es">
+      </sg-article-editor>
+    </DemoBox>
+
+    <DemoBox label="Solo editor" code={`<sg-article-editor
+  view-mode="editor"
+  min-height="200"
+  available-view-modes="editor">
+</sg-article-editor>`}>
+      <sg-article-editor
+        view-mode="editor"
+        min-height="180"
+        available-view-modes="editor"
+        placeholder="Modo solo edición...">
+      </sg-article-editor>
+    </DemoBox>
+  </Fragment>
+
+  <Fragment slot="usage">
+    <div class="usage-block">
+      <h3>Tipos de contenido</h3>
+      <p>El editor soporta dos modos de sintaxis:</p>
+      <ul>
+        <li><strong>HTML:</strong> Edición WYSIWYG con formato visual</li>
+        <li><strong>Markdown:</strong> Sintaxis Markdown con preview</li>
+      </ul>
+    </div>
+
+    <div class="usage-block">
+      <h3>Modos de vista</h3>
+      <ul>
+        <li><strong>editor:</strong> Solo el área de edición</li>
+        <li><strong>preview:</strong> Solo la vista previa</li>
+        <li><strong>split:</strong> Editor y preview lado a lado</li>
+      </ul>
+    </div>
+
+    <div class="usage-block">
+      <h3>Obtener contenido</h3>
+      <pre><code set:html={`const editor = document.querySelector('sg-article-editor');
+
+// Obtener contenido actual
+const content = await editor.getContent();
+
+// Obtener siempre como HTML
+const html = await editor.getHtml();
+
+// Escuchar cambios
+editor.addEventListener('editorChange', (e) => {
+  console.log('Nuevo contenido:', e.detail.value);
+  console.log('Palabras:', e.detail.wordCount);
+});`}></code></pre>
+    </div>
+
+    <div class="usage-block">
+      <h3>Internacionalización</h3>
+      <p>El editor soporta múltiples idiomas:</p>
+      <pre><code>&lt;sg-article-editor locale="es"&gt;&lt;/sg-article-editor&gt;
+
+// Idiomas soportados: en, es, fr, de, pt, it, zh, ja, ko, ar</code></pre>
+    </div>
+  </Fragment>
+</ComponentLayout>
+
+<style>
+  .usage-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .usage-block h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    color: var(--text);
+  }
+  .usage-block p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+  }
+  .usage-block pre {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin: 0;
+    overflow-x: auto;
+  }
+  .usage-block pre code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.8125rem;
+    color: var(--code-text);
+    line-height: 1.7;
+  }
+  .usage-block ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+  .usage-block ul code,
+  .usage-block p code {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 0.1875rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+</style>

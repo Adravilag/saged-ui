@@ -1,0 +1,362 @@
+---
+interface Props {
+  label?: string;
+  code?: string;
+}
+
+const { label, code } = Astro.props;
+
+// Simple syntax highlighting for HTML/JSX
+function highlightCode(codeStr: string): string {
+  // First escape HTML
+  let result = codeStr
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  // Use placeholders to avoid regex conflicts
+  const placeholders: string[] = [];
+  const placeholder = (content: string) => {
+    const id = `__PH${placeholders.length}__`;
+    placeholders.push(content);
+    return id;
+  };
+
+  // Comments first
+  result = result.replace(/(&lt;!--[\s\S]*?--&gt;)/g, (match) =>
+    placeholder(`<span class="hl-comment">${match}</span>`)
+  );
+
+  // Strings (attribute values)
+  result = result.replace(/"([^"]*)"/g, (match, p1) =>
+    placeholder(`<span class="hl-string">"${p1}"</span>`)
+  );
+
+  // Opening tags with tag name
+  result = result.replace(/(&lt;)(sg-[\w-]+|button|div|span|p|pre|code)(\s|&gt;)/g, (match, lt, tag, after) =>
+    `${lt}${placeholder(`<span class="hl-tag">${tag}</span>`)}${after}`
+  );
+
+  // Closing tags
+  result = result.replace(/(&lt;\/)(sg-[\w-]+|button|div|span|p|pre|code)(&gt;)/g, (match, lt, tag, gt) =>
+    `${lt}${placeholder(`<span class="hl-tag">${tag}</span>`)}${gt}`
+  );
+
+  // Attributes (but not inside placeholders)
+  result = result.replace(/\s([\w-]+)=/g, (match, attr) =>
+    ` ${placeholder(`<span class="hl-attr">${attr}</span>`)}=`
+  );
+
+  // Restore placeholders
+  placeholders.forEach((content, i) => {
+    result = result.replace(`__PH${i}__`, content);
+  });
+
+  return result;
+}
+---
+
+<div class="demo-box">
+  <div class="demo-box-header">
+    {label && <p class="demo-label">{label}</p>}
+    {code && (
+      <div class="code-actions">
+        <button class="box-toggle-code" title="Mostrar/ocultar código - Click para ver el código fuente">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>
+          </svg>
+          <span class="btn-label">Código</span>
+        </button>
+      </div>
+    )}
+  </div>
+  <div class="demo-box-content">
+    <slot />
+  </div>
+  {code && (
+    <div class="box-code">
+      <div class="code-header">
+        <span class="code-lang">HTML</span>
+        <span class="code-hint">Copia este código</span>
+      </div>
+      <pre><code set:html={highlightCode(code)} /></pre>
+      <button class="box-copy-btn" data-code={code} title="Copiar código al portapapeles">
+        <svg class="copy-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2"/>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+        <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+        <span class="copy-label">Copiar</span>
+        <span class="copied-label">¡Copiado!</span>
+      </button>
+    </div>
+  )}
+</div>
+
+<style>
+  .demo-box {
+    padding: 1.5rem;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: box-shadow var(--transition-normal);
+  }
+
+  .demo-box:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .demo-box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .demo-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .demo-label::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  .code-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .box-toggle-code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    height: 26px;
+    background: var(--surface-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .box-toggle-code .btn-label {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .box-toggle-code .btn-label {
+      display: inline;
+    }
+  }
+
+  .box-toggle-code:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .demo-box.code-visible .box-toggle-code {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .demo-box-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    background: var(--bg);
+    border-radius: var(--radius-md);
+    border: 2px dashed var(--border);
+    min-height: 80px;
+  }
+
+  .box-code {
+    display: none;
+    position: relative;
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-top: 0.75rem;
+    box-shadow: var(--shadow-md);
+  }
+
+  .demo-box.code-visible .box-code {
+    display: block;
+    animation: slideDown 0.2s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 1.25rem;
+    background: var(--code-surface);
+    border-bottom: 1px solid var(--code-border);
+  }
+
+  .code-lang {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.1875rem 0.5rem;
+    background: var(--accent-soft);
+    border-radius: 4px;
+  }
+
+  .code-hint {
+    font-size: 0.6875rem;
+    color: var(--code-text);
+    opacity: 0.5;
+    font-style: italic;
+  }
+
+  .box-code pre {
+    margin: 0;
+    padding: 1.25rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.75;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: var(--code-bg);
+  }
+
+  .box-code code {
+    color: var(--code-text);
+  }
+
+  .box-copy-btn {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.625rem;
+    height: 26px;
+    background: var(--code-surface);
+    border: 1px solid var(--code-border);
+    border-radius: 5px;
+    color: var(--code-text);
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 0.6875rem;
+    font-weight: 500;
+  }
+
+  .box-copy-btn:hover {
+    opacity: 1;
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .box-copy-btn .check-icon,
+  .box-copy-btn .copied-label {
+    display: none;
+  }
+
+  .box-copy-btn.copied .copy-icon,
+  .box-copy-btn.copied .copy-label {
+    display: none;
+  }
+
+  .box-copy-btn.copied .check-icon,
+  .box-copy-btn.copied .copied-label {
+    display: inline;
+  }
+
+  .box-copy-btn.copied {
+    background: var(--success);
+    border-color: var(--success);
+    color: white;
+  }
+
+  /* Syntax Highlighting */
+  .box-code :global(.hl-comment) {
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  .box-code :global(.hl-tag) {
+    color: #f472b6;
+  }
+
+  .box-code :global(.hl-attr) {
+    color: #a78bfa;
+  }
+
+  .box-code :global(.hl-string) {
+    color: #86efac;
+  }
+
+  .box-code :global(.hl-keyword) {
+    color: #fbbf24;
+  }
+</style>
+
+<script>
+  // Toggle code visibility for boxes
+  document.querySelectorAll('.box-toggle-code').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const box = btn.closest('.demo-box');
+      if (box) {
+        box.classList.toggle('code-visible');
+      }
+    });
+  });
+
+  // Copy button for boxes
+  document.querySelectorAll('.box-copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const code = btn.getAttribute('data-code') || '';
+      await navigator.clipboard.writeText(code);
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 2000);
+    });
+  });
+</script>

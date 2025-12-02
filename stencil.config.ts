@@ -1,5 +1,6 @@
 import { Config } from '@stencil/core';
 import { angularOutputTarget } from '@stencil/angular-output-target';
+import { reactOutputTarget } from '@stencil/react-output-target';
 
 export const config: Config = {
   namespace: 'saged-ui',
@@ -24,15 +25,13 @@ export const config: Config = {
       directivesProxyFile: './angular/src/directives/proxies.ts',
       directivesArrayFile: './angular/src/directives/index.ts',
     }),
+    reactOutputTarget({
+      componentCorePackage: 'saged-ui',
+      proxiesFile: './react/src/components/stencil-generated/index.ts',
+      outDir: './react/dist',
+    }),
     {
       type: 'docs-readme',
-    },
-    {
-      type: 'www',
-      serviceWorker: null,
-      copy: [
-        { src: 'styles/tokens.css', dest: 'styles/tokens.css' },
-      ],
     },
   ],
   testing: {

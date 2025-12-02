@@ -5,12 +5,12 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { EditorChangeEvent, EditorMode, EditorModeChangeEvent, MediaItem } from "./components/article-editor/utils";
+import { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from "./components/article-editor/utils";
 import { EditorTranslations, SupportedLocale } from "./components/article-editor/utils/i18n";
 import { BadgeSize, BadgeVariant } from "./components/badge/badge";
 import { ButtonShape, ButtonSize, ButtonVariant } from "./components/button/button";
 import { ThemeMode } from "./components/theme-toggle/theme-toggle";
-export { EditorChangeEvent, EditorMode, EditorModeChangeEvent, MediaItem } from "./components/article-editor/utils";
+export { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from "./components/article-editor/utils";
 export { EditorTranslations, SupportedLocale } from "./components/article-editor/utils/i18n";
 export { BadgeSize, BadgeVariant } from "./components/badge/badge";
 export { ButtonShape, ButtonSize, ButtonVariant } from "./components/button/button";
@@ -30,10 +30,25 @@ export namespace Components {
      */
     interface SgArticleEditor {
         /**
-          * Available modes (comma-separated or array)
-          * @default 'html,markdown,preview,split'
+          * Available content types (comma-separated or array)
+          * @default 'html,markdown'
+         */
+        "availableContentTypes": string;
+        /**
+          * @deprecated Use availableContentTypes instead
+          * @default 'html,markdown'
          */
         "availableModes": string;
+        /**
+          * Available view modes (comma-separated or array)
+          * @default 'editor,preview,split'
+         */
+        "availableViewModes": string;
+        /**
+          * Content syntax type (html or markdown)
+          * @default 'html'
+         */
+        "contentType": ContentType;
         /**
           * Custom translations to override defaults
          */
@@ -123,10 +138,10 @@ export namespace Components {
          */
         "minHeight": number;
         /**
-          * Current editor mode
+          * @deprecated Use contentType instead
           * @default 'html'
          */
-        "mode": EditorMode;
+        "mode": ContentType;
         /**
           * Placeholder text when editor is empty
           * @default 'Start writing...'
@@ -156,6 +171,11 @@ export namespace Components {
           * @default ''
          */
         "value": string;
+        /**
+          * View mode (editor, preview, or split)
+          * @default 'editor'
+         */
+        "viewMode": ViewMode;
     }
     /**
      * @example ### Angular
@@ -583,7 +603,9 @@ export interface SgThemeToggleCustomEvent<T> extends CustomEvent<T> {
 declare global {
     interface HTMLSgArticleEditorElementEventMap {
         "editorChange": EditorChangeEvent;
-        "editorModeChange": EditorModeChangeEvent;
+        "contentTypeChange": ContentTypeChangeEvent;
+        "viewModeChange": ViewModeChangeEvent;
+        "editorModeChange": ContentTypeChangeEvent;
         "mediaLibraryOpen": void;
         "mediaInsert": MediaItem;
     }
@@ -837,10 +859,25 @@ declare namespace LocalJSX {
      */
     interface SgArticleEditor {
         /**
-          * Available modes (comma-separated or array)
-          * @default 'html,markdown,preview,split'
+          * Available content types (comma-separated or array)
+          * @default 'html,markdown'
+         */
+        "availableContentTypes"?: string;
+        /**
+          * @deprecated Use availableContentTypes instead
+          * @default 'html,markdown'
          */
         "availableModes"?: string;
+        /**
+          * Available view modes (comma-separated or array)
+          * @default 'editor,preview,split'
+         */
+        "availableViewModes"?: string;
+        /**
+          * Content syntax type (html or markdown)
+          * @default 'html'
+         */
+        "contentType"?: ContentType;
         /**
           * Custom translations to override defaults
          */
@@ -910,18 +947,22 @@ declare namespace LocalJSX {
          */
         "minHeight"?: number;
         /**
-          * Current editor mode
+          * @deprecated Use contentType instead
           * @default 'html'
          */
-        "mode"?: EditorMode;
+        "mode"?: ContentType;
+        /**
+          * Emitted when the content type changes
+         */
+        "onContentTypeChange"?: (event: SgArticleEditorCustomEvent<ContentTypeChangeEvent>) => void;
         /**
           * Emitted when the content changes
          */
         "onEditorChange"?: (event: SgArticleEditorCustomEvent<EditorChangeEvent>) => void;
         /**
-          * Emitted when the mode changes
+          * @deprecated Use contentTypeChange instead
          */
-        "onEditorModeChange"?: (event: SgArticleEditorCustomEvent<EditorModeChangeEvent>) => void;
+        "onEditorModeChange"?: (event: SgArticleEditorCustomEvent<ContentTypeChangeEvent>) => void;
         /**
           * Emitted when a media item should be inserted
          */
@@ -930,6 +971,10 @@ declare namespace LocalJSX {
           * Emitted when media library is requested
          */
         "onMediaLibraryOpen"?: (event: SgArticleEditorCustomEvent<void>) => void;
+        /**
+          * Emitted when the view mode changes
+         */
+        "onViewModeChange"?: (event: SgArticleEditorCustomEvent<ViewModeChangeEvent>) => void;
         /**
           * Placeholder text when editor is empty
           * @default 'Start writing...'
@@ -955,6 +1000,11 @@ declare namespace LocalJSX {
           * @default ''
          */
         "value"?: string;
+        /**
+          * View mode (editor, preview, or split)
+          * @default 'editor'
+         */
+        "viewMode"?: ViewMode;
     }
     /**
      * @example ### Angular

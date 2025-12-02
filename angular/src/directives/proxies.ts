@@ -1,279 +1,248 @@
 /* tslint:disable */
-/**
- * Angular Standalone Proxies for SagedUI Web Components
- *
- * IMPORTANTE: Este archivo es MANUAL y no debe ser sobrescrito por Stencil.
- * Los componentes están registrados globalmente via 'import saged-ui' en main.ts.
- *
- * Usage in main.ts:
- *   import 'saged-ui';
- *
- * Usage in components:
- *   import { SgIcon, SgButton } from 'saged-ui/angular';
- */
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  NgZone,
-  Output,
-} from '@angular/core';
+/* auto-generated angular directive proxies */
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, NgZone } from '@angular/core';
 
-// ============================================================================
-// Type Definitions
-// ============================================================================
+import { ProxyCmp } from './angular-component-lib/utils';
 
-// Badge
-export type BadgeVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'neutral' | 'purple' | 'cyan';
-export type BadgeSize = 'xs' | 'sm' | 'md' | 'lg';
+import type { Components } from 'saged-ui/components';
 
-// Button
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'success' | 'warning' | 'error' | 'info';
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg';
-export type ButtonShape = 'default' | 'circle' | 'square' | 'pill' | 'block';
-
-// Dropdown
-export type DropdownAlign = 'start' | 'end' | 'center';
-export type DropdownPosition = 'bottom' | 'top';
-export type DropdownSize = 'sm' | 'md' | 'lg';
-
-// Skeleton
-export type SkeletonVariant = 'text' | 'rect' | 'circle';
-export type SkeletonAnimation = 'shimmer' | 'pulse' | 'none';
-
-// Editor
-export type EditorMode = 'html' | 'markdown' | 'preview' | 'split';
-export type SupportedLocale = 'en' | 'es' | 'fr' | 'de' | 'pt' | 'it' | 'zh' | 'ja' | 'ko' | 'ar';
-
-// ============================================================================
-// SgArticleEditor
-// ============================================================================
+import { defineCustomElement as defineSgArticleEditor } from 'saged-ui/components/sg-article-editor.js';
+import { defineCustomElement as defineSgBadge } from 'saged-ui/components/sg-badge.js';
+import { defineCustomElement as defineSgButton } from 'saged-ui/components/sg-button.js';
+import { defineCustomElement as defineSgDropdown } from 'saged-ui/components/sg-dropdown.js';
+import { defineCustomElement as defineSgIcon } from 'saged-ui/components/sg-icon.js';
+import { defineCustomElement as defineSgSkeleton } from 'saged-ui/components/sg-skeleton.js';
+import { defineCustomElement as defineSgThemeToggle } from 'saged-ui/components/sg-theme-toggle.js';
+@ProxyCmp({
+  defineCustomElementFn: defineSgArticleEditor,
+  inputs: ['availableContentTypes', 'availableModes', 'availableViewModes', 'contentType', 'customTranslations', 'disabled', 'editorAccent', 'editorBg', 'editorBgSecondary', 'editorBgTertiary', 'editorBorder', 'editorBorderRadius', 'editorFontMono', 'editorFontSans', 'editorFontSize', 'editorText', 'editorTextSecondary', 'enableExternalPreview', 'locale', 'minHeight', 'mode', 'placeholder', 'readonly', 'showWordCount', 'spellcheck', 'value', 'viewMode'],
+  methods: ['getContent', 'setContent', 'getHtml', 'focusEditor', 'insertAtCursor', 'insertMedia']
+})
 @Component({
   selector: 'sg-article-editor',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['availableContentTypes', 'availableModes', 'availableViewModes', 'contentType', 'customTranslations', 'disabled', 'editorAccent', 'editorBg', 'editorBgSecondary', 'editorBgTertiary', 'editorBorder', 'editorBorderRadius', 'editorFontMono', 'editorFontSans', 'editorFontSize', 'editorText', 'editorTextSecondary', 'enableExternalPreview', 'locale', 'minHeight', 'mode', 'placeholder', 'readonly', 'showWordCount', 'spellcheck', 'value', 'viewMode'],
+  outputs: ['editorChange', 'contentTypeChange', 'viewModeChange', 'editorModeChange', 'mediaLibraryOpen', 'mediaInsert'],
 })
 export class SgArticleEditor {
-  protected el: HTMLElement;
-
-  // Content
-  @Input() value?: string;
-  @Input() mode?: EditorMode;
-  @Input() availableModes?: string;
-  @Input() placeholder?: string;
-
-  // Behavior
-  @Input() minHeight?: number;
-  @Input() spellcheck?: boolean;
-  @Input() showWordCount?: boolean;
-  @Input() enableExternalPreview?: boolean;
-  @Input() disabled?: boolean;
-  @Input() readonly?: boolean;
-
-  // Style Props
-  @Input() editorBg?: string;
-  @Input() editorBgSecondary?: string;
-  @Input() editorBgTertiary?: string;
-  @Input() editorText?: string;
-  @Input() editorTextSecondary?: string;
-  @Input() editorBorder?: string;
-  @Input() editorAccent?: string;
-  @Input() editorBorderRadius?: string;
-  @Input() editorFontSans?: string;
-  @Input() editorFontMono?: string;
-  @Input() editorFontSize?: string;
-
-  // I18n
-  @Input() locale?: SupportedLocale;
-  @Input() customTranslations?: Record<string, unknown>;
-
-  // Events
-  @Output() editorChange = new EventEmitter<CustomEvent>();
-  @Output() editorModeChange = new EventEmitter<CustomEvent>();
+  protected el: HTMLSgArticleEditorElement;
+  @Output() editorChange = new EventEmitter<CustomEvent<ISgArticleEditorEditorChangeEvent>>();
+  @Output() contentTypeChange = new EventEmitter<CustomEvent<ISgArticleEditorContentTypeChangeEvent>>();
+  @Output() viewModeChange = new EventEmitter<CustomEvent<ISgArticleEditorViewModeChangeEvent>>();
+  @Output() editorModeChange = new EventEmitter<CustomEvent<ISgArticleEditorContentTypeChangeEvent>>();
   @Output() mediaLibraryOpen = new EventEmitter<CustomEvent<void>>();
-  @Output() mediaInsert = new EventEmitter<CustomEvent>();
-
+  @Output() mediaInsert = new EventEmitter<CustomEvent<ISgArticleEditorMediaItem>>();
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
   }
 }
 
-// ============================================================================
-// SgBadge
-// ============================================================================
+
+import type { EditorChangeEvent as ISgArticleEditorEditorChangeEvent } from 'saged-ui/components';
+import type { ContentTypeChangeEvent as ISgArticleEditorContentTypeChangeEvent } from 'saged-ui/components';
+import type { ViewModeChangeEvent as ISgArticleEditorViewModeChangeEvent } from 'saged-ui/components';
+import type { MediaItem as ISgArticleEditorMediaItem } from 'saged-ui/components';
+
+export declare interface SgArticleEditor extends Components.SgArticleEditor {
+  /**
+   * Emitted when the content changes
+   */
+  editorChange: EventEmitter<CustomEvent<ISgArticleEditorEditorChangeEvent>>;
+  /**
+   * Emitted when the content type changes
+   */
+  contentTypeChange: EventEmitter<CustomEvent<ISgArticleEditorContentTypeChangeEvent>>;
+  /**
+   * Emitted when the view mode changes
+   */
+  viewModeChange: EventEmitter<CustomEvent<ISgArticleEditorViewModeChangeEvent>>;
+  /**
+   *  @deprecated Use contentTypeChange instead
+   */
+  editorModeChange: EventEmitter<CustomEvent<ISgArticleEditorContentTypeChangeEvent>>;
+  /**
+   * Emitted when media library is requested
+   */
+  mediaLibraryOpen: EventEmitter<CustomEvent<void>>;
+  /**
+   * Emitted when a media item should be inserted
+   */
+  mediaInsert: EventEmitter<CustomEvent<ISgArticleEditorMediaItem>>;
+}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineSgBadge,
+  inputs: ['clickable', 'dot', 'icon', 'outlined', 'pill', 'pulse', 'size', 'size', 'soft', 'variant', 'variant']
+})
 @Component({
   selector: 'sg-badge',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['clickable', 'dot', 'icon', 'outlined', 'pill', 'pulse', 'size', 'size', 'soft', 'variant', 'variant'],
 })
 export class SgBadge {
-  protected el: HTMLElement;
-
-  @Input() variant?: BadgeVariant;
-  @Input() size?: BadgeSize;
-  @Input() pill?: boolean;
-  @Input() outlined?: boolean;
-  @Input() dot?: boolean;
-  @Input() pulse?: boolean;
-  @Input() clickable?: boolean;
-  @Input() icon?: string;
-  @Input() soft?: boolean;
-
+  protected el: HTMLSgBadgeElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
   }
 }
 
-// ============================================================================
-// SgButton
-// ============================================================================
+
+export declare interface SgBadge extends Components.SgBadge {}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineSgButton,
+  inputs: ['ariaLabel', 'disabled', 'leadingIcon', 'loading', 'loadingText', 'shape', 'size', 'trailingIcon', 'type', 'variant']
+})
 @Component({
   selector: 'sg-button',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['ariaLabel', 'disabled', 'leadingIcon', 'loading', 'loadingText', 'shape', 'size', 'trailingIcon', 'type', 'variant'],
+  outputs: ['sgClick'],
 })
 export class SgButton {
-  protected el: HTMLElement;
-
-  @Input() variant?: ButtonVariant;
-  @Input() size?: ButtonSize;
-  @Input() shape?: ButtonShape;
-  @Input() disabled?: boolean;
-  @Input() loading?: boolean;
-  @Input() loadingText?: string;
-  @Input() leadingIcon?: string;
-  @Input() trailingIcon?: string;
-  @Input() type?: 'button' | 'submit' | 'reset';
-  @Input() ariaLabel?: string;
-
+  protected el: HTMLSgButtonElement;
   @Output() sgClick = new EventEmitter<CustomEvent<MouseEvent>>();
-
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
   }
 }
 
-// ============================================================================
-// SgDropdown
-// ============================================================================
+
+export declare interface SgButton extends Components.SgButton {
+  /**
+   * Click event (emitted when not disabled/loading)
+   */
+  sgClick: EventEmitter<CustomEvent<MouseEvent>>;
+}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineSgDropdown,
+  inputs: ['align', 'align', 'closeOnSelect', 'disabled', 'maxHeight', 'minWidth', 'open', 'position', 'position', 'showBackdrop', 'size'],
+  methods: ['openDropdown', 'closeDropdown', 'toggle']
+})
 @Component({
   selector: 'sg-dropdown',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['align', 'align', 'closeOnSelect', 'disabled', 'maxHeight', 'minWidth', 'open', 'position', 'position', 'showBackdrop', 'size'],
+  outputs: ['sgOpen', 'sgClose', 'sgToggle'],
 })
 export class SgDropdown {
-  protected el: HTMLElement;
-
-  @Input() open?: boolean;
-  @Input() align?: DropdownAlign;
-  @Input() position?: DropdownPosition;
-  @Input() closeOnSelect?: boolean;
-  @Input() minWidth?: string;
-  @Input() maxHeight?: string;
-  @Input() disabled?: boolean;
-  @Input() showBackdrop?: boolean;
-  @Input() size?: DropdownSize;
-
+  protected el: HTMLSgDropdownElement;
   @Output() sgOpen = new EventEmitter<CustomEvent<void>>();
   @Output() sgClose = new EventEmitter<CustomEvent<void>>();
   @Output() sgToggle = new EventEmitter<CustomEvent<boolean>>();
-
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
   }
 }
 
-// ============================================================================
-// SgIcon
-// ============================================================================
+
+export declare interface SgDropdown extends Components.SgDropdown {
+  /**
+   * Emitted when the dropdown opens
+   */
+  sgOpen: EventEmitter<CustomEvent<void>>;
+  /**
+   * Emitted when the dropdown closes
+   */
+  sgClose: EventEmitter<CustomEvent<void>>;
+  /**
+   * Emitted when the open state changes
+   */
+  sgToggle: EventEmitter<CustomEvent<boolean>>;
+}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineSgIcon,
+  inputs: ['ariaLabel', 'color', 'decorative', 'fill', 'flipH', 'flipV', 'height', 'name', 'rotate', 'size', 'spin', 'src', 'strokeWidth', 'width']
+})
 @Component({
   selector: 'sg-icon',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['ariaLabel', 'color', 'decorative', 'fill', 'flipH', 'flipV', 'height', 'name', 'rotate', 'size', 'spin', 'src', 'strokeWidth', 'width'],
 })
 export class SgIcon {
-  protected el: HTMLElement;
-
-  @Input() name?: string;
-  @Input() src?: string;
-  @Input() size?: number | string;
-  @Input() width?: number | string;
-  @Input() height?: number | string;
-  @Input() color?: string;
-  @Input() fill?: string;
-  @Input() strokeWidth?: number;
-  @Input() spin?: boolean;
-  @Input() rotate?: number;
-  @Input() flipH?: boolean;
-  @Input() flipV?: boolean;
-  @Input() ariaLabel?: string;
-  @Input() decorative?: boolean;
-
+  protected el: HTMLSgIconElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
   }
 }
 
-// ============================================================================
-// SgSkeleton
-// ============================================================================
+
+export declare interface SgIcon extends Components.SgIcon {}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineSgSkeleton,
+  inputs: ['animation', 'height', 'variant', 'width']
+})
 @Component({
   selector: 'sg-skeleton',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['animation', 'height', 'variant', 'width'],
 })
 export class SgSkeleton {
-  protected el: HTMLElement;
-
-  @Input() variant?: SkeletonVariant;
-  @Input() width?: string;
-  @Input() height?: string;
-  @Input() animation?: SkeletonAnimation;
-
+  protected el: HTMLSgSkeletonElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
   }
 }
 
-// ============================================================================
-// SgThemeToggle
-// ============================================================================
-export type ThemeMode = 'light' | 'dark' | 'system';
-export type ThemeToggleSize = 'sm' | 'md' | 'lg';
 
+export declare interface SgSkeleton extends Components.SgSkeleton {}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineSgThemeToggle,
+  inputs: ['size', 'theme']
+})
 @Component({
   selector: 'sg-theme-toggle',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['size', 'theme'],
+  outputs: ['sgThemeChange'],
 })
 export class SgThemeToggle {
-  protected el: HTMLElement;
-
-  @Input() theme?: ThemeMode;
-  @Input() size?: ThemeToggleSize;
-
-  @Output() sgThemeChange = new EventEmitter<CustomEvent<ThemeMode>>();
-
+  protected el: HTMLSgThemeToggleElement;
+  @Output() sgThemeChange = new EventEmitter<CustomEvent<ISgThemeToggleThemeMode>>();
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
   }
+}
+
+
+import type { ThemeMode as ISgThemeToggleThemeMode } from 'saged-ui/components';
+
+export declare interface SgThemeToggle extends Components.SgThemeToggle {
+  /**
+   * Emitted when the theme changes
+   */
+  sgThemeChange: EventEmitter<CustomEvent<ISgThemeToggleThemeMode>>;
 }
 
 

@@ -3,7 +3,7 @@
  * Headless functions for text formatting operations
  */
 
-import { ToolbarAction, TextSelection, EditorMode } from './types';
+import { ToolbarAction, TextSelection, ContentType } from './types';
 
 // =====================================================
 // TEXT SELECTION UTILITIES
@@ -185,7 +185,7 @@ function insertMarkdownImage(content: string, selection: TextSelection, url: str
 export interface ApplyActionOptions {
   content: string;
   selection: TextSelection;
-  mode: EditorMode;
+  mode: ContentType;
   action: ToolbarAction;
   url?: string;
   alt?: string;

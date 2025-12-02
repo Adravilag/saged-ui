@@ -1,0 +1,401 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import ComponentCard from '../components/ComponentCard.astro';
+import DemoRow from '../components/DemoRow.astro';
+import DemoBox from '../components/DemoBox.astro';
+
+// Component API Data
+const buttonProps = [
+  { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'error' | 'success' | 'warning' | 'info'", default: "'primary'", description: 'Variante de color del botón' },
+  { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Tamaño del botón' },
+  { name: 'shape', type: "'default' | 'pill' | 'circle' | 'square' | 'block'", default: "'default'", description: 'Forma del botón' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Deshabilita el botón' },
+  { name: 'loading', type: 'boolean', default: 'false', description: 'Muestra spinner de carga' },
+  { name: 'loading-text', type: 'string', default: 'undefined', description: 'Texto durante la carga' },
+  { name: 'leading-icon', type: 'string', default: 'undefined', description: 'Nombre del icono al inicio' },
+  { name: 'trailing-icon', type: 'string', default: 'undefined', description: 'Nombre del icono al final' },
+  { name: 'type', type: "'button' | 'submit' | 'reset'", default: "'button'", description: 'Tipo de botón HTML' },
+];
+const buttonEvents = [
+  { name: 'sgClick', type: 'CustomEvent<MouseEvent>', description: 'Emitido al hacer click (si no está deshabilitado/cargando)' },
+];
+const buttonSlots = [
+  { name: '(default)', description: 'Contenido del botón (texto, iconos, etc.)' },
+];
+
+const badgeProps = [
+  { name: 'variant', type: "'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'neutral' | 'purple' | 'cyan'", default: "'primary'", description: 'Variante de color' },
+  { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Tamaño del badge' },
+  { name: 'pill', type: 'boolean', default: 'false', description: 'Forma de píldora (completamente redondeado)' },
+  { name: 'outlined', type: 'boolean', default: 'false', description: 'Estilo con borde (fondo transparente)' },
+  { name: 'soft', type: 'boolean', default: 'false', description: 'Estilo suave (fondo más claro)' },
+  { name: 'dot', type: 'boolean', default: 'false', description: 'Muestra un indicador de punto' },
+  { name: 'pulse', type: 'boolean', default: 'false', description: 'Animación de pulso en el punto' },
+  { name: 'clickable', type: 'boolean', default: 'false', description: 'Hace el badge interactivo' },
+  { name: 'icon', type: 'string', default: 'undefined', description: 'Nombre del icono a mostrar' },
+];
+const badgeSlots = [
+  { name: '(default)', description: 'Contenido del badge' },
+  { name: 'icon', description: 'Slot para icono personalizado' },
+];
+
+const iconProps = [
+  { name: 'name', type: 'string', default: 'undefined', description: 'Nombre del icono de la librería' },
+  { name: 'src', type: 'string', default: 'undefined', description: 'URL a un SVG personalizado' },
+  { name: 'size', type: 'number | string', default: '24', description: 'Tamaño del icono en pixels' },
+  { name: 'color', type: 'string', default: "'currentColor'", description: 'Color del icono (valor CSS)' },
+  { name: 'spin', type: 'boolean', default: 'false', description: 'Animación de rotación' },
+  { name: 'rotate', type: 'number', default: 'undefined', description: 'Ángulo de rotación en grados' },
+  { name: 'flip-h', type: 'boolean', default: 'false', description: 'Voltear horizontalmente' },
+  { name: 'flip-v', type: 'boolean', default: 'false', description: 'Voltear verticalmente' },
+  { name: 'decorative', type: 'boolean', default: 'false', description: 'Oculto para lectores de pantalla' },
+  { name: 'aria-label', type: 'string', default: 'undefined', description: 'Etiqueta accesible' },
+];
+
+const dropdownProps = [
+  { name: 'open', type: 'boolean', default: 'false', description: 'Si el dropdown está abierto' },
+  { name: 'position', type: "'top' | 'bottom'", default: "'bottom'", description: 'Posición vertical' },
+  { name: 'align', type: "'start' | 'center' | 'end'", default: "'start'", description: 'Alineación horizontal' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Deshabilita el dropdown' },
+  { name: 'close-on-select', type: 'boolean', default: 'true', description: 'Cerrar al seleccionar item' },
+  { name: 'min-width', type: 'string', default: "'200px'", description: 'Ancho mínimo del contenido' },
+  { name: 'max-height', type: 'string', default: "'320px'", description: 'Altura máxima (scroll)' },
+  { name: 'show-backdrop', type: 'boolean', default: 'false', description: 'Mostrar overlay de fondo' },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Variante de tamaño' },
+];
+const dropdownEvents = [
+  { name: 'sgOpen', type: 'CustomEvent<void>', description: 'Emitido cuando se abre' },
+  { name: 'sgClose', type: 'CustomEvent<void>', description: 'Emitido cuando se cierra' },
+  { name: 'sgToggle', type: 'CustomEvent<boolean>', description: 'Emitido al cambiar estado' },
+];
+const dropdownSlots = [
+  { name: 'trigger', description: 'Elemento que activa el dropdown' },
+  { name: '(default)', description: 'Contenido del dropdown' },
+  { name: 'header', description: 'Cabecera opcional' },
+  { name: 'footer', description: 'Pie opcional' },
+];
+const dropdownMethods = [
+  { name: 'openDropdown', returns: 'Promise<void>', description: 'Abre el dropdown programáticamente' },
+  { name: 'closeDropdown', returns: 'Promise<void>', description: 'Cierra el dropdown programáticamente' },
+  { name: 'toggle', returns: 'Promise<void>', description: 'Alterna el estado abierto/cerrado' },
+];
+
+const skeletonProps = [
+  { name: 'variant', type: "'text' | 'rect' | 'circle'", default: "'text'", description: 'Forma del skeleton' },
+  { name: 'width', type: 'string', default: "'100%'", description: 'Ancho del elemento' },
+  { name: 'height', type: 'string', default: "'1rem'", description: 'Alto del elemento' },
+  { name: 'animation', type: "'shimmer' | 'pulse' | 'none'", default: "'shimmer'", description: 'Tipo de animación' },
+];
+
+const editorProps = [
+  { name: 'value', type: 'string', default: "''", description: 'Contenido del editor' },
+  { name: 'content-type', type: "'html' | 'markdown'", default: "'html'", description: 'Tipo de sintaxis' },
+  { name: 'view-mode', type: "'editor' | 'preview' | 'split'", default: "'editor'", description: 'Modo de visualización' },
+  { name: 'min-height', type: 'number', default: '400', description: 'Altura mínima en pixels' },
+  { name: 'placeholder', type: 'string', default: "'Start writing...'", description: 'Texto placeholder' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Estado deshabilitado' },
+  { name: 'readonly', type: 'boolean', default: 'false', description: 'Solo lectura' },
+  { name: 'spellcheck', type: 'boolean', default: 'true', description: 'Corrección ortográfica' },
+  { name: 'show-word-count', type: 'boolean', default: 'true', description: 'Mostrar contador de palabras' },
+  { name: 'locale', type: "'en' | 'es' | 'fr' | 'de' | ..." , default: "'en'", description: 'Idioma de la interfaz' },
+];
+const editorEvents = [
+  { name: 'editorChange', type: 'CustomEvent<EditorChangeEvent>', description: 'Emitido al cambiar el contenido' },
+  { name: 'contentTypeChange', type: 'CustomEvent<ContentTypeChangeEvent>', description: 'Emitido al cambiar el tipo de contenido' },
+  { name: 'viewModeChange', type: 'CustomEvent<ViewModeChangeEvent>', description: 'Emitido al cambiar el modo de vista' },
+  { name: 'mediaLibraryOpen', type: 'CustomEvent<void>', description: 'Emitido al solicitar librería de medios' },
+];
+const editorMethods = [
+  { name: 'getContent', returns: 'Promise<string>', description: 'Obtiene el contenido actual' },
+  { name: 'setContent', returns: 'Promise<void>', description: 'Establece el contenido' },
+  { name: 'getHtml', returns: 'Promise<string>', description: 'Obtiene contenido como HTML' },
+  { name: 'focusEditor', returns: 'Promise<void>', description: 'Da foco al editor' },
+  { name: 'insertAtCursor', returns: 'Promise<void>', description: 'Inserta contenido en el cursor' },
+];
+
+const themeToggleProps = [
+  { name: 'theme', type: "'light' | 'dark' | 'system'", default: "'system'", description: 'Modo de tema actual' },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Tamaño del toggle' },
+];
+const themeToggleEvents = [
+  { name: 'sgThemeChange', type: "CustomEvent<'light' | 'dark' | 'system'>", description: 'Emitido cuando cambia el tema' },
+];
+---
+
+<Layout title="SagedUI - Components">
+  <div class="app">
+    <Sidebar />
+    <main class="main">
+
+      <header class="main-header">
+        <div class="header-badge">
+          <span class="badge-dot"></span>
+          Documentation
+        </div>
+        <h1 class="main-title">Components</h1>
+        <p class="main-description">
+          Explore the complete collection of SagedUI components. Each component is designed with accessibility,
+          performance, and customization in mind.
+        </p>
+        <div class="header-stats">
+          <div class="stat">
+            <span class="stat-value">7</span>
+            <span class="stat-label">Components</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">100%</span>
+            <span class="stat-label">TypeScript</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">A11y</span>
+            <span class="stat-label">Accessible</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="components-grid">
+        <!-- Button -->
+        <ComponentCard
+          id="button"
+          title="Button"
+          tag="sg-button"
+          description="Interactive button with multiple variants"
+          docsUrl="/components/button"
+          props={buttonProps}
+          events={buttonEvents}
+          slots={buttonSlots}
+        >
+          <DemoRow label="Variants" code={`<sg-button variant="primary">Primary</sg-button>
+<sg-button variant="secondary">Secondary</sg-button>
+<sg-button variant="outline">Outline</sg-button>
+<sg-button variant="ghost">Ghost</sg-button>
+<sg-button variant="danger">Danger</sg-button>`}>
+            <sg-button variant="primary">Primary</sg-button>
+            <sg-button variant="secondary">Secondary</sg-button>
+            <sg-button variant="outline">Outline</sg-button>
+            <sg-button variant="ghost">Ghost</sg-button>
+            <sg-button variant="danger">Danger</sg-button>
+          </DemoRow>
+          <DemoRow label="Sizes" code={`<sg-button size="sm">Small</sg-button>
+<sg-button size="md">Medium</sg-button>
+<sg-button size="lg">Large</sg-button>`}>
+            <sg-button size="sm">Small</sg-button>
+            <sg-button size="md">Medium</sg-button>
+            <sg-button size="lg">Large</sg-button>
+          </DemoRow>
+          <DemoRow label="States" code={`<sg-button disabled>Disabled</sg-button>
+<sg-button loading>Loading</sg-button>`}>
+            <sg-button disabled>Disabled</sg-button>
+            <sg-button loading>Loading</sg-button>
+          </DemoRow>
+        </ComponentCard>
+
+        <!-- Badge -->
+        <ComponentCard
+          id="badge"
+          title="Badge"
+          tag="sg-badge"
+          description="Small status indicators and labels"
+          docsUrl="/components/badge"
+          props={badgeProps}
+          slots={badgeSlots}
+        >
+          <DemoRow label="Variants" code={`<sg-badge variant="primary">Primary</sg-badge>
+<sg-badge variant="secondary">Secondary</sg-badge>
+<sg-badge variant="success">Success</sg-badge>
+<sg-badge variant="warning">Warning</sg-badge>
+<sg-badge variant="danger">Danger</sg-badge>
+<sg-badge variant="info">Info</sg-badge>`}>
+            <sg-badge variant="primary">Primary</sg-badge>
+            <sg-badge variant="secondary">Secondary</sg-badge>
+            <sg-badge variant="success">Success</sg-badge>
+            <sg-badge variant="warning">Warning</sg-badge>
+            <sg-badge variant="danger">Danger</sg-badge>
+            <sg-badge variant="info">Info</sg-badge>
+          </DemoRow>
+          <DemoRow label="Sizes" code={`<sg-badge size="sm">Small</sg-badge>
+<sg-badge size="md">Medium</sg-badge>
+<sg-badge size="lg">Large</sg-badge>`}>
+            <sg-badge size="sm">Small</sg-badge>
+            <sg-badge size="md">Medium</sg-badge>
+            <sg-badge size="lg">Large</sg-badge>
+          </DemoRow>
+        </ComponentCard>
+
+        <!-- Icon -->
+        <ComponentCard
+          id="icon"
+          title="Icon"
+          tag="sg-icon"
+          description="SVG icons with color and size support"
+          docsUrl="/components/icon"
+          props={iconProps}
+        >
+          <DemoRow label="Common" code={`<sg-icon name="home" size="24"></sg-icon>
+<sg-icon name="search" size="24"></sg-icon>
+<sg-icon name="settings" size="24"></sg-icon>
+<sg-icon name="user" size="24"></sg-icon>
+<sg-icon name="menu" size="24"></sg-icon>`}>
+            <sg-icon name="home" size="24"></sg-icon>
+            <sg-icon name="search" size="24"></sg-icon>
+            <sg-icon name="settings" size="24"></sg-icon>
+            <sg-icon name="user" size="24"></sg-icon>
+            <sg-icon name="menu" size="24"></sg-icon>
+            <sg-icon name="close" size="24"></sg-icon>
+            <sg-icon name="add" size="24"></sg-icon>
+            <sg-icon name="edit" size="24"></sg-icon>
+            <sg-icon name="delete" size="24"></sg-icon>
+            <sg-icon name="save" size="24"></sg-icon>
+          </DemoRow>
+          <DemoRow label="Colored" code={`<sg-icon name="heart" size="24" color="#ef4444"></sg-icon>
+<sg-icon name="star" size="24" color="#f59e0b"></sg-icon>
+<sg-icon name="check" size="24" color="#22c55e"></sg-icon>
+<sg-icon name="refresh" size="24" color="#8b5cf6" spin></sg-icon>`}>
+            <sg-icon name="heart" size="24" color="#ef4444"></sg-icon>
+            <sg-icon name="star" size="24" color="#f59e0b"></sg-icon>
+            <sg-icon name="check" size="24" color="#22c55e"></sg-icon>
+            <sg-icon name="info" size="24" color="#3b82f6"></sg-icon>
+            <sg-icon name="refresh" size="24" color="#8b5cf6" spin></sg-icon>
+          </DemoRow>
+          <DemoRow label="Sizes" code={`<sg-icon name="star" size="16"></sg-icon>
+<sg-icon name="star" size="24"></sg-icon>
+<sg-icon name="star" size="32"></sg-icon>
+<sg-icon name="star" size="48"></sg-icon>`}>
+            <sg-icon name="star" size="16"></sg-icon>
+            <sg-icon name="star" size="24"></sg-icon>
+            <sg-icon name="star" size="32"></sg-icon>
+            <sg-icon name="star" size="48"></sg-icon>
+          </DemoRow>
+        </ComponentCard>
+
+        <!-- Dropdown -->
+        <ComponentCard
+          id="dropdown"
+          title="Dropdown"
+          tag="sg-dropdown"
+          description="Floating menu with trigger element"
+          docsUrl="/components/dropdown"
+          props={dropdownProps}
+          events={dropdownEvents}
+          slots={dropdownSlots}
+          methods={dropdownMethods}
+        >
+          <DemoRow label="Basic" code={`<sg-dropdown align="start">
+  <button slot="trigger">Select option ▼</button>
+  <button>Option 1</button>
+  <button>Option 2</button>
+  <button>Option 3</button>
+</sg-dropdown>`}>
+            <sg-dropdown align="start">
+              <button slot="trigger" class="demo-btn">Select option ▼</button>
+              <button class="demo-menu-item">Option 1</button>
+              <button class="demo-menu-item">Option 2</button>
+              <button class="demo-menu-item">Option 3</button>
+            </sg-dropdown>
+          </DemoRow>
+          <DemoRow label="With Header & Footer" code={`<sg-dropdown align="start">
+  <button slot="trigger">Menu ▼</button>
+  <div slot="header">Settings</div>
+  <button>Profile</button>
+  <button>Preferences</button>
+  <button>Logout</button>
+  <div slot="footer">v1.2.1</div>
+</sg-dropdown>`}>
+            <sg-dropdown align="start">
+              <button slot="trigger" class="demo-btn">Menu ▼</button>
+              <div slot="header" class="demo-menu-header">Settings</div>
+              <button class="demo-menu-item">Profile</button>
+              <button class="demo-menu-item">Preferences</button>
+              <button class="demo-menu-item">Logout</button>
+              <div slot="footer" class="demo-menu-footer">v1.2.1</div>
+            </sg-dropdown>
+          </DemoRow>
+        </ComponentCard>
+
+        <!-- Skeleton -->
+        <ComponentCard
+          id="skeleton"
+          title="Skeleton"
+          tag="sg-skeleton"
+          description="Loading placeholders for content"
+          docsUrl="/components/skeleton"
+          props={skeletonProps}
+        >
+          <DemoRow label="Text" code={`<sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
+<sg-skeleton variant="text" width="150px" height="1rem"></sg-skeleton>
+<sg-skeleton variant="text" width="100px" height="1rem"></sg-skeleton>`}>
+            <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
+            <sg-skeleton variant="text" width="150px" height="1rem"></sg-skeleton>
+            <sg-skeleton variant="text" width="100px" height="1rem"></sg-skeleton>
+          </DemoRow>
+          <DemoRow label="Rectangle" code={`<sg-skeleton variant="rect" width="120px" height="80px"></sg-skeleton>
+<sg-skeleton variant="rect" width="160px" height="100px"></sg-skeleton>`}>
+            <sg-skeleton variant="rect" width="120px" height="80px"></sg-skeleton>
+            <sg-skeleton variant="rect" width="160px" height="100px"></sg-skeleton>
+          </DemoRow>
+          <DemoRow label="Circle" code={`<sg-skeleton variant="circle" width="40px" height="40px"></sg-skeleton>
+<sg-skeleton variant="circle" width="56px" height="56px"></sg-skeleton>
+<sg-skeleton variant="circle" width="72px" height="72px"></sg-skeleton>`}>
+            <sg-skeleton variant="circle" width="40px" height="40px"></sg-skeleton>
+            <sg-skeleton variant="circle" width="56px" height="56px"></sg-skeleton>
+            <sg-skeleton variant="circle" width="72px" height="72px"></sg-skeleton>
+          </DemoRow>
+          <DemoRow label="Pulse Animation" code={`<sg-skeleton variant="rect" width="150px" height="60px" animation="pulse"></sg-skeleton>`}>
+            <sg-skeleton variant="rect" width="150px" height="60px" animation="pulse"></sg-skeleton>
+          </DemoRow>
+        </ComponentCard>
+
+        <!-- Article Editor -->
+        <ComponentCard
+          id="article-editor"
+          title="Article Editor"
+          tag="sg-article-editor"
+          description="Rich text editor with markdown support"
+          docsUrl="/components/article-editor"
+          props={editorProps}
+          events={editorEvents}
+          methods={editorMethods}
+        >
+          <DemoRow code={`<sg-article-editor
+  value="<p>Start editing...</p>"
+  mode="split"
+  min-height="280"
+  placeholder="Write something...">
+</sg-article-editor>
+
+<!-- Modes: html, markdown, split -->
+<!-- Events: @change, @save -->`}>
+            <sg-article-editor
+              value="<p>Start editing...</p>"
+              mode="split"
+              min-height="280"
+              placeholder="Write something...">
+            </sg-article-editor>
+          </DemoRow>
+        </ComponentCard>
+
+        <!-- Theme Toggle -->
+        <ComponentCard
+          id="theme-toggle"
+          title="Theme Toggle"
+          tag="sg-theme-toggle"
+          description="Dark/light mode switch"
+          docsUrl="/components/theme-toggle"
+          props={themeToggleProps}
+          events={themeToggleEvents}
+        >
+          <DemoRow label="Default" code={`<sg-theme-toggle></sg-theme-toggle>
+
+<!-- The component will:
+  - Toggle data-theme attribute
+  - Persist preference in localStorage
+  - Sync with system preference -->`}>
+            <sg-theme-toggle></sg-theme-toggle>
+          </DemoRow>
+        </ComponentCard>
+      </div>
+
+    </main>
+  </div>
+</Layout>

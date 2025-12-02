@@ -1,11 +1,15 @@
-{
+﻿{
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../dist/angular/out-tsc",
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": []
+    "types": [],
+    "paths": {
+      "saged-ui/components": ["../dist/types/components.d.ts"],
+      "saged-ui/components/*": ["../dist/components/*"]
+    }
   },
   "exclude": [
     "**/*.spec.ts",

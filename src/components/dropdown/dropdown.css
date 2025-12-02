@@ -63,7 +63,7 @@
 
 .content {
   position: absolute;
-  z-index: 50;
+  z-index: 9999;
   min-width: var(--dropdown-min-width, 200px);
   max-height: var(--dropdown-max-height, 320px);
   overflow: hidden;
@@ -262,34 +262,8 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
- * DARK MODE
+ * DARK MODE - Only via data-theme attribute
  * ═══════════════════════════════════════════════════════════════════════════ */
-
-@media (prefers-color-scheme: dark) {
-  .content {
-    --sg-dropdown-bg: #1f2937;
-    --sg-dropdown-border-color: rgba(255, 255, 255, 0.1);
-    --sg-dropdown-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5), 0 4px 12px -4px rgba(0, 0, 0, 0.3);
-  }
-
-  .header ::slotted(*),
-  .footer ::slotted(*) {
-    --sg-text-muted: #9ca3af;
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .footer ::slotted(*) {
-    --sg-dropdown-footer-bg: rgba(255, 255, 255, 0.03);
-  }
-
-  .items::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  .items::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
-}
 
 /* Dark theme attribute support */
 :host-context([data-theme='dark']) .content,
