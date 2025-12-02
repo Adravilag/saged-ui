@@ -23,6 +23,32 @@ import {
 } from '@angular/core';
 
 // ============================================================================
+// Type Definitions
+// ============================================================================
+
+// Badge
+export type BadgeVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'neutral' | 'purple' | 'cyan';
+export type BadgeSize = 'xs' | 'sm' | 'md' | 'lg';
+
+// Button
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'success' | 'warning' | 'error' | 'info';
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg';
+export type ButtonShape = 'default' | 'circle' | 'square' | 'pill' | 'block';
+
+// Dropdown
+export type DropdownAlign = 'start' | 'end' | 'center';
+export type DropdownPosition = 'bottom' | 'top';
+export type DropdownSize = 'sm' | 'md' | 'lg';
+
+// Skeleton
+export type SkeletonVariant = 'text' | 'rect' | 'circle';
+export type SkeletonAnimation = 'shimmer' | 'pulse' | 'none';
+
+// Editor
+export type EditorMode = 'html' | 'markdown' | 'preview' | 'split';
+export type SupportedLocale = 'en' | 'es' | 'fr' | 'de' | 'pt' | 'it' | 'zh' | 'ja' | 'ko' | 'ar';
+
+// ============================================================================
 // SgArticleEditor
 // ============================================================================
 @Component({
@@ -34,30 +60,38 @@ import {
 export class SgArticleEditor {
   protected el: HTMLElement;
 
-  @Input() availableModes?: string[];
-  @Input() customTranslations?: Record<string, string>;
+  // Content
+  @Input() value?: string;
+  @Input() mode?: EditorMode;
+  @Input() availableModes?: string;
+  @Input() placeholder?: string;
+
+  // Behavior
+  @Input() minHeight?: number;
+  @Input() spellcheck?: boolean;
+  @Input() showWordCount?: boolean;
+  @Input() enableExternalPreview?: boolean;
   @Input() disabled?: boolean;
-  @Input() editorAccent?: string;
+  @Input() readonly?: boolean;
+
+  // Style Props
   @Input() editorBg?: string;
   @Input() editorBgSecondary?: string;
   @Input() editorBgTertiary?: string;
-  @Input() editorBorder?: string;
-  @Input() editorBorderRadius?: string;
-  @Input() editorFontMono?: string;
-  @Input() editorFontSans?: string;
-  @Input() editorFontSize?: string;
   @Input() editorText?: string;
   @Input() editorTextSecondary?: string;
-  @Input() enableExternalPreview?: boolean;
-  @Input() locale?: string;
-  @Input() minHeight?: string;
-  @Input() mode?: string;
-  @Input() placeholder?: string;
-  @Input() readonly?: boolean;
-  @Input() showWordCount?: boolean;
-  @Input() spellcheck?: boolean;
-  @Input() value?: string;
+  @Input() editorBorder?: string;
+  @Input() editorAccent?: string;
+  @Input() editorBorderRadius?: string;
+  @Input() editorFontSans?: string;
+  @Input() editorFontMono?: string;
+  @Input() editorFontSize?: string;
 
+  // I18n
+  @Input() locale?: SupportedLocale;
+  @Input() customTranslations?: Record<string, unknown>;
+
+  // Events
   @Output() editorChange = new EventEmitter<CustomEvent>();
   @Output() editorModeChange = new EventEmitter<CustomEvent>();
   @Output() mediaLibraryOpen = new EventEmitter<CustomEvent<void>>();
@@ -81,15 +115,15 @@ export class SgArticleEditor {
 export class SgBadge {
   protected el: HTMLElement;
 
-  @Input() clickable?: boolean;
-  @Input() dot?: boolean;
-  @Input() icon?: string;
-  @Input() outlined?: boolean;
+  @Input() variant?: BadgeVariant;
+  @Input() size?: BadgeSize;
   @Input() pill?: boolean;
+  @Input() outlined?: boolean;
+  @Input() dot?: boolean;
   @Input() pulse?: boolean;
-  @Input() size?: 'sm' | 'md' | 'lg';
+  @Input() clickable?: boolean;
+  @Input() icon?: string;
   @Input() soft?: boolean;
-  @Input() variant?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info';
 
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
@@ -109,16 +143,16 @@ export class SgBadge {
 export class SgButton {
   protected el: HTMLElement;
 
-  @Input() ariaLabel?: string;
+  @Input() variant?: ButtonVariant;
+  @Input() size?: ButtonSize;
+  @Input() shape?: ButtonShape;
   @Input() disabled?: boolean;
-  @Input() leadingIcon?: string;
   @Input() loading?: boolean;
   @Input() loadingText?: string;
-  @Input() shape?: 'default' | 'rounded' | 'pill' | 'square';
-  @Input() size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  @Input() leadingIcon?: string;
   @Input() trailingIcon?: string;
   @Input() type?: 'button' | 'submit' | 'reset';
-  @Input() variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success' | 'warning' | 'link';
+  @Input() ariaLabel?: string;
 
   @Output() sgClick = new EventEmitter<CustomEvent<MouseEvent>>();
 
@@ -140,15 +174,15 @@ export class SgButton {
 export class SgDropdown {
   protected el: HTMLElement;
 
-  @Input() align?: 'start' | 'center' | 'end';
-  @Input() closeOnSelect?: boolean;
-  @Input() disabled?: boolean;
-  @Input() maxHeight?: string;
-  @Input() minWidth?: string;
   @Input() open?: boolean;
-  @Input() position?: 'bottom' | 'top' | 'left' | 'right';
+  @Input() align?: DropdownAlign;
+  @Input() position?: DropdownPosition;
+  @Input() closeOnSelect?: boolean;
+  @Input() minWidth?: string;
+  @Input() maxHeight?: string;
+  @Input() disabled?: boolean;
   @Input() showBackdrop?: boolean;
-  @Input() size?: 'sm' | 'md' | 'lg';
+  @Input() size?: DropdownSize;
 
   @Output() sgOpen = new EventEmitter<CustomEvent<void>>();
   @Output() sgClose = new EventEmitter<CustomEvent<void>>();
@@ -172,20 +206,20 @@ export class SgDropdown {
 export class SgIcon {
   protected el: HTMLElement;
 
-  @Input() ariaLabel?: string;
+  @Input() name?: string;
+  @Input() src?: string;
+  @Input() size?: number | string;
+  @Input() width?: number | string;
+  @Input() height?: number | string;
   @Input() color?: string;
-  @Input() decorative?: boolean;
   @Input() fill?: string;
+  @Input() strokeWidth?: number;
+  @Input() spin?: boolean;
+  @Input() rotate?: number;
   @Input() flipH?: boolean;
   @Input() flipV?: boolean;
-  @Input() height?: string;
-  @Input() name?: string;
-  @Input() rotate?: number;
-  @Input() size?: string;
-  @Input() spin?: boolean;
-  @Input() src?: string;
-  @Input() strokeWidth?: string;
-  @Input() width?: string;
+  @Input() ariaLabel?: string;
+  @Input() decorative?: boolean;
 
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
@@ -205,10 +239,10 @@ export class SgIcon {
 export class SgSkeleton {
   protected el: HTMLElement;
 
-  @Input() animation?: 'pulse' | 'wave' | 'none';
-  @Input() height?: string;
-  @Input() variant?: 'text' | 'circular' | 'rectangular' | 'rounded';
+  @Input() variant?: SkeletonVariant;
   @Input() width?: string;
+  @Input() height?: string;
+  @Input() animation?: SkeletonAnimation;
 
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
@@ -219,6 +253,9 @@ export class SgSkeleton {
 // ============================================================================
 // SgThemeToggle
 // ============================================================================
+export type ThemeMode = 'light' | 'dark' | 'system';
+export type ThemeToggleSize = 'sm' | 'md' | 'lg';
+
 @Component({
   selector: 'sg-theme-toggle',
   standalone: true,
@@ -228,10 +265,10 @@ export class SgSkeleton {
 export class SgThemeToggle {
   protected el: HTMLElement;
 
-  @Input() theme?: 'light' | 'dark' | 'system';
-  @Input() size?: 'sm' | 'md' | 'lg';
+  @Input() theme?: ThemeMode;
+  @Input() size?: ThemeToggleSize;
 
-  @Output() themeChange = new EventEmitter<CustomEvent<string>>();
+  @Output() sgThemeChange = new EventEmitter<CustomEvent<ThemeMode>>();
 
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();

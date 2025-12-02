@@ -9,10 +9,12 @@ import { EditorChangeEvent, EditorMode, EditorModeChangeEvent, MediaItem } from 
 import { EditorTranslations, SupportedLocale } from "./components/article-editor/utils/i18n";
 import { BadgeSize, BadgeVariant } from "./components/badge/badge";
 import { ButtonShape, ButtonSize, ButtonVariant } from "./components/button/button";
+import { ThemeMode } from "./components/theme-toggle/theme-toggle";
 export { EditorChangeEvent, EditorMode, EditorModeChangeEvent, MediaItem } from "./components/article-editor/utils";
 export { EditorTranslations, SupportedLocale } from "./components/article-editor/utils/i18n";
 export { BadgeSize, BadgeVariant } from "./components/badge/badge";
 export { ButtonShape, ButtonSize, ButtonVariant } from "./components/button/button";
+export { ThemeMode } from "./components/theme-toggle/theme-toggle";
 export namespace Components {
     /**
      * SagedUI - Article Editor Component
@@ -549,6 +551,18 @@ export namespace Components {
          */
         "width": string;
     }
+    interface SgThemeToggle {
+        /**
+          * Size of the toggle button
+          * @default 'md'
+         */
+        "size": 'sm' | 'md' | 'lg';
+        /**
+          * The current theme mode
+          * @default 'system'
+         */
+        "theme": ThemeMode;
+    }
 }
 export interface SgArticleEditorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -561,6 +575,10 @@ export interface SgButtonCustomEvent<T> extends CustomEvent<T> {
 export interface SgDropdownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSgDropdownElement;
+}
+export interface SgThemeToggleCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSgThemeToggleElement;
 }
 declare global {
     interface HTMLSgArticleEditorElementEventMap {
@@ -777,6 +795,23 @@ declare global {
         prototype: HTMLSgSkeletonElement;
         new (): HTMLSgSkeletonElement;
     };
+    interface HTMLSgThemeToggleElementEventMap {
+        "sgThemeChange": ThemeMode;
+    }
+    interface HTMLSgThemeToggleElement extends Components.SgThemeToggle, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSgThemeToggleElementEventMap>(type: K, listener: (this: HTMLSgThemeToggleElement, ev: SgThemeToggleCustomEvent<HTMLSgThemeToggleElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSgThemeToggleElementEventMap>(type: K, listener: (this: HTMLSgThemeToggleElement, ev: SgThemeToggleCustomEvent<HTMLSgThemeToggleElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSgThemeToggleElement: {
+        prototype: HTMLSgThemeToggleElement;
+        new (): HTMLSgThemeToggleElement;
+    };
     interface HTMLElementTagNameMap {
         "sg-article-editor": HTMLSgArticleEditorElement;
         "sg-badge": HTMLSgBadgeElement;
@@ -784,6 +819,7 @@ declare global {
         "sg-dropdown": HTMLSgDropdownElement;
         "sg-icon": HTMLSgIconElement;
         "sg-skeleton": HTMLSgSkeletonElement;
+        "sg-theme-toggle": HTMLSgThemeToggleElement;
     }
 }
 declare namespace LocalJSX {
@@ -1318,6 +1354,22 @@ declare namespace LocalJSX {
          */
         "width"?: string;
     }
+    interface SgThemeToggle {
+        /**
+          * Emitted when the theme changes
+         */
+        "onSgThemeChange"?: (event: SgThemeToggleCustomEvent<ThemeMode>) => void;
+        /**
+          * Size of the toggle button
+          * @default 'md'
+         */
+        "size"?: 'sm' | 'md' | 'lg';
+        /**
+          * The current theme mode
+          * @default 'system'
+         */
+        "theme"?: ThemeMode;
+    }
     interface IntrinsicElements {
         "sg-article-editor": SgArticleEditor;
         "sg-badge": SgBadge;
@@ -1325,6 +1377,7 @@ declare namespace LocalJSX {
         "sg-dropdown": SgDropdown;
         "sg-icon": SgIcon;
         "sg-skeleton": SgSkeleton;
+        "sg-theme-toggle": SgThemeToggle;
     }
 }
 export { LocalJSX as JSX };
@@ -1477,6 +1530,7 @@ declare module "@stencil/core" {
              * <sg-skeleton variant="circle" width="48px" height="48px"></sg-skeleton>
              */
             "sg-skeleton": LocalJSX.SgSkeleton & JSXBase.HTMLAttributes<HTMLSgSkeletonElement>;
+            "sg-theme-toggle": LocalJSX.SgThemeToggle & JSXBase.HTMLAttributes<HTMLSgThemeToggleElement>;
         }
     }
 }
