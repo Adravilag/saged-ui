@@ -1,3 +1,16 @@
+## [1.2.0](https://github.com/Adravilag/saged-ui/compare/v1.1.0...v1.2.0) (2025-12-02)
+
+
+### ✨ Features
+
+* **angular:** add angular standalone wrappers for all components ([b0b3a0d](https://github.com/Adravilag/saged-ui/commit/b0b3a0d8c3f1c7d83544a3ed332ca609b41710ad))
+* **components:** add theme-toggle component and badge tests ([8824f7b](https://github.com/Adravilag/saged-ui/commit/8824f7b12b9e63ec86fa1d860354654ed02995ae))
+
+
+### ♻️ Code Refactoring
+
+* **angular:** simplify angular wrappers with manual proxies ([d6bd07a](https://github.com/Adravilag/saged-ui/commit/d6bd07ada4c16b1dce9720932618a3dbfe412b20))
+
 ## [1.1.0](https://github.com/Adravilag/saged-ui/compare/v1.0.1...v1.1.0) (2025-12-01)
 
 
