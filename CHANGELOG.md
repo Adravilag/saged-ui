@@ -1,3 +1,21 @@
+## [1.3.0](https://github.com/Adravilag/saged-ui/compare/v1.2.1...v1.3.0) (2025-12-02)
+
+
+### ✨ Features
+
+* add astro documentation site with github pages deployment ([04e0e4b](https://github.com/Adravilag/saged-ui/commit/04e0e4be188d4db4cad8a630ecac6149b4a34298))
+
+
+### 🐛 Bug Fixes
+
+* build only stencil components for docs deployment ([f064357](https://github.com/Adravilag/saged-ui/commit/f064357037566db847e08bee03c92f3a442625b0))
+* ensure base url has trailing slash for docs links ([92da3bf](https://github.com/Adravilag/saged-ui/commit/92da3bfa7b18d46ec5aed5530c62932f4b2112ec))
+* resolve angular and react build errors ([4bc0fb1](https://github.com/Adravilag/saged-ui/commit/4bc0fb128d0fb2392dfb2edf42893bfdf5ac4772))
+* resolve merge conflict in package.json angular exports ([cb23a79](https://github.com/Adravilag/saged-ui/commit/cb23a79108b52f772d8244584e0f56d917753f5a))
+* simplify build process and fix docs urls ([5fa6e4f](https://github.com/Adravilag/saged-ui/commit/5fa6e4f44ca6b4e8667fd4883387adefd60552a3))
+* update back-link to use base_url and fix tests ([efa0ad0](https://github.com/Adravilag/saged-ui/commit/efa0ad0ad54cbd3199941ce6d8671744c522391a))
+* update node version to 20+ and fix test configuration ([e760b2a](https://github.com/Adravilag/saged-ui/commit/e760b2ab19b6801d52ed92c842d5b10ee2034dd8))
+
 ## [1.2.1](https://github.com/Adravilag/saged-ui/compare/v1.2.0...v1.2.1) (2025-12-02)
 
 
