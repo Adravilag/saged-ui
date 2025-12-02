@@ -19,8 +19,27 @@ import {
   EventEmitter,
   Input,
   NgZone,
+  OnDestroy,
   Output,
 } from '@angular/core';
+
+// ============================================================================
+// Helper: Proxy Event Emitter
+// ============================================================================
+type EventHandler = (event: Event) => void;
+
+function proxyEvent<T>(
+  el: HTMLElement,
+  eventName: string,
+  emitter: EventEmitter<T>,
+  zone: NgZone
+): EventHandler {
+  const handler = (event: Event) => {
+    zone.run(() => emitter.emit(event as T));
+  };
+  el.addEventListener(eventName, handler);
+  return handler;
+}
 
 // ============================================================================
 // Type Definitions
@@ -57,8 +76,9 @@ export type SupportedLocale = 'en' | 'es' | 'fr' | 'de' | 'pt' | 'it' | 'zh' | '
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
 })
-export class SgArticleEditor {
+export class SgArticleEditor implements OnDestroy {
   protected el: HTMLElement;
+  private eventHandlers: Array<{ event: string; handler: EventHandler }> = [];
 
   // Content
   @Input() value?: string;
@@ -100,6 +120,22 @@ export class SgArticleEditor {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    this.bindEvents();
+  }
+
+  private bindEvents(): void {
+    this.eventHandlers = [
+      { event: 'editorChange', handler: proxyEvent(this.el, 'editorChange', this.editorChange, this.z) },
+      { event: 'editorModeChange', handler: proxyEvent(this.el, 'editorModeChange', this.editorModeChange, this.z) },
+      { event: 'mediaLibraryOpen', handler: proxyEvent(this.el, 'mediaLibraryOpen', this.mediaLibraryOpen, this.z) },
+      { event: 'mediaInsert', handler: proxyEvent(this.el, 'mediaInsert', this.mediaInsert, this.z) },
+    ];
+  }
+
+  ngOnDestroy(): void {
+    this.eventHandlers.forEach(({ event, handler }) => {
+      this.el.removeEventListener(event, handler);
+    });
   }
 }
 
@@ -140,8 +176,9 @@ export class SgBadge {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
 })
-export class SgButton {
+export class SgButton implements OnDestroy {
   protected el: HTMLElement;
+  private eventHandlers: Array<{ event: string; handler: EventHandler }> = [];
 
   @Input() variant?: ButtonVariant;
   @Input() size?: ButtonSize;
@@ -159,6 +196,19 @@ export class SgButton {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    this.bindEvents();
+  }
+
+  private bindEvents(): void {
+    this.eventHandlers = [
+      { event: 'sgClick', handler: proxyEvent(this.el, 'sgClick', this.sgClick, this.z) },
+    ];
+  }
+
+  ngOnDestroy(): void {
+    this.eventHandlers.forEach(({ event, handler }) => {
+      this.el.removeEventListener(event, handler);
+    });
   }
 }
 
@@ -171,8 +221,9 @@ export class SgButton {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
 })
-export class SgDropdown {
+export class SgDropdown implements OnDestroy {
   protected el: HTMLElement;
+  private eventHandlers: Array<{ event: string; handler: EventHandler }> = [];
 
   @Input() open?: boolean;
   @Input() align?: DropdownAlign;
@@ -191,6 +242,21 @@ export class SgDropdown {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    this.bindEvents();
+  }
+
+  private bindEvents(): void {
+    this.eventHandlers = [
+      { event: 'sgOpen', handler: proxyEvent(this.el, 'sgOpen', this.sgOpen, this.z) },
+      { event: 'sgClose', handler: proxyEvent(this.el, 'sgClose', this.sgClose, this.z) },
+      { event: 'sgToggle', handler: proxyEvent(this.el, 'sgToggle', this.sgToggle, this.z) },
+    ];
+  }
+
+  ngOnDestroy(): void {
+    this.eventHandlers.forEach(({ event, handler }) => {
+      this.el.removeEventListener(event, handler);
+    });
   }
 }
 
@@ -262,8 +328,9 @@ export type ThemeToggleSize = 'sm' | 'md' | 'lg';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
 })
-export class SgThemeToggle {
+export class SgThemeToggle implements OnDestroy {
   protected el: HTMLElement;
+  private eventHandlers: Array<{ event: string; handler: EventHandler }> = [];
 
   @Input() theme?: ThemeMode;
   @Input() size?: ThemeToggleSize;
@@ -273,6 +340,19 @@ export class SgThemeToggle {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    this.bindEvents();
+  }
+
+  private bindEvents(): void {
+    this.eventHandlers = [
+      { event: 'sgThemeChange', handler: proxyEvent(this.el, 'sgThemeChange', this.sgThemeChange, this.z) },
+    ];
+  }
+
+  ngOnDestroy(): void {
+    this.eventHandlers.forEach(({ event, handler }) => {
+      this.el.removeEventListener(event, handler);
+    });
   }
 }
 

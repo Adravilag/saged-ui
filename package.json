@@ -14,10 +14,7 @@
       "import": "./dist/saged-ui/saged-ui.esm.js",
       "require": "./dist/saged-ui/saged-ui.cjs.js"
     },
-    "./angular": {
-      "types": "./angular/src/index.d.ts",
-      "import": "./angular/src/index.ts"
-    },
+    "./angular": { "types": "./angular/fesm2022/index.d.ts", "import": "./angular/fesm2022/index.js" },
     "./components": {
       "types": "./dist/types/components.d.ts",
       "import": "./dist/components/index.js"

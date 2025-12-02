@@ -24,3 +24,9 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 .env
+
+# Source maps
+*.map
+
+# Angular wrapper compiled output (generated from angular/src/)
+angular/fesm2022/

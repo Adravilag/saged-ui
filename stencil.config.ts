@@ -1,9 +1,10 @@
-﻿import { Config } from '@stencil/core';
+import { Config } from '@stencil/core';
 // Angular proxies are now manually maintained in angular/src/directives/proxies.ts
 // import { angularOutputTarget } from '@stencil/angular-output-target';
 
 export const config: Config = {
   namespace: 'saged-ui',
+  sourceMap: false,
   globalStyle: 'src/styles/tokens.css',
   outputTargets: [
     {

@@ -1,32 +1,26 @@
 /**
  * SagedUI Angular Wrappers
- * 
- * Este módulo exporta los componentes de SagedUI como componentes standalone de Angular.
- * 
- * IMPORTANTE: Asegúrate de importar 'saged-ui' en tu main.ts para registrar los custom elements.
- * 
- * @example
- * ```typescript
- * // main.ts
- * import 'saged-ui';
- * 
- * // my-component.ts
- * import { SgIcon, SgButton } from 'saged-ui/angular';
- * 
- * @Component({
- *   selector: 'my-component',
- *   standalone: true,
- *   imports: [SgIcon, SgButton],
- *   template: `
- *     <sg-icon name="home" size="24"></sg-icon>
- *     <sg-button variant="primary">Click me</sg-button>
- *   `
- * })
- * export class MyComponent {}
- * ```
  */
 
-// Export all components
+// Re-export types
+export type {
+  BadgeVariant,
+  BadgeSize,
+  ButtonVariant,
+  ButtonSize,
+  ButtonShape,
+  DropdownAlign,
+  DropdownPosition,
+  DropdownSize,
+  SkeletonVariant,
+  SkeletonAnimation,
+  EditorMode,
+  SupportedLocale,
+  ThemeMode,
+  ThemeToggleSize,
+} from './directives/proxies';
+
+// Re-export components
 export {
   SgArticleEditor,
   SgBadge,
@@ -35,5 +29,24 @@ export {
   SgIcon,
   SgSkeleton,
   SgThemeToggle,
-  DIRECTIVES,
-} from './directives/index';
+} from './directives/proxies';
+
+import {
+  SgArticleEditor,
+  SgBadge,
+  SgButton,
+  SgDropdown,
+  SgIcon,
+  SgSkeleton,
+  SgThemeToggle,
+} from './directives/proxies';
+
+export const DIRECTIVES = [
+  SgArticleEditor,
+  SgBadge,
+  SgButton,
+  SgDropdown,
+  SgIcon,
+  SgSkeleton,
+  SgThemeToggle,
+];
