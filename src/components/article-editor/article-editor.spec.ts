@@ -15,19 +15,19 @@ describe('sg-article-editor', () => {
     // Check that essential elements exist
     const editor = page.root.shadowRoot.querySelector('.article-editor');
     const toolbar = page.root.shadowRoot.querySelector('.article-editor__toolbar');
-    const modeSelector = page.root.shadowRoot.querySelector('.article-editor__mode-selector');
+    const contentTypeSelector = page.root.shadowRoot.querySelector('.article-editor__content-type-selector');
     const textarea = page.root.shadowRoot.querySelector('textarea');
     const statusBar = page.root.shadowRoot.querySelector('.article-editor__status-bar');
 
     expect(editor).not.toBeNull();
     expect(toolbar).not.toBeNull();
-    expect(modeSelector).not.toBeNull();
+    expect(contentTypeSelector).not.toBeNull();
     expect(textarea).not.toBeNull();
     expect(statusBar).not.toBeNull();
 
-    // Check mode buttons
-    const modeButtons = page.root.shadowRoot.querySelectorAll('.article-editor__mode-btn');
-    expect(modeButtons.length).toBe(4);
+    // Check content type buttons (html, markdown)
+    const contentTypeButtons = page.root.shadowRoot.querySelectorAll('.article-editor__content-type-btn');
+    expect(contentTypeButtons.length).toBe(2);
   });
 
   it('renders with initial value', async () => {
@@ -43,7 +43,7 @@ describe('sg-article-editor', () => {
   it('renders in preview mode', async () => {
     const page = await newSpecPage({
       components: [ArticleEditor],
-      html: `<sg-article-editor mode="preview" value="<p>Test</p>"></sg-article-editor>`,
+      html: `<sg-article-editor view-mode="preview" value="<p>Test</p>"></sg-article-editor>`,
     });
 
     const preview = page.root.shadowRoot.querySelector('.article-editor__preview-container');
@@ -56,7 +56,7 @@ describe('sg-article-editor', () => {
   it('renders in split mode', async () => {
     const page = await newSpecPage({
       components: [ArticleEditor],
-      html: `<sg-article-editor mode="split" value="<p>Test</p>"></sg-article-editor>`,
+      html: `<sg-article-editor view-mode="split" value="<p>Test</p>"></sg-article-editor>`,
     });
 
     const editor = page.root.shadowRoot.querySelector('.article-editor');
@@ -138,20 +138,21 @@ describe('sg-article-editor', () => {
   it('emits editorModeChange when mode changes', async () => {
     const page = await newSpecPage({
       components: [ArticleEditor],
-      html: `<sg-article-editor mode="html"></sg-article-editor>`,
+      html: `<sg-article-editor content-type="html"></sg-article-editor>`,
     });
 
     const modeChangeSpy = jest.fn();
-    page.root.addEventListener('editorModeChange', modeChangeSpy);
+    page.root.addEventListener('contentTypeChange', modeChangeSpy);
 
-    const markdownBtn = page.root.shadowRoot.querySelectorAll('.article-editor__mode-btn')[1] as HTMLButtonElement;
+    // Click on markdown content type button (second button)
+    const markdownBtn = page.root.shadowRoot.querySelectorAll('.article-editor__content-type-btn')[1] as HTMLButtonElement;
     markdownBtn.click();
 
     await page.waitForChanges();
 
     expect(modeChangeSpy).toHaveBeenCalled();
-    expect(modeChangeSpy.mock.calls[0][0].detail.previousMode).toBe('html');
-    expect(modeChangeSpy.mock.calls[0][0].detail.newMode).toBe('markdown');
+    expect(modeChangeSpy.mock.calls[0][0].detail.previousType).toBe('html');
+    expect(modeChangeSpy.mock.calls[0][0].detail.newType).toBe('markdown');
   });
 
   // =====================================================
@@ -184,11 +185,11 @@ describe('sg-article-editor', () => {
   it('getHtml returns HTML when in markdown mode', async () => {
     const page = await newSpecPage({
       components: [ArticleEditor],
-      html: `<sg-article-editor mode="markdown" value="# Hello"></sg-article-editor>`,
+      html: `<sg-article-editor content-type="markdown" value="# Hello"></sg-article-editor>`,
     });
 
     const html = await page.rootInstance.getHtml();
-    expect(html).toContain('<h1>');
+    expect(html).toContain('<h1');
     expect(html).toContain('Hello');
   });
 
