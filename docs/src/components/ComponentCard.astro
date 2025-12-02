@@ -40,8 +40,8 @@ import PropsTable from './PropsTable.astro';
 const { id, title, tag, description, docsUrl, props = [], events = [], slots = [], methods = [] } = Astro.props;
 const hasApiDocs = props.length > 0 || events.length > 0 || slots.length > 0 || methods.length > 0;
 
-// Get base URL and resolve docs path
-const base = import.meta.env.BASE_URL;
+// Get base URL and resolve docs path (ensure trailing slash)
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const resolvedDocsUrl = docsUrl ? `${base}${docsUrl.startsWith('/') ? docsUrl.slice(1) : docsUrl}` : undefined;
 ---
 

@@ -1,8 +1,9 @@
 ---
 import { navigation, siteConfig } from '../config/navigation';
 
-// Get base URL from Astro config
-const base = import.meta.env.BASE_URL;
+// Get base URL from Astro config (ensure trailing slash)
+const baseRaw = import.meta.env.BASE_URL;
+const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
 
 // Icon mapping for each component
 const icons: Record<string, string> = {
