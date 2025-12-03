@@ -18,11 +18,26 @@ npm start
 # Run tests
 npm test
 
+# Run linting
+npm run lint
+
+# Fix linting issues
+npm run lint:fix
+
+# Format code
+npm run format
+
+# Check bundle size
+npm run size
+
 # Run Storybook
 npm run storybook
 
 # Build the project
 npm run build
+
+# Build all (core + angular + react)
+npm run build:all
 ```
 
 ## Commit Convention
