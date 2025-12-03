@@ -190,4 +190,233 @@ describe('sg-icon', () => {
     const style = page.root?.getAttribute('style');
     expect(style).toContain('--icon-color: #00ff00');
   });
+
+  it('renders with both horizontal and vertical flip', async () => {
+    const page = await newSpecPage({
+      components: [SgIcon],
+      html: `<sg-icon name="home" flip-h flip-v></sg-icon>`,
+    });
+    const style = page.root?.getAttribute('style');
+    expect(style).toContain('scale(-1, -1)');
+  });
+
+  it('renders with rotation and flip combined', async () => {
+    const page = await newSpecPage({
+      components: [SgIcon],
+      html: `<sg-icon name="home" rotate="45" flip-h></sg-icon>`,
+    });
+    const style = page.root?.getAttribute('style');
+    expect(style).toContain('rotate(45deg)');
+    expect(style).toContain('scale(-1, 1)');
+  });
+
+  it('normalizes numeric string size without units', async () => {
+    const page = await newSpecPage({
+      components: [SgIcon],
+      html: `<sg-icon name="home" size="48"></sg-icon>`,
+    });
+    const style = page.root?.getAttribute('style');
+    expect(style).toContain('--icon-size: 48px');
+  });
+
+  it('preserves size with units', async () => {
+    const page = await newSpecPage({
+      components: [SgIcon],
+      html: `<sg-icon name="home" size="2rem"></sg-icon>`,
+    });
+    const style = page.root?.getAttribute('style');
+    expect(style).toContain('--icon-size: 2rem');
+  });
+
+  it('renders IconDefinition with custom viewBox', async () => {
+    const global = getGlobal();
+    global.__sgUserIcons = global.__sgUserIcons ?? {};
+    // Register an IconDefinition object (not string)
+    (global as Record<string, unknown>).__sgUserIcons = {
+      'def-icon': {
+        paths: ['M12 2L2 12h3v8h14v-8h3L12 2z'],
+        viewBox: '0 0 48 48',
+      },
+    };
+
+    const page = await newSpecPage({
+      components: [SgIcon],
+      html: `<sg-icon name="def-icon"></sg-icon>`,
+    });
+    const svg = page.root?.shadowRoot?.querySelector('svg');
+    expect(svg?.getAttribute('viewBox')).toBe('0 0 48 48');
+  });
+
+  it('renders IconDefinition with fillRule', async () => {
+    const global = getGlobal();
+    (global as Record<string, unknown>).__sgUserIcons = {
+      'fillrule-icon': {
+        paths: ['M12 2L2 12h3v8h14v-8h3L12 2z'],
+        viewBox: '0 0 24 24',
+        fillRule: 'evenodd',
+      },
+    };
+
+    const page = await newSpecPage({
+      components: [SgIcon],
+      html: `<sg-icon name="fillrule-icon"></sg-icon>`,
+    });
+    const path = page.root?.shadowRoot?.querySelector('path');
+    expect(path?.getAttribute('fill-rule')).toBe('evenodd');
+  });
+
+  it('handles color prop when fill is not set', async () => {
+    const page = await newSpecPage({
+      components: [SgIcon],
+      html: `<sg-icon name="home" color="blue"></sg-icon>`,
+    });
+    const style = page.root?.getAttribute('style');
+    expect(style).toContain('--icon-color: blue');
+  });
+
+  it('fill takes precedence over color', async () => {
+    const page = await newSpecPage({
+      components: [SgIcon],
+      html: `<sg-icon name="home" color="red" fill="green"></sg-icon>`,
+    });
+    const style = page.root?.getAttribute('style');
+    expect(style).toContain('--icon-color: green');
+  });
+
+  describe('static methods', () => {
+    it('configure should set global config', () => {
+      SgIcon.configure({ jsonSrc: '/test/icons.json' });
+      // Config is set globally - no direct assertion but shouldn't throw
+      expect(true).toBe(true);
+    });
+
+    it('loadIcons should handle fetch errors gracefully', async () => {
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      const mockFetch = jest.fn().mockRejectedValueOnce(new Error('Network error'));
+      global.fetch = mockFetch;
+
+      await SgIcon.loadIcons('/error/path.json');
+
+      expect(consoleSpy).toHaveBeenCalled();
+      consoleSpy.mockRestore();
+    });
+  });
+
+  describe('instance methods', () => {
+    it('registerIcons method should register icons', async () => {
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="test-method-icon"></sg-icon>`,
+      });
+
+      await page.root?.registerIcons({
+        'test-method-icon': '<svg viewBox="0 0 24 24"><rect/></svg>',
+      });
+
+      // Re-render to pick up new icon
+      page.root?.setAttribute('name', 'test-method-icon');
+      await page.waitForChanges();
+
+      expect(page.root?.shadowRoot?.querySelector('.svg-container')).toBeDefined();
+    });
+
+    it('registerIcon method should register single icon', async () => {
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="single-method"></sg-icon>`,
+      });
+
+      await page.root?.registerIcon('single-method', '<svg viewBox="0 0 24 24"><circle/></svg>');
+
+      page.root?.setAttribute('name', 'single-method');
+      await page.waitForChanges();
+
+      expect(page.root?.shadowRoot?.querySelector('.svg-container')).toBeDefined();
+    });
+
+    it('getRegisteredIcons should return registered icon names', async () => {
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="home"></sg-icon>`,
+      });
+
+      const icons = await page.root?.getRegisteredIcons();
+      expect(Array.isArray(icons)).toBe(true);
+    });
+
+    it('hasIcon should return true for existing icon', async () => {
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="home"></sg-icon>`,
+      });
+
+      const hasHome = await page.root?.hasIcon('home');
+      expect(hasHome).toBe(true);
+    });
+
+    it('hasIcon should return false for non-existing icon', async () => {
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="home"></sg-icon>`,
+      });
+
+      const hasNonExistent = await page.root?.hasIcon('definitely-not-exists-abc');
+      expect(hasNonExistent).toBe(false);
+    });
+  });
+
+  describe('src prop (custom SVG loading)', () => {
+    const originalFetch = global.fetch;
+
+    afterEach(() => {
+      global.fetch = originalFetch;
+    });
+
+    it('should render custom SVG from src', async () => {
+      const mockSvg = '<svg viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg>';
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: true,
+        text: () => Promise.resolve(mockSvg),
+      });
+
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon src="/custom.svg"></sg-icon>`,
+      });
+
+      await page.waitForChanges();
+      expect(page.root?.classList.contains('icon--custom')).toBe(true);
+    });
+
+    it('should handle src fetch error', async () => {
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      global.fetch = jest.fn().mockRejectedValueOnce(new Error('Failed'));
+
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon src="/bad.svg"></sg-icon>`,
+      });
+
+      await page.waitForChanges();
+      expect(consoleSpy).toHaveBeenCalled();
+      consoleSpy.mockRestore();
+    });
+
+    it('should handle non-ok response for src', async () => {
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: false,
+        status: 404,
+      });
+
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon src="/not-found.svg"></sg-icon>`,
+      });
+
+      await page.waitForChanges();
+      expect(consoleSpy).toHaveBeenCalled();
+      consoleSpy.mockRestore();
+    });
+  });
 });

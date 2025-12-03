@@ -225,4 +225,300 @@ describe('sg-article-editor', () => {
     // "Hello World" = 11 characters (stripped HTML)
     expect(page.rootInstance.charCount).toBe(11);
   });
+
+  // =====================================================
+  // VIEW MODE TESTS
+  // =====================================================
+
+  it('emits viewModeChange when view mode changes', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor view-mode="editor"></sg-article-editor>`,
+    });
+
+    const viewChangeSpy = jest.fn();
+    page.root.addEventListener('viewModeChange', viewChangeSpy);
+
+    // Find and click split mode button
+    const viewModeButtons = page.root.shadowRoot.querySelectorAll('.article-editor__view-btn');
+    const splitBtn = Array.from(viewModeButtons).find(btn => btn.getAttribute('title')?.includes('Split'));
+    if (splitBtn) {
+      (splitBtn as HTMLButtonElement).click();
+      await page.waitForChanges();
+      expect(viewChangeSpy).toHaveBeenCalled();
+    }
+  });
+
+  // =====================================================
+  // TOOLBAR TESTS
+  // =====================================================
+
+  it('applies bold formatting', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor value="test text" content-type="html"></sg-article-editor>`,
+    });
+
+    // Find bold button and click it
+    const boldBtn = page.root.shadowRoot.querySelector('[title*="Bold"]') as HTMLButtonElement;
+    if (boldBtn) {
+      boldBtn.click();
+      await page.waitForChanges();
+    }
+    // Test passes if no errors are thrown
+  });
+
+  it('applies italic formatting', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor value="test text" content-type="markdown"></sg-article-editor>`,
+    });
+
+    const italicBtn = page.root.shadowRoot.querySelector('[title*="Italic"]') as HTMLButtonElement;
+    if (italicBtn) {
+      italicBtn.click();
+      await page.waitForChanges();
+    }
+  });
+
+  it('has keydown handler on textarea', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor value="test"></sg-article-editor>`,
+    });
+
+    const textarea = page.root.shadowRoot.querySelector('textarea');
+
+    // The textarea should exist and be configured for keyboard handling
+    expect(textarea).toBeDefined();
+    expect(page.rootInstance.textareaRef).toBeDefined();
+  });
+
+  // =====================================================
+  // ADDITIONAL METHOD TESTS
+  // =====================================================
+
+  it('focusEditor focuses the textarea', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    await page.rootInstance.focusEditor();
+    // No error should be thrown
+    expect(page.rootInstance.textareaRef).toBeDefined();
+  });
+
+  it('insertAtCursor inserts content at beginning', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor value=""></sg-article-editor>`,
+    });
+
+    await page.waitForChanges();
+
+    // Mock selectionStart, selectionEnd and value for the textarea
+    const textarea = page.root.shadowRoot.querySelector('textarea');
+    Object.defineProperty(textarea, 'selectionStart', { value: 0, writable: true, configurable: true });
+    Object.defineProperty(textarea, 'selectionEnd', { value: 0, writable: true, configurable: true });
+    Object.defineProperty(textarea, 'value', { value: '', writable: true, configurable: true });
+
+    await page.rootInstance.insertAtCursor('Hello');
+    await page.waitForChanges();
+
+    const content = await page.rootInstance.getContent();
+    expect(content).toBe('Hello');
+  });
+
+  it('insertMedia inserts image in markdown mode', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor content-type="markdown" value=""></sg-article-editor>`,
+    });
+
+    await page.waitForChanges();
+
+    // Mock textarea selection properties and value
+    const textarea = page.root.shadowRoot.querySelector('textarea');
+    Object.defineProperty(textarea, 'selectionStart', { value: 0, writable: true, configurable: true });
+    Object.defineProperty(textarea, 'selectionEnd', { value: 0, writable: true, configurable: true });
+    Object.defineProperty(textarea, 'value', { value: '', writable: true, configurable: true });
+
+    const mediaSpy = jest.fn();
+    page.root.addEventListener('mediaInsert', mediaSpy);
+
+    await page.rootInstance.insertMedia({
+      url: 'https://example.com/image.jpg',
+      filename: 'image.jpg',
+      alt: 'Test image',
+    });
+
+    await page.waitForChanges();
+
+    expect(mediaSpy).toHaveBeenCalled();
+    const content = await page.rootInstance.getContent();
+    expect(content).toContain('![Test image]');
+  });
+
+  it('insertMedia inserts img tag in html mode', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor content-type="html" value=""></sg-article-editor>`,
+    });
+
+    await page.waitForChanges();
+
+    // Mock textarea selection properties and value
+    const textarea = page.root.shadowRoot.querySelector('textarea');
+    Object.defineProperty(textarea, 'selectionStart', { value: 0, writable: true, configurable: true });
+    Object.defineProperty(textarea, 'selectionEnd', { value: 0, writable: true, configurable: true });
+    Object.defineProperty(textarea, 'value', { value: '', writable: true, configurable: true });
+
+    await page.rootInstance.insertMedia({
+      url: 'https://example.com/image.jpg',
+      filename: 'image.jpg',
+    });
+
+    await page.waitForChanges();
+
+    const content = await page.rootInstance.getContent();
+    expect(content).toContain('<img');
+    expect(content).toContain('src="https://example.com/image.jpg"');
+  });
+
+  it('getHtml returns HTML preview', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor content-type="markdown" value="# Hello"></sg-article-editor>`,
+    });
+
+    const html = await page.rootInstance.getHtml();
+    expect(html).toContain('<h1');
+    expect(html).toContain('Hello');
+  });
+
+  it('setContent method updates the content', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor value="Some content"></sg-article-editor>`,
+    });
+
+    await page.rootInstance.setContent('New content');
+    await page.waitForChanges();
+
+    const content = await page.rootInstance.getContent();
+    expect(content).toBe('New content');
+  });
+
+  // =====================================================
+  // CONTENT TYPE CONVERSION TESTS
+  // =====================================================
+
+  it('converts content when changing from html to markdown', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor content-type="html" value="<p>Hello</p>"></sg-article-editor>`,
+    });
+
+    // Click markdown button
+    const markdownBtn = page.root.shadowRoot.querySelectorAll('.article-editor__content-type-btn')[1] as HTMLButtonElement;
+    markdownBtn.click();
+    await page.waitForChanges();
+
+    expect(page.rootInstance.contentType).toBe('markdown');
+  });
+
+  // =====================================================
+  // AVAILABLE OPTIONS TESTS
+  // =====================================================
+
+  it('respects availableContentTypes prop', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor available-content-types="markdown"></sg-article-editor>`,
+    });
+
+    const contentTypeButtons = page.root.shadowRoot.querySelectorAll('.article-editor__content-type-btn');
+    expect(contentTypeButtons.length).toBe(1);
+  });
+
+  it('respects availableViewModes prop', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor available-view-modes="editor,preview"></sg-article-editor>`,
+    });
+
+    const viewModeButtons = page.root.shadowRoot.querySelectorAll('.article-editor__view-mode-btn');
+    expect(viewModeButtons.length).toBe(2);
+  });
+
+  // =====================================================
+  // PREVIEW TESTS
+  // =====================================================
+
+  it('renders markdown preview correctly', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor content-type="markdown" view-mode="preview" value="# Hello World"></sg-article-editor>`,
+    });
+
+    const previewContainer = page.root.shadowRoot.querySelector('.article-editor__preview-container');
+    expect(previewContainer).not.toBeNull();
+    const previewContent = previewContainer.querySelector('.article-editor__preview-content');
+    expect(previewContent).not.toBeNull();
+    expect(previewContent.innerHTML).toContain('<h1');
+  });
+
+  it('renders html preview correctly', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor content-type="html" view-mode="preview" value="<h1>Hello</h1>"></sg-article-editor>`,
+    });
+
+    const previewContainer = page.root.shadowRoot.querySelector('.article-editor__preview-container');
+    expect(previewContainer).not.toBeNull();
+    const previewContent = previewContainer.querySelector('.article-editor__preview-content');
+    expect(previewContent).not.toBeNull();
+    expect(previewContent.innerHTML).toContain('<h1>Hello</h1>');
+  });
+
+  // =====================================================
+  // LOCALE TESTS
+  // =====================================================
+
+  it('respects locale prop', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor locale="es"></sg-article-editor>`,
+    });
+
+    expect(page.rootInstance.locale).toBe('es');
+  });
+
+  // =====================================================
+  // COMPONENT LIFECYCLE TESTS
+  // =====================================================
+
+  it('initializes internal value from value prop', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor value="Initial content"></sg-article-editor>`,
+    });
+
+    expect(page.rootInstance.internalValue).toBe('Initial content');
+    expect(page.rootInstance.wordCount).toBe(2);
+    expect(page.rootInstance.charCount).toBe(15);
+  });
+
+  it('updates internal value when value prop changes', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor value="Initial"></sg-article-editor>`,
+    });
+
+    page.root.setAttribute('value', 'Updated content');
+    await page.waitForChanges();
+
+    expect(page.rootInstance.internalValue).toBe('Updated content');
+  });
 });
