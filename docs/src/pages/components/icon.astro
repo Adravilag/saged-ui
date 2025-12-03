@@ -109,10 +109,201 @@ const props = [
 
     <div class="usage-block">
       <h3>SVG personalizado</h3>
-      <CodeBlock 
+      <CodeBlock
         filename="custom-icon.html"
         code={`<sg-icon src="/icons/custom.svg" size="24"></sg-icon>`}
       />
+    </div>
+
+    <!-- CLI & Icon Manager Section -->
+    <div class="cli-section" id="icon-manager">
+      <div class="cli-header">
+        <div class="cli-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+        </div>
+        <div>
+          <h3>CLI & Icon Manager</h3>
+          <p>Gestiona miles de iconos de Iconify directamente desde tu terminal o interfaz visual</p>
+        </div>
+      </div>
+
+      <div class="cli-features">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </div>
+          <h4>Buscar iconos</h4>
+          <p>Accede a más de 200,000 iconos de colecciones como Lucide, Material Design, Heroicons y más.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          </div>
+          <h4>Fetch desde Iconify</h4>
+          <p>Descarga iconos optimizados directamente desde la API de Iconify con un solo comando.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <h4>Seleccionar para build</h4>
+          <p>Marca qué iconos incluir en tu bundle final. Solo se compilan los que realmente usas.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <h4>Build automático</h4>
+          <p>Genera TypeScript tipado con auto-registro de iconos para tu proyecto.</p>
+        </div>
+      </div>
+
+      <div class="cli-preview">
+        <h4>Icon Manager - Interfaz Visual</h4>
+        <p>Una interfaz web para gestionar tus iconos de forma visual:</p>
+        <div class="preview-image">
+          <img src="/saged-ui/images/icon-manager-screenshot.png" alt="Icon Manager UI" />
+        </div>
+      </div>
+
+      <div class="cli-commands">
+        <h4>Comandos principales</h4>
+
+        <div class="command-group">
+          <div class="command-label">Inicializar proyecto</div>
+          <CodeBlock
+            filename="terminal"
+            code={`npx saged-ui init`}
+          />
+        </div>
+
+        <div class="command-group">
+          <div class="command-label">Buscar iconos en Iconify</div>
+          <CodeBlock
+            filename="terminal"
+            code={`npx saged-ui icons search home`}
+          />
+        </div>
+
+        <div class="command-group">
+          <div class="command-label">Descargar iconos</div>
+          <CodeBlock
+            filename="terminal"
+            code={`npx saged-ui icons fetch lucide:home lucide:settings mdi:heart`}
+          />
+        </div>
+
+        <div class="command-group">
+          <div class="command-label">Generar TypeScript</div>
+          <CodeBlock
+            filename="terminal"
+            code={`npx saged-ui icons build`}
+          />
+        </div>
+
+        <div class="command-group">
+          <div class="command-label">Iniciar Icon Manager (GUI)</div>
+          <CodeBlock
+            filename="terminal"
+            code={`npx saged-ui icons server`}
+          />
+        </div>
+      </div>
+
+      <div class="cli-workflow">
+        <h4>Flujo de trabajo</h4>
+        <div class="workflow-steps">
+          <div class="workflow-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <strong>Inicializar</strong>
+              <span>Crea la configuración y carpeta de iconos</span>
+            </div>
+          </div>
+          <div class="workflow-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+          <div class="workflow-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <strong>Fetch / Icon Manager</strong>
+              <span>Descarga los iconos que necesitas</span>
+            </div>
+          </div>
+          <div class="workflow-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+          <div class="workflow-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <strong>Build</strong>
+              <span>Genera el TypeScript tipado</span>
+            </div>
+          </div>
+          <div class="workflow-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+          <div class="workflow-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <strong>Usar</strong>
+              <span>Importa y usa en tu app</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cli-output">
+        <h4>Salida generada</h4>
+        <p>El comando <code>build</code> genera automáticamente:</p>
+        <CodeBlock
+          filename="src/icons/index.ts"
+          code={`// Auto-generated - do not edit manually
+import { registerIcons } from 'saged-ui';
+
+export const icons: Record<string, string> = {
+  'lucide-home': '<svg xmlns="http://www.w3.org/2000/svg" ...>...</svg>',
+  'lucide-settings': '<svg xmlns="http://www.w3.org/2000/svg" ...>...</svg>',
+  'mdi-heart': '<svg xmlns="http://www.w3.org/2000/svg" ...>...</svg>',
+};
+
+// Auto-register icons
+registerIcons(icons);
+
+// Type definitions
+export type IconName = 'lucide-home' | 'lucide-settings' | 'mdi-heart';
+export const iconNames: IconName[] = ['lucide-home', 'lucide-settings', 'mdi-heart'];`}
+        />
+      </div>
+
+      <div class="cli-usage">
+        <h4>Uso en tu aplicación</h4>
+        <CodeBlock
+          filename="app.tsx"
+          code={`// Importa los iconos (se auto-registran)
+import './icons';
+
+// Úsalos en tus componentes
+<sg-icon name="lucide-home" size="24"></sg-icon>
+<sg-icon name="mdi-heart" size="24" color="red"></sg-icon>`}
+        />
+      </div>
     </div>
   </Fragment>
 </ComponentLayout>
@@ -127,4 +318,289 @@ const props = [
   .usage-block h3 { font-size: 0.875rem; font-weight: 600; margin: 0 0 0.75rem 0; }
   .usage-block p { font-size: 0.875rem; color: var(--text-muted); margin: 0 0 0.75rem 0; }
   .usage-block ul { margin: 0; padding-left: 1.25rem; font-size: 0.875rem; color: var(--text-muted); line-height: 1.8; }
+
+  /* CLI Section Styles */
+  .cli-section {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--bg) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .cli-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cli-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--accent);
+    border-radius: var(--radius-md);
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .cli-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem 0;
+    color: var(--text);
+  }
+
+  .cli-header p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* Feature Cards */
+  .cli-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    transition: all 0.2s ease;
+  }
+
+  .feature-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+  }
+
+  .feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-card h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: var(--text);
+  }
+
+  .feature-card p {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Preview Placeholder */
+  .cli-preview {
+    margin-bottom: 2rem;
+  }
+
+  .cli-preview h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .cli-preview > p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0 0 1rem 0;
+  }
+
+  .preview-image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .preview-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .preview-placeholder {
+    background: var(--surface);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .placeholder-content svg {
+    opacity: 0.5;
+  }
+
+  .placeholder-content span {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .placeholder-content code {
+    font-size: 0.75rem;
+    background: var(--bg);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+
+  /* Commands */
+  .cli-commands {
+    margin-bottom: 2rem;
+  }
+
+  .cli-commands h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+  }
+
+  .command-group {
+    margin-bottom: 1rem;
+  }
+
+  .command-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Workflow */
+  .cli-workflow {
+    margin-bottom: 2rem;
+  }
+
+  .cli-workflow h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+  }
+
+  .workflow-steps {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .workflow-step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+  }
+
+  .step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.875rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .step-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .step-content strong {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .step-content span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .workflow-arrow {
+    color: var(--text-subtle);
+    flex-shrink: 0;
+  }
+
+  /* Output & Usage */
+  .cli-output,
+  .cli-usage {
+    margin-bottom: 1.5rem;
+  }
+
+  .cli-output h4,
+  .cli-usage h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .cli-output > p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0 0 1rem 0;
+  }
+
+  .cli-output code {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-xs);
+    font-size: 0.8125rem;
+  }
+
+  @media (max-width: 768px) {
+    .cli-section {
+      padding: 1.25rem;
+    }
+
+    .cli-features {
+      grid-template-columns: 1fr;
+    }
+
+    .workflow-steps {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .workflow-arrow {
+      transform: rotate(90deg);
+      align-self: center;
+    }
+  }
 </style>
