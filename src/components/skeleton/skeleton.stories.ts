@@ -185,7 +185,7 @@ export const ListSkeleton: Story = {
             </div>
           </div>
         </div>
-      `,
+      `
         )
         .join('')}
     </div>

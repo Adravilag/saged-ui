@@ -46,7 +46,21 @@ export const EDITOR_MODES = CONTENT_TYPES.map(c => ({ mode: c.type, label: c.lab
 // TOOLBAR ACTIONS
 // =====================================================
 
-export type ToolbarAction = 'bold' | 'italic' | 'underline' | 'strikethrough' | 'code' | 'link' | 'image' | 'h1' | 'h2' | 'h3' | 'ul' | 'ol' | 'quote' | 'hr';
+export type ToolbarAction =
+  | 'bold'
+  | 'italic'
+  | 'underline'
+  | 'strikethrough'
+  | 'code'
+  | 'link'
+  | 'image'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'ul'
+  | 'ol'
+  | 'quote'
+  | 'hr';
 
 export interface ToolbarButton {
   action: ToolbarAction;
@@ -252,7 +266,11 @@ export interface EditorState {
   isExternalPreviewOpen: boolean;
 }
 
-export const createInitialState = (initialContent = '', initialContentType: ContentType = 'html', initialViewMode: ViewMode = 'editor'): EditorState => ({
+export const createInitialState = (
+  initialContent = '',
+  initialContentType: ContentType = 'html',
+  initialViewMode: ViewMode = 'editor'
+): EditorState => ({
   content: initialContent,
   contentType: initialContentType,
   viewMode: initialViewMode,

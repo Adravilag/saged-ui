@@ -479,8 +479,8 @@ export class SgIcon {
     const effectiveColor = this.getEffectiveColor();
 
     const hostStyle: { [key: string]: string } = {
-      'width': width,
-      'height': height,
+      width: width,
+      height: height,
       '--icon-size': this.normalizeSize(this.size),
       '--icon-width': width,
       '--icon-height': height,
@@ -492,7 +492,7 @@ export class SgIcon {
     }
 
     const hostClasses = {
-      'icon': true,
+      icon: true,
       'icon--spin': this.spin,
       'icon--custom': !!this.src,
     };
@@ -528,7 +528,13 @@ export class SgIcon {
     // 3. Render user-registered SVG string
     if (this.isSvgString(icon)) {
       return (
-        <Host class={{ ...hostClasses, 'icon--user': true }} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? label : undefined}>
+        <Host
+          class={{ ...hostClasses, 'icon--user': true }}
+          style={hostStyle}
+          aria-hidden={ariaHidden}
+          role={role}
+          aria-label={!this.decorative ? label : undefined}
+        >
           <div
             class="svg-container"
             ref={el => {

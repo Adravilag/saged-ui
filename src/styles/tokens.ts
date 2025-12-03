@@ -147,11 +147,11 @@ export const typography = {
     serif: "Georgia, Cambria, 'Times New Roman', Times, serif",
   },
   fontSize: {
-    'xs': '0.75rem',
-    'sm': '0.875rem',
-    'base': '1rem',
-    'lg': '1.125rem',
-    'xl': '1.25rem',
+    xs: '0.75rem',
+    sm: '0.875rem',
+    base: '1rem',
+    lg: '1.125rem',
+    xl: '1.25rem',
     '2xl': '1.5rem',
     '3xl': '1.875rem',
     '4xl': '2.25rem',
@@ -193,13 +193,13 @@ export const spacing = {
 // =====================================================
 
 export const radius = {
-  'none': '0',
-  'sm': '0.25rem',
-  'md': '0.375rem',
-  'lg': '0.5rem',
-  'xl': '0.75rem',
+  none: '0',
+  sm: '0.25rem',
+  md: '0.375rem',
+  lg: '0.5rem',
+  xl: '0.75rem',
   '2xl': '1rem',
-  'full': '9999px',
+  full: '9999px',
 } as const;
 
 export const borderWidth = {

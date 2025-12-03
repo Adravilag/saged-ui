@@ -118,16 +118,16 @@ export const Gallery = () => {
       'more-vert',
       'more-horiz',
     ],
-    'Actions': ['add', 'remove', 'edit', 'delete', 'save', 'copy', 'download', 'upload', 'share', 'print', 'refresh', 'filter', 'sort'],
+    Actions: ['add', 'remove', 'edit', 'delete', 'save', 'copy', 'download', 'upload', 'share', 'print', 'refresh', 'filter', 'sort'],
     'Status & Feedback': ['check', 'check-circle', 'error', 'warning', 'info', 'help', 'notification'],
     'User & Account': ['user', 'users', 'login', 'logout'],
     'Content & Media': ['image', 'video', 'audio', 'file', 'folder', 'folder-open', 'link', 'attachment'],
-    'Communication': ['email', 'chat', 'phone', 'send'],
-    'Medical': ['heart', 'heart-pulse', 'medical', 'stethoscope', 'pill', 'hospital', 'calendar', 'clock'],
-    'Visibility': ['visibility', 'visibility-off'],
+    Communication: ['email', 'chat', 'phone', 'send'],
+    Medical: ['heart', 'heart-pulse', 'medical', 'stethoscope', 'pill', 'hospital', 'calendar', 'clock'],
+    Visibility: ['visibility', 'visibility-off'],
     'Toggle States': ['star', 'star-outline', 'favorite', 'favorite-outline', 'bookmark', 'bookmark-outline'],
-    'Layout': ['dashboard', 'grid', 'list'],
-    'Misc': ['lock', 'unlock', 'language', 'dark-mode', 'light-mode', 'drag', 'expand', 'collapse', 'fullscreen', 'fullscreen-exit'],
+    Layout: ['dashboard', 'grid', 'list'],
+    Misc: ['lock', 'unlock', 'language', 'dark-mode', 'light-mode', 'drag', 'expand', 'collapse', 'fullscreen', 'fullscreen-exit'],
   };
 
   let html = '<div style="font-family: system-ui, sans-serif;">';

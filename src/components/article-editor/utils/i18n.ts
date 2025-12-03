@@ -79,7 +79,13 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     actions: { externalPreview: 'External Preview', externalPreviewOpen: 'External preview open', openMediaLibrary: 'Open Media Library' },
     placeholders: { startWriting: 'Start writing...' },
     preview: { title: 'Preview', empty: 'Nothing to preview yet. Start writing!' },
-    aria: { editor: 'Rich text editor', toolbar: 'Editor toolbar', modeSelector: 'Editor mode selector', formatToolbar: 'Text formatting toolbar', preview: 'Content preview' },
+    aria: {
+      editor: 'Rich text editor',
+      toolbar: 'Editor toolbar',
+      modeSelector: 'Editor mode selector',
+      formatToolbar: 'Text formatting toolbar',
+      preview: 'Content preview',
+    },
   },
   es: {
     modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Vista previa', split: 'Dividido' },
@@ -100,7 +106,11 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
       horizontalRule: 'Linea horizontal',
     },
     status: { words: 'palabra', characters: 'caracter', wordsPlural: 'palabras', charactersPlural: 'caracteres' },
-    actions: { externalPreview: 'Vista previa externa', externalPreviewOpen: 'Vista previa externa abierta', openMediaLibrary: 'Abrir biblioteca de medios' },
+    actions: {
+      externalPreview: 'Vista previa externa',
+      externalPreviewOpen: 'Vista previa externa abierta',
+      openMediaLibrary: 'Abrir biblioteca de medios',
+    },
     placeholders: { startWriting: 'Empieza a escribir...' },
     preview: { title: 'Vista previa', empty: 'Nada que previsualizar aun. Empieza a escribir!' },
     aria: {
@@ -190,7 +200,11 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
       horizontalRule: 'Linha horizontal',
     },
     status: { words: 'palavra', characters: 'caractere', wordsPlural: 'palavras', charactersPlural: 'caracteres' },
-    actions: { externalPreview: 'Visualizacao externa', externalPreviewOpen: 'Visualizacao externa aberta', openMediaLibrary: 'Abrir biblioteca de midia' },
+    actions: {
+      externalPreview: 'Visualizacao externa',
+      externalPreviewOpen: 'Visualizacao externa aberta',
+      openMediaLibrary: 'Abrir biblioteca de midia',
+    },
     placeholders: { startWriting: 'Comece a escrever...' },
     preview: { title: 'Visualizacao', empty: 'Nada para visualizar ainda. Comece a escrever!' },
     aria: {
@@ -220,7 +234,11 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
       horizontalRule: 'Linea orizzontale',
     },
     status: { words: 'parola', characters: 'carattere', wordsPlural: 'parole', charactersPlural: 'caratteri' },
-    actions: { externalPreview: 'Anteprima esterna', externalPreviewOpen: 'Anteprima esterna aperta', openMediaLibrary: 'Apri libreria multimediale' },
+    actions: {
+      externalPreview: 'Anteprima esterna',
+      externalPreviewOpen: 'Anteprima esterna aperta',
+      openMediaLibrary: 'Apri libreria multimediale',
+    },
     placeholders: { startWriting: 'Inizia a scrivere...' },
     preview: { title: 'Anteprima', empty: 'Niente da visualizzare. Inizia a scrivere!' },
     aria: {
@@ -253,7 +271,13 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     actions: { externalPreview: 'External Preview', externalPreviewOpen: 'External preview open', openMediaLibrary: 'Open Media Library' },
     placeholders: { startWriting: 'Start writing...' },
     preview: { title: 'Preview', empty: 'Nothing to preview. Start writing!' },
-    aria: { editor: 'Rich text editor', toolbar: 'Editor toolbar', modeSelector: 'Mode selector', formatToolbar: 'Format toolbar', preview: 'Content preview' },
+    aria: {
+      editor: 'Rich text editor',
+      toolbar: 'Editor toolbar',
+      modeSelector: 'Mode selector',
+      formatToolbar: 'Format toolbar',
+      preview: 'Content preview',
+    },
   },
   ja: {
     modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Preview', split: 'Split' },
@@ -277,7 +301,13 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     actions: { externalPreview: 'External Preview', externalPreviewOpen: 'External preview open', openMediaLibrary: 'Open Media Library' },
     placeholders: { startWriting: 'Start writing...' },
     preview: { title: 'Preview', empty: 'Nothing to preview. Start writing!' },
-    aria: { editor: 'Rich text editor', toolbar: 'Editor toolbar', modeSelector: 'Mode selector', formatToolbar: 'Format toolbar', preview: 'Content preview' },
+    aria: {
+      editor: 'Rich text editor',
+      toolbar: 'Editor toolbar',
+      modeSelector: 'Mode selector',
+      formatToolbar: 'Format toolbar',
+      preview: 'Content preview',
+    },
   },
   ko: {
     modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Preview', split: 'Split' },
@@ -301,7 +331,13 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     actions: { externalPreview: 'External Preview', externalPreviewOpen: 'External preview open', openMediaLibrary: 'Open Media Library' },
     placeholders: { startWriting: 'Start writing...' },
     preview: { title: 'Preview', empty: 'Nothing to preview. Start writing!' },
-    aria: { editor: 'Rich text editor', toolbar: 'Editor toolbar', modeSelector: 'Mode selector', formatToolbar: 'Format toolbar', preview: 'Content preview' },
+    aria: {
+      editor: 'Rich text editor',
+      toolbar: 'Editor toolbar',
+      modeSelector: 'Mode selector',
+      formatToolbar: 'Format toolbar',
+      preview: 'Content preview',
+    },
   },
   ar: {
     modes: { html: 'HTML', markdown: 'Markdown', editor: 'Editor', preview: 'Preview', split: 'Split' },
@@ -325,7 +361,13 @@ const translations: Record<SupportedLocale, EditorTranslations> = {
     actions: { externalPreview: 'External Preview', externalPreviewOpen: 'External preview open', openMediaLibrary: 'Open Media Library' },
     placeholders: { startWriting: 'Start writing...' },
     preview: { title: 'Preview', empty: 'Nothing to preview. Start writing!' },
-    aria: { editor: 'Rich text editor', toolbar: 'Editor toolbar', modeSelector: 'Mode selector', formatToolbar: 'Format toolbar', preview: 'Content preview' },
+    aria: {
+      editor: 'Rich text editor',
+      toolbar: 'Editor toolbar',
+      modeSelector: 'Mode selector',
+      formatToolbar: 'Format toolbar',
+      preview: 'Content preview',
+    },
   },
 };
 
