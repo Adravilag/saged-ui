@@ -143,6 +143,47 @@ export const translations = {
       by: 'por',
       rights: 'Todos los derechos reservados.',
     },
+    // Design Tokens page
+    tokens: {
+      title: 'Design Tokens',
+      description: 'Variables CSS para mantener consistencia visual en tu proyecto.',
+      subtitle: 'Colores, tipografía, espaciado y efectos listos para usar.',
+      back: 'Volver',
+      // Navigation
+      colors: 'Colores',
+      typography: 'Tipografía',
+      spacing: 'Espaciado',
+      effects: 'Efectos',
+      // Sections
+      installation: 'Instalación',
+      installDesc: 'Los tokens se incluyen automáticamente con los componentes. También puedes importarlos por separado:',
+      jsImport: 'JavaScript / Bundler',
+      htmlCdn: 'HTML (CDN)',
+      cssImport: 'CSS @import',
+      usage: 'Uso en CSS',
+      // Color groups
+      accent: 'Acento',
+      backgrounds: 'Fondos',
+      text: 'Texto',
+      borders: 'Bordes',
+      semantic: 'Semánticos',
+      // Typography
+      families: 'Familias',
+      sizes: 'Tamaños',
+      size: 'Tamaño',
+      pixels: 'Pixels',
+      use: 'Uso',
+      preview: 'Preview',
+      // Effects
+      borderRadius: 'Border Radius',
+      shadows: 'Sombras',
+      transitions: 'Transiciones',
+      hoverMe: 'Hover me',
+      // Figma
+      figmaTitle: 'Figma Library',
+      figmaDesc: 'Descarga el archivo Figma con todos los tokens sincronizados para mantener consistencia entre diseño y desarrollo.',
+      comingSoon: 'Próximamente',
+    },
   },
   en: {
     // Navigation
@@ -273,6 +314,47 @@ export const translations = {
       madeWith: 'Made with',
       by: 'by',
       rights: 'All rights reserved.',
+    },
+    // Design Tokens page
+    tokens: {
+      title: 'Design Tokens',
+      description: 'CSS variables to maintain visual consistency in your project.',
+      subtitle: 'Colors, typography, spacing and effects ready to use.',
+      back: 'Back',
+      // Navigation
+      colors: 'Colors',
+      typography: 'Typography',
+      spacing: 'Spacing',
+      effects: 'Effects',
+      // Sections
+      installation: 'Installation',
+      installDesc: 'Tokens are automatically included with the components. You can also import them separately:',
+      jsImport: 'JavaScript / Bundler',
+      htmlCdn: 'HTML (CDN)',
+      cssImport: 'CSS @import',
+      usage: 'CSS Usage',
+      // Color groups
+      accent: 'Accent',
+      backgrounds: 'Backgrounds',
+      text: 'Text',
+      borders: 'Borders',
+      semantic: 'Semantic',
+      // Typography
+      families: 'Families',
+      sizes: 'Sizes',
+      size: 'Size',
+      pixels: 'Pixels',
+      use: 'Use',
+      preview: 'Preview',
+      // Effects
+      borderRadius: 'Border Radius',
+      shadows: 'Shadows',
+      transitions: 'Transitions',
+      hoverMe: 'Hover me',
+      // Figma
+      figmaTitle: 'Figma Library',
+      figmaDesc: 'Download the Figma file with all synced tokens to maintain consistency between design and development.',
+      comingSoon: 'Coming Soon',
     },
   },
 } as const;

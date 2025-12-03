@@ -98,7 +98,7 @@ const transitions = [
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="m15 18-6-6 6-6"/>
         </svg>
-        Volver
+        <span data-i18n="tokens.back">Volver</span>
       </a>
       <div class="header-icon">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -106,27 +106,27 @@ const transitions = [
           <circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
         </svg>
       </div>
-      <h1 class="tokens-title">Design Tokens</h1>
+      <h1 class="tokens-title" data-i18n="tokens.title">Design Tokens</h1>
       <p class="tokens-description">
-        Variables CSS para mantener consistencia visual en tu proyecto.<br/>
-        Colores, tipografía, espaciado y efectos listos para usar.
+        <span data-i18n="tokens.description">Variables CSS para mantener consistencia visual en tu proyecto.</span><br/>
+        <span data-i18n="tokens.subtitle">Colores, tipografía, espaciado y efectos listos para usar.</span>
       </p>
       <div class="header-actions">
         <a href="#colors" class="action-link">
           <span class="action-dot" style="background: var(--accent);"></span>
-          Colores
+          <span data-i18n="tokens.colors">Colores</span>
         </a>
         <a href="#typography" class="action-link">
           <span class="action-dot" style="background: #f59e0b;"></span>
-          Tipografía
+          <span data-i18n="tokens.typography">Tipografía</span>
         </a>
         <a href="#spacing" class="action-link">
           <span class="action-dot" style="background: #10b981;"></span>
-          Espaciado
+          <span data-i18n="tokens.spacing">Espaciado</span>
         </a>
         <a href="#effects" class="action-link">
           <span class="action-dot" style="background: #8b5cf6;"></span>
-          Efectos
+          <span data-i18n="tokens.effects">Efectos</span>
         </a>
       </div>
     </header>
@@ -137,13 +137,13 @@ const transitions = [
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
         </svg>
-        Instalación
+        <span data-i18n="tokens.installation">Instalación</span>
       </h2>
-      <p class="section-desc">Los tokens se incluyen automáticamente con los componentes. También puedes importarlos por separado:</p>
+      <p class="section-desc" data-i18n="tokens.installDesc">Los tokens se incluyen automáticamente con los componentes. También puedes importarlos por separado:</p>
       
       <div class="install-options">
         <div class="install-option">
-          <h4>JavaScript / Bundler</h4>
+          <h4 data-i18n="tokens.jsImport">JavaScript / Bundler</h4>
           <CodeBlock 
             filename="main.js"
             code={`// Importar solo los tokens CSS
@@ -155,7 +155,7 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
         </div>
         
         <div class="install-option">
-          <h4>HTML (CDN)</h4>
+          <h4 data-i18n="tokens.htmlCdn">HTML (CDN)</h4>
           <CodeBlock 
             filename="index.html"
             code={`<!-- Desde unpkg -->
@@ -167,7 +167,7 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
         </div>
         
         <div class="install-option">
-          <h4>CSS @import</h4>
+          <h4 data-i18n="tokens.cssImport">CSS @import</h4>
           <CodeBlock 
             filename="styles.css"
             code={`/* Si usas un bundler como Vite, Webpack, etc. */
@@ -184,12 +184,12 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
           <circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/>
           <circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
         </svg>
-        Colores
+        <span data-i18n="tokens.colors">Colores</span>
       </h2>
 
       <!-- Accent -->
       <div class="color-group">
-        <h3 class="group-title">Acento</h3>
+        <h3 class="group-title" data-i18n="tokens.accent">Acento</h3>
         <div class="color-grid">
           {colors.accent.map(color => (
             <div class="color-card">
@@ -212,7 +212,7 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
 
       <!-- Background -->
       <div class="color-group">
-        <h3 class="group-title">Fondos</h3>
+        <h3 class="group-title" data-i18n="tokens.backgrounds">Fondos</h3>
         <div class="color-grid">
           {colors.background.map(color => (
             <div class="color-card">
@@ -235,7 +235,7 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
 
       <!-- Text -->
       <div class="color-group">
-        <h3 class="group-title">Texto</h3>
+        <h3 class="group-title" data-i18n="tokens.text">Texto</h3>
         <div class="color-grid">
           {colors.text.map(color => (
             <div class="color-card">
@@ -258,7 +258,7 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
 
       <!-- Semantic -->
       <div class="color-group">
-        <h3 class="group-title">Semánticos</h3>
+        <h3 class="group-title" data-i18n="tokens.semantic">Semánticos</h3>
         <div class="color-grid">
           {colors.semantic.map(color => (
             <div class="color-card">
@@ -286,11 +286,11 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>
         </svg>
-        Tipografía
+        <span data-i18n="tokens.typography">Tipografía</span>
       </h2>
 
       <div class="typography-section">
-        <h3 class="group-title">Familias</h3>
+        <h3 class="group-title" data-i18n="tokens.families">Familias</h3>
         <div class="font-families">
           {typography.families.map(font => (
             <div class="font-card">
@@ -307,13 +307,13 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
       </div>
 
       <div class="typography-section">
-        <h3 class="group-title">Tamaños</h3>
+        <h3 class="group-title" data-i18n="tokens.sizes">Tamaños</h3>
         <div class="sizes-table">
           <div class="sizes-header">
-            <span>Tamaño</span>
-            <span>Pixels</span>
-            <span>Uso</span>
-            <span>Preview</span>
+            <span data-i18n="tokens.size">Tamaño</span>
+            <span data-i18n="tokens.pixels">Pixels</span>
+            <span data-i18n="tokens.use">Uso</span>
+            <span data-i18n="tokens.preview">Preview</span>
           </div>
           {typography.sizes.map(size => (
             <div class="size-row">
@@ -333,7 +333,7 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
         </svg>
-        Espaciado
+        <span data-i18n="tokens.spacing">Espaciado</span>
       </h2>
 
       <div class="spacing-grid">
@@ -358,12 +358,12 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/>
         </svg>
-        Efectos
+        <span data-i18n="tokens.effects">Efectos</span>
       </h2>
 
       <!-- Border Radius -->
       <div class="effects-group">
-        <h3 class="group-title">Border Radius</h3>
+        <h3 class="group-title" data-i18n="tokens.borderRadius">Border Radius</h3>
         <div class="radius-grid">
           {radii.map(radius => (
             <div class="radius-card">
@@ -380,7 +380,7 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
 
       <!-- Shadows -->
       <div class="effects-group">
-        <h3 class="group-title">Sombras</h3>
+        <h3 class="group-title" data-i18n="tokens.shadows">Sombras</h3>
         <div class="shadows-grid">
           {shadows.map(shadow => (
             <div class="shadow-card">
@@ -396,12 +396,12 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
 
       <!-- Transitions -->
       <div class="effects-group">
-        <h3 class="group-title">Transiciones</h3>
+        <h3 class="group-title" data-i18n="tokens.transitions">Transiciones</h3>
         <div class="transitions-grid">
           {transitions.map(trans => (
             <div class="transition-card">
               <div class="transition-preview" style={`transition: all ${trans.value};`}>
-                <span>Hover me</span>
+                <span data-i18n="tokens.hoverMe">Hover me</span>
               </div>
               <div class="transition-info">
                 <code class="transition-name">{trans.name}</code>
@@ -420,7 +420,7 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>
         </svg>
-        Uso en CSS
+        <span data-i18n="tokens.usage">Uso en CSS</span>
       </h2>
       <CodeBlock 
         filename="component.css"
@@ -461,13 +461,13 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
           </svg>
         </div>
         <div class="figma-content">
-          <h3>Figma Library</h3>
-          <p>Descarga el archivo Figma con todos los tokens sincronizados para mantener consistencia entre diseño y desarrollo.</p>
+          <h3 data-i18n="tokens.figmaTitle">Figma Library</h3>
+          <p data-i18n="tokens.figmaDesc">Descarga el archivo Figma con todos los tokens sincronizados para mantener consistencia entre diseño y desarrollo.</p>
           <a href="#" class="figma-btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
-            Próximamente
+            <span data-i18n="tokens.comingSoon">Próximamente</span>
           </a>
         </div>
       </div>
