@@ -8,58 +8,62 @@ const CONFIG_KEY = '__sgIconConfig';
 /** Global key for loaded JSON paths */
 const LOADED_KEY = '__sgIconsLoaded';
 
+/** Type for icon storage in globalThis */
+interface SgIconGlobals {
+  [ICONS_KEY]?: Record<string, IconDefinition | string>;
+  [CONFIG_KEY]?: { jsonSrc?: string };
+  [LOADED_KEY]?: Record<string, boolean>;
+}
+
+/** Typed globalThis accessor */
+function getGlobal(): SgIconGlobals {
+  return typeof globalThis !== 'undefined' ? (globalThis as unknown as SgIconGlobals) : {};
+}
+
 /**
  * Get user-registered icons from global storage
  */
 function getUserIcons(): Record<string, IconDefinition | string> {
-  if (typeof globalThis !== 'undefined' && (globalThis as any)[ICONS_KEY]) {
-    return (globalThis as any)[ICONS_KEY];
-  }
-  return {};
+  const g = getGlobal();
+  return g[ICONS_KEY] ?? {};
 }
 
 /**
  * Get icon configuration
  */
 function getIconConfig(): { jsonSrc?: string } {
-  if (typeof globalThis !== 'undefined' && (globalThis as any)[CONFIG_KEY]) {
-    return (globalThis as any)[CONFIG_KEY];
-  }
-  return {};
+  const g = getGlobal();
+  return g[CONFIG_KEY] ?? {};
 }
 
 /**
  * Check if a JSON path has been loaded
  */
 function isJsonLoaded(path: string): boolean {
-  if (typeof globalThis !== 'undefined') {
-    return !!(globalThis as any)[LOADED_KEY]?.[path];
-  }
-  return false;
+  const g = getGlobal();
+  return !!g[LOADED_KEY]?.[path];
 }
 
 /**
  * Mark a JSON path as loaded
  */
 function markJsonLoaded(path: string): void {
-  if (typeof globalThis !== 'undefined') {
-    if (!(globalThis as any)[LOADED_KEY]) {
-      (globalThis as any)[LOADED_KEY] = {};
-    }
-    (globalThis as any)[LOADED_KEY][path] = true;
+  const g = getGlobal();
+  if (!g[LOADED_KEY]) {
+    g[LOADED_KEY] = {};
   }
+  g[LOADED_KEY]![path] = true;
 }
 
 /**
  * Register icons globally
  */
 function registerIconsGlobal(icons: Record<string, string>): void {
-  if (typeof globalThis !== 'undefined') {
-    if (!(globalThis as any)[ICONS_KEY]) {
-      (globalThis as any)[ICONS_KEY] = {};
-    }
-    Object.assign((globalThis as any)[ICONS_KEY], icons);
+  const g = getGlobal();
+  if (!g[ICONS_KEY]) {
+    g[ICONS_KEY] = {};
   }
+  Object.assign(g[ICONS_KEY]!, icons);
 }
 
 /**
@@ -197,9 +201,8 @@ export class SgIcon {
    * SgIcon.configure({ jsonSrc: '/assets/custom-icons.json' });
    */
   static configure(config: { jsonSrc?: string }): void {
-    if (typeof globalThis !== 'undefined') {
-      (globalThis as any)[CONFIG_KEY] = { ...getIconConfig(), ...config };
-    }
+    const g = getGlobal();
+    g[CONFIG_KEY] = { ...getIconConfig(), ...config };
   }
 
   /**
@@ -242,12 +245,11 @@ export class SgIcon {
    */
   @Method()
   async registerIcons(icons: Record<string, IconDefinition | string>): Promise<void> {
-    if (typeof globalThis !== 'undefined') {
-      if (!(globalThis as any)[ICONS_KEY]) {
-        (globalThis as any)[ICONS_KEY] = {};
-      }
-      Object.assign((globalThis as any)[ICONS_KEY], icons);
+    const g = getGlobal();
+    if (!g[ICONS_KEY]) {
+      g[ICONS_KEY] = {};
     }
+    Object.assign(g[ICONS_KEY]!, icons);
   }
 
   /**
@@ -259,12 +261,11 @@ export class SgIcon {
    */
   @Method()
   async registerIcon(name: string, icon: IconDefinition | string): Promise<void> {
-    if (typeof globalThis !== 'undefined') {
-      if (!(globalThis as any)[ICONS_KEY]) {
-        (globalThis as any)[ICONS_KEY] = {};
-      }
-      (globalThis as any)[ICONS_KEY][name] = icon;
+    const g = getGlobal();
+    if (!g[ICONS_KEY]) {
+      g[ICONS_KEY] = {};
     }
+    g[ICONS_KEY]![name] = icon;
   }
 
   /**
