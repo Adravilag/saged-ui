@@ -13,7 +13,10 @@
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/sagebox/sagebox.esm.js",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "wrappers/*",
+    "website",
+    "tools/*"
   ],
   "exports": {
     ".": {
@@ -68,17 +71,6 @@
     },
     "./styles/*": {
       "import": "./dist/styles/*"
-    },
-    "./react": {
-      "default": "./dist/react/index.js",
-      "types": "./dist/react/index.d.ts",
-      "import": "./dist/react/index.js"
-    },
-    "./cli": {
-      "require": "./cli/index.js"
-    },
-    "./cli/plugins/vite": {
-      "require": "./cli/plugins/vite.js"
     }
   },
   "repository": {
@@ -94,9 +86,7 @@
     "loader/",
     "scripts/",
     "bin/",
-    "cli/",
-    "tools/",
-    "react/"
+    "tools/"
   ],
   "sideEffects": [
     "dist/sagebox/sagebox.esm.js",
@@ -104,14 +94,19 @@
   ],
   "scripts": {
     "build": "stencil build",
-    "build:all": "turbo run build build:angular build:react",
+    "build:all": "npm run build && npm run build:angular && npm run build:react",
     "build:icons": "cd packages/icons && npm run build",
     "build:components": "cd packages/components && npm run build",
     "build:packages": "turbo run build --filter='./packages/*'",
-    "build:angular": "ng-packagr -p angular/ng-package.json",
-    "build:react": "cd react && npx tsc -p tsconfig.json",
-    "start": "cd docs && npm run dev",
-    "dev": "npm run start & npm run docs:dev",
+    "build:angular": "ng-packagr -p wrappers/angular/ng-package.json",
+    "build:react": "cd wrappers/react && npx tsc -p tsconfig.json",
+    "start": "stencil build --watch",
+    "dev": "npm run build && concurrently -n stencil,website -c blue,green \"stencil build --watch\" \"npm run website:dev\"",
+    "dev:fast": "concurrently -n stencil,website -c blue,green \"stencil build --watch\" \"npm run website:dev\"",
+    "website:dev": "cd website && npm run dev",
+    "website:build": "npm run build && cd website && npm run build",
+    "setup:symlink": "node -e \"const fs=require('fs');const p=require('path');const d='website/public/dist';try{fs.rmSync(d,{recursive:true,force:true})}catch{};require('child_process').execSync(process.platform==='win32'?'mklink /J '+d+' dist\\\\sagebox':'ln -sf ../../dist/sagebox '+d,{stdio:'inherit'})\"",
+    "website:preview": "cd website && npm run preview",
     "test": "turbo run test:spec",
     "test:spec": "stencil test --spec",
     "test:icons": "cd packages/icons && npm run test",
@@ -136,14 +131,7 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"packages/**/*.{ts,tsx,css}\"",
     "prepublishOnly": "npm run build",
     "semantic-release": "semantic-release",
-    "prepare": "husky",
-    "docs:dev": "cd docs && npm run dev",
-    "docs:build": "stencil build --config stencil.dev.config.ts && cd docs && npm run build",
-    "docs:preview": "cd docs && npm run preview",
-    "changeset": "changeset",
-    "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish",
-    "release": "npm run build:packages && changeset publish"
+    "prepare": "husky"
   },
   "peerDependencies": {
     "@angular/common": ">=18.0.0",
@@ -189,6 +177,7 @@
     "@types/node": "^22.13.5",
     "@typescript-eslint/eslint-plugin": "^8.48.1",
     "@typescript-eslint/parser": "^8.48.1",
+    "concurrently": "^9.2.1",
     "conventional-changelog-conventionalcommits": "^7.0.2",
     "eslint": "^9.39.1",
     "husky": "^9.1.7",

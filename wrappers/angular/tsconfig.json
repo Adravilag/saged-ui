@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
+    "ignoreDeprecations": "5.0",
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "bundler",
@@ -16,12 +16,10 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "paths": {
-      "sagebox/components": ["../dist/types/components.d.ts"],
-      "sagebox/components/*": ["../dist/components/*"]
     },
-    "typeRoots": ["../dist/types", "../node_modules/@types"],
+    "typeRoots": ["../../node_modules/@types"],
     "baseUrl": "."
   },
-  "include": ["src/**/*.ts", "../dist/types/**/*.d.ts"],
+  "include": ["src/**/*.ts", "../../dist/types/**/*.d.ts"],
   "exclude": ["node_modules"]
 }

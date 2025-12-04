@@ -16,16 +16,13 @@
       "outputs": []
     },
     "build:angular": {
-      "dependsOn": ["build"],
       "outputs": ["dist/angular/**"]
     },
     "build:react": {
-      "dependsOn": ["build"],
-      "outputs": ["react/dist/**"]
+      "outputs": ["wrappers/react/dist/**"]
     },
     "build:all": {
-      "dependsOn": ["build", "build:angular", "build:react"],
-      "outputs": ["dist/**", "loader/**", "react/dist/**"]
+      "outputs": ["dist/**", "loader/**", "wrappers/react/dist/**"]
     },
     "dev": {
       "cache": false,

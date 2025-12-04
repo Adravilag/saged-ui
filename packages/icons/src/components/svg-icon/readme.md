@@ -189,7 +189,6 @@ Then you can either:
 
 | Property      | Attribute      | Description                                                                                                                                                | Type               | Default          |
 | ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ---------------- |
-| `ariaLabel`   | `aria-label`   | Accessible label for screen readers. If not provided, defaults to "{name} icon" for non-decorative icons.                                                  | `string`           | `undefined`      |
 | `color`       | `color`        | Color of the icon (CSS color value)                                                                                                                        | `string`           | `'currentColor'` |
 | `decorative`  | `decorative`   | Whether the icon is decorative (hidden from screen readers)                                                                                                | `boolean`          | `false`          |
 | `fill`        | `fill`         | Alias for color (for compatibility with legacy svg-icon components)                                                                                        | `string`           | `undefined`      |
@@ -197,6 +196,7 @@ Then you can either:
 | `flipV`       | `flip-v`       | Flip the icon vertically                                                                                                                                   | `boolean`          | `false`          |
 | `height`      | `height`       | Height of the icon (overrides size)                                                                                                                        | `number \| string` | `undefined`      |
 | `jsonSrc`     | `json-src`     | URL to a JSON file containing icon definitions. The JSON should be an object mapping icon names to SVG strings. Icons are loaded once and cached globally. | `string`           | `undefined`      |
+| `label`       | `label`        | Accessible label for screen readers. If not provided, defaults to "{name} icon" for non-decorative icons.                                                  | `string`           | `undefined`      |
 | `name`        | `name`         | The name of the icon from the built-in library. Supports both 'name' and 'icon-name' formats for compatibility.                                            | `string`           | `undefined`      |
 | `rotate`      | `rotate`       | Rotation angle in degrees                                                                                                                                  | `number`           | `undefined`      |
 | `size`        | `size`         | Size of the icon in pixels                                                                                                                                 | `number \| string` | `24`             |

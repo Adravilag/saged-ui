@@ -9,8 +9,8 @@
 
 | Property       | Attribute       | Description                                   | Type                                                                                              | Default     |
 | -------------- | --------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------- | ----------- |
-| `ariaLabel`    | `aria-label`    | Accessible label                              | `string`                                                                                          | `undefined` |
 | `disabled`     | `disabled`      | Disable the button                            | `boolean`                                                                                         | `false`     |
+| `label`        | `label`         | Accessible label                              | `string`                                                                                          | `undefined` |
 | `leadingIcon`  | `leading-icon`  | Leading icon name (from sg-icon)              | `string`                                                                                          | `undefined` |
 | `loading`      | `loading`       | Show loading spinner                          | `boolean`                                                                                         | `false`     |
 | `loadingText`  | `loading-text`  | Loading text (replaces content while loading) | `string`                                                                                          | `undefined` |

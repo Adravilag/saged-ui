@@ -69,9 +69,8 @@ const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-    <!-- Styles -->
-    <link rel="stylesheet" href={`${base}sagebox/sagebox.css`} />
-    <script type="module" src={`${base}sagebox/sagebox.esm.js`} is:inline></script>
+    <!-- Styles - SageBox components -->
+    <link rel="stylesheet" href={`${base}dist/sagebox.css`} />
 
     <!-- Theme tokens - inline to ensure immediate availability -->
     <style is:inline>
@@ -146,6 +145,9 @@ const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
     </style>
   </head>
   <body>
+    <!-- SageBox Web Components - loaded before content for immediate availability -->
+    <script type="module" src={`${base}dist/sagebox.esm.js`}></script>
+
     <slot />
     <script>
       import '../scripts/theme.ts';

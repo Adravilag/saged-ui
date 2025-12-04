@@ -283,10 +283,10 @@ describe('sg-button', () => {
   });
 
   describe('accessibility', () => {
-    it('supports aria-label', async () => {
+    it('supports label prop for aria-label', async () => {
       const page = await newSpecPage({
         components: [SgButton],
-        html: `<sg-button aria-label="Close dialog">X</sg-button>`,
+        html: `<sg-button label="Close dialog">X</sg-button>`,
       });
 
       const button = page.root.shadowRoot.querySelector('button');

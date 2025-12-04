@@ -99,14 +99,14 @@ export declare interface SgBadge extends Components.SgBadge {}
 
 @ProxyCmp({
   defineCustomElementFn: defineSgButton,
-  inputs: ['ariaLabel', 'disabled', 'leadingIcon', 'loading', 'loadingText', 'shape', 'size', 'trailingIcon', 'type', 'variant']
+  inputs: ['disabled', 'label', 'leadingIcon', 'loading', 'loadingText', 'shape', 'size', 'trailingIcon', 'type', 'variant']
 })
 @Component({
   selector: 'sg-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['ariaLabel', 'disabled', 'leadingIcon', 'loading', 'loadingText', 'shape', 'size', 'trailingIcon', 'type', 'variant'],
+  inputs: ['disabled', 'label', 'leadingIcon', 'loading', 'loadingText', 'shape', 'size', 'trailingIcon', 'type', 'variant'],
   outputs: ['sgClick'],
 })
 export class SgButton {
@@ -170,7 +170,7 @@ export declare interface SgDropdown extends Components.SgDropdown {
 
 @ProxyCmp({
   defineCustomElementFn: defineSgIcon,
-  inputs: ['ariaLabel', 'color', 'decorative', 'fill', 'flipH', 'flipV', 'height', 'jsonSrc', 'name', 'rotate', 'size', 'spin', 'src', 'strokeWidth', 'width'],
+  inputs: ['color', 'decorative', 'fill', 'flipH', 'flipV', 'height', 'jsonSrc', 'label', 'name', 'rotate', 'size', 'spin', 'src', 'strokeWidth', 'width'],
   methods: ['registerIcons', 'registerIcon', 'getRegisteredIcons', 'hasIcon']
 })
 @Component({
@@ -178,7 +178,7 @@ export declare interface SgDropdown extends Components.SgDropdown {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['ariaLabel', 'color', 'decorative', 'fill', 'flipH', 'flipV', 'height', 'jsonSrc', 'name', 'rotate', 'size', 'spin', 'src', 'strokeWidth', 'width'],
+  inputs: ['color', 'decorative', 'fill', 'flipH', 'flipV', 'height', 'jsonSrc', 'label', 'name', 'rotate', 'size', 'spin', 'src', 'strokeWidth', 'width'],
 })
 export class SgIcon {
   protected el: HTMLSgIconElement;

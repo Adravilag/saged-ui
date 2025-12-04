@@ -13,7 +13,6 @@ export { format } from './utils/utils';
 export { registerIcons, registerIcon, getRegisteredIcons, hasRegisteredIcon, type IconDefinition } from '@sagebox/icons';
 
 // Default export for Stencil globalScript import compatibility.
-// Stencil imports the globalScript as a default import; provide a noop default
-// so builds that reference `src/index.ts` as `globalScript` don't fail.
-const __appGlobalScript: unknown = null;
-export default __appGlobalScript;
+// Stencil imports the globalScript as a default import; provide a noop function
+// so builds that reference `src/index.ts` as `globalScript` work correctly.
+export default () => {};

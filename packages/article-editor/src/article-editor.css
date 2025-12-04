@@ -440,6 +440,7 @@
 .article-editor__textarea {
   flex: 1;
   width: 100%;
+  box-sizing: border-box;
   padding: var(--editor-padding);
   padding-left: 20px;
   font-family: var(--editor-font-mono);
@@ -453,6 +454,9 @@
   tab-size: 2;
   caret-color: var(--editor-accent);
   transition: background-color var(--editor-transition-normal);
+  overflow: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .article-editor__textarea:focus {
@@ -467,6 +471,11 @@
 
 .article-editor__textarea::selection {
   background-color: var(--editor-accent-light);
+}
+
+/* In split mode, ensure consistent padding */
+.article-editor--split .article-editor__textarea {
+  padding-right: var(--editor-padding);
 }
 
 /* Preview Container */

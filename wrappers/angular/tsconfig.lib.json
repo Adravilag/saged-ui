@@ -7,10 +7,11 @@
     "inlineSources": true,
     "types": [],
     "paths": {
-      "sagebox/components": ["../dist/types/components.d.ts"],
-      "sagebox/components/*": ["../dist/components/*"]
     }
   },
+  "files": [
+    "../../dist/types/components.d.ts"
+  ],
   "exclude": [
     "**/*.spec.ts",
     "node_modules"

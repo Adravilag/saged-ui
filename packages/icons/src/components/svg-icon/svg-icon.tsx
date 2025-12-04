@@ -177,7 +177,7 @@ export class SgIcon {
    * Accessible label for screen readers.
    * If not provided, defaults to "{name} icon" for non-decorative icons.
    */
-  @Prop({ mutable: true }) ariaLabel?: string;
+  @Prop({ mutable: true }) label?: string;
 
   /**
    * Whether the icon is decorative (hidden from screen readers)
@@ -330,9 +330,9 @@ export class SgIcon {
   }
 
   componentWillRender() {
-    // Set default ariaLabel before render to avoid "state changed during rendering" warning
-    if (!this.decorative && !this.ariaLabel && this.name) {
-      this.ariaLabel = `${this.name} icon`;
+    // Set default label before render to avoid "state changed during rendering" warning
+    if (!this.decorative && !this.label && this.name) {
+      this.label = `${this.name} icon`;
     }
   }
 
@@ -505,7 +505,7 @@ export class SgIcon {
     // 1. Render custom SVG from src
     if (this.src && this.customSvg) {
       return (
-        <Host class={hostClasses} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? this.ariaLabel : undefined}>
+        <Host class={hostClasses} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? this.label : undefined}>
           {this.renderCustomSvg()}
         </Host>
       );
@@ -513,6 +513,19 @@ export class SgIcon {
 
     // 2. No icon found - render error or nothing
     if (!icon) {
+      // Log warning when icon is not found
+      if (this.name) {
+        const userIcons = getUserIcons();
+        const userIconCount = Object.keys(userIcons).length;
+        const builtinIconCount = Object.keys(builtinIcons).length;
+        console.warn(
+          `[SageBox] Icon "${this.name}" not found.`,
+          `\n  - User icons loaded: ${userIconCount}`,
+          `\n  - Builtin icons: ${builtinIconCount}`,
+          userIconCount > 0 ? `\n  - Available user icons: ${Object.keys(userIcons).slice(0, 10).join(', ')}${userIconCount > 10 ? '...' : ''}` : '',
+          `\n  - Available builtin icons: ${Object.keys(builtinIcons).slice(0, 10).join(', ')}...`
+        );
+      }
       if (this.loadError) {
         return (
           <Host class={{ ...hostClasses, 'icon--error': true }} style={hostStyle}>
@@ -533,7 +546,7 @@ export class SgIcon {
           style={hostStyle}
           aria-hidden={ariaHidden}
           role={role}
-          aria-label={!this.decorative ? this.ariaLabel : undefined}
+          aria-label={!this.decorative ? this.label : undefined}
         >
           <div
             class="svg-container"
@@ -547,7 +560,7 @@ export class SgIcon {
 
     // 4. Render IconDefinition (built-in or user-registered)
     return (
-      <Host class={hostClasses} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? this.ariaLabel : undefined}>
+      <Host class={hostClasses} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? this.label : undefined}>
         <svg viewBox={icon.viewBox || '0 0 24 24'} xmlns="http://www.w3.org/2000/svg">
           {this.renderSvgContent(icon)}
         </svg>

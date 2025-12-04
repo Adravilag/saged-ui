@@ -123,9 +123,8 @@ export class SgButton {
 
   /**
    * Accessible label
-   * @attr aria-label
    */
-  @Prop({ attribute: 'aria-label' }) ariaLabel?: string;
+  @Prop() label?: string;
 
   /**
    * Click event (emitted when not disabled/loading)
@@ -187,7 +186,7 @@ export class SgButton {
           disabled={this.disabled || this.loading}
           aria-disabled={this.disabled || this.loading ? 'true' : undefined}
           aria-busy={this.loading ? 'true' : undefined}
-          aria-label={this.ariaLabel}
+          aria-label={this.label}
           onClick={this.handleClick}
           onKeyDown={this.handleKeyDown}
         >

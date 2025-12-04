@@ -3,6 +3,10 @@ dist/
 # generated types
 .astro/
 
+# SageBox compiled files - symlink to root dist/sagebox (created by npm run setup:symlink)
+# This is a Junction link, not a real folder - do NOT commit
+public/dist/
+
 # dependencies
 node_modules/
 
