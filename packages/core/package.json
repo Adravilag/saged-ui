@@ -1,0 +1,48 @@
+{
+  "name": "@saged-ui/core",
+  "version": "1.0.0",
+  "description": "Core styles, tokens and utilities for SagedUI components",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./styles": {
+      "import": "./dist/styles/tokens.css"
+    },
+    "./tokens": {
+      "types": "./dist/styles/tokens.d.ts",
+      "import": "./dist/styles/tokens.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adravilag/saged-ui.git",
+    "directory": "packages/core"
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsc && npm run copy:css",
+    "copy:css": "node -e \"require('fs').cpSync('src/styles', 'dist/styles', {recursive: true})\""
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "saged-ui",
+    "core",
+    "design-tokens",
+    "css-variables"
+  ],
+  "author": "adravilag",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -10,9 +10,7 @@ export const config: Config = {
     {
       type: 'dist',
       esmLoaderPath: '../loader',
-      copy: [
-        { src: 'styles/tokens.css', dest: 'styles/tokens.css' },
-      ],
+      copy: [{ src: 'styles/tokens.css', dest: 'styles/tokens.css' }],
     },
     {
       type: 'dist-custom-elements',
@@ -35,7 +33,7 @@ export const config: Config = {
     },
   ],
   testing: {
-    browserHeadless: "shell",
+    browserHeadless: 'shell',
     testPathIgnorePatterns: [
       '/node_modules/',
       '/angular/',
@@ -49,11 +47,7 @@ export const config: Config = {
       '<rootDir>/docs/',
       '<rootDir>/tests/', // Playwright E2E tests
     ],
-    collectCoverageFrom: [
-      'src/components/**/*.{ts,tsx}',
-      '!src/components/**/*.stories.ts',
-      '!src/components/**/*.d.ts',
-    ],
+    collectCoverageFrom: ['src/components/**/*.{ts,tsx}', '!src/components/**/*.stories.ts', '!src/components/**/*.d.ts'],
     coverageReporters: ['text', 'lcov', 'html'],
     coverageDirectory: 'coverage',
   },

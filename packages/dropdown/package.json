@@ -1,0 +1,47 @@
+{
+  "name": "@saged-ui/dropdown",
+  "version": "1.0.0",
+  "description": "Dropdown component for SagedUI - Accessible dropdown menus",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "unpkg": "dist/saged-ui-dropdown/saged-ui-dropdown.esm.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./loader": {
+      "types": "./loader/index.d.ts",
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adravilag/saged-ui.git",
+    "directory": "packages/dropdown"
+  },
+  "files": ["dist/", "loader/"],
+  "scripts": {
+    "build": "stencil build",
+    "test": "stencil test --spec"
+  },
+  "peerDependencies": {
+    "@saged-ui/core": "^1.0.0",
+    "@saged-ui/icons": "^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@saged-ui/icons": { "optional": true }
+  },
+  "devDependencies": {
+    "@stencil/core": "^4.27.1",
+    "typescript": "^5.9.3"
+  },
+  "keywords": ["saged-ui", "dropdown", "menu", "web-components", "stencil"],
+  "author": "adravilag",
+  "license": "MIT",
+  "publishConfig": { "access": "public" }
+}

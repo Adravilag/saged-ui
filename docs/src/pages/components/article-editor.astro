@@ -40,6 +40,7 @@ const methods = [
 <ComponentLayout
   title="Article Editor"
   tag="sg-article-editor"
+  packageName="article-editor"
   description="Editor de texto enriquecido con soporte para HTML y Markdown. Incluye barra de herramientas de formato, vista previa en tiempo real, y contador de palabras."
   props={props}
   events={events}
@@ -97,7 +98,7 @@ const methods = [
 
     <div class="usage-block">
       <h3>Obtener contenido</h3>
-      <CodeBlock 
+      <CodeBlock
         filename="editor-api.js"
         code={`const editor = document.querySelector('sg-article-editor');
 
@@ -118,7 +119,7 @@ editor.addEventListener('editorChange', (e) => {
     <div class="usage-block">
       <h3>Internacionalización</h3>
       <p>El editor soporta múltiples idiomas:</p>
-      <CodeBlock 
+      <CodeBlock
         filename="i18n.html"
         code={`<sg-article-editor locale="es"></sg-article-editor>
 

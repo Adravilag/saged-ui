@@ -1,0 +1,124 @@
+/**
+ * SagedUI Design Tokens
+ * CSS Custom Properties for theming
+ */
+
+:root {
+  /* Colors - Primary */
+  --sg-color-primary: #6366f1;
+  --sg-color-primary-hover: #4f46e5;
+  --sg-color-primary-active: #4338ca;
+  --sg-color-primary-light: #e0e7ff;
+
+  /* Colors - Secondary */
+  --sg-color-secondary: #64748b;
+  --sg-color-secondary-hover: #475569;
+  --sg-color-secondary-active: #334155;
+
+  /* Colors - Success */
+  --sg-color-success: #22c55e;
+  --sg-color-success-hover: #16a34a;
+  --sg-color-success-light: #dcfce7;
+
+  /* Colors - Warning */
+  --sg-color-warning: #f59e0b;
+  --sg-color-warning-hover: #d97706;
+  --sg-color-warning-light: #fef3c7;
+
+  /* Colors - Danger */
+  --sg-color-danger: #ef4444;
+  --sg-color-danger-hover: #dc2626;
+  --sg-color-danger-light: #fee2e2;
+
+  /* Colors - Neutral */
+  --sg-color-background: #ffffff;
+  --sg-color-surface: #f8fafc;
+  --sg-color-surface-elevated: #ffffff;
+  --sg-color-border: #e2e8f0;
+  --sg-color-border-hover: #cbd5e1;
+  --sg-color-text: #1e293b;
+  --sg-color-text-muted: #64748b;
+  --sg-color-text-inverted: #ffffff;
+
+  /* Spacing */
+  --sg-spacing-xs: 0.25rem;
+  --sg-spacing-sm: 0.5rem;
+  --sg-spacing-md: 1rem;
+  --sg-spacing-lg: 1.5rem;
+  --sg-spacing-xl: 2rem;
+  --sg-spacing-2xl: 3rem;
+
+  /* Border Radius */
+  --sg-radius-sm: 0.25rem;
+  --sg-radius-md: 0.375rem;
+  --sg-radius-lg: 0.5rem;
+  --sg-radius-xl: 0.75rem;
+
+  /* Font Sizes */
+  --sg-font-size-xs: 0.75rem;
+  --sg-font-size-sm: 0.875rem;
+  --sg-font-size-md: 1rem;
+  --sg-font-size-lg: 1.125rem;
+  --sg-font-size-xl: 1.25rem;
+  --sg-font-size-2xl: 1.5rem;
+
+  /* Font Weights */
+  --sg-font-weight-normal: 400;
+  --sg-font-weight-medium: 500;
+  --sg-font-weight-semibold: 600;
+  --sg-font-weight-bold: 700;
+
+  /* Line Heights */
+  --sg-line-height-tight: 1.25;
+  --sg-line-height-normal: 1.5;
+  --sg-line-height-relaxed: 1.75;
+
+  /* Shadows */
+  --sg-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --sg-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --sg-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --sg-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Transitions */
+  --sg-transition-fast: 150ms ease;
+  --sg-transition-normal: 200ms ease;
+  --sg-transition-slow: 300ms ease;
+
+  /* Z-Index */
+  --sg-z-dropdown: 1000;
+  --sg-z-modal: 1100;
+  --sg-z-tooltip: 1200;
+}
+
+/* Dark mode */
+[data-theme='dark'],
+.dark {
+  --sg-color-primary: #818cf8;
+  --sg-color-primary-hover: #6366f1;
+  --sg-color-primary-active: #4f46e5;
+  --sg-color-primary-light: #312e81;
+
+  --sg-color-secondary: #94a3b8;
+  --sg-color-secondary-hover: #cbd5e1;
+
+  --sg-color-success: #4ade80;
+  --sg-color-success-hover: #22c55e;
+  --sg-color-success-light: #14532d;
+
+  --sg-color-warning: #fbbf24;
+  --sg-color-warning-hover: #f59e0b;
+  --sg-color-warning-light: #78350f;
+
+  --sg-color-danger: #f87171;
+  --sg-color-danger-hover: #ef4444;
+  --sg-color-danger-light: #7f1d1d;
+
+  --sg-color-background: #0f172a;
+  --sg-color-surface: #1e293b;
+  --sg-color-surface-elevated: #334155;
+  --sg-color-border: #334155;
+  --sg-color-border-hover: #475569;
+  --sg-color-text: #f1f5f9;
+  --sg-color-text-muted: #94a3b8;
+  --sg-color-text-inverted: #0f172a;
+}

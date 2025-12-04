@@ -5,14 +5,14 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from "./components/article-editor/utils";
-import { EditorTranslations, SupportedLocale } from "./components/article-editor/utils/i18n";
+import { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from "../packages/article-editor/src/utils";
+import { EditorTranslations, SupportedLocale } from "../packages/article-editor/src/utils/i18n";
 import { BadgeSize, BadgeVariant } from "./components/badge/badge";
 import { ButtonShape, ButtonSize, ButtonVariant } from "./components/button/button";
 import { IconDefinition } from "./components/svg-icon/icons/builtin";
 import { ThemeMode } from "./components/theme-toggle/theme-toggle";
-export { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from "./components/article-editor/utils";
-export { EditorTranslations, SupportedLocale } from "./components/article-editor/utils/i18n";
+export { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from "../packages/article-editor/src/utils";
+export { EditorTranslations, SupportedLocale } from "../packages/article-editor/src/utils/i18n";
 export { BadgeSize, BadgeVariant } from "./components/badge/badge";
 export { ButtonShape, ButtonSize, ButtonVariant } from "./components/button/button";
 export { IconDefinition } from "./components/svg-icon/icons/builtin";

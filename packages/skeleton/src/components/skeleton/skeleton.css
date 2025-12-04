@@ -1,0 +1,68 @@
+/**
+ * SagedUI Skeleton Component Styles
+ * ================================
+ * CSS Custom Properties for theming support
+ */
+
+:host {
+  display: block;
+}
+
+.skeleton {
+  /* Light mode colors */
+  --skeleton-bg-start: #e2e8f0;
+  --skeleton-bg-mid: #f1f5f9;
+  --skeleton-bg-end: #e2e8f0;
+
+  background: linear-gradient(90deg, var(--skeleton-bg-start) 0%, var(--skeleton-bg-mid) 50%, var(--skeleton-bg-end) 100%);
+  background-size: 200% 100%;
+}
+
+/* Dark mode support */
+:host-context([data-theme='dark']) .skeleton,
+:host-context(.dark) .skeleton {
+  --skeleton-bg-start: #334155;
+  --skeleton-bg-mid: #475569;
+  --skeleton-bg-end: #334155;
+}
+
+/* Variants */
+.skeleton--text {
+  border-radius: 4px;
+}
+
+.skeleton--rect {
+  border-radius: 8px;
+}
+
+.skeleton--circle {
+  border-radius: 50%;
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.skeleton--shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.skeleton--pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}

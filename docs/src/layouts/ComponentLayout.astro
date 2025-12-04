@@ -2,11 +2,14 @@
 import Layout from './Layout.astro';
 import Sidebar from '../components/Sidebar.astro';
 import PropsTable from '../components/PropsTable.astro';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 interface Props {
   title: string;
   tag: string;
   description: string;
+  packageName?: string;
   version?: string;
   props?: any[];
   events?: any[];
@@ -14,7 +17,21 @@ interface Props {
   methods?: any[];
 }
 
-const { title, tag, description, version = '1.0.0', props = [], events = [], slots = [], methods = [] } = Astro.props;
+const { title, tag, description, packageName, version: propVersion, props = [], events = [], slots = [], methods = [] } = Astro.props;
+
+// Get version from package.json if packageName is provided
+function getPackageVersion(pkgName?: string): string {
+  if (!pkgName) return '1.0.0';
+  try {
+    const packagePath = join(process.cwd(), '..', 'packages', pkgName, 'package.json');
+    const packageJson = JSON.parse(readFileSync(packagePath, 'utf-8'));
+    return packageJson.version || '1.0.0';
+  } catch {
+    return '1.0.0';
+  }
+}
+
+const version = propVersion || getPackageVersion(packageName);
 
 // Handle BASE_URL with trailing slash
 const rawBase = import.meta.env.BASE_URL || '/';

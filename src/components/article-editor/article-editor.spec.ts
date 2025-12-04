@@ -1,5 +1,23 @@
 import { newSpecPage } from '@stencil/core/testing';
-import { ArticleEditor } from './article-editor';
+import { ArticleEditor } from '../../../packages/article-editor/src/article-editor';
+
+// Silence expected console.error messages in test environment
+// (mock environment doesn't support full selection/range API)
+const originalConsoleError = console.error;
+beforeAll(() => {
+  console.error = (...args: unknown[]) => {
+    const message = args[0]?.toString() || '';
+    // Silence expected errors from mock environment limitations
+    if (message.includes('Cannot read properties of undefined') || message.includes('substring')) {
+      return;
+    }
+    originalConsoleError.apply(console, args);
+  };
+});
+
+afterAll(() => {
+  console.error = originalConsoleError;
+});
 
 describe('sg-article-editor', () => {
   // =====================================================
@@ -1212,8 +1230,8 @@ describe('sg-article-editor', () => {
   it('applies custom style props', async () => {
     const page = await newSpecPage({
       components: [ArticleEditor],
-      html: `<sg-article-editor 
-        editor-bg="#fff" 
+      html: `<sg-article-editor
+        editor-bg="#fff"
         editor-bg-secondary="#f5f5f5"
         editor-bg-tertiary="#eee"
         editor-text="#333"

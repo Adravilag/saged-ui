@@ -6,19 +6,14 @@
       "inputs": ["src/**", "stencil.config.ts", "tsconfig.json", "package.json"],
       "outputs": ["dist/**", "loader/**"]
     },
-    "build:icons": {
-      "dependsOn": [],
-      "inputs": ["packages/icons/src/**", "packages/icons/stencil.config.ts", "packages/icons/package.json"],
-      "outputs": ["packages/icons/dist/**", "packages/icons/loader/**"]
+    "test": {
+      "dependsOn": ["build"],
+      "outputs": [],
+      "inputs": ["src/**/*.spec.ts", "src/**/*.spec.tsx"]
     },
-    "build:components": {
-      "dependsOn": ["build:icons"],
-      "inputs": ["packages/components/src/**", "packages/components/stencil.config.ts", "packages/components/package.json"],
-      "outputs": ["packages/components/dist/**", "packages/components/loader/**"]
-    },
-    "build:packages": {
-      "dependsOn": ["build:icons", "build:components"],
-      "outputs": ["packages/*/dist/**", "packages/*/loader/**"]
+    "test:spec": {
+      "dependsOn": ["build"],
+      "outputs": []
     },
     "build:angular": {
       "dependsOn": ["build"],
@@ -31,14 +26,6 @@
     "build:all": {
       "dependsOn": ["build", "build:angular", "build:react"],
       "outputs": ["dist/**", "loader/**", "react/dist/**"]
-    },
-    "test": {
-      "dependsOn": ["build"],
-      "outputs": []
-    },
-    "test:spec": {
-      "dependsOn": ["build"],
-      "outputs": []
     },
     "dev": {
       "cache": false,

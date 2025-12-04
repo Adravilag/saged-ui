@@ -6,6 +6,24 @@ function getGlobal(): { __sgUserIcons?: Record<string, string> } {
   return globalThis as { __sgUserIcons?: Record<string, string> };
 }
 
+// Silence expected console.error messages in test environment
+// (mock environment doesn't support fetch/XML parsing fully)
+const originalConsoleError = console.error;
+beforeAll(() => {
+  console.error = (...args: unknown[]) => {
+    const message = args[0]?.toString() || '';
+    // Silence expected errors from mock environment limitations
+    if (message.includes('[SagedUI] Failed to load icons') || message.includes('XML parsing not implemented')) {
+      return;
+    }
+    originalConsoleError.apply(console, args);
+  };
+});
+
+afterAll(() => {
+  console.error = originalConsoleError;
+});
+
 // Helper to register icons globally before tests
 const registerTestIcons = () => {
   getGlobal().__sgUserIcons = {

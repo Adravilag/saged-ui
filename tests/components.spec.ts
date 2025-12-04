@@ -11,7 +11,7 @@ test.describe('SagedUI Components E2E', () => {
         <sg-badge>Test Badge</sg-badge>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       const badge = page.locator('sg-badge');
       await expect(badge).toBeVisible();
       await expect(badge).toContainText('Test Badge');
@@ -25,7 +25,7 @@ test.describe('SagedUI Components E2E', () => {
         <sg-badge variant="error">Error</sg-badge>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       const badges = page.locator('sg-badge');
       await expect(badges).toHaveCount(4);
     });
@@ -37,7 +37,7 @@ test.describe('SagedUI Components E2E', () => {
         <sg-badge size="lg">Large</sg-badge>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       const badges = page.locator('sg-badge');
       await expect(badges).toHaveCount(3);
     });
@@ -49,7 +49,7 @@ test.describe('SagedUI Components E2E', () => {
         <sg-button id="test-btn">Click Me</sg-button>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       const button = page.locator('sg-button');
       await expect(button).toBeVisible();
       await expect(button).toContainText('Click Me');
@@ -60,10 +60,10 @@ test.describe('SagedUI Components E2E', () => {
         <sg-button id="test-btn">Click Me</sg-button>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       // Wait for component to be defined
       await page.waitForFunction(() => customElements.get('sg-button'));
-      
+
       // Setup event listener
       await page.evaluate(() => {
         (window as any).clicked = false;
@@ -71,7 +71,7 @@ test.describe('SagedUI Components E2E', () => {
           (window as any).clicked = true;
         });
       });
-      
+
       await page.locator('sg-button').click();
       const clicked = await page.evaluate(() => (window as any).clicked);
       expect(clicked).toBe(true);
@@ -88,7 +88,7 @@ test.describe('SagedUI Components E2E', () => {
           });
         </script>
       `);
-      
+
       await page.locator('sg-button').click({ force: true });
       const clicked = await page.evaluate(() => (window as any).clicked);
       expect(clicked).toBe(false);
@@ -101,10 +101,10 @@ test.describe('SagedUI Components E2E', () => {
         <sg-icon name="home"></sg-icon>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       // Wait for component to be defined and rendered
       await page.waitForFunction(() => customElements.get('sg-icon'));
-      
+
       const icon = page.locator('sg-icon');
       await expect(icon).toBeVisible();
       // Check that aria-label contains 'home' (may have 'icon' suffix)
@@ -116,9 +116,9 @@ test.describe('SagedUI Components E2E', () => {
         <sg-icon name="home" size="48"></sg-icon>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       await page.waitForFunction(() => customElements.get('sg-icon'));
-      
+
       const icon = page.locator('sg-icon');
       await expect(icon).toBeVisible();
       await expect(icon).toHaveCSS('width', '48px');
@@ -130,9 +130,9 @@ test.describe('SagedUI Components E2E', () => {
         <sg-icon name="home" decorative></sg-icon>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       await page.waitForFunction(() => customElements.get('sg-icon'));
-      
+
       const icon = page.locator('sg-icon');
       await expect(icon).toBeVisible();
       await expect(icon).toHaveAttribute('aria-hidden', 'true');
@@ -146,7 +146,7 @@ test.describe('SagedUI Components E2E', () => {
         <sg-theme-toggle></sg-theme-toggle>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       const toggle = page.locator('sg-theme-toggle');
       await expect(toggle).toBeVisible();
     });
@@ -156,17 +156,17 @@ test.describe('SagedUI Components E2E', () => {
         <sg-theme-toggle></sg-theme-toggle>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       // Wait for component to be defined
       await page.waitForFunction(() => customElements.get('sg-theme-toggle'));
-      
+
       // Setup event listener
       await page.evaluate(() => {
         document.querySelector('sg-theme-toggle')?.addEventListener('sgThemeChange', (e: any) => {
           (window as any).newTheme = e.detail;
         });
       });
-      
+
       await page.locator('sg-theme-toggle').click();
       const theme = await page.evaluate(() => (window as any).newTheme);
       expect(['light', 'dark']).toContain(theme);
@@ -179,7 +179,7 @@ test.describe('SagedUI Components E2E', () => {
         <sg-skeleton></sg-skeleton>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       const skeleton = page.locator('sg-skeleton');
       await expect(skeleton).toBeVisible();
     });
@@ -189,7 +189,7 @@ test.describe('SagedUI Components E2E', () => {
         <sg-skeleton variant="circle" size="64"></sg-skeleton>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       const skeleton = page.locator('sg-skeleton');
       await expect(skeleton).toBeVisible();
     });
@@ -207,7 +207,7 @@ test.describe('SagedUI Components E2E', () => {
         </sg-dropdown>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       const dropdown = page.locator('sg-dropdown');
       await expect(dropdown).toBeVisible();
     });
@@ -222,7 +222,7 @@ test.describe('SagedUI Components E2E', () => {
         </sg-dropdown>
         <script type="module" src="/build/saged-ui.esm.js"></script>
       `);
-      
+
       await page.locator('[slot="trigger"]').click();
       const content = page.locator('[slot="content"]');
       await expect(content).toBeVisible();
@@ -236,9 +236,9 @@ test.describe('Accessibility', () => {
       <sg-icon name="home" aria-label="Navigate to home"></sg-icon>
       <script type="module" src="/build/saged-ui.esm.js"></script>
     `);
-    
+
     await page.waitForFunction(() => customElements.get('sg-icon'));
-    
+
     const icon = page.locator('sg-icon');
     await expect(icon).toBeVisible();
     await expect(icon).toHaveAttribute('role', 'img');
@@ -250,9 +250,9 @@ test.describe('Accessibility', () => {
       <sg-button id="test-btn">Press Enter</sg-button>
       <script type="module" src="/build/saged-ui.esm.js"></script>
     `);
-    
+
     await page.waitForFunction(() => customElements.get('sg-button'));
-    
+
     // Setup event listener
     await page.evaluate(() => {
       (window as any).clicked = false;
@@ -260,7 +260,7 @@ test.describe('Accessibility', () => {
         (window as any).clicked = true;
       });
     });
-    
+
     await page.locator('sg-button').focus();
     await page.keyboard.press('Enter');
     const clicked = await page.evaluate(() => (window as any).clicked);
@@ -276,7 +276,7 @@ test.describe('Theming', () => {
       </div>
       <script type="module" src="/build/saged-ui.esm.js"></script>
     `);
-    
+
     const container = page.locator('[data-theme="dark"]');
     await expect(container).toHaveAttribute('data-theme', 'dark');
   });

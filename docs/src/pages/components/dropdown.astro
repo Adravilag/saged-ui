@@ -38,6 +38,7 @@ const methods = [
 <ComponentLayout
   title="Dropdown"
   tag="sg-dropdown"
+  packageName="dropdown"
   description="Menú flotante con elemento trigger. Soporta posicionamiento automático, header/footer fijos, y cierre inteligente."
   props={props}
   events={events}
@@ -103,7 +104,7 @@ const methods = [
   <Fragment slot="usage">
     <div class="usage-block">
       <h3>Control programático</h3>
-      <CodeBlock 
+      <CodeBlock
         filename="dropdown.js"
         code={`const dropdown = document.querySelector('sg-dropdown');
 
@@ -120,7 +121,7 @@ await dropdown.toggle();`}
 
     <div class="usage-block">
       <h3>Escuchar eventos</h3>
-      <CodeBlock 
+      <CodeBlock
         filename="events.js"
         code={`dropdown.addEventListener('sgOpen', () => {
   console.log('Dropdown abierto');

@@ -20,7 +20,7 @@
   },
   "include": [
     "src"
-  ],
+, "packages/article-editor/src/utils", "packages/article-editor/src/article-editor.spec.ts", "packages/article-editor/src/article-editor.stories.ts", "packages/article-editor/src/article-editor.tsx"  ],
   "exclude": [
     "node_modules"
   ]

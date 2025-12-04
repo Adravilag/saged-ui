@@ -29,6 +29,7 @@ const slots = [
 <ComponentLayout
   title="Button"
   tag="sg-button"
+  packageName="button"
   description="Componente de botón interactivo con múltiples variantes, tamaños y estados. Soporta iconos, estados de carga y es totalmente accesible."
   props={props}
   events={events}
@@ -135,7 +136,7 @@ const slots = [
 
     <div class="usage-block">
       <h3>Uso básico</h3>
-      <CodeBlock 
+      <CodeBlock
         filename="example.html"
         code={`<sg-button>Click me</sg-button>
 
@@ -143,13 +144,13 @@ const slots = [
 <sg-button variant="secondary">Secondary</sg-button>
 
 <!-- Con icono -->
-<sg-button leading-icon="save">Guardar</sg-button>`} 
+<sg-button leading-icon="save">Guardar</sg-button>`}
       />
     </div>
 
     <div class="usage-block">
       <h3>Manejo de eventos</h3>
-      <CodeBlock 
+      <CodeBlock
         filename="events.js"
         code={`// JavaScript
 const button = document.querySelector('sg-button');
@@ -161,7 +162,7 @@ button.addEventListener('sgClick', (event) => {
 <sg-button (sgClick)="onButtonClick($event)">Click</sg-button>
 
 // React
-<SgButton onSgClick={(e) => handleClick(e)}>Click</SgButton>`} 
+<SgButton onSgClick={(e) => handleClick(e)}>Click</SgButton>`}
       />
     </div>
 
@@ -176,7 +177,7 @@ button.addEventListener('sgClick', (event) => {
           <li>El estado <code>disabled</code> añade automáticamente <code>aria-disabled="true"</code></li>
           <li>El estado <code>loading</code> añade <code>aria-busy="true"</code> para indicar una operación en progreso</li>
         </ul>
-        <CodeBlock 
+        <CodeBlock
           filename="a11y.html"
           code={`<!-- Botón con solo icono - requiere aria-label -->
 <sg-button shape="circle" leading-icon="heart" aria-label="Añadir a favoritos"></sg-button>

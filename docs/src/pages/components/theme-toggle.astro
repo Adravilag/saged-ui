@@ -16,6 +16,7 @@ const events = [
 <ComponentLayout
   title="Theme Toggle"
   tag="sg-theme-toggle"
+  packageName="theme-toggle"
   description="Interruptor de tema claro/oscuro con soporte para preferencia del sistema. Persiste la selección en localStorage y sincroniza con la preferencia del OS."
   props={props}
   events={events}
@@ -69,7 +70,7 @@ const events = [
 
     <div class="usage-block">
       <h3>Escuchar cambios</h3>
-      <CodeBlock 
+      <CodeBlock
         filename="theme-events.js"
         code={`const toggle = document.querySelector('sg-theme-toggle');
 
@@ -83,7 +84,7 @@ toggle.addEventListener('sgThemeChange', (event) => {
     <div class="usage-block">
       <h3>CSS Variables</h3>
       <p>Asegúrate de definir estilos para ambos temas:</p>
-      <CodeBlock 
+      <CodeBlock
         filename="theme.css"
         code={`:root, [data-theme="light"] {
   --bg: #ffffff;
