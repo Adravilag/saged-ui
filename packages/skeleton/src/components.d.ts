@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
   /**
    * @component sg-skeleton
-   * @description Skeleton loading placeholder component for SagedUI
+   * @description Skeleton loading placeholder component for SageBox
    * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
    * <sg-skeleton variant="rect" width="100%" height="200px"></sg-skeleton>
    * <sg-skeleton variant="circle" width="48px" height="48px"></sg-skeleton>
@@ -39,7 +39,7 @@ export namespace Components {
 declare global {
   /**
    * @component sg-skeleton
-   * @description Skeleton loading placeholder component for SagedUI
+   * @description Skeleton loading placeholder component for SageBox
    * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
    * <sg-skeleton variant="rect" width="100%" height="200px"></sg-skeleton>
    * <sg-skeleton variant="circle" width="48px" height="48px"></sg-skeleton>
@@ -56,7 +56,7 @@ declare global {
 declare namespace LocalJSX {
   /**
    * @component sg-skeleton
-   * @description Skeleton loading placeholder component for SagedUI
+   * @description Skeleton loading placeholder component for SageBox
    * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
    * <sg-skeleton variant="rect" width="100%" height="200px"></sg-skeleton>
    * <sg-skeleton variant="circle" width="48px" height="48px"></sg-skeleton>
@@ -93,7 +93,7 @@ declare module '@stencil/core' {
     interface IntrinsicElements {
       /**
        * @component sg-skeleton
-       * @description Skeleton loading placeholder component for SagedUI
+       * @description Skeleton loading placeholder component for SageBox
        * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
        * <sg-skeleton variant="rect" width="100%" height="200px"></sg-skeleton>
        * <sg-skeleton variant="circle" width="48px" height="48px"></sg-skeleton>

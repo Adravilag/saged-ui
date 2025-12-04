@@ -18,7 +18,7 @@ import { getTextSelection, setTextSelection, applyToolbarAction, getActionFromKe
 import { SupportedLocale, EditorTranslations, getTranslations, isRTL, formatCount } from './utils/i18n';
 
 /**
- * SagedUI - Article Editor Component
+ * SageBox - Article Editor Component
  *
  * A headless-ready article editor supporting HTML and Markdown modes
  * with live preview, formatting toolbar, and optional media library integration.

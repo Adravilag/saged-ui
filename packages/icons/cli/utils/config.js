@@ -1,15 +1,15 @@
 /**
  * Configuration Utilities
  *
- * Load and manage SagedUI configuration
+ * Load and manage SageBox configuration
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const CONFIG_FILENAME = 'saged-ui.config.json';
+const CONFIG_FILENAME = 'sagebox.config.json';
 
-// Path to built-in library icons (for saged-ui development)
+// Path to built-in library icons (for sagebox development)
 const LIBRARY_ICONS_PATH = path.join(__dirname, '../../src/components/svg-icon/icons');
 
 const DEFAULT_CONFIG = {
@@ -68,7 +68,7 @@ function loadConfig() {
     }
   }
 
-  // Check if we're inside saged-ui library itself (for development)
+  // Check if we're inside sagebox library itself (for development)
   if (fs.existsSync(LIBRARY_ICONS_PATH)) {
     return {
       icons: {

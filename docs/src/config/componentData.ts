@@ -176,9 +176,9 @@ export const frameworks: Framework[] = [
     description: 'Vanilla JS, HTML, o cualquier framework',
     icon: 'web',
     color: '#4f46e5',
-    npmLink: 'https://www.npmjs.com/package/saged-ui',
-    githubLink: 'https://github.com/Adravilag/saged-ui',
-    installCommand: 'npm install saged-ui',
+    npmLink: 'https://www.npmjs.com/package/sagebox',
+    githubLink: 'https://github.com/Adravilag/sagebox',
+    installCommand: 'npm install sagebox',
   },
   {
     name: 'React',
@@ -186,8 +186,8 @@ export const frameworks: Framework[] = [
     description: 'Wrappers nativos para React y Next.js',
     icon: 'react',
     color: '#61dafb',
-    npmLink: 'https://www.npmjs.com/package/saged-ui',
-    installCommand: "import { SgButton } from 'saged-ui/react'",
+    npmLink: 'https://www.npmjs.com/package/sagebox',
+    installCommand: "import { SgButton } from 'sagebox/react'",
   },
   {
     name: 'Angular',
@@ -195,8 +195,8 @@ export const frameworks: Framework[] = [
     description: 'Directivas y módulos para Angular',
     icon: 'angular',
     color: '#dd0031',
-    npmLink: 'https://www.npmjs.com/package/saged-ui',
-    installCommand: "import { SgButton } from 'saged-ui/angular'",
+    npmLink: 'https://www.npmjs.com/package/sagebox',
+    installCommand: "import { SgButton } from 'sagebox/angular'",
   },
 ];
 
@@ -234,8 +234,8 @@ export interface Step {
 }
 
 export const quickStartSteps: Step[] = [
-  { label: '1. Install', code: 'npm install saged-ui' },
-  { label: '2. Import', code: "import 'saged-ui';" },
+  { label: '1. Install', code: 'npm install sagebox' },
+  { label: '2. Import', code: "import 'sagebox';" },
   { label: '3. Use', code: '<sg-button>Click me</sg-button>' },
 ];
 
@@ -247,7 +247,7 @@ export interface QuickLink {
 }
 
 export const quickStartLinks: QuickLink[] = [
-  { icon: 'github', label: 'GitHub', url: 'https://github.com/Adravilag/saged-ui' },
-  { icon: 'file-text', label: 'Changelog', url: 'https://github.com/Adravilag/saged-ui/blob/main/CHANGELOG.md' },
-  { icon: 'download', label: 'npm', url: 'https://www.npmjs.com/package/saged-ui' },
+  { icon: 'github', label: 'GitHub', url: 'https://github.com/Adravilag/sagebox' },
+  { icon: 'file-text', label: 'Changelog', url: 'https://github.com/Adravilag/sagebox/blob/main/CHANGELOG.md' },
+  { icon: 'download', label: 'npm', url: 'https://www.npmjs.com/package/sagebox' },
 ];

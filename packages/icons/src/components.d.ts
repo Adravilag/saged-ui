@@ -10,7 +10,7 @@ export { IconDefinition } from './components/svg-icon/icons/builtin';
 export namespace Components {
   /**
    * @component sg-icon
-   * @description SVG Icon component for SagedUI - A flexible, accessible icon system
+   * @description SVG Icon component for SageBox - A flexible, accessible icon system
    * @example <!-- Basic usage with built-in icons -->
    * <sg-icon name="home"></sg-icon>
    * <sg-icon name="icon-home"></sg-icon>
@@ -119,7 +119,7 @@ export namespace Components {
 declare global {
   /**
    * @component sg-icon
-   * @description SVG Icon component for SagedUI - A flexible, accessible icon system
+   * @description SVG Icon component for SageBox - A flexible, accessible icon system
    * @example <!-- Basic usage with built-in icons -->
    * <sg-icon name="home"></sg-icon>
    * <sg-icon name="icon-home"></sg-icon>
@@ -145,7 +145,7 @@ declare global {
 declare namespace LocalJSX {
   /**
    * @component sg-icon
-   * @description SVG Icon component for SagedUI - A flexible, accessible icon system
+   * @description SVG Icon component for SageBox - A flexible, accessible icon system
    * @example <!-- Basic usage with built-in icons -->
    * <sg-icon name="home"></sg-icon>
    * <sg-icon name="icon-home"></sg-icon>
@@ -239,7 +239,7 @@ declare module '@stencil/core' {
     interface IntrinsicElements {
       /**
        * @component sg-icon
-       * @description SVG Icon component for SagedUI - A flexible, accessible icon system
+       * @description SVG Icon component for SageBox - A flexible, accessible icon system
        * @example <!-- Basic usage with built-in icons -->
        * <sg-icon name="home"></sg-icon>
        * <sg-icon name="icon-home"></sg-icon>

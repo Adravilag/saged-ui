@@ -1,11 +1,11 @@
-# @saged-ui/badge
+# @sagebox/badge
 
-> Badge component for SagedUI - Labels, tags and status indicators
+> Badge component for SageBox - Labels, tags and status indicators
 
 ## Installation
 
 ```bash
-npm install @saged-ui/badge @saged-ui/core
+npm install @sagebox/badge @sagebox/core
 ```
 
 ## Usage

@@ -7,19 +7,19 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from "../packages/article-editor/src/utils";
 import { EditorTranslations, SupportedLocale } from "../packages/article-editor/src/utils/i18n";
-import { BadgeSize, BadgeVariant } from "./components/badge/badge";
-import { ButtonShape, ButtonSize, ButtonVariant } from "./components/button/button";
-import { IconDefinition } from "./components/svg-icon/icons/builtin";
-import { ThemeMode } from "./components/theme-toggle/theme-toggle";
+import { BadgeSize, BadgeVariant } from "../packages/badge/src/components/badge/badge";
+import { ButtonShape, ButtonSize, ButtonVariant } from "../packages/button/src/components/button/button";
+import { IconDefinition } from "../packages/icons/src/components/svg-icon/icons/builtin";
+import { ThemeMode } from "../packages/theme-toggle/src/components/theme-toggle/theme-toggle";
 export { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from "../packages/article-editor/src/utils";
 export { EditorTranslations, SupportedLocale } from "../packages/article-editor/src/utils/i18n";
-export { BadgeSize, BadgeVariant } from "./components/badge/badge";
-export { ButtonShape, ButtonSize, ButtonVariant } from "./components/button/button";
-export { IconDefinition } from "./components/svg-icon/icons/builtin";
-export { ThemeMode } from "./components/theme-toggle/theme-toggle";
+export { BadgeSize, BadgeVariant } from "../packages/badge/src/components/badge/badge";
+export { ButtonShape, ButtonSize, ButtonVariant } from "../packages/button/src/components/button/button";
+export { IconDefinition } from "../packages/icons/src/components/svg-icon/icons/builtin";
+export { ThemeMode } from "../packages/theme-toggle/src/components/theme-toggle/theme-toggle";
 export namespace Components {
     /**
-     * SagedUI - Article Editor Component
+     * SageBox - Article Editor Component
      * A headless-ready article editor supporting HTML and Markdown modes
      * with live preview, formatting toolbar, and optional media library integration.
      * @example ```html
@@ -467,7 +467,7 @@ export namespace Components {
     }
     /**
      * @component sg-icon
-     * @description SVG Icon component for SagedUI - A flexible, accessible icon system
+     * @description SVG Icon component for SageBox - A flexible, accessible icon system
      * @example <!-- Basic usage with built-in icons -->
      * <sg-icon name="home"></sg-icon>
      * <sg-icon name="icon-home"></sg-icon>
@@ -574,7 +574,7 @@ export namespace Components {
     }
     /**
      * @component sg-skeleton
-     * @description Skeleton loading placeholder component for SagedUI
+     * @description Skeleton loading placeholder component for SageBox
      * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
      * <sg-skeleton variant="rect" width="100%" height="200px"></sg-skeleton>
      * <sg-skeleton variant="circle" width="48px" height="48px"></sg-skeleton>
@@ -640,7 +640,7 @@ declare global {
         "mediaInsert": MediaItem;
     }
     /**
-     * SagedUI - Article Editor Component
+     * SageBox - Article Editor Component
      * A headless-ready article editor supporting HTML and Markdown modes
      * with live preview, formatting toolbar, and optional media library integration.
      * @example ```html
@@ -816,7 +816,7 @@ declare global {
     };
     /**
      * @component sg-icon
-     * @description SVG Icon component for SagedUI - A flexible, accessible icon system
+     * @description SVG Icon component for SageBox - A flexible, accessible icon system
      * @example <!-- Basic usage with built-in icons -->
      * <sg-icon name="home"></sg-icon>
      * <sg-icon name="icon-home"></sg-icon>
@@ -838,7 +838,7 @@ declare global {
     };
     /**
      * @component sg-skeleton
-     * @description Skeleton loading placeholder component for SagedUI
+     * @description Skeleton loading placeholder component for SageBox
      * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
      * <sg-skeleton variant="rect" width="100%" height="200px"></sg-skeleton>
      * <sg-skeleton variant="circle" width="48px" height="48px"></sg-skeleton>
@@ -878,7 +878,7 @@ declare global {
 }
 declare namespace LocalJSX {
     /**
-     * SagedUI - Article Editor Component
+     * SageBox - Article Editor Component
      * A headless-ready article editor supporting HTML and Markdown modes
      * with live preview, formatting toolbar, and optional media library integration.
      * @example ```html
@@ -1330,7 +1330,7 @@ declare namespace LocalJSX {
     }
     /**
      * @component sg-icon
-     * @description SVG Icon component for SagedUI - A flexible, accessible icon system
+     * @description SVG Icon component for SageBox - A flexible, accessible icon system
      * @example <!-- Basic usage with built-in icons -->
      * <sg-icon name="home"></sg-icon>
      * <sg-icon name="icon-home"></sg-icon>
@@ -1416,7 +1416,7 @@ declare namespace LocalJSX {
     }
     /**
      * @component sg-skeleton
-     * @description Skeleton loading placeholder component for SagedUI
+     * @description Skeleton loading placeholder component for SageBox
      * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
      * <sg-skeleton variant="rect" width="100%" height="200px"></sg-skeleton>
      * <sg-skeleton variant="circle" width="48px" height="48px"></sg-skeleton>
@@ -1474,7 +1474,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             /**
-             * SagedUI - Article Editor Component
+             * SageBox - Article Editor Component
              * A headless-ready article editor supporting HTML and Markdown modes
              * with live preview, formatting toolbar, and optional media library integration.
              * @example ```html
@@ -1598,7 +1598,7 @@ declare module "@stencil/core" {
             "sg-dropdown": LocalJSX.SgDropdown & JSXBase.HTMLAttributes<HTMLSgDropdownElement>;
             /**
              * @component sg-icon
-             * @description SVG Icon component for SagedUI - A flexible, accessible icon system
+             * @description SVG Icon component for SageBox - A flexible, accessible icon system
              * @example <!-- Basic usage with built-in icons -->
              * <sg-icon name="home"></sg-icon>
              * <sg-icon name="icon-home"></sg-icon>
@@ -1615,7 +1615,7 @@ declare module "@stencil/core" {
             "sg-icon": LocalJSX.SgIcon & JSXBase.HTMLAttributes<HTMLSgIconElement>;
             /**
              * @component sg-skeleton
-             * @description Skeleton loading placeholder component for SagedUI
+             * @description Skeleton loading placeholder component for SageBox
              * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
              * <sg-skeleton variant="rect" width="100%" height="200px"></sg-skeleton>
              * <sg-skeleton variant="circle" width="48px" height="48px"></sg-skeleton>

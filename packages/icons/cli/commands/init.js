@@ -1,7 +1,7 @@
 /**
  * Init Command
  *
- * Initialize SagedUI configuration in a project
+ * Initialize SageBox configuration in a project
  */
 
 const fs = require('fs');
@@ -34,12 +34,12 @@ const DEFAULT_CONFIG = {
 module.exports = function(program) {
   program
     .command('init')
-    .description('Initialize SagedUI configuration')
+    .description('Initialize SageBox configuration')
     .option('-f, --force', 'Overwrite existing configuration')
     .action((options) => {
-      log.title('🚀 SagedUI - Initialize');
+      log.title('🚀 SageBox - Initialize');
 
-      const configPath = path.join(process.cwd(), 'saged-ui.config.json');
+      const configPath = path.join(process.cwd(), 'sagebox.config.json');
       const pkgPath = path.join(process.cwd(), 'package.json');
 
       // Check if config already exists
@@ -50,7 +50,7 @@ module.exports = function(program) {
 
       // Create config file
       fs.writeFileSync(configPath, JSON.stringify(DEFAULT_CONFIG, null, 2), 'utf-8');
-      log.success('Created saged-ui.config.json');
+      log.success('Created sagebox.config.json');
 
       // Create icons directory
       const iconsDir = path.join(process.cwd(), DEFAULT_CONFIG.icons.input);
@@ -76,10 +76,10 @@ module.exports = function(program) {
           }
 
           const scriptsToAdd = {
-            'icons:add': 'saged-ui icons add',
-            'icons:build': 'saged-ui icons build',
-            'icons:list': 'saged-ui icons list',
-            'icons:preview': 'saged-ui icons preview'
+            'icons:add': 'sagebox icons add',
+            'icons:build': 'sagebox icons build',
+            'icons:list': 'sagebox icons list',
+            'icons:preview': 'sagebox icons preview'
           };
 
           let addedScripts = [];
@@ -104,22 +104,22 @@ module.exports = function(program) {
 ${colors.bright}Next steps:${colors.reset}
 
   1. Add your first icon:
-     ${colors.cyan}npx saged-ui icons add my-icon --file ./path/to/icon.svg${colors.reset}
+     ${colors.cyan}npx sagebox icons add my-icon --file ./path/to/icon.svg${colors.reset}
 
   2. Or import from a sprite:
-     ${colors.cyan}npx saged-ui icons import ./sprites.svg${colors.reset}
+     ${colors.cyan}npx sagebox icons import ./sprites.svg${colors.reset}
 
   3. Generate TypeScript:
-     ${colors.cyan}npx saged-ui icons build${colors.reset}
+     ${colors.cyan}npx sagebox icons build${colors.reset}
 
   4. Preview your icons:
-     ${colors.cyan}npx saged-ui icons preview${colors.reset}
+     ${colors.cyan}npx sagebox icons preview${colors.reset}
 
 ${colors.bright}Configuration:${colors.reset}
-  Edit ${colors.cyan}saged-ui.config.json${colors.reset} to customize paths.
+  Edit ${colors.cyan}sagebox.config.json${colors.reset} to customize paths.
 
 ${colors.bright}Documentation:${colors.reset}
-  https://github.com/adravilag/saged-ui
+  https://github.com/adravilag/sagebox
 `);
     });
 };

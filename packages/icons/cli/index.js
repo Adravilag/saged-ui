@@ -1,5 +1,5 @@
 /**
- * SagedUI CLI
+ * SageBox CLI
  *
  * Entry point for programmatic usage
  */

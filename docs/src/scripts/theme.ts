@@ -1,5 +1,5 @@
 /**
- * Theme management for SagedUI docs
+ * Theme management for SageBox docs
  * Note: Theme is initialized in Layout.astro head script to prevent flash
  * This file only provides the toggle function as a backup
  */

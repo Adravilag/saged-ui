@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Playwright E2E Test Configuration for SagedUI
+ * Playwright E2E Test Configuration for SageBox
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({

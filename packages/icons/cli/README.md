@@ -1,51 +1,51 @@
-# SagedUI CLI
+# SageBox CLI
 
-Command-line interface for managing SVG icons in your SagedUI projects.
+Command-line interface for managing SVG icons in your SageBox projects.
 
 ## Installation
 
-The CLI is included with the `saged-ui` package:
+The CLI is included with the `sagebox` package:
 
 ```bash
-npm install saged-ui
+npm install sagebox
 ```
 
 ## Quick Start
 
 ```bash
-# Initialize SagedUI in your project
-npx saged-ui init
+# Initialize SageBox in your project
+npx sagebox init
 
 # Fetch icons from Iconify
-npx saged-ui icons fetch lucide:home lucide:settings mdi:account
+npx sagebox icons fetch lucide:home lucide:settings mdi:account
 
 # Build TypeScript from icons.json
-npx saged-ui icons build
+npx sagebox icons build
 
 # Start the Icon Manager (visual interface)
-npx saged-ui icons server
+npx sagebox icons server
 ```
 
 ## Commands
 
-### `saged-ui init`
+### `sagebox init`
 
-Initialize SagedUI configuration in your project.
+Initialize SageBox configuration in your project.
 
 ```bash
-npx saged-ui init [options]
+npx sagebox init [options]
 
 Options:
   -f, --force    Overwrite existing configuration
 ```
 
 This will:
-- Create `saged-ui.config.json` configuration file
+- Create `sagebox.config.json` configuration file
 - Create the icons directory (`./src/icons` by default)
 - Create an empty `icons.json` file
 - Add helper scripts to your `package.json`
 
-### `saged-ui icons`
+### `sagebox icons`
 
 Manage SVG icons in your project.
 
@@ -55,10 +55,10 @@ Fetch icons from [Iconify](https://iconify.design/) API.
 
 ```bash
 # Fetch specific icons
-npx saged-ui icons fetch lucide:home lucide:settings mdi:heart
+npx sagebox icons fetch lucide:home lucide:settings mdi:heart
 
 # Use default prefix
-npx saged-ui icons fetch home settings --prefix lucide
+npx sagebox icons fetch home settings --prefix lucide
 ```
 
 #### `icons add <name>`
@@ -67,10 +67,10 @@ Add a custom SVG icon from file or string.
 
 ```bash
 # From file
-npx saged-ui icons add my-icon --file ./path/to/icon.svg
+npx sagebox icons add my-icon --file ./path/to/icon.svg
 
 # From SVG string
-npx saged-ui icons add my-icon --svg '<svg>...</svg>'
+npx sagebox icons add my-icon --svg '<svg>...</svg>'
 ```
 
 #### `icons remove <name>`
@@ -78,7 +78,7 @@ npx saged-ui icons add my-icon --svg '<svg>...</svg>'
 Remove an icon from the project.
 
 ```bash
-npx saged-ui icons remove my-icon
+npx sagebox icons remove my-icon
 ```
 
 #### `icons list`
@@ -86,10 +86,10 @@ npx saged-ui icons remove my-icon
 List all icons in the project.
 
 ```bash
-npx saged-ui icons list
+npx sagebox icons list
 
 # Output as JSON
-npx saged-ui icons list --json
+npx sagebox icons list --json
 ```
 
 #### `icons build`
@@ -97,10 +97,10 @@ npx saged-ui icons list --json
 Generate TypeScript and JSON files from `icons.json`.
 
 ```bash
-npx saged-ui icons build
+npx sagebox icons build
 
 # Custom output path
-npx saged-ui icons build --output ./src/custom-icons.ts
+npx sagebox icons build --output ./src/custom-icons.ts
 ```
 
 This generates:
@@ -112,10 +112,10 @@ This generates:
 Search for icons in Iconify.
 
 ```bash
-npx saged-ui icons search home
+npx sagebox icons search home
 
 # Limit to specific icon set
-npx saged-ui icons search home --prefix lucide
+npx sagebox icons search home --prefix lucide
 ```
 
 #### `icons sets`
@@ -123,10 +123,10 @@ npx saged-ui icons search home --prefix lucide
 List available icon sets from Iconify.
 
 ```bash
-npx saged-ui icons sets
+npx sagebox icons sets
 
 # Filter by name
-npx saged-ui icons sets --search material
+npx sagebox icons sets --search material
 ```
 
 #### `icons import <file>`
@@ -134,10 +134,10 @@ npx saged-ui icons sets --search material
 Import icons from an SVG sprite sheet.
 
 ```bash
-npx saged-ui icons import ./sprites.svg
+npx sagebox icons import ./sprites.svg
 
 # Replace all existing icons
-npx saged-ui icons import ./sprites.svg --replace
+npx sagebox icons import ./sprites.svg --replace
 ```
 
 #### `icons optimize`
@@ -145,10 +145,10 @@ npx saged-ui icons import ./sprites.svg --replace
 Optimize SVG icons in the project.
 
 ```bash
-npx saged-ui icons optimize
+npx sagebox icons optimize
 
 # Analyze without modifying
-npx saged-ui icons optimize --analyze
+npx sagebox icons optimize --analyze
 ```
 
 #### `icons preview`
@@ -156,10 +156,10 @@ npx saged-ui icons optimize --analyze
 Generate an HTML preview of all icons.
 
 ```bash
-npx saged-ui icons preview
+npx sagebox icons preview
 
 # Custom output path
-npx saged-ui icons preview --output ./icons-gallery.html
+npx sagebox icons preview --output ./icons-gallery.html
 ```
 
 #### `icons server`
@@ -167,16 +167,16 @@ npx saged-ui icons preview --output ./icons-gallery.html
 Start the Icon Manager visual interface.
 
 ```bash
-npx saged-ui icons server
+npx sagebox icons server
 
 # Custom port
-npx saged-ui icons server --port 3000
+npx sagebox icons server --port 3000
 
 # Use legacy inline server
-npx saged-ui icons server --legacy
+npx sagebox icons server --legacy
 ```
 
-### `saged-ui icon-sets`
+### `sagebox icon-sets`
 
 Import popular icon sets directly.
 
@@ -185,7 +185,7 @@ Import popular icon sets directly.
 List available icon sets.
 
 ```bash
-npx saged-ui icon-sets list
+npx sagebox icon-sets list
 ```
 
 Available sets: `lucide`, `mdi`, `heroicons`, `tabler`, `phosphor`, `feather`, `bootstrap`, `carbon`, `ionicons`
@@ -196,13 +196,13 @@ Import icons from a set.
 
 ```bash
 # Import first 100 icons
-npx saged-ui icon-sets import lucide
+npx sagebox icon-sets import lucide
 
 # Import specific icons
-npx saged-ui icon-sets import lucide --icons home,settings,user
+npx sagebox icon-sets import lucide --icons home,settings,user
 
 # Import all icons
-npx saged-ui icon-sets import lucide --all
+npx sagebox icon-sets import lucide --all
 ```
 
 #### `icon-sets search <set> <query>`
@@ -210,7 +210,7 @@ npx saged-ui icon-sets import lucide --all
 Search for icons in a specific set.
 
 ```bash
-npx saged-ui icon-sets search lucide home
+npx sagebox icon-sets search lucide home
 ```
 
 #### `icon-sets preview <set>`
@@ -218,12 +218,12 @@ npx saged-ui icon-sets search lucide home
 Open the Iconify preview page for a set.
 
 ```bash
-npx saged-ui icon-sets preview lucide
+npx sagebox icon-sets preview lucide
 ```
 
 ## Configuration
 
-### `saged-ui.config.json`
+### `sagebox.config.json`
 
 ```json
 {
@@ -313,7 +313,7 @@ import './icons';
 import './icons';
 
 // Or use Web Components directly
-import { defineCustomElements } from 'saged-ui/loader';
+import { defineCustomElements } from 'sagebox/loader';
 defineCustomElements(window);
 
 // Use component
@@ -335,11 +335,11 @@ For hot-reload during development:
 
 ```javascript
 // vite.config.js
-import { sagedUIIcons } from 'saged-ui/cli/plugins/vite';
+import { SageBoxIcons } from 'sagebox/cli/plugins/vite';
 
 export default {
   plugins: [
-    sagedUIIcons({
+    SageBoxIcons({
       watch: true,
       iconsDir: './src/icons',
       output: './src/icons/index.ts'
@@ -364,7 +364,7 @@ export default {
 The CLI can also be used programmatically:
 
 ```javascript
-const { commands, utils, plugins } = require('saged-ui/cli');
+const { commands, utils, plugins } = require('sagebox/cli');
 
 // Load configuration
 const config = utils.config.loadConfig();
@@ -383,7 +383,7 @@ const viteConfig = {
 The Icon Manager is a visual interface for managing your icons:
 
 ```bash
-npx saged-ui icons server
+npx sagebox icons server
 ```
 
 Features:
@@ -397,16 +397,16 @@ Features:
 
 ```bash
 # 1. Initialize project
-npx saged-ui init
+npx sagebox init
 
 # 2. Fetch icons from Iconify
-npx saged-ui icons fetch lucide:home lucide:settings lucide:user mdi:heart
+npx sagebox icons fetch lucide:home lucide:settings lucide:user mdi:heart
 
 # 3. Or use the Icon Manager
-npx saged-ui icons server
+npx sagebox icons server
 
 # 4. Build TypeScript
-npx saged-ui icons build
+npx sagebox icons build
 
 # 5. Import in your app
 ```
@@ -432,21 +432,21 @@ import './icons';
 
 ### Icons not showing
 
-1. Ensure icons are built: `npx saged-ui icons build`
+1. Ensure icons are built: `npx sagebox icons build`
 2. Import the generated file in your app
 3. Check the icon name matches (use `prefix-name` format in components)
 
 ### Build fails
 
 1. Check `icons.json` is valid JSON
-2. Verify paths in `saged-ui.config.json`
+2. Verify paths in `sagebox.config.json`
 3. Ensure write permissions to output directory
 
 ### Icon Manager not starting
 
-1. Check if port is in use: `npx saged-ui icons server --port 4568`
-2. Try legacy mode: `npx saged-ui icons server --legacy`
+1. Check if port is in use: `npx sagebox icons server --port 4568`
+2. Try legacy mode: `npx sagebox icons server --legacy`
 
 ## License
 
-MIT © SagedUI
+MIT © SageBox

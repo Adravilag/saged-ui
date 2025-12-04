@@ -1,12 +1,12 @@
 {
-  "name": "@saged-ui/button",
+  "name": "@sagebox/button",
   "version": "1.0.0",
-  "description": "Button component for SagedUI - Versatile button with variants and states",
+  "description": "Button component for SageBox - Versatile button with variants and states",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
-  "unpkg": "dist/saged-ui-button/saged-ui-button.esm.js",
+  "unpkg": "dist/sagebox-button/sagebox-button.esm.js",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Adravilag/saged-ui.git",
+    "url": "https://github.com/Adravilag/sagebox.git",
     "directory": "packages/button"
   },
   "files": ["dist/", "loader/"],
@@ -30,13 +30,13 @@
     "test": "stencil test --spec"
   },
   "peerDependencies": {
-    "@saged-ui/core": "^1.0.0"
+    "@sagebox/core": "^1.0.0"
   },
   "devDependencies": {
     "@stencil/core": "^4.27.1",
     "typescript": "^5.9.3"
   },
-  "keywords": ["saged-ui", "button", "web-components", "stencil"],
+  "keywords": ["sagebox", "button", "web-components", "stencil"],
   "author": "adravilag",
   "license": "MIT",
   "publishConfig": { "access": "public" }

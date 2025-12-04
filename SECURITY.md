@@ -9,7 +9,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within SagedUI, please send an email to [security@example.com](mailto:security@example.com) or open a private security advisory on GitHub.
+If you discover a security vulnerability within SageBox, please send an email to [security@example.com](mailto:security@example.com) or open a private security advisory on GitHub.
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
@@ -28,4 +28,4 @@ If you discover a security vulnerability within SagedUI, please send an email to
 - **Status Update**: Within 7 days
 - **Resolution**: Varies based on complexity
 
-We appreciate your help in keeping SagedUI secure!
+We appreciate your help in keeping SageBox secure!

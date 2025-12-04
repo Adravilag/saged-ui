@@ -1,8 +1,8 @@
 /**
- * Built-in Icons for SagedUI
+ * Built-in Icons for SageBox
  *
  * These are minimal built-in icons that ship with the library.
- * For custom icons, use the CLI: npx saged-ui icons build
+ * For custom icons, use the CLI: npx sagebox icons build
  */
 
 export interface IconDefinition {

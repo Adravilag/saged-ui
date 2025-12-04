@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'saged-ui-theme-toggle',
+  namespace: 'sagebox-theme-toggle',
   taskQueue: 'async',
   outputTargets: [
     {

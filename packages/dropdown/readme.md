@@ -1,11 +1,11 @@
-# @saged-ui/dropdown
+# @sagebox/dropdown
 
-> Dropdown component for SagedUI - Accessible dropdown menus
+> Dropdown component for SageBox - Accessible dropdown menus
 
 ## Installation
 
 ```bash
-npm install @saged-ui/dropdown @saged-ui/core
+npm install @sagebox/dropdown @sagebox/core
 ```
 
 ## Usage

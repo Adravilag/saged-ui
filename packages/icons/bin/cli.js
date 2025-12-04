@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * @saged-ui/icons CLI
+ * @sagebox/icons CLI
  * 
  * Command line interface for managing SVG icons
  * 
@@ -26,7 +26,7 @@ const initCommand = require('../cli/commands/init');
 
 program
   .name('saged-icons')
-  .description('@saged-ui/icons CLI - Manage your SVG icons')
+  .description('@sagebox/icons CLI - Manage your SVG icons')
   .version(pkg.version);
 
 // Register commands

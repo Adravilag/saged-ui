@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'saged-ui-article-editor',
+  namespace: 'sagebox-article-editor',
   taskQueue: 'async',
   outputTargets: [
     {

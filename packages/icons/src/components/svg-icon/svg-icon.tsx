@@ -68,7 +68,7 @@ function registerIconsGlobal(icons: Record<string, string>): void {
 
 /**
  * @component sg-icon
- * @description SVG Icon component for SagedUI - A flexible, accessible icon system
+ * @description SVG Icon component for SageBox - A flexible, accessible icon system
  *
  * @example
  * <!-- Basic usage with built-in icons -->
@@ -220,7 +220,7 @@ export class SgIcon {
         markJsonLoaded(jsonPath);
       }
     } catch (error) {
-      console.error('[SagedUI] Failed to load icons from:', jsonPath, error);
+      console.error('[SageBox] Failed to load icons from:', jsonPath, error);
     }
   }
 
@@ -348,7 +348,7 @@ export class SgIcon {
         markJsonLoaded(jsonPath);
       }
     } catch (error) {
-      console.error('[SagedUI] Failed to load icons from:', jsonPath, error);
+      console.error('[SageBox] Failed to load icons from:', jsonPath, error);
     } finally {
       this.jsonLoading = false;
     }

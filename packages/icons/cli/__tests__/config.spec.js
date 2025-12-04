@@ -22,7 +22,7 @@ describe('CLI Config Utilities', () => {
 
   beforeEach(() => {
     // Create a temporary directory for tests
-    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'saged-ui-test-'));
+    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sagebox-test-'));
   });
 
   afterEach(() => {
@@ -42,8 +42,8 @@ describe('CLI Config Utilities', () => {
   });
 
   describe('CONFIG_FILENAME', () => {
-    it('should be saged-ui.config.json', () => {
-      expect(CONFIG_FILENAME).toBe('saged-ui.config.json');
+    it('should be sagebox.config.json', () => {
+      expect(CONFIG_FILENAME).toBe('sagebox.config.json');
     });
   });
 
@@ -80,7 +80,7 @@ describe('CLI Config Utilities', () => {
 
       try {
         const config = loadConfig();
-        // Note: When running inside saged-ui library, it detects _isLibrary mode
+        // Note: When running inside sagebox library, it detects _isLibrary mode
         // and uses library paths. This is expected behavior.
         if (config._isLibrary) {
           expect(config.icons.input).toContain('svg-icon');
@@ -151,7 +151,7 @@ describe('CLI Config Utilities', () => {
       process.chdir(tempDir);
 
       try {
-        // Should not throw, returns defaults (or library config if inside saged-ui)
+        // Should not throw, returns defaults (or library config if inside sagebox)
         const config = loadConfig();
         // Just verify it doesn't throw and returns a valid config
         expect(config.icons).toBeDefined();

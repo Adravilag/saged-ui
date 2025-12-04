@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'saged-ui-skeleton',
+  namespace: 'sagebox-skeleton',
   taskQueue: 'async',
   outputTargets: [
     {

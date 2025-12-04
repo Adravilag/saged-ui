@@ -1,5 +1,5 @@
 /**
- * Navigation configuration for SagedUI docs
+ * Navigation configuration for SageBox docs
  */
 
 // Import version from package.json
@@ -59,6 +59,6 @@ export const navigation: NavSection[] = [
 ];
 
 export const siteConfig = {
-  name: 'SagedUI',
+  name: 'SageBox',
   version: pkg.version,
 };

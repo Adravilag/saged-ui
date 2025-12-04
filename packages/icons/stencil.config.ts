@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'saged-ui-icons',
+  namespace: 'sagebox-icons',
   sourceMap: false,
   outputTargets: [
     {

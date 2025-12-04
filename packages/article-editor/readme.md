@@ -7,7 +7,7 @@
 
 ## Overview
 
-SagedUI - Article Editor Component
+SageBox - Article Editor Component
 
 A headless-ready article editor supporting HTML and Markdown modes
 with live preview, formatting toolbar, and optional media library integration.

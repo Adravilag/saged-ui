@@ -1,7 +1,7 @@
 {
-  "name": "@saged-ui/icons",
+  "name": "@sagebox/icons",
   "version": "1.0.0",
-  "description": "SVG Icon component for SagedUI - A flexible, accessible icon system",
+  "description": "SVG Icon component for SageBox - A flexible, accessible icon system",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
@@ -10,7 +10,7 @@
   },
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/saged-ui-icons/saged-ui-icons.esm.js",
+  "unpkg": "dist/sagebox-icons/sagebox-icons.esm.js",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -31,13 +31,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Adravilag/saged-ui.git",
+    "url": "https://github.com/Adravilag/sagebox.git",
     "directory": "packages/icons"
   },
   "bugs": {
-    "url": "https://github.com/Adravilag/saged-ui/issues"
+    "url": "https://github.com/Adravilag/sagebox/issues"
   },
-  "homepage": "https://github.com/Adravilag/saged-ui/tree/main/packages/icons#readme",
+  "homepage": "https://github.com/Adravilag/sagebox/tree/main/packages/icons#readme",
   "files": [
     "dist/",
     "loader/",
@@ -45,7 +45,7 @@
     "cli/"
   ],
   "sideEffects": [
-    "dist/saged-ui-icons/saged-ui-icons.esm.js",
+    "dist/sagebox-icons/sagebox-icons.esm.js",
     "loader/index.js"
   ],
   "scripts": {
@@ -68,7 +68,7 @@
     "commander": "^12.1.0"
   },
   "keywords": [
-    "saged-ui",
+    "sagebox",
     "icons",
     "svg-icons",
     "web-components",

@@ -1,6 +1,6 @@
 /**
  * i18n/translations.ts
- * Sistema de internacionalización para la documentación de SagedUI
+ * Sistema de internacionalización para la documentación de SageBox
  */
 
 export const languages = {
@@ -54,7 +54,7 @@ export const translations = {
     },
     // Home page
     home: {
-      title: 'SagedUI',
+      title: 'SageBox',
       subtitle: 'Librería de Web Components',
       description: 'Componentes modernos, accesibles y personalizables para crear interfaces elegantes.',
       heroTagline: 'Diseño moderno. Accesibilidad integrada. Personalización total.',
@@ -226,7 +226,7 @@ export const translations = {
     },
     // Home page
     home: {
-      title: 'SagedUI',
+      title: 'SageBox',
       subtitle: 'Web Components Library',
       description: 'Modern, accessible and customizable components for building elegant interfaces.',
       heroTagline: 'Modern design. Built-in accessibility. Full customization.',

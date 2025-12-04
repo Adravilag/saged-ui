@@ -4,7 +4,7 @@
  * ⚠️  AUTO-GENERATED FILE - DO NOT EDIT MANUALLY
  *
  * To add/modify icons, edit: icons.json
- * Then run: npx saged-ui icons build
+ * Then run: npx sagebox icons build
  *
  * Generated: 2025-12-03T18:27:09.048Z
  * Icons: 5 (filtered from 210 total)
@@ -78,7 +78,7 @@ export async function loadIconsFromJson(jsonPath: string): Promise<void> {
       g[ICONS_LOADED_KEY]![jsonPath] = true;
     }
   } catch (error) {
-    console.error('[SagedUI] Failed to load icons from:', jsonPath, error);
+    console.error('[SageBox] Failed to load icons from:', jsonPath, error);
   }
 }
 

@@ -1,12 +1,12 @@
 {
-  "name": "@saged-ui/article-editor",
+  "name": "@sagebox/article-editor",
   "version": "1.0.0",
-  "description": "Article editor component for SagedUI - Rich text and markdown editor",
+  "description": "Article editor component for SageBox - Rich text and markdown editor",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
-  "unpkg": "dist/saged-ui-article-editor/saged-ui-article-editor.esm.js",
+  "unpkg": "dist/sagebox-article-editor/sagebox-article-editor.esm.js",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Adravilag/saged-ui.git",
+    "url": "https://github.com/Adravilag/sagebox.git",
     "directory": "packages/article-editor"
   },
   "files": ["dist/", "loader/"],
@@ -30,21 +30,21 @@
     "test": "stencil test --spec"
   },
   "peerDependencies": {
-    "@saged-ui/core": "^1.0.0",
-    "@saged-ui/icons": "^1.0.0",
-    "@saged-ui/button": "^1.0.0",
-    "@saged-ui/dropdown": "^1.0.0"
+    "@sagebox/core": "^1.0.0",
+    "@sagebox/icons": "^1.0.0",
+    "@sagebox/button": "^1.0.0",
+    "@sagebox/dropdown": "^1.0.0"
   },
   "peerDependenciesMeta": {
-    "@saged-ui/icons": { "optional": true },
-    "@saged-ui/button": { "optional": true },
-    "@saged-ui/dropdown": { "optional": true }
+    "@sagebox/icons": { "optional": true },
+    "@sagebox/button": { "optional": true },
+    "@sagebox/dropdown": { "optional": true }
   },
   "devDependencies": {
     "@stencil/core": "^4.27.1",
     "typescript": "^5.9.3"
   },
-  "keywords": ["saged-ui", "article-editor", "rich-text", "markdown", "editor", "web-components"],
+  "keywords": ["sagebox", "article-editor", "rich-text", "markdown", "editor", "web-components"],
   "author": "adravilag",
   "license": "MIT",
   "publishConfig": { "access": "public" }

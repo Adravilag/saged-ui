@@ -258,7 +258,7 @@ function generateTypeScript(iconsJsonPath, outputPath, config = {}) {
   // Use filtered icons for the build
   iconsArray = filteredIcons;
 
-  // Detect if we're inside the saged-ui library (for development)
+  // Detect if we're inside the sagebox library (for development)
   const isLibrary = config._isLibrary || false;
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -283,7 +283,7 @@ function generateTypeScript(iconsJsonPath, outputPath, config = {}) {
  * ⚠️  AUTO-GENERATED FILE - DO NOT EDIT MANUALLY
  *
  * To add/modify icons, edit: icons.json
- * Then run: npx saged-ui icons build
+ * Then run: npx sagebox icons build
  *
  * Generated: ${new Date().toISOString()}
  * Icons: ${projectIconCount}${projectIconCount < totalIcons ? ` (filtered from ${totalIcons} total)` : ''}
@@ -344,7 +344,7 @@ export async function loadIconsFromJson(jsonPath: string): Promise<void> {
       (globalThis as any)[ICONS_LOADED_KEY][jsonPath] = true;
     }
   } catch (error) {
-    console.error('[SagedUI] Failed to load icons from:', jsonPath, error);
+    console.error('[SageBox] Failed to load icons from:', jsonPath, error);
   }
 }
 `;
@@ -412,7 +412,7 @@ module.exports = function(program) {
     .option('-f, --file <path>', 'Path to SVG file')
     .option('-s, --svg <content>', 'SVG content as string')
     .action((name, options) => {
-      log.title('🎨 SagedUI - Add Icon');
+      log.title('🎨 SageBox - Add Icon');
 
       const config = loadConfig();
       const iconsJsonPath = getIconsPath(config);
@@ -461,7 +461,7 @@ module.exports = function(program) {
       log.success(`Icon "${kebabName}" ${isUpdate ? 'updated' : 'added'}`);
       log.info(`Paths: ${parsed.paths.length}`);
       log.info(`ViewBox: ${parsed.viewBox}`);
-      log.info(`\nRun ${colors.cyan}npx saged-ui icons build${colors.reset} to generate TypeScript`);
+      log.info(`\nRun ${colors.cyan}npx sagebox icons build${colors.reset} to generate TypeScript`);
     });
 
   // icons sets - List available icon sets from Iconify
@@ -470,7 +470,7 @@ module.exports = function(program) {
     .description('List available icon sets from Iconify')
     .option('-s, --search <query>', 'Filter sets by name')
     .action(async (options) => {
-      log.title('🎨 SagedUI - Available Icon Sets');
+      log.title('🎨 SageBox - Available Icon Sets');
 
       log.info('Fetching available icon sets...');
       const sets = await getIconifySets();
@@ -501,7 +501,7 @@ module.exports = function(program) {
         console.log('  ' + row.map(n => n.padEnd(20)).join(''));
       }
 
-      console.log(`\n${colors.dim}Usage: npx saged-ui icons fetch <prefix>:<name> (e.g., lucide:home)${colors.reset}`);
+      console.log(`\n${colors.dim}Usage: npx sagebox icons fetch <prefix>:<name> (e.g., lucide:home)${colors.reset}`);
     });
 
   // icons fetch <prefix:name> [more...]
@@ -510,7 +510,7 @@ module.exports = function(program) {
     .description('Fetch icons from Iconify (e.g., lucide:home mdi:account)')
     .option('--prefix <prefix>', 'Default prefix for icons without one')
     .action(async (iconNames, options) => {
-      log.title('🎨 SagedUI - Fetch Icons from Iconify');
+      log.title('🎨 SageBox - Fetch Icons from Iconify');
 
       const config = loadConfig();
       const iconsJsonPath = getIconsPath(config);
@@ -559,7 +559,7 @@ module.exports = function(program) {
       log.success(`Fetch completed!`);
       log.info(`  ✓ Added: ${added}`);
       if (failed > 0) log.warn(`  ✗ Failed: ${failed}`);
-      log.info(`\nRun ${colors.cyan}npx saged-ui icons build${colors.reset} to generate TypeScript`);
+      log.info(`\nRun ${colors.cyan}npx sagebox icons build${colors.reset} to generate TypeScript`);
     });
 
   // icons search <query>
@@ -568,7 +568,7 @@ module.exports = function(program) {
     .description('Search icons in Iconify')
     .option('--prefix <prefix>', 'Limit search to specific icon set')
     .action(async (query, options) => {
-      log.title('🎨 SagedUI - Search Icons');
+      log.title('🎨 SageBox - Search Icons');
 
       log.info(`Searching for "${query}"...`);
       const results = await searchIconify(query, options.prefix || '');
@@ -594,7 +594,7 @@ module.exports = function(program) {
       }
 
       console.log(`\n${colors.bright}To add icons:${colors.reset}`);
-      console.log(`  npx saged-ui icons fetch ${results.icons.slice(0, 3).join(' ')}`);
+      console.log(`  npx sagebox icons fetch ${results.icons.slice(0, 3).join(' ')}`);
     });
 
   // icons import <file>
@@ -604,7 +604,7 @@ module.exports = function(program) {
     .option('--merge', 'Merge with existing icons (default)', true)
     .option('--replace', 'Replace all existing icons')
     .action((file, options) => {
-      log.title('🎨 SagedUI - Import Icons');
+      log.title('🎨 SageBox - Import Icons');
 
       const config = loadConfig();
       const iconsJsonPath = getIconsPath(config);
@@ -645,7 +645,7 @@ module.exports = function(program) {
       log.info(`  ➕ New: ${addedCount}`);
       log.info(`  🔄 Updated: ${newCount - addedCount}`);
       log.info(`  📊 Total: ${mergedCount}`);
-      log.info(`\nRun ${colors.cyan}npx saged-ui icons build${colors.reset} to generate TypeScript`);
+      log.info(`\nRun ${colors.cyan}npx sagebox icons build${colors.reset} to generate TypeScript`);
     });
 
   // icons remove <name>
@@ -653,7 +653,7 @@ module.exports = function(program) {
     .command('remove <name>')
     .description('Remove an icon')
     .action((name) => {
-      log.title('🎨 SagedUI - Remove Icon');
+      log.title('🎨 SageBox - Remove Icon');
 
       const config = loadConfig();
       const iconsJsonPath = getIconsPath(config);
@@ -670,7 +670,7 @@ module.exports = function(program) {
       writeIconsJSON(iconsJsonPath, icons);
 
       log.success(`Icon "${kebabName}" removed`);
-      log.info(`\nRun ${colors.cyan}npx saged-ui icons build${colors.reset} to update TypeScript`);
+      log.info(`\nRun ${colors.cyan}npx sagebox icons build${colors.reset} to update TypeScript`);
     });
 
   // icons list
@@ -689,11 +689,11 @@ module.exports = function(program) {
         return;
       }
 
-      log.title('🎨 SagedUI - Icon List');
+      log.title('🎨 SageBox - Icon List');
       log.info(`Total icons: ${iconNames.length}\n`);
 
       if (iconNames.length === 0) {
-        log.warn('No icons found. Add some with: npx saged-ui icons add <name> --file <svg>');
+        log.warn('No icons found. Add some with: npx sagebox icons add <name> --file <svg>');
         return;
       }
 
@@ -713,14 +713,14 @@ module.exports = function(program) {
     .description('Generate TypeScript from icons.json')
     .option('-o, --output <path>', 'Output path for TypeScript file')
     .action((options) => {
-      log.title('🎨 SagedUI - Build Icons');
+      log.title('🎨 SageBox - Build Icons');
 
       const config = loadConfig();
       const iconsJsonPath = getIconsPath(config);
 
       if (!fs.existsSync(iconsJsonPath)) {
         log.error(`icons.json not found at: ${iconsJsonPath}`);
-        log.info('Add icons first with: npx saged-ui icons add <name> --file <svg>');
+        log.info('Add icons first with: npx sagebox icons add <name> --file <svg>');
         process.exit(1);
       }
 
@@ -744,7 +744,7 @@ module.exports = function(program) {
     .option('-p, --port <port>', 'Server port', '4567')
     .option('--legacy', 'Use legacy inline server')
     .action(async (options) => {
-      log.title('🎨 SagedUI - Icon Server');
+      log.title('🎨 SageBox - Icon Server');
 
       const config = loadConfig();
       const iconsJsonPath = getIconsPath(config);
@@ -792,7 +792,7 @@ module.exports = function(program) {
     .description('Optimize all SVG icons (path data)')
     .option('--analyze', 'Analyze icons for potential issues')
     .action(async (options) => {
-      log.title('🎨 SagedUI - Optimize Icons');
+      log.title('🎨 SageBox - Optimize Icons');
 
       const { optimizeIconsJSON, analyzeIcon } = require('../utils/svg-optimizer');
       const config = loadConfig();
@@ -853,7 +853,7 @@ module.exports = function(program) {
     .description('Generate HTML preview of all icons')
     .option('-o, --output <path>', 'Output path', './icons-preview.html')
     .action((options) => {
-      log.title('🎨 SagedUI - Icon Preview');
+      log.title('🎨 SageBox - Icon Preview');
 
       const config = loadConfig();
       const iconsJsonPath = getIconsPath(config);
@@ -880,7 +880,7 @@ function generatePreviewHTML(iconsArray) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SagedUI Icons Preview</title>
+  <title>SageBox Icons Preview</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -937,7 +937,7 @@ function generatePreviewHTML(iconsArray) {
   </style>
 </head>
 <body>
-  <h1>🎨 SagedUI Icons</h1>
+  <h1>🎨 SageBox Icons</h1>
   <input type="text" class="search" placeholder="Search icons..." id="search">
   <p class="count">${iconNames.length} icons</p>
   <div class="grid">

@@ -173,7 +173,7 @@ const props = [
         <h4>Icon Manager - Interfaz Visual</h4>
         <p>Una interfaz web para gestionar tus iconos de forma visual:</p>
         <div class="preview-image">
-          <img src="/saged-ui/images/icon-manager-screenshot.png" alt="Icon Manager UI" />
+          <img src="/sagebox/images/icon-manager-screenshot.png" alt="Icon Manager UI" />
         </div>
       </div>
 
@@ -184,7 +184,7 @@ const props = [
           <div class="command-label">Inicializar proyecto</div>
           <CodeBlock
             filename="terminal"
-            code={`npx saged-ui init`}
+            code={`npx sagebox init`}
           />
         </div>
 
@@ -192,7 +192,7 @@ const props = [
           <div class="command-label">Buscar iconos en Iconify</div>
           <CodeBlock
             filename="terminal"
-            code={`npx saged-ui icons search home`}
+            code={`npx sagebox icons search home`}
           />
         </div>
 
@@ -200,7 +200,7 @@ const props = [
           <div class="command-label">Descargar iconos</div>
           <CodeBlock
             filename="terminal"
-            code={`npx saged-ui icons fetch lucide:home lucide:settings mdi:heart`}
+            code={`npx sagebox icons fetch lucide:home lucide:settings mdi:heart`}
           />
         </div>
 
@@ -208,7 +208,7 @@ const props = [
           <div class="command-label">Generar TypeScript</div>
           <CodeBlock
             filename="terminal"
-            code={`npx saged-ui icons build`}
+            code={`npx sagebox icons build`}
           />
         </div>
 
@@ -216,7 +216,7 @@ const props = [
           <div class="command-label">Iniciar Icon Manager (GUI)</div>
           <CodeBlock
             filename="terminal"
-            code={`npx saged-ui icons server`}
+            code={`npx sagebox icons server`}
           />
         </div>
       </div>
@@ -276,7 +276,7 @@ const props = [
         <CodeBlock
           filename="src/icons/index.ts"
           code={`// Auto-generated - do not edit manually
-import { registerIcons } from 'saged-ui';
+import { registerIcons } from 'sagebox';
 
 export const icons: Record<string, string> = {
   'lucide-home': '<svg xmlns="http://www.w3.org/2000/svg" ...>...</svg>',

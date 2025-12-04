@@ -178,9 +178,9 @@ async function fetchIconifySet(setName, icons = null) {
 }
 
 /**
- * Convert Iconify format to SagedUI format
+ * Convert Iconify format to SageBox format
  */
-function convertIconifyToSagedUI(iconifyIcons, prefix) {
+function convertIconifyToSageBox(iconifyIcons, prefix) {
   const result = {};
 
   for (const [name, data] of Object.entries(iconifyIcons)) {
@@ -260,7 +260,7 @@ module.exports = function(program) {
     .action(() => {
       log.title('🎨 Available Icon Sets');
 
-      console.log('  Use: npx saged-ui icon-sets import <set-name> [icons...]\n');
+      console.log('  Use: npx sagebox icon-sets import <set-name> [icons...]\n');
 
       for (const [id, set] of Object.entries(ICON_SETS)) {
         console.log(`  ${colors.cyan}${id.padEnd(12)}${colors.reset} ${set.name}`);
@@ -326,9 +326,9 @@ module.exports = function(program) {
 
         log.info(`Converting ${iconCount} icons...`);
 
-        // Convert to SagedUI format
+        // Convert to SageBox format
         const prefix = options.prefix ? setConfig.prefix : '';
-        const convertedIcons = convertIconifyToSagedUI(iconifyIcons, prefix);
+        const convertedIcons = convertIconifyToSageBox(iconifyIcons, prefix);
         const convertedCount = Object.keys(convertedIcons).length;
 
         // Merge with existing
@@ -340,7 +340,7 @@ module.exports = function(program) {
         log.success(`Import completed!`);
         log.info(`  📥 Imported: ${convertedCount} icons`);
         log.info(`  📊 Total: ${Object.keys(mergedIcons).length} icons`);
-        log.info(`\nRun ${colors.cyan}npx saged-ui icons build${colors.reset} to generate TypeScript`);
+        log.info(`\nRun ${colors.cyan}npx sagebox icons build${colors.reset} to generate TypeScript`);
 
       } catch (e) {
         log.error(`Failed to import: ${e.message}`);
@@ -378,7 +378,7 @@ module.exports = function(program) {
           console.log(`  ${colors.cyan}${name}${colors.reset}`);
         });
 
-        console.log(`\nImport with: ${colors.cyan}npx saged-ui icon-sets import ${setId} -i ${results.icons.map(i => i.split(':')[1]).slice(0, 5).join(' ')}${colors.reset}`);
+        console.log(`\nImport with: ${colors.cyan}npx sagebox icon-sets import ${setId} -i ${results.icons.map(i => i.split(':')[1]).slice(0, 5).join(' ')}${colors.reset}`);
 
       } catch (e) {
         log.error(`Search failed: ${e.message}`);

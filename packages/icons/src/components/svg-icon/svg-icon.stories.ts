@@ -209,7 +209,7 @@ Colors.parameters = {
 // Medical icons showcase
 export const MedicalIcons = () => `
   <div style="font-family: system-ui, sans-serif;">
-    <h3 style="margin-bottom: 16px; color: #333;">Medical Icons for SagedUI</h3>
+    <h3 style="margin-bottom: 16px; color: #333;">Medical Icons for SageBox</h3>
     <div style="display: flex; flex-wrap: wrap; gap: 24px;">
       <div style="display: flex; flex-direction: column; align-items: center; padding: 20px; background: #f5f5f5; border-radius: 12px;">
         <sg-icon name="heart" size="48" color="#e91e63"></sg-icon>

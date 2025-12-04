@@ -1,17 +1,17 @@
 {
-  "name": "saged-ui",
+  "name": "sagebox",
   "version": "1.3.0",
-  "description": "SagedUI - Modern Web Components Library - Reusable UI components for any project",
+  "description": "SageBox - Modern Web Components Library - Reusable UI components for any project",
   "private": false,
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "bin": {
-    "saged-ui": "./bin/cli.js"
+    "sagebox": "./bin/cli.js"
   },
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/saged-ui/saged-ui.esm.js",
+  "unpkg": "dist/sagebox/sagebox.esm.js",
   "workspaces": [
     "packages/*"
   ],
@@ -26,8 +26,8 @@
       "import": "./dist/components/index.js"
     },
     "./angular": {
-      "types": "./dist/angular/types/saged-ui-angular.d.ts",
-      "import": "./dist/angular/fesm2022/saged-ui-angular.mjs"
+      "types": "./dist/angular/types/sagebox-angular.d.ts",
+      "import": "./dist/angular/fesm2022/sagebox-angular.mjs"
     },
     "./components/*": {
       "types": "./dist/components/*.d.ts",
@@ -83,12 +83,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Adravilag/saged-ui.git"
+    "url": "https://github.com/Adravilag/sagebox.git"
   },
   "bugs": {
-    "url": "https://github.com/Adravilag/saged-ui/issues"
+    "url": "https://github.com/Adravilag/sagebox/issues"
   },
-  "homepage": "https://github.com/Adravilag/saged-ui#readme",
+  "homepage": "https://github.com/Adravilag/sagebox#readme",
   "files": [
     "dist/",
     "loader/",
@@ -99,7 +99,7 @@
     "react/"
   ],
   "sideEffects": [
-    "dist/saged-ui/saged-ui.esm.js",
+    "dist/sagebox/sagebox.esm.js",
     "loader/index.js"
   ],
   "scripts": {
@@ -209,8 +209,8 @@
     "commander": "^12.1.0"
   },
   "keywords": [
-    "saged-ui",
-    "sagedui",
+    "sagebox",
+    "SageBox",
     "web-components",
     "stencil",
     "design-system",
@@ -231,7 +231,7 @@
   },
   "size-limit": [
     {
-      "path": "dist/saged-ui/saged-ui.esm.js",
+      "path": "dist/sagebox/sagebox.esm.js",
       "limit": "50 KB"
     },
     {

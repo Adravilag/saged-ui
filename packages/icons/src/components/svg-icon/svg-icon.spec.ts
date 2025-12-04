@@ -13,7 +13,7 @@ beforeAll(() => {
   console.error = (...args: unknown[]) => {
     const message = args[0]?.toString() || '';
     // Silence expected errors from mock environment limitations
-    if (message.includes('[SagedUI] Failed to load icons') || message.includes('XML parsing not implemented')) {
+    if (message.includes('[SageBox] Failed to load icons') || message.includes('XML parsing not implemented')) {
       return;
     }
     originalConsoleError.apply(console, args);

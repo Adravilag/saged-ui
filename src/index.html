@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html dir="ltr" lang="es" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light dark" />
-  <title>SagedUI - Components</title>
+  <title>SageBox - Components</title>
 
-  <!-- SagedUI -->
-  <link rel="stylesheet" href="/build/saged-ui.css" />
-  <script type="module" src="/build/saged-ui.esm.js"></script>
+  <!-- SageBox -->
+  <link rel="stylesheet" href="/build/sagebox.css" />
+  <script type="module" src="/build/sagebox.esm.js"></script>
 
   <!-- Dev Styles -->
   <link rel="stylesheet" href="/dev.css" />
@@ -16,13 +16,13 @@
 <body>
   <div class="dev-layout">
 
-    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ------------------------------------------------------------------- -->
     <!-- SIDEBAR -->
-    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ------------------------------------------------------------------- -->
     <aside class="dev-sidebar">
       <header class="dev-sidebar__header">
         <span class="dev-sidebar__logo">
-          SagedUI
+          SageBox
           <span class="dev-sidebar__version">1.2.1</span>
         </span>
         <button class="dev-sidebar__theme-btn" onclick="toggleTheme()" title="Toggle theme">
@@ -54,12 +54,12 @@
       </nav>
     </aside>
 
-    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ------------------------------------------------------------------- -->
     <!-- MAIN -->
-    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ------------------------------------------------------------------- -->
     <main class="dev-main">
 
-      <!-- BUTTON ──────────────────────────────────────────────────────────── -->
+      <!-- BUTTON ------------------------------------------------------------ -->
       <article class="component" id="button">
         <header class="component__header">
           <h2 class="component__title">Button</h2>
@@ -94,7 +94,7 @@
         </div>
       </article>
 
-      <!-- BADGE ───────────────────────────────────────────────────────────── -->
+      <!-- BADGE ------------------------------------------------------------- -->
       <article class="component" id="badge">
         <header class="component__header">
           <h2 class="component__title">Badge</h2>
@@ -123,7 +123,7 @@
         </div>
       </article>
 
-      <!-- ICON ────────────────────────────────────────────────────────────── -->
+      <!-- ICON -------------------------------------------------------------- -->
       <article class="component" id="icon">
         <header class="component__header">
           <h2 class="component__title">Icon</h2>
@@ -167,7 +167,7 @@
         </div>
       </article>
 
-      <!-- DROPDOWN ────────────────────────────────────────────────────────── -->
+      <!-- DROPDOWN ---------------------------------------------------------- -->
       <article class="component" id="dropdown">
         <header class="component__header">
           <h2 class="component__title">Dropdown</h2>
@@ -178,7 +178,7 @@
             <p class="demo-label">Basic</p>
             <div class="demo-row">
               <sg-dropdown align="start">
-                <button slot="trigger" class="demo-btn">Select option ▼</button>
+                <button slot="trigger" class="demo-btn">Select option ?</button>
                 <button class="demo-menu-item">Option 1</button>
                 <button class="demo-menu-item">Option 2</button>
                 <button class="demo-menu-item">Option 3</button>
@@ -189,7 +189,7 @@
             <p class="demo-label">With Header & Footer</p>
             <div class="demo-row">
               <sg-dropdown align="start">
-                <button slot="trigger" class="demo-btn">Menu ▼</button>
+                <button slot="trigger" class="demo-btn">Menu ?</button>
                 <div slot="header" class="demo-menu-header">Settings</div>
                 <button class="demo-menu-item">Profile</button>
                 <button class="demo-menu-item">Preferences</button>
@@ -201,7 +201,7 @@
         </div>
       </article>
 
-      <!-- SKELETON ────────────────────────────────────────────────────────── -->
+      <!-- SKELETON ---------------------------------------------------------- -->
       <article class="component" id="skeleton">
         <header class="component__header">
           <h2 class="component__title">Skeleton</h2>
@@ -236,7 +236,7 @@
         </div>
       </article>
 
-      <!-- ARTICLE EDITOR ──────────────────────────────────────────────────── -->
+      <!-- ARTICLE EDITOR ---------------------------------------------------- -->
       <article class="component" id="article-editor">
         <header class="component__header">
           <h2 class="component__title">Article Editor</h2>
@@ -252,7 +252,7 @@
         </div>
       </article>
 
-      <!-- THEME TOGGLE ────────────────────────────────────────────────────── -->
+      <!-- THEME TOGGLE ------------------------------------------------------ -->
       <article class="component" id="theme-toggle">
         <header class="component__header">
           <h2 class="component__title">Theme Toggle</h2>
@@ -268,9 +268,9 @@
     </main>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- ----------------------------------------------------------------------- -->
   <!-- SCRIPTS -->
-  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- ----------------------------------------------------------------------- -->
   <script>
     // Theme
     function toggleTheme() {

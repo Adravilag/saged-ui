@@ -17,7 +17,7 @@ describe('Icons Command', () => {
 
   beforeEach(() => {
     // Create a temporary directory for tests
-    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'saged-ui-icons-test-'));
+    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sagebox-icons-test-'));
     iconsJsonPath = path.join(tempDir, 'icons.json');
   });
 

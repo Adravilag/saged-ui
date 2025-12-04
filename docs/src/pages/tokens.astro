@@ -88,7 +88,7 @@ const transitions = [
 ];
 ---
 
-<Layout title="Design Tokens - SagedUI">
+<Layout title="Design Tokens - SageBox">
   <div class="app">
     <Sidebar />
     <main class="tokens-page">
@@ -147,10 +147,10 @@ const transitions = [
           <CodeBlock 
             filename="main.js"
             code={`// Import only CSS tokens
-import 'saged-ui/dist/saged-ui/styles/tokens.css';
+import 'sagebox/dist/sagebox/styles/tokens.css';
 
-// Or import all SagedUI CSS (includes tokens)
-import 'saged-ui/dist/saged-ui/saged-ui.css';`}
+// Or import all SageBox CSS (includes tokens)
+import 'sagebox/dist/sagebox/sagebox.css';`}
           />
         </div>
         
@@ -159,10 +159,10 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
           <CodeBlock 
             filename="index.html"
             code={`<!-- From unpkg -->
-<link rel="stylesheet" href="https://unpkg.com/saged-ui/dist/saged-ui/styles/tokens.css">
+<link rel="stylesheet" href="https://unpkg.com/sagebox/dist/sagebox/styles/tokens.css">
 
 <!-- Or from jsDelivr -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/saged-ui/dist/saged-ui/styles/tokens.css">`}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sagebox/dist/sagebox/styles/tokens.css">`}
           />
         </div>
         
@@ -171,7 +171,7 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
           <CodeBlock 
             filename="styles.css"
             code={`/* If using a bundler like Vite, Webpack, etc. */
-@import 'saged-ui/dist/saged-ui/styles/tokens.css';`}
+@import 'sagebox/dist/sagebox/styles/tokens.css';`}
           />
         </div>
       </div>

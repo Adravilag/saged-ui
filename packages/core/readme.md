@@ -1,11 +1,11 @@
-# @saged-ui/core
+# @sagebox/core
 
-Core styles, design tokens and utilities for SagedUI components.
+Core styles, design tokens and utilities for SageBox components.
 
 ## Installation
 
 ```bash
-npm install @saged-ui/core
+npm install @sagebox/core
 ```
 
 ## Usage
@@ -15,19 +15,19 @@ npm install @saged-ui/core
 Import the CSS file to get all design tokens as CSS custom properties:
 
 ```css
-@import '@saged-ui/core/styles';
+@import '@sagebox/core/styles';
 ```
 
 Or in JavaScript:
 
 ```javascript
-import '@saged-ui/core/dist/styles/tokens.css';
+import '@sagebox/core/dist/styles/tokens.css';
 ```
 
 ### JavaScript Tokens
 
 ```javascript
-import { colors, spacing, tokens } from '@saged-ui/core';
+import { colors, spacing, tokens } from '@sagebox/core';
 
 // Use tokens in your code
 console.log(colors.primary); // 'var(--sg-color-primary, #6366f1)'
@@ -36,7 +36,7 @@ console.log(colors.primary); // 'var(--sg-color-primary, #6366f1)'
 ### Utilities
 
 ```javascript
-import { generateId, debounce, clamp } from '@saged-ui/core';
+import { generateId, debounce, clamp } from '@sagebox/core';
 
 const id = generateId('button'); // 'button-abc123'
 const value = clamp(150, 0, 100); // 100

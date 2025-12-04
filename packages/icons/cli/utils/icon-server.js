@@ -129,7 +129,7 @@ function start(iconsJsonPath, port = 4567) {
 
   server.listen(port, () => {
     console.log(`
-🎨 SagedUI Icon Server
+🎨 SageBox Icon Server
 
    Local:   http://localhost:${port}
 
@@ -192,7 +192,7 @@ function generateUI(iconsJsonPath) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SagedUI Icon Manager</title>
+  <title>SageBox Icon Manager</title>
   <style>
     :root {
       /* Colors - Accent */
@@ -1028,7 +1028,7 @@ function generateUI(iconsJsonPath) {
       <div class="sidebar-header">
         <div class="logo">
           <div class="logo-icon">🎨</div>
-          <div class="logo-text">SagedUI<span>Icon Manager</span></div>
+          <div class="logo-text">SageBox<span>Icon Manager</span></div>
         </div>
       </div>
 

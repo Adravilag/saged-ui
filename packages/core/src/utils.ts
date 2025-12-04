@@ -1,5 +1,5 @@
 /**
- * Utility functions shared across SagedUI components
+ * Utility functions shared across SageBox components
  */
 
 /**

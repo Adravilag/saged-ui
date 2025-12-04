@@ -5,7 +5,7 @@ import node from '@astrojs/node';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://adravilag.github.io',
-  base: '/saged-ui',
+  base: '/sagebox',
   outDir: '../dist-docs',
   trailingSlash: 'always',
   // Static by default, SSR only where needed (Icon Manager)

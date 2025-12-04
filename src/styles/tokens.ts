@@ -1,5 +1,5 @@
 /**
- * saged-ui - Design Tokens (TypeScript)
+ * sagebox - Design Tokens (TypeScript)
  * Type-safe access to design tokens for programmatic use
  */
 

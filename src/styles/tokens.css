@@ -1,9 +1,9 @@
 /**
- * saged-ui - Design Tokens
+ * sagebox - Design Tokens
  * Global CSS Custom Properties for consistent theming across all components
  *
  * Usage:
- * 1. Import in your app: @import 'saged-ui/dist/styles/tokens.css';
+ * 1. Import in your app: @import 'sagebox/dist/styles/tokens.css';
  * 2. Or use the built-in themes: <body data-theme="dark">
  * 3. Override tokens at any level for custom themes
  */

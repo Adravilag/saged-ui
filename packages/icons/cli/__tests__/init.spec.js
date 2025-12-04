@@ -12,7 +12,7 @@ describe('Init Command', () => {
 
   beforeEach(() => {
     // Create a temporary directory for tests
-    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'saged-ui-init-test-'));
+    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sagebox-init-test-'));
     originalCwd = process.cwd();
     process.chdir(tempDir);
   });
@@ -35,7 +35,7 @@ describe('Init Command', () => {
         }
       };
 
-      const configPath = path.join(tempDir, 'saged-ui.config.json');
+      const configPath = path.join(tempDir, 'sagebox.config.json');
       fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2), 'utf-8');
 
       expect(fs.existsSync(configPath)).toBe(true);
@@ -47,14 +47,14 @@ describe('Init Command', () => {
     });
 
     it('should detect existing config file', () => {
-      const configPath = path.join(tempDir, 'saged-ui.config.json');
+      const configPath = path.join(tempDir, 'sagebox.config.json');
       fs.writeFileSync(configPath, '{"existing": true}', 'utf-8');
 
       expect(fs.existsSync(configPath)).toBe(true);
     });
 
     it('should allow force overwrite of existing config', () => {
-      const configPath = path.join(tempDir, 'saged-ui.config.json');
+      const configPath = path.join(tempDir, 'sagebox.config.json');
 
       // Create existing config
       fs.writeFileSync(configPath, '{"old": "config"}', 'utf-8');
@@ -123,10 +123,10 @@ describe('Init Command', () => {
 
       // Simulate adding scripts
       const scriptsToAdd = {
-        'icons:add': 'saged-ui icons add',
-        'icons:build': 'saged-ui icons build',
-        'icons:list': 'saged-ui icons list',
-        'icons:preview': 'saged-ui icons preview'
+        'icons:add': 'sagebox icons add',
+        'icons:build': 'sagebox icons build',
+        'icons:list': 'sagebox icons list',
+        'icons:preview': 'sagebox icons preview'
       };
 
       const updatedPkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
@@ -134,10 +134,10 @@ describe('Init Command', () => {
       fs.writeFileSync(pkgPath, JSON.stringify(updatedPkg, null, 2), 'utf-8');
 
       const savedPkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
-      expect(savedPkg.scripts['icons:add']).toBe('saged-ui icons add');
-      expect(savedPkg.scripts['icons:build']).toBe('saged-ui icons build');
-      expect(savedPkg.scripts['icons:list']).toBe('saged-ui icons list');
-      expect(savedPkg.scripts['icons:preview']).toBe('saged-ui icons preview');
+      expect(savedPkg.scripts['icons:add']).toBe('sagebox icons add');
+      expect(savedPkg.scripts['icons:build']).toBe('sagebox icons build');
+      expect(savedPkg.scripts['icons:list']).toBe('sagebox icons list');
+      expect(savedPkg.scripts['icons:preview']).toBe('sagebox icons preview');
     });
 
     it('should not overwrite existing scripts', () => {
@@ -153,8 +153,8 @@ describe('Init Command', () => {
 
       // Simulate adding scripts without overwriting
       const scriptsToAdd = {
-        'icons:add': 'saged-ui icons add',
-        'icons:build': 'saged-ui icons build' // Should not overwrite
+        'icons:add': 'sagebox icons add',
+        'icons:build': 'sagebox icons build' // Should not overwrite
       };
 
       const updatedPkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
@@ -167,7 +167,7 @@ describe('Init Command', () => {
 
       const savedPkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
       expect(savedPkg.scripts['icons:build']).toBe('custom-build-command'); // Preserved
-      expect(savedPkg.scripts['icons:add']).toBe('saged-ui icons add'); // Added
+      expect(savedPkg.scripts['icons:add']).toBe('sagebox icons add'); // Added
     });
 
     it('should create scripts object if not exists', () => {
@@ -183,17 +183,17 @@ describe('Init Command', () => {
       if (!updatedPkg.scripts) {
         updatedPkg.scripts = {};
       }
-      updatedPkg.scripts['icons:build'] = 'saged-ui icons build';
+      updatedPkg.scripts['icons:build'] = 'sagebox icons build';
       fs.writeFileSync(pkgPath, JSON.stringify(updatedPkg, null, 2), 'utf-8');
 
       const savedPkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
       expect(savedPkg.scripts).toBeDefined();
-      expect(savedPkg.scripts['icons:build']).toBe('saged-ui icons build');
+      expect(savedPkg.scripts['icons:build']).toBe('sagebox icons build');
     });
 
     it('should work without package.json', () => {
       // No package.json - should not throw
-      const configPath = path.join(tempDir, 'saged-ui.config.json');
+      const configPath = path.join(tempDir, 'sagebox.config.json');
       const config = { icons: { input: './src/icons' } };
 
       fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf-8');
@@ -212,7 +212,7 @@ describe('Init Command', () => {
         }
       };
 
-      const configPath = path.join(tempDir, 'saged-ui.config.json');
+      const configPath = path.join(tempDir, 'sagebox.config.json');
       fs.writeFileSync(configPath, JSON.stringify(customConfig, null, 2), 'utf-8');
 
       const savedConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'));

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('SagedUI Components E2E', () => {
+test.describe('SageBox Components E2E', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
   });
@@ -9,7 +9,7 @@ test.describe('SagedUI Components E2E', () => {
     test('should render badge with default variant', async ({ page }) => {
       await page.setContent(`
         <sg-badge>Test Badge</sg-badge>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       const badge = page.locator('sg-badge');
@@ -23,7 +23,7 @@ test.describe('SagedUI Components E2E', () => {
         <sg-badge variant="success">Success</sg-badge>
         <sg-badge variant="warning">Warning</sg-badge>
         <sg-badge variant="error">Error</sg-badge>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       const badges = page.locator('sg-badge');
@@ -35,7 +35,7 @@ test.describe('SagedUI Components E2E', () => {
         <sg-badge size="sm">Small</sg-badge>
         <sg-badge size="md">Medium</sg-badge>
         <sg-badge size="lg">Large</sg-badge>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       const badges = page.locator('sg-badge');
@@ -47,7 +47,7 @@ test.describe('SagedUI Components E2E', () => {
     test('should render button and handle click', async ({ page }) => {
       await page.setContent(`
         <sg-button id="test-btn">Click Me</sg-button>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       const button = page.locator('sg-button');
@@ -58,7 +58,7 @@ test.describe('SagedUI Components E2E', () => {
     test('should emit sgClick event', async ({ page }) => {
       await page.setContent(`
         <sg-button id="test-btn">Click Me</sg-button>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       // Wait for component to be defined
@@ -80,7 +80,7 @@ test.describe('SagedUI Components E2E', () => {
     test('should not emit click when disabled', async ({ page }) => {
       await page.setContent(`
         <sg-button id="test-btn" disabled>Disabled</sg-button>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
         <script>
           window.clicked = false;
           document.querySelector('#test-btn').addEventListener('sgClick', () => {
@@ -99,7 +99,7 @@ test.describe('SagedUI Components E2E', () => {
     test('should render built-in icon', async ({ page }) => {
       await page.setContent(`
         <sg-icon name="home"></sg-icon>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       // Wait for component to be defined and rendered
@@ -114,7 +114,7 @@ test.describe('SagedUI Components E2E', () => {
     test('should render with custom size', async ({ page }) => {
       await page.setContent(`
         <sg-icon name="home" size="48"></sg-icon>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       await page.waitForFunction(() => customElements.get('sg-icon'));
@@ -128,7 +128,7 @@ test.describe('SagedUI Components E2E', () => {
     test('should be decorative when marked', async ({ page }) => {
       await page.setContent(`
         <sg-icon name="home" decorative></sg-icon>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       await page.waitForFunction(() => customElements.get('sg-icon'));
@@ -144,7 +144,7 @@ test.describe('SagedUI Components E2E', () => {
     test('should render theme toggle', async ({ page }) => {
       await page.setContent(`
         <sg-theme-toggle></sg-theme-toggle>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       const toggle = page.locator('sg-theme-toggle');
@@ -154,7 +154,7 @@ test.describe('SagedUI Components E2E', () => {
     test('should toggle theme on click', async ({ page }) => {
       await page.setContent(`
         <sg-theme-toggle></sg-theme-toggle>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       // Wait for component to be defined
@@ -177,7 +177,7 @@ test.describe('SagedUI Components E2E', () => {
     test('should render skeleton with default variant', async ({ page }) => {
       await page.setContent(`
         <sg-skeleton></sg-skeleton>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       const skeleton = page.locator('sg-skeleton');
@@ -187,7 +187,7 @@ test.describe('SagedUI Components E2E', () => {
     test('should render circle skeleton', async ({ page }) => {
       await page.setContent(`
         <sg-skeleton variant="circle" size="64"></sg-skeleton>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       const skeleton = page.locator('sg-skeleton');
@@ -205,7 +205,7 @@ test.describe('SagedUI Components E2E', () => {
             <a href="#">Item 2</a>
           </div>
         </sg-dropdown>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       const dropdown = page.locator('sg-dropdown');
@@ -220,7 +220,7 @@ test.describe('SagedUI Components E2E', () => {
             <a href="#">Item 1</a>
           </div>
         </sg-dropdown>
-        <script type="module" src="/build/saged-ui.esm.js"></script>
+        <script type="module" src="/build/sagebox.esm.js"></script>
       `);
 
       await page.locator('[slot="trigger"]').click();
@@ -234,7 +234,7 @@ test.describe('Accessibility', () => {
   test('sg-icon should have proper ARIA attributes', async ({ page }) => {
     await page.setContent(`
       <sg-icon name="home" aria-label="Navigate to home"></sg-icon>
-      <script type="module" src="/build/saged-ui.esm.js"></script>
+      <script type="module" src="/build/sagebox.esm.js"></script>
     `);
 
     await page.waitForFunction(() => customElements.get('sg-icon'));
@@ -248,7 +248,7 @@ test.describe('Accessibility', () => {
   test('sg-button should be keyboard accessible', async ({ page }) => {
     await page.setContent(`
       <sg-button id="test-btn">Press Enter</sg-button>
-      <script type="module" src="/build/saged-ui.esm.js"></script>
+      <script type="module" src="/build/sagebox.esm.js"></script>
     `);
 
     await page.waitForFunction(() => customElements.get('sg-button'));
@@ -274,7 +274,7 @@ test.describe('Theming', () => {
       <div data-theme="dark">
         <sg-badge variant="primary">Dark Theme</sg-badge>
       </div>
-      <script type="module" src="/build/saged-ui.esm.js"></script>
+      <script type="module" src="/build/sagebox.esm.js"></script>
     `);
 
     const container = page.locator('[data-theme="dark"]');

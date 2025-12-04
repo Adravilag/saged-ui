@@ -1,6 +1,6 @@
 # sg-icon
 
-A flexible, accessible SVG icon component for the SagedUI library. Supports built-in icons, custom SVG sources, and dynamic loading from JSON files.
+A flexible, accessible SVG icon component for the SageBox library. Supports built-in icons, custom SVG sources, and dynamic loading from JSON files.
 
 ## Features
 
@@ -82,7 +82,7 @@ The JSON file should be an object mapping icon names to SVG strings:
 You can configure a default JSON source for all icons:
 
 ```typescript
-import { SgIcon } from 'saged-ui';
+import { SgIcon } from 'sagebox';
 
 // Configure globally - all <sg-icon> components will use this JSON
 SgIcon.configure({ jsonSrc: '/assets/custom-icons.json' });
@@ -93,10 +93,10 @@ await SgIcon.loadIcons('/assets/custom-icons.json');
 
 #### With CLI-generated icons
 
-When using `npx saged-ui icons build`, a JSON file is automatically generated alongside the TypeScript file:
+When using `npx sagebox icons build`, a JSON file is automatically generated alongside the TypeScript file:
 
 ```bash
-npx saged-ui icons build
+npx sagebox icons build
 # Generates:
 #   - src/icons/custom-icons.ts (auto-registers icons)
 #   - src/icons/custom-icons.json (for dynamic loading)
@@ -187,23 +187,23 @@ Then you can either:
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                                                | Type                            | Default          |
-| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ---------------- |
-| `ariaLabel`   | `aria-label`   | Accessible label for screen readers. If not provided, defaults to "{name} icon" for non-decorative icons.                                                  | `string \| undefined`           | `undefined`      |
-| `color`       | `color`        | Color of the icon (CSS color value)                                                                                                                        | `string`                        | `'currentColor'` |
-| `decorative`  | `decorative`   | Whether the icon is decorative (hidden from screen readers)                                                                                                | `boolean`                       | `false`          |
-| `fill`        | `fill`         | Alias for color (for compatibility with legacy svg-icon components)                                                                                        | `string \| undefined`           | `undefined`      |
-| `flipH`       | `flip-h`       | Flip the icon horizontally                                                                                                                                 | `boolean`                       | `false`          |
-| `flipV`       | `flip-v`       | Flip the icon vertically                                                                                                                                   | `boolean`                       | `false`          |
-| `height`      | `height`       | Height of the icon (overrides size)                                                                                                                        | `number \| string \| undefined` | `undefined`      |
-| `jsonSrc`     | `json-src`     | URL to a JSON file containing icon definitions. The JSON should be an object mapping icon names to SVG strings. Icons are loaded once and cached globally. | `string \| undefined`           | `undefined`      |
-| `name`        | `name`         | The name of the icon from the built-in library. Supports both 'name' and 'icon-name' formats for compatibility.                                            | `string \| undefined`           | `undefined`      |
-| `rotate`      | `rotate`       | Rotation angle in degrees                                                                                                                                  | `number \| undefined`           | `undefined`      |
-| `size`        | `size`         | Size of the icon in pixels                                                                                                                                 | `number \| string`              | `24`             |
-| `spin`        | `spin`         | Whether the icon should spin (useful for loading icons)                                                                                                    | `boolean`                       | `false`          |
-| `src`         | `src`          | URL to a custom SVG icon (alternative to name)                                                                                                             | `string \| undefined`           | `undefined`      |
-| `strokeWidth` | `stroke-width` | Stroke width for outline icons                                                                                                                             | `number \| undefined`           | `undefined`      |
-| `width`       | `width`        | Width of the icon (overrides size)                                                                                                                         | `number \| string \| undefined` | `undefined`      |
+| Property      | Attribute      | Description                                                                                                                                                | Type               | Default          |
+| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ---------------- |
+| `ariaLabel`   | `aria-label`   | Accessible label for screen readers. If not provided, defaults to "{name} icon" for non-decorative icons.                                                  | `string`           | `undefined`      |
+| `color`       | `color`        | Color of the icon (CSS color value)                                                                                                                        | `string`           | `'currentColor'` |
+| `decorative`  | `decorative`   | Whether the icon is decorative (hidden from screen readers)                                                                                                | `boolean`          | `false`          |
+| `fill`        | `fill`         | Alias for color (for compatibility with legacy svg-icon components)                                                                                        | `string`           | `undefined`      |
+| `flipH`       | `flip-h`       | Flip the icon horizontally                                                                                                                                 | `boolean`          | `false`          |
+| `flipV`       | `flip-v`       | Flip the icon vertically                                                                                                                                   | `boolean`          | `false`          |
+| `height`      | `height`       | Height of the icon (overrides size)                                                                                                                        | `number \| string` | `undefined`      |
+| `jsonSrc`     | `json-src`     | URL to a JSON file containing icon definitions. The JSON should be an object mapping icon names to SVG strings. Icons are loaded once and cached globally. | `string`           | `undefined`      |
+| `name`        | `name`         | The name of the icon from the built-in library. Supports both 'name' and 'icon-name' formats for compatibility.                                            | `string`           | `undefined`      |
+| `rotate`      | `rotate`       | Rotation angle in degrees                                                                                                                                  | `number`           | `undefined`      |
+| `size`        | `size`         | Size of the icon in pixels                                                                                                                                 | `number \| string` | `24`             |
+| `spin`        | `spin`         | Whether the icon should spin (useful for loading icons)                                                                                                    | `boolean`          | `false`          |
+| `src`         | `src`          | URL to a custom SVG icon (alternative to name)                                                                                                             | `string`           | `undefined`      |
+| `strokeWidth` | `stroke-width` | Stroke width for outline icons                                                                                                                             | `number`           | `undefined`      |
+| `width`       | `width`        | Width of the icon (overrides size)                                                                                                                         | `number \| string` | `undefined`      |
 
 
 ## Methods
@@ -267,6 +267,19 @@ Type: `Promise<void>`
 
 
 
+
+## Dependencies
+
+### Used by
+
+ - [sg-button](../../../../button/src/components/button)
+
+### Graph
+```mermaid
+graph TD;
+  sg-button --> sg-icon
+  style sg-icon fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

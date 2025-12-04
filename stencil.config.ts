@@ -3,9 +3,13 @@ import { angularOutputTarget } from '@stencil/angular-output-target';
 import { reactOutputTarget } from '@stencil/react-output-target';
 
 export const config: Config = {
-  namespace: 'saged-ui',
+  namespace: 'sagebox',
   sourceMap: false,
   globalStyle: 'src/styles/tokens.css',
+  // Include components from packages
+  srcDir: 'src',
+  // Tell Stencil where to find components (from packages)
+  globalScript: 'src/index.ts',
   outputTargets: [
     {
       type: 'dist',
@@ -18,15 +22,15 @@ export const config: Config = {
       externalRuntime: false,
     },
     angularOutputTarget({
-      componentCorePackage: 'saged-ui',
+      componentCorePackage: 'sagebox',
       outputType: 'standalone',
-      directivesProxyFile: './angular/src/directives/proxies.ts',
-      directivesArrayFile: './angular/src/directives/index.ts',
+      directivesProxyFile: './wrappers/angular/src/directives/proxies.ts',
+      directivesArrayFile: './wrappers/angular/src/directives/index.ts',
     }),
     reactOutputTarget({
-      componentCorePackage: 'saged-ui',
-      proxiesFile: './react/src/components/stencil-generated/index.ts',
-      outDir: './react/dist',
+      componentCorePackage: 'sagebox',
+      proxiesFile: './wrappers/react/src/components/stencil-generated/index.ts',
+      outDir: './wrappers/react/dist',
     }),
     {
       type: 'docs-readme',
@@ -36,18 +40,18 @@ export const config: Config = {
     browserHeadless: 'shell',
     testPathIgnorePatterns: [
       '/node_modules/',
-      '/angular/',
-      '/react/',
+      '/wrappers/angular/',
+      '/wrappers/react/',
       '/docs/',
       '/tests/', // Playwright E2E tests
     ],
     modulePathIgnorePatterns: [
-      '<rootDir>/angular/',
-      '<rootDir>/react/',
+      '<rootDir>/wrappers/angular/',
+      '<rootDir>/wrappers/react/',
       '<rootDir>/docs/',
       '<rootDir>/tests/', // Playwright E2E tests
     ],
-    collectCoverageFrom: ['src/components/**/*.{ts,tsx}', '!src/components/**/*.stories.ts', '!src/components/**/*.d.ts'],
+    collectCoverageFrom: ['packages/**/src/**/*.{ts,tsx}', '!packages/**/src/**/*.stories.ts', '!packages/**/src/**/*.d.ts'],
     coverageReporters: ['text', 'lcov', 'html'],
     coverageDirectory: 'coverage',
   },

@@ -11,7 +11,7 @@ export { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, View
 export { EditorTranslations, SupportedLocale } from './utils/i18n';
 export namespace Components {
   /**
-   * SagedUI - Article Editor Component
+   * SageBox - Article Editor Component
    * A headless-ready article editor supporting HTML and Markdown modes
    * with live preview, formatting toolbar, and optional media library integration.
    * @example ```html
@@ -186,7 +186,7 @@ declare global {
     mediaInsert: MediaItem;
   }
   /**
-   * SagedUI - Article Editor Component
+   * SageBox - Article Editor Component
    * A headless-ready article editor supporting HTML and Markdown modes
    * with live preview, formatting toolbar, and optional media library integration.
    * @example ```html
@@ -241,7 +241,7 @@ declare global {
 }
 declare namespace LocalJSX {
   /**
-   * SagedUI - Article Editor Component
+   * SageBox - Article Editor Component
    * A headless-ready article editor supporting HTML and Markdown modes
    * with live preview, formatting toolbar, and optional media library integration.
    * @example ```html
@@ -410,7 +410,7 @@ declare module '@stencil/core' {
   export namespace JSX {
     interface IntrinsicElements {
       /**
-       * SagedUI - Article Editor Component
+       * SageBox - Article Editor Component
        * A headless-ready article editor supporting HTML and Markdown modes
        * with live preview, formatting toolbar, and optional media library integration.
        * @example ```html

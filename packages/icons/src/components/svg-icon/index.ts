@@ -34,7 +34,7 @@ const _userIcons: Record<string, IconDefinition | string> = {};
  *
  * @param icons - Object with icon names as keys and SVG strings or IconDefinition as values
  * @example
- * import { registerIcons } from '@nicepage/saged-ui';
+ * import { registerIcons } from '@nicepage/sagebox';
  *
  * registerIcons({
  *   'my-logo': '<svg viewBox="0 0 24 24"><path d="M12..."/></svg>',
@@ -57,7 +57,7 @@ export function registerIcons(icons: Record<string, IconDefinition | string>): v
  * @param name - Icon name to register
  * @param icon - SVG string or IconDefinition
  * @example
- * import { registerIcon } from '@nicepage/saged-ui';
+ * import { registerIcon } from '@nicepage/sagebox';
  *
  * registerIcon('my-custom-icon', '<svg viewBox="0 0 24 24">...</svg>');
  */

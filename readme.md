@@ -1,14 +1,14 @@
-# SagedUI
+# SageBox
 
-[![npm version](https://img.shields.io/npm/v/saged-ui.svg)](https://www.npmjs.com/package/saged-ui)
-[![CI](https://github.com/adravilag/saged-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/adravilag/saged-ui/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/adravilag/saged-ui/branch/main/graph/badge.svg)](https://codecov.io/gh/adravilag/saged-ui)
+[![npm version](https://img.shields.io/npm/v/sagebox.svg)](https://www.npmjs.com/package/sagebox)
+[![CI](https://github.com/adravilag/sagebox/actions/workflows/ci.yml/badge.svg)](https://github.com/adravilag/sagebox/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/adravilag/sagebox/branch/main/graph/badge.svg)](https://codecov.io/gh/adravilag/sagebox)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/saged-ui)](https://bundlephobia.com/package/saged-ui)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/sagebox)](https://bundlephobia.com/package/sagebox)
 
 Modern Web Components Library - Reusable UI components built with Stencil.js
 
-🌐 **[Documentation](https://adravilag.github.io/saged-ui/)** | 📦 **[npm](https://www.npmjs.com/package/saged-ui)** | 🐙 **[GitHub](https://github.com/adravilag/saged-ui)** | 📋 **[Changelog](./CHANGELOG.md)**
+🌐 **[Documentation](https://adravilag.github.io/sagebox/)** | 📦 **[npm](https://www.npmjs.com/package/sagebox)** | 🐙 **[GitHub](https://github.com/adravilag/sagebox)** | 📋 **[Changelog](./CHANGELOG.md)**
 
 ## ✨ Features
 
@@ -22,7 +22,7 @@ Modern Web Components Library - Reusable UI components built with Stencil.js
 ## 📦 Installation
 
 ```bash
-npm install saged-ui
+npm install sagebox
 ```
 
 ## 🚀 Quick Start
@@ -30,7 +30,7 @@ npm install saged-ui
 ### <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" width="20" height="20" alt="React" /> React (v17+)
 
 ```tsx
-import { SgButton, SgBadge, SgIcon } from 'saged-ui/react';
+import { SgButton, SgBadge, SgIcon } from 'sagebox/react';
 
 function App() {
   return (
@@ -48,7 +48,7 @@ function App() {
 ### <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/angular/angular-original.svg" width="20" height="20" alt="Angular" /> Angular (v18+)
 
 ```typescript
-import { SgButton, SgBadge, SgIcon } from 'saged-ui/angular';
+import { SgButton, SgBadge, SgIcon } from 'sagebox/angular';
 
 @Component({
   imports: [SgButton, SgBadge, SgIcon],
@@ -69,7 +69,7 @@ export class AppComponent {
 
 ```vue
 <script setup>
-import { defineCustomElements } from 'saged-ui/loader';
+import { defineCustomElements } from 'sagebox/loader';
 defineCustomElements();
 </script>
 
@@ -84,7 +84,7 @@ defineCustomElements();
 
 ```html
 <script type="module">
-  import { defineCustomElements } from 'https://unpkg.com/saged-ui/loader/index.js';
+  import { defineCustomElements } from 'https://unpkg.com/sagebox/loader/index.js';
   defineCustomElements();
 </script>
 
@@ -95,7 +95,7 @@ defineCustomElements();
 
 ## 🧩 Components
 
-Explore all components in the [documentation](https://adravilag.github.io/saged-ui/).
+Explore all components in the [documentation](https://adravilag.github.io/sagebox/).
 
 - `sg-button` - Customizable button
 - `sg-badge` - Labels and status indicators

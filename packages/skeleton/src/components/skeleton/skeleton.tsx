@@ -2,7 +2,7 @@ import { Component, Prop, h, Host } from '@stencil/core';
 
 /**
  * @component sg-skeleton
- * @description Skeleton loading placeholder component for SagedUI
+ * @description Skeleton loading placeholder component for SageBox
  *
  * @example
  * <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>

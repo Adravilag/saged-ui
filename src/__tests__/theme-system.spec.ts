@@ -1,5 +1,5 @@
 /**
- * Theme System Tests for SagedUI Documentation
+ * Theme System Tests for SageBox Documentation
  *
  * Tests the pure logic of theme initialization and persistence
  * without depending on browser APIs

@@ -1,7 +1,7 @@
 {
-  "name": "@saged-ui/core",
+  "name": "@sagebox/core",
   "version": "1.0.0",
-  "description": "Core styles, tokens and utilities for SagedUI components",
+  "description": "Core styles, tokens and utilities for SageBox components",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Adravilag/saged-ui.git",
+    "url": "https://github.com/Adravilag/sagebox.git",
     "directory": "packages/core"
   },
   "files": [
@@ -35,7 +35,7 @@
     "typescript": "^5.9.3"
   },
   "keywords": [
-    "saged-ui",
+    "sagebox",
     "core",
     "design-tokens",
     "css-variables"

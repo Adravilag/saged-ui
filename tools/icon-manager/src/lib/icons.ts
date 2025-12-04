@@ -117,7 +117,7 @@ async function runCliBuild(): Promise<{ success: boolean; message: string }> {
   // Get project root (go up from src/icons to project root)
   const projectRoot = path.dirname(path.dirname(iconsDir));
 
-  // Check if this is a user project (has package.json with saged-ui dependency)
+  // Check if this is a user project (has package.json with sagebox dependency)
   const packageJsonPath = path.join(projectRoot, 'package.json');
   if (!fs.existsSync(packageJsonPath)) {
     console.log('[Icon Manager] No package.json found, skipping auto-build');
@@ -125,9 +125,9 @@ async function runCliBuild(): Promise<{ success: boolean; message: string }> {
   }
 
   try {
-    // Use npx to run saged-ui CLI - works for both linked and installed packages
+    // Use npx to run sagebox CLI - works for both linked and installed packages
     const isWindows = process.platform === 'win32';
-    const cmd = isWindows ? 'npx.cmd saged-ui icons build' : 'npx saged-ui icons build';
+    const cmd = isWindows ? 'npx.cmd sagebox icons build' : 'npx sagebox icons build';
 
     console.log(`[Icon Manager] Auto-building TypeScript...`);
     console.log(`[Icon Manager] Project root: ${projectRoot}`);
