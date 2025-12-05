@@ -2,10 +2,8 @@
  * SageBox Button Component
  * A versatile button with variants, sizes, and states
  *
- * CSS Custom Properties for theming:
- * --sg-btn-bg, --sg-btn-color, --sg-btn-border-color
- * --sg-btn-radius, --sg-btn-shadow
- * --sg-btn-hover-bg, --sg-btn-hover-shadow
+ * Uses global design tokens from @sagebox/core:
+ * --ui-color-*, --ui-text, --ui-border, --ui-radius-*, --ui-font-*
  */
 
 :host {
@@ -28,13 +26,13 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-family: var(--sg-font-family, 'Inter', system-ui, -apple-system, sans-serif);
+  font-family: var(--ui-font-sans, 'Inter', system-ui, -apple-system, sans-serif);
   font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
   border: 1.5px solid transparent;
-  border-radius: var(--sg-btn-radius, 0.5rem);
+  border-radius: var(--ui-radius-md, 0.5rem);
   outline: none;
   overflow: hidden;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -42,7 +40,7 @@
 }
 
 .button:focus-visible {
-  box-shadow: 0 0 0 3px var(--sg-btn-focus-ring, rgba(59, 130, 246, 0.4));
+  box-shadow: 0 0 0 3px var(--ui-color-primary-300, rgba(59, 130, 246, 0.4));
 }
 
 .button:active:not(:disabled) {
@@ -91,21 +89,21 @@
 
 /* Primary */
 :host(.sg-button--primary) .button {
-  background: var(--sg-btn-bg, linear-gradient(135deg, #3b82f6 0%, #2563eb 100%));
-  color: var(--sg-btn-color, white);
-  box-shadow: var(--sg-btn-shadow, 0 2px 8px -2px rgba(59, 130, 246, 0.4));
+  background: linear-gradient(135deg, var(--ui-color-primary-500, #3b82f6) 0%, var(--ui-color-primary-600, #2563eb) 100%);
+  color: var(--ui-text-inverse, white);
+  box-shadow: 0 2px 8px -2px rgba(59, 130, 246, 0.4);
 }
 
 :host(.sg-button--primary) .button:hover:not(:disabled) {
-  background: var(--sg-btn-hover-bg, linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%));
-  box-shadow: var(--sg-btn-hover-shadow, 0 4px 12px -2px rgba(59, 130, 246, 0.5));
+  background: linear-gradient(135deg, var(--ui-color-primary-400, #60a5fa) 0%, var(--ui-color-primary-500, #3b82f6) 100%);
+  box-shadow: 0 4px 12px -2px rgba(59, 130, 246, 0.5);
   transform: translateY(-1px);
 }
 
 /* Secondary */
 :host(.sg-button--secondary) .button {
   background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  color: white;
+  color: var(--ui-text-inverse, white);
   box-shadow: 0 2px 8px -2px rgba(139, 92, 246, 0.4);
 }
 
@@ -118,29 +116,29 @@
 /* Ghost */
 :host(.sg-button--ghost) .button {
   background: transparent;
-  color: var(--sg-text-color, #1f2937);
+  color: var(--ui-text, #1f2937);
 }
 
 :host(.sg-button--ghost) .button:hover:not(:disabled) {
-  background: var(--sg-btn-ghost-hover-bg, rgba(0, 0, 0, 0.05));
+  background: var(--ui-bg-tertiary, rgba(0, 0, 0, 0.05));
 }
 
 /* Outline */
 :host(.sg-button--outline) .button {
   background: transparent;
-  color: var(--sg-text-color, #1f2937);
-  border-color: var(--sg-border-color, #d1d5db);
+  color: var(--ui-text, #1f2937);
+  border-color: var(--ui-border, #d1d5db);
 }
 
 :host(.sg-button--outline) .button:hover:not(:disabled) {
-  background: var(--sg-btn-outline-hover-bg, rgba(0, 0, 0, 0.03));
-  border-color: var(--sg-text-color, #1f2937);
+  background: var(--ui-bg-secondary, rgba(0, 0, 0, 0.03));
+  border-color: var(--ui-border-strong, #9ca3af);
 }
 
 /* Success */
 :host(.sg-button--success) .button {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--ui-color-success-500, #22c55e) 0%, var(--ui-color-success-600, #16a34a) 100%);
+  color: var(--ui-text-inverse, white);
   box-shadow: 0 2px 8px -2px rgba(34, 197, 94, 0.4);
 }
 
@@ -151,8 +149,8 @@
 
 /* Warning */
 :host(.sg-button--warning) .button {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  color: #1e293b;
+  background: linear-gradient(135deg, var(--ui-color-warning-500, #f59e0b) 0%, var(--ui-color-warning-600, #d97706) 100%);
+  color: var(--ui-color-neutral-800, #1e293b);
   box-shadow: 0 2px 8px -2px rgba(245, 158, 11, 0.4);
 }
 
@@ -163,8 +161,8 @@
 
 /* Error */
 :host(.sg-button--error) .button {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--ui-color-error-500, #ef4444) 0%, var(--ui-color-error-600, #dc2626) 100%);
+  color: var(--ui-text-inverse, white);
   box-shadow: 0 2px 8px -2px rgba(239, 68, 68, 0.4);
 }
 
@@ -176,7 +174,7 @@
 /* Info */
 :host(.sg-button--info) .button {
   background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-  color: white;
+  color: var(--ui-text-inverse, white);
   box-shadow: 0 2px 8px -2px rgba(14, 165, 233, 0.4);
 }
 
@@ -300,7 +298,7 @@
 
 @media (prefers-color-scheme: dark) {
   :host(.sg-button--ghost) .button {
-    color: #e5e7eb;
+    color: var(--ui-text-inverse, #e5e7eb);
   }
 
   :host(.sg-button--ghost) .button:hover:not(:disabled) {
@@ -308,20 +306,20 @@
   }
 
   :host(.sg-button--outline) .button {
-    color: #e5e7eb;
-    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--ui-text-inverse, #e5e7eb);
+    border-color: var(--ui-border, rgba(255, 255, 255, 0.2));
   }
 
   :host(.sg-button--outline) .button:hover:not(:disabled) {
     background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.4);
+    border-color: var(--ui-border-strong, rgba(255, 255, 255, 0.4));
   }
 }
 
 /* Dark theme attribute support */
 :host-context([data-theme='dark']) .sg-button--ghost .button,
 :host-context(.dark) .sg-button--ghost .button {
-  color: #e5e7eb;
+  color: var(--ui-text-inverse, #e5e7eb);
 }
 
 :host-context([data-theme='dark']) .sg-button--ghost .button:hover:not(:disabled),
@@ -331,12 +329,12 @@
 
 :host-context([data-theme='dark']) .sg-button--outline .button,
 :host-context(.dark) .sg-button--outline .button {
-  color: #e5e7eb;
-  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--ui-text-inverse, #e5e7eb);
+  border-color: var(--ui-border, rgba(255, 255, 255, 0.2));
 }
 
 :host-context([data-theme='dark']) .sg-button--outline .button:hover:not(:disabled),
 :host-context(.dark) .sg-button--outline .button:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: var(--ui-border-strong, rgba(255, 255, 255, 0.4));
 }

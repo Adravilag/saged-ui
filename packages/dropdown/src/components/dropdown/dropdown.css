@@ -2,9 +2,8 @@
  * SageBox Dropdown Component
  * A flexible dropdown menu with header/footer slots
  *
- * CSS Custom Properties for theming:
- * --sg-dropdown-bg, --sg-dropdown-border-color
- * --sg-dropdown-radius, --sg-dropdown-shadow
+ * Uses global design tokens from @sagebox/core:
+ * --ui-bg, --ui-border, --ui-radius-*, --ui-shadow-*, --ui-text-*
  */
 
 :host {
@@ -43,7 +42,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--ui-bg-overlay, rgba(0, 0, 0, 0.3));
   z-index: 40;
   animation: fadeIn 0.15s ease;
 }
@@ -70,10 +69,10 @@
   display: flex;
   flex-direction: column;
 
-  background: var(--sg-dropdown-bg, #ffffff);
-  border: 1px solid var(--sg-dropdown-border-color, rgba(0, 0, 0, 0.1));
-  border-radius: var(--sg-dropdown-radius, 0.75rem);
-  box-shadow: var(--sg-dropdown-shadow, 0 10px 40px -10px rgba(0, 0, 0, 0.2), 0 4px 12px -4px rgba(0, 0, 0, 0.1));
+  background: var(--ui-bg-elevated, #ffffff);
+  border: 1px solid var(--ui-border, rgba(0, 0, 0, 0.1));
+  border-radius: var(--ui-radius-lg, 0.75rem);
+  box-shadow: var(--ui-shadow-lg, 0 10px 40px -10px rgba(0, 0, 0, 0.2), 0 4px 12px -4px rgba(0, 0, 0, 0.1));
 
   animation: slideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   transform-origin: top;
@@ -163,12 +162,12 @@
 
 .header ::slotted(*) {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--sg-dropdown-border-color, rgba(0, 0, 0, 0.08));
+  border-bottom: 1px solid var(--ui-border, rgba(0, 0, 0, 0.08));
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--sg-text-muted, #4b5563);
+  color: var(--ui-text-muted, #4b5563);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -215,10 +214,10 @@
 
 .footer ::slotted(*) {
   padding: 0.625rem 1rem;
-  border-top: 1px solid var(--sg-dropdown-border-color, rgba(0, 0, 0, 0.08));
+  border-top: 1px solid var(--ui-border, rgba(0, 0, 0, 0.08));
   font-size: 0.75rem;
-  color: var(--sg-text-muted, #4b5563);
-  background: var(--sg-dropdown-footer-bg, rgba(0, 0, 0, 0.02));
+  color: var(--ui-text-muted, #4b5563);
+  background: var(--ui-bg-secondary, rgba(0, 0, 0, 0.02));
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -262,28 +261,28 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
- * DARK MODE - Only via data-theme attribute
+ * DARK MODE - Uses global tokens automatically
  * ═══════════════════════════════════════════════════════════════════════════ */
 
 /* Dark theme attribute support */
 :host-context([data-theme='dark']) .content,
 :host-context(.dark) .content {
-  --sg-dropdown-bg: #1f2937;
-  --sg-dropdown-border-color: rgba(255, 255, 255, 0.1);
-  --sg-dropdown-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5), 0 4px 12px -4px rgba(0, 0, 0, 0.3);
+  background: var(--ui-bg-elevated, #1f2937);
+  border-color: var(--ui-border, rgba(255, 255, 255, 0.1));
+  box-shadow: var(--ui-shadow-lg, 0 10px 40px -10px rgba(0, 0, 0, 0.5), 0 4px 12px -4px rgba(0, 0, 0, 0.3));
 }
 
 :host-context([data-theme='dark']) .header ::slotted(*),
 :host-context(.dark) .header ::slotted(*),
 :host-context([data-theme='dark']) .footer ::slotted(*),
 :host-context(.dark) .footer ::slotted(*) {
-  --sg-text-muted: #d1d5db;
-  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--ui-text-muted, #d1d5db);
+  border-color: var(--ui-border, rgba(255, 255, 255, 0.1));
 }
 
 :host-context([data-theme='dark']) .footer ::slotted(*),
 :host-context(.dark) .footer ::slotted(*) {
-  --sg-dropdown-footer-bg: rgba(255, 255, 255, 0.03);
+  background: var(--ui-bg-tertiary, rgba(255, 255, 255, 0.03));
 }
 
 :host-context([data-theme='dark']) .items::-webkit-scrollbar-thumb,

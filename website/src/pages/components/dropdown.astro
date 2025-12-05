@@ -2,6 +2,7 @@
 import ComponentLayout from '../../layouts/ComponentLayout.astro';
 import DemoBox from '../../components/DemoBox.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
+import Playground from '../../components/Playground.astro';
 
 const props = [
   { name: 'open', type: 'boolean', default: 'false', description: 'Si el dropdown está abierto' },
@@ -99,6 +100,22 @@ const methods = [
         </sg-dropdown>
       </div>
     </DemoBox>
+
+    <div class="playground-section">
+      <h3><sg-icon name="code" size="20"></sg-icon> Playground</h3>
+      <p>Edita el código y ve los cambios en tiempo real:</p>
+      <Playground 
+        code={`<sg-dropdown align="center">
+  <button slot="trigger" style="padding: 0.5rem 1rem; background: #6366f1; color: white; border: none; border-radius: 0.375rem; cursor: pointer;">
+    Open Menu ▼
+  </button>
+  <button style="display: block; width: 100%; padding: 0.5rem 1rem; text-align: left; background: none; border: none; color: white; cursor: pointer;">Option 1</button>
+  <button style="display: block; width: 100%; padding: 0.5rem 1rem; text-align: left; background: none; border: none; color: white; cursor: pointer;">Option 2</button>
+  <button style="display: block; width: 100%; padding: 0.5rem 1rem; text-align: left; background: none; border: none; color: white; cursor: pointer;">Option 3</button>
+</sg-dropdown>`}
+        height="200px"
+      />
+    </div>
   </Fragment>
 
   <Fragment slot="usage">
@@ -149,4 +166,12 @@ dropdown.addEventListener('sgClose', () => {
     margin: 0 0 1rem 0;
     color: var(--text);
   }
+
+  .playground-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .playground-section h3 { font-size: 1.125rem; margin-bottom: 0.5rem; }
+  .playground-section p { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem; }
 </style>

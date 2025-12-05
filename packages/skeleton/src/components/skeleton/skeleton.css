@@ -1,7 +1,7 @@
 /**
  * SageBox Skeleton Component Styles
  * ================================
- * CSS Custom Properties for theming support
+ * Uses global design tokens from @sagebox/core
  */
 
 :host {
@@ -9,10 +9,10 @@
 }
 
 .skeleton {
-  /* Light mode colors */
-  --skeleton-bg-start: #e2e8f0;
-  --skeleton-bg-mid: #f1f5f9;
-  --skeleton-bg-end: #e2e8f0;
+  /* Use global tokens with fallbacks */
+  --skeleton-bg-start: var(--ui-color-neutral-200, #e2e8f0);
+  --skeleton-bg-mid: var(--ui-color-neutral-100, #f1f5f9);
+  --skeleton-bg-end: var(--ui-color-neutral-200, #e2e8f0);
 
   background: linear-gradient(90deg, var(--skeleton-bg-start) 0%, var(--skeleton-bg-mid) 50%, var(--skeleton-bg-end) 100%);
   background-size: 200% 100%;
@@ -21,18 +21,18 @@
 /* Dark mode support */
 :host-context([data-theme='dark']) .skeleton,
 :host-context(.dark) .skeleton {
-  --skeleton-bg-start: #334155;
-  --skeleton-bg-mid: #475569;
-  --skeleton-bg-end: #334155;
+  --skeleton-bg-start: var(--ui-color-neutral-700, #334155);
+  --skeleton-bg-mid: var(--ui-color-neutral-600, #475569);
+  --skeleton-bg-end: var(--ui-color-neutral-700, #334155);
 }
 
 /* Variants */
 .skeleton--text {
-  border-radius: 4px;
+  border-radius: var(--ui-radius-sm, 4px);
 }
 
 .skeleton--rect {
-  border-radius: 8px;
+  border-radius: var(--ui-radius-md, 8px);
 }
 
 .skeleton--circle {

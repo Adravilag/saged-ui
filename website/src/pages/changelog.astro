@@ -1,0 +1,247 @@
+---
+/**
+ * Changelog Page
+ * 
+ * Displays release history from changelog.json
+ */
+import Layout from '../layouts/Layout.astro';
+
+// Try to load changelog data
+let changelog = { releases: [] };
+try {
+  changelog = await import('../data/changelog.json');
+} catch (e) {
+  // File doesn't exist yet, will show empty state
+}
+
+const { releases = [] } = changelog;
+
+// Group releases by major.minor
+const groupedReleases = releases.reduce((acc, release) => {
+  const [major, minor] = release.version.split('.');
+  const key = `${major}.${minor}`;
+  if (!acc[key]) acc[key] = [];
+  acc[key].push(release);
+  return acc;
+}, {});
+
+// Format date
+const formatDate = (dateStr) => {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+};
+
+// Get change type icon and color
+const getTypeStyle = (type) => {
+  const styles = {
+    features: { icon: '✨', color: 'var(--ui-color-success)', label: 'Nuevas funcionalidades' },
+    fixes: { icon: '🐛', color: 'var(--ui-color-warning)', label: 'Correcciones' },
+    breaking: { icon: '💥', color: 'var(--ui-color-danger)', label: 'Breaking Changes' },
+    docs: { icon: '📚', color: 'var(--ui-color-info)', label: 'Documentación' },
+    chore: { icon: '🔧', color: 'var(--ui-color-text-secondary)', label: 'Mantenimiento' },
+    other: { icon: '📦', color: 'var(--ui-color-text-muted)', label: 'Otros' },
+  };
+  return styles[type] || styles.other;
+};
+---
+
+<Layout title="Changelog - SageBox">
+  <main class="changelog-page">
+    <header class="changelog-header">
+      <h1>Changelog</h1>
+      <p>Historial de cambios y actualizaciones de SageBox</p>
+    </header>
+    
+    {releases.length === 0 ? (
+      <div class="empty-state">
+        <p>No hay releases documentados aún.</p>
+        <p class="hint">Ejecuta <code>npm run changelog:generate</code> para generar el changelog.</p>
+      </div>
+    ) : (
+      <div class="releases">
+        {releases.map((release, index) => (
+          <article class="release" id={`v${release.version}`}>
+            <header class="release-header">
+              <h2>
+                <a href={`#v${release.version}`}>v{release.version}</a>
+                {index === 0 && <span class="latest-badge">Latest</span>}
+              </h2>
+              {release.date && <time datetime={release.date}>{formatDate(release.date)}</time>}
+            </header>
+            
+            <div class="release-body">
+              {Object.entries(release.changes).map(([type, items]) => (
+                items.length > 0 && (
+                  <section class="change-section">
+                    <h3 style={`--type-color: ${getTypeStyle(type).color}`}>
+                      <span class="type-icon">{getTypeStyle(type).icon}</span>
+                      {getTypeStyle(type).label}
+                    </h3>
+                    <ul>
+                      {items.map((item) => (
+                        <li>
+                          {item.scope && <code class="scope">{item.scope}</code>}
+                          <span>{item.message}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                )
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+  </main>
+</Layout>
+
+<style>
+  .changelog-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .changelog-header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .changelog-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .changelog-header p {
+    color: var(--ui-color-text-secondary);
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    background: var(--ui-color-surface-800);
+    border-radius: 0.5rem;
+  }
+  
+  .empty-state .hint {
+    color: var(--ui-color-text-muted);
+    font-size: 0.875rem;
+  }
+  
+  .empty-state code {
+    background: var(--ui-color-surface-700);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+  
+  .releases {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .release {
+    background: var(--ui-color-surface-800);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    border-left: 3px solid var(--ui-color-primary);
+  }
+  
+  .release-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .release-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    margin: 0;
+  }
+  
+  .release-header h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .release-header h2 a:hover {
+    color: var(--ui-color-primary);
+  }
+  
+  .latest-badge {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0.25rem 0.5rem;
+    background: var(--ui-color-primary);
+    border-radius: 9999px;
+    color: white;
+  }
+  
+  .release-header time {
+    color: var(--ui-color-text-muted);
+    font-size: 0.875rem;
+    margin-left: auto;
+  }
+  
+  .change-section {
+    margin-bottom: 1rem;
+  }
+  
+  .change-section:last-child {
+    margin-bottom: 0;
+  }
+  
+  .change-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--type-color);
+    margin-bottom: 0.5rem;
+  }
+  
+  .type-icon {
+    font-size: 1rem;
+  }
+  
+  .change-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .change-section li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+    color: var(--ui-color-text-secondary);
+  }
+  
+  .change-section li::before {
+    content: '•';
+    color: var(--ui-color-text-muted);
+  }
+  
+  .scope {
+    font-size: 0.75rem;
+    padding: 0.125rem 0.375rem;
+    background: var(--ui-color-surface-700);
+    border-radius: 0.25rem;
+    color: var(--ui-color-primary);
+  }
+</style>

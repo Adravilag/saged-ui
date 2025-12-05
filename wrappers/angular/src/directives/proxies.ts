@@ -11,6 +11,7 @@ import { defineCustomElement as defineSgBadge } from 'sagebox/components/sg-badg
 import { defineCustomElement as defineSgButton } from 'sagebox/components/sg-button.js';
 import { defineCustomElement as defineSgDropdown } from 'sagebox/components/sg-dropdown.js';
 import { defineCustomElement as defineSgIcon } from 'sagebox/components/sg-icon.js';
+import { defineCustomElement as defineSgModal } from 'sagebox/components/sg-modal.js';
 import { defineCustomElement as defineSgSkeleton } from 'sagebox/components/sg-skeleton.js';
 import { defineCustomElement as defineSgThemeToggle } from 'sagebox/components/sg-theme-toggle.js';
 @ProxyCmp({
@@ -190,6 +191,47 @@ export class SgIcon {
 
 
 export declare interface SgIcon extends Components.SgIcon {}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineSgModal,
+  inputs: ['closeOnBackdrop', 'closeOnEscape', 'header', 'nonModal', 'open', 'overlay', 'showCloseButton', 'size'],
+  methods: ['showModal', 'show', 'close']
+})
+@Component({
+  selector: 'sg-modal',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['closeOnBackdrop', 'closeOnEscape', 'header', 'nonModal', 'open', 'overlay', 'showCloseButton', 'size'],
+  outputs: ['sgOpen', 'sgClose', 'sgCancel'],
+})
+export class SgModal {
+  protected el: HTMLSgModalElement;
+  @Output() sgOpen = new EventEmitter<CustomEvent<void>>();
+  @Output() sgClose = new EventEmitter<CustomEvent<string>>();
+  @Output() sgCancel = new EventEmitter<CustomEvent<void>>();
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface SgModal extends Components.SgModal {
+  /**
+   * Emitted when modal opens
+   */
+  sgOpen: EventEmitter<CustomEvent<void>>;
+  /**
+   * Emitted when modal closes
+   */
+  sgClose: EventEmitter<CustomEvent<string>>;
+  /**
+   * Emitted when modal is cancelled (Escape or backdrop)
+   */
+  sgCancel: EventEmitter<CustomEvent<void>>;
+}
 
 
 @ProxyCmp({

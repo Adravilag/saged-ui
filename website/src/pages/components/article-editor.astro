@@ -2,6 +2,7 @@
 import ComponentLayout from '../../layouts/ComponentLayout.astro';
 import DemoBox from '../../components/DemoBox.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
+import Playground from '../../components/Playground.astro';
 
 const props = [
   { name: 'value', type: 'string', default: "''", description: 'Contenido del editor' },
@@ -75,6 +76,34 @@ const methods = [
         placeholder="Modo solo edición...">
       </sg-article-editor>
     </DemoBox>
+
+    <div class="playground-section">
+      <h3><sg-icon name="code" size="20"></sg-icon> Playground</h3>
+      <p>Experimenta con el editor en tiempo real:</p>
+      <Playground 
+        code={`<!-- Editor de artículos con markdown -->
+<sg-article-editor
+  syntax-mode="markdown"
+  view-mode="split"
+  min-height="300"
+  placeholder="Escribe en **Markdown**..."
+  value="# Título del artículo
+
+Este es un párrafo con **negrita** y *cursiva*.
+
+## Subtítulo
+
+- Elemento 1
+- Elemento 2
+- Elemento 3
+
+\`\`\`javascript
+const hello = 'world';
+\`\`\`">
+</sg-article-editor>`}
+        height="450px"
+      />
+    </div>
   </Fragment>
 
   <Fragment slot="usage">

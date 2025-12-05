@@ -2,6 +2,7 @@
 import ComponentLayout from '../../layouts/ComponentLayout.astro';
 import DemoBox from '../../components/DemoBox.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
+import Playground from '../../components/Playground.astro';
 
 const props = [
   { name: 'theme', type: "'light' | 'dark' | 'system'", default: "'system'", description: 'Modo de tema actual' },
@@ -44,6 +45,33 @@ const events = [
         </div>
       </div>
     </DemoBox>
+
+    <div class="playground-section">
+      <h3><sg-icon name="code" size="20"></sg-icon> Playground</h3>
+      <p>Experimenta con el componente en tiempo real:</p>
+      <Playground 
+        code={`<!-- Theme Toggle con diferentes tamaños -->
+<div style="display: flex; gap: 2rem; align-items: center; justify-content: center;">
+  <div style="text-align: center;">
+    <sg-theme-toggle size="sm"></sg-theme-toggle>
+    <p style="margin: 0.5rem 0 0; font-size: 0.75rem;">Small</p>
+  </div>
+  <div style="text-align: center;">
+    <sg-theme-toggle size="md"></sg-theme-toggle>
+    <p style="margin: 0.5rem 0 0; font-size: 0.75rem;">Medium</p>
+  </div>
+  <div style="text-align: center;">
+    <sg-theme-toggle size="lg"></sg-theme-toggle>
+    <p style="margin: 0.5rem 0 0; font-size: 0.75rem;">Large</p>
+  </div>
+</div>
+
+<style>
+  p { color: var(--text-muted); }
+</style>`}
+        height="180px"
+      />
+    </div>
   </Fragment>
 
   <Fragment slot="usage">

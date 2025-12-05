@@ -1,6 +1,5 @@
 # Run lint-staged for fast validation of changed files only
 npx lint-staged
-
 # Run tests for modified packages (optional - can be slow)
 # Uncomment the line below to enable test validation on commit
 # npm run test:packages

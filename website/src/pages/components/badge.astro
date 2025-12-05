@@ -2,6 +2,7 @@
 import ComponentLayout from '../../layouts/ComponentLayout.astro';
 import DemoBox from '../../components/DemoBox.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
+import Playground from '../../components/Playground.astro';
 
 const props = [
   { name: 'variant', type: "'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'neutral' | 'purple' | 'cyan'", default: "'primary'", description: 'Variante de color' },
@@ -79,6 +80,21 @@ const slots = [
         <sg-badge dot variant="warning">Away</sg-badge>
       </div>
     </DemoBox>
+
+    <div class="playground-section">
+      <h3><sg-icon name="code" size="20"></sg-icon> Playground</h3>
+      <p>Edita el código y ve los cambios en tiempo real:</p>
+      <Playground 
+        code={`<sg-badge variant="primary">Primary</sg-badge>
+
+<sg-badge variant="success" pill>Success Pill</sg-badge>
+
+<sg-badge variant="error" dot pulse>Live</sg-badge>
+
+<sg-badge variant="info" outlined>Outlined</sg-badge>`}
+        height="120px"
+      />
+    </div>
   </Fragment>
 
   <Fragment slot="usage">
@@ -112,4 +128,12 @@ const slots = [
   }
   .usage-block h3 { font-size: 0.875rem; font-weight: 600; margin: 0 0 0.75rem 0; }
   .usage-block ul { margin: 0; padding-left: 1.25rem; font-size: 0.875rem; color: var(--text-muted); line-height: 1.8; }
+
+  .playground-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .playground-section h3 { font-size: 1.125rem; margin-bottom: 0.5rem; }
+  .playground-section p { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem; }
 </style>

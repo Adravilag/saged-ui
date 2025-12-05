@@ -1,7 +1,7 @@
 /**
  * sagebox - Token Aliases
  * Maps --sg-* component tokens to --ui-* design tokens
- * 
+ *
  * This file provides the public API for SageBox components.
  * All components should use --sg-* tokens, never --ui-* directly.
  */

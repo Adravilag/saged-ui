@@ -10,6 +10,7 @@ export * from '@sagebox/badge';
 export * from '@sagebox/button';
 export * from '@sagebox/dropdown';
 export * from '@sagebox/icons';
+export * from '@sagebox/modal';
 export * from '@sagebox/skeleton';
 export * from '@sagebox/theme-toggle';
 export * from '@sagebox/article-editor';

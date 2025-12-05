@@ -2,13 +2,33 @@
   "$schema": "https://unpkg.com/@changesets/config@3.1.2/schema.json",
   "changelog": [
     "@changesets/changelog-github",
-    { "repo": "Adravilag/sagebox" }
+    {
+      "repo": "Adravilag/sagebox"
+    }
   ],
   "commit": false,
-  "fixed": [],
+  "fixed": [
+    [
+      "@sagebox/core",
+      "@sagebox/badge",
+      "@sagebox/button",
+      "@sagebox/dropdown",
+      "@sagebox/skeleton",
+      "@sagebox/icons",
+      "@sagebox/theme-toggle",
+      "@sagebox/article-editor",
+      "@sagebox/modal"
+    ]
+  ],
   "linked": [],
   "access": "public",
-  "baseBranch": "develop",
+  "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": [
+    "website",
+    "@sagebox/icon-manager"
+  ],
+  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+    "onlyUpdatePeerDependentsWhenOutOfRange": true
+  }
 }

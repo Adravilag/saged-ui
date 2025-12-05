@@ -16,6 +16,7 @@ import { SgBadge as SgBadgeElement, defineCustomElement as defineSgBadge } from 
 import { SgButton as SgButtonElement, defineCustomElement as defineSgButton } from "sagebox/dist/components/sg-button.js";
 import { SgDropdown as SgDropdownElement, defineCustomElement as defineSgDropdown } from "sagebox/dist/components/sg-dropdown.js";
 import { SgIcon as SgIconElement, defineCustomElement as defineSgIcon } from "sagebox/dist/components/sg-icon.js";
+import { SgModal as SgModalElement, defineCustomElement as defineSgModal } from "sagebox/dist/components/sg-modal.js";
 import { SgSkeleton as SgSkeletonElement, defineCustomElement as defineSgSkeleton } from "sagebox/dist/components/sg-skeleton.js";
 import { SgThemeToggle as SgThemeToggleElement, defineCustomElement as defineSgThemeToggle } from "sagebox/dist/components/sg-theme-toggle.js";
 
@@ -94,6 +95,25 @@ export const SgIcon: StencilReactComponent<SgIconElement, SgIconEvents> = /*@__P
     react: React,
     events: {} as SgIconEvents,
     defineCustomElement: defineSgIcon
+});
+
+export type SgModalEvents = {
+    onSgOpen: EventName<CustomEvent<void>>,
+    onSgClose: EventName<CustomEvent<string>>,
+    onSgCancel: EventName<CustomEvent<void>>
+};
+
+export const SgModal: StencilReactComponent<SgModalElement, SgModalEvents> = /*@__PURE__*/ createComponent<SgModalElement, SgModalEvents>({
+    tagName: 'sg-modal',
+    elementClass: SgModalElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {
+        onSgOpen: 'sgOpen',
+        onSgClose: 'sgClose',
+        onSgCancel: 'sgCancel'
+    } as SgModalEvents,
+    defineCustomElement: defineSgModal
 });
 
 export type SgSkeletonEvents = NonNullable<unknown>;

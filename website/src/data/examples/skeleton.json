@@ -1,0 +1,22 @@
+{
+  "component": "skeleton",
+  "examples": [
+    {
+      "name": "CardSkeleton",
+      "label": "Card Skeleton",
+      "code": "<div style=\"width: 300px; padding: 16px; border: 1px solid #e0e0e0; border-radius: 8px;\">\n  <!-- Imagen -->\n  <sg-skeleton variant=\"rect\" width=\"100%\" height=\"150px\" animation=\"shimmer\"></sg-skeleton>\n  <!-- Contenido -->\n  <div style=\"margin-top: 16px;\">\n    <!-- Título -->\n    <sg-skeleton variant=\"text\" width=\"80%\" height=\"1.5rem\" animation=\"shimmer\"></sg-skeleton>\n    <!-- Descripción -->\n    <div style=\"margin-top: 8px;\">\n    <sg-skeleton variant=\"text\" width=\"100%\" height=\"1rem\" animation=\"shimmer\"></sg-skeleton>\n    </div>\n    <div style=\"margin-top: 4px;\">\n    <sg-skeleton variant=\"text\" width=\"90%\" height=\"1rem\" animation=\"shimmer\"></sg-skeleton>\n    </div>\n    <div style=\"margin-top: 4px;\">\n    <sg-skeleton variant=\"text\" width=\"60%\" height=\"1rem\" animation=\"shimmer\"></sg-skeleton>\n    </div>\n  </div>\n  <!-- Footer con avatar -->\n  <div style=\"margin-top: 16px; display: flex; align-items: center; gap: 12px;\">\n    <sg-skeleton variant=\"circle\" width=\"40px\" height=\"40px\" animation=\"shimmer\"></sg-skeleton>\n    <div style=\"flex: 1;\">\n    <sg-skeleton variant=\"text\" width=\"120px\" height=\"0.875rem\" animation=\"shimmer\"></sg-skeleton>\n    <div style=\"margin-top: 4px;\">\n      <sg-skeleton variant=\"text\" width=\"80px\" height=\"0.75rem\" animation=\"shimmer\"></sg-skeleton>\n    </div>\n    </div>\n  </div>\n  </div>"
+    },
+    {
+      "name": "ListSkeleton",
+      "label": "List Skeleton",
+      "code": "<div style=\"width: 400px;\">\n  ${[1, 2, 3, 4]\n    .map(\n    () =>"
+    }
+  ],
+  "defaultArgs": {
+    "variant": "text",
+    "width": "100%",
+    "height": "1rem",
+    "animation": "shimmer"
+  },
+  "argTypes": {}
+}

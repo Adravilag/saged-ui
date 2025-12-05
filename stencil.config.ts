@@ -2,7 +2,8 @@ import { Config } from '@stencil/core';
 import { angularOutputTarget } from '@stencil/angular-output-target';
 import { reactOutputTarget } from '@stencil/react-output-target';
 
-const isDev = process.argv.includes('--watch');
+// Fast mode: --watch OR STENCIL_FAST env var
+const isDev = process.argv.includes('--watch') || process.env.STENCIL_FAST === 'true';
 
 export const config: Config = {
   namespace: 'sagebox',
@@ -14,37 +15,39 @@ export const config: Config = {
   globalScript: 'src/index.ts',
   // Ignore directories for watch mode - IMPORTANT: ignore output directories to prevent infinite rebuild loops
   watchIgnoredRegex: /node_modules|dist|dist-docs|\.git|coverage|website|wrappers|loader|tools|\.stencil|packages\/.*\/loader/,
-  outputTargets: [
-    {
-      type: 'dist',
-      esmLoaderPath: '../loader',
-      // Disable collection in dev to avoid copying entire project (15k+ files)
-      collectionDir: isDev ? null : 'collection',
-      copy: [{ src: 'src/styles/tokens.css', dest: 'styles/tokens.css' }],
-    },
-    {
-      type: 'dist-custom-elements',
-      customElementsExportBehavior: 'auto-define-custom-elements',
-      externalRuntime: false,
-    },
-    // Only generate Angular/React wrappers in production builds (slower)
-    ...(isDev
-      ? []
-      : [
-          angularOutputTarget({
-            componentCorePackage: 'sagebox',
-            outputType: 'standalone',
-            directivesProxyFile: './wrappers/angular/src/directives/proxies.ts',
-            directivesArrayFile: './wrappers/angular/src/directives/index.ts',
-          }),
-          reactOutputTarget({
-            stencilPackageName: 'sagebox',
-            outDir: './wrappers/react/src/components/stencil-generated',
-          }),
-        ]),
-    // Only generate docs in production builds
-    ...(isDev ? [] : [{ type: 'docs-readme' as const }]),
-  ],
+  outputTargets: isDev
+    ? [
+        // Fast mode: only custom elements, no dist/wrappers/docs
+        {
+          type: 'dist-custom-elements',
+          customElementsExportBehavior: 'auto-define-custom-elements',
+          externalRuntime: false,
+        },
+      ]
+    : [
+        {
+          type: 'dist',
+          esmLoaderPath: '../loader',
+          collectionDir: 'collection',
+          copy: [{ src: 'src/styles/tokens.css', dest: 'styles/tokens.css' }],
+        },
+        {
+          type: 'dist-custom-elements',
+          customElementsExportBehavior: 'auto-define-custom-elements',
+          externalRuntime: false,
+        },
+        angularOutputTarget({
+          componentCorePackage: 'sagebox',
+          outputType: 'standalone',
+          directivesProxyFile: './wrappers/angular/src/directives/proxies.ts',
+          directivesArrayFile: './wrappers/angular/src/directives/index.ts',
+        }),
+        reactOutputTarget({
+          stencilPackageName: 'sagebox',
+          outDir: './wrappers/react/src/components/stencil-generated',
+        }),
+        { type: 'docs-readme' as const },
+      ],
   testing: {
     browserHeadless: 'shell',
     testPathIgnorePatterns: [

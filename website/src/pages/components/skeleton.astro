@@ -1,6 +1,7 @@
 ---
 import ComponentLayout from '../../layouts/ComponentLayout.astro';
 import DemoBox from '../../components/DemoBox.astro';
+import Playground from '../../components/Playground.astro';
 
 const props = [
   { name: 'variant', type: "'text' | 'rect' | 'circle'", default: "'text'", description: 'Forma del skeleton' },
@@ -81,9 +82,21 @@ const props = [
         <sg-skeleton variant="text" width="60%"></sg-skeleton>
       </div>
     </DemoBox>
-  </Fragment>
 
-  <Fragment slot="usage">
+    <div class="playground-section">
+      <h3><sg-icon name="code" size="20"></sg-icon> Playground</h3>
+      <p>Edita el código y ve los cambios en tiempo real:</p>
+      <Playground 
+        code={`<!-- Card skeleton -->
+<div style="background: #1e293b; padding: 1rem; border-radius: 8px; width: 200px;">
+  <sg-skeleton variant="circle" width="48px" height="48px"></sg-skeleton>
+  <sg-skeleton variant="text" width="80%" style="margin-top: 0.75rem;"></sg-skeleton>
+  <sg-skeleton variant="text" width="60%" style="margin-top: 0.5rem;"></sg-skeleton>
+</div>`}
+        height="180px"
+      />
+    </div>
+  </Fragment>
     <div class="usage-block">
       <h3>Cuándo usar</h3>
       <ul>
@@ -116,4 +129,12 @@ const props = [
   .usage-block h3 { font-size: 0.875rem; font-weight: 600; margin: 0 0 0.75rem 0; }
   .usage-block ul { margin: 0; padding-left: 1.25rem; font-size: 0.875rem; color: var(--text-muted); line-height: 1.8; }
   .usage-block code { background: var(--accent-soft); color: var(--accent); padding: 0.125rem 0.375rem; border-radius: 3px; font-size: 0.8125rem; }
+
+  .playground-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .playground-section h3 { font-size: 1.125rem; margin-bottom: 0.5rem; }
+  .playground-section p { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem; }
 </style>

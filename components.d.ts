@@ -10,12 +10,14 @@ import { EditorTranslations, SupportedLocale } from "./packages/article-editor/s
 import { BadgeSize, BadgeVariant } from "./packages/badge/src/components/badge/badge";
 import { ButtonShape, ButtonSize, ButtonVariant } from "./packages/button/src/components/button/button";
 import { IconDefinition } from "./packages/icons/src/components/svg-icon/icons/builtin";
+import { ModalSize } from "./packages/modal/src/components/modal/modal";
 import { ThemeMode } from "./packages/theme-toggle/src/components/theme-toggle/theme-toggle";
 export { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from "./packages/article-editor/src/utils";
 export { EditorTranslations, SupportedLocale } from "./packages/article-editor/src/utils/i18n";
 export { BadgeSize, BadgeVariant } from "./packages/badge/src/components/badge/badge";
 export { ButtonShape, ButtonSize, ButtonVariant } from "./packages/button/src/components/button/button";
 export { IconDefinition } from "./packages/icons/src/components/svg-icon/icons/builtin";
+export { ModalSize } from "./packages/modal/src/components/modal/modal";
 export { ThemeMode } from "./packages/theme-toggle/src/components/theme-toggle/theme-toggle";
 export namespace Components {
     /**
@@ -572,6 +574,121 @@ export namespace Components {
         "width"?: number | string;
     }
     /**
+     * @component sg-modal
+     * @description A modern modal dialog component built on the native HTML <dialog> element.
+     * Provides built-in accessibility, focus trapping, and backdrop handling.
+     * @example <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      VANILLA HTML / JS
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-modal id="myModal" header="Confirm Action">
+     *   <p>Are you sure you want to continue?</p>
+     *   <div slot="footer">
+     *     <sg-button variant="secondary" onclick="document.getElementById('myModal').close()">Cancel</sg-button>
+     *     <sg-button variant="primary">Confirm</sg-button>
+     *   </div>
+     * </sg-modal>
+     * <sg-button onclick="document.getElementById('myModal').showModal()">Open Modal</sg-button>
+     * <script>
+     *   document.getElementById('myModal').addEventListener('sgClose', (e) => {
+     *     console.log('Modal closed with:', e.detail);
+     *   });
+     * </script>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      ANGULAR
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-modal
+     *   #modal
+     *   header="Edit Profile"
+     *   [attr.open]="isOpen || null"
+     *   (sgClose)="onClose($event)"
+     *   (sgCancel)="onCancel()">
+     *   <form>...</form>
+     *   <div slot="footer">
+     *     <sg-button (sgClick)="modal.close()">Cancel</sg-button>
+     *     <sg-button variant="primary" (sgClick)="save()">Save</sg-button>
+     *   </div>
+     * </sg-modal>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      REACT
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-modal
+     *   ref={modalRef}
+     *   header="Delete Item"
+     *   size="sm"
+     *   onSgClose={(e) => handleClose(e.detail)}
+     *   onSgCancel={() => handleCancel()}>
+     *   <p>This action cannot be undone.</p>
+     *   <div slot="footer">
+     *     <sg-button onClick={() => modalRef.current.close()}>Cancel</sg-button>
+     *     <sg-button variant="error" onClick={() => handleDelete()}>Delete</sg-button>
+     *   </div>
+     * </sg-modal>
+     * @fires sgOpen - Emitted when the modal opens
+     * @fires sgClose - Emitted when the modal closes, detail contains returnValue
+     * @fires sgCancel - Emitted when user cancels (Escape or backdrop click)
+     * @cssprop --sg-modal-width - Modal width (default: auto based on size)
+     * @cssprop --sg-modal-max-width - Modal max width
+     * @cssprop --sg-modal-max-height - Modal max height
+     * @cssprop --sg-modal-padding - Modal content padding
+     * @cssprop --sg-modal-radius - Modal border radius
+     * @cssprop --sg-modal-backdrop-color - Backdrop overlay color
+     * @cssprop --sg-modal-shadow - Modal box shadow
+     */
+    interface SgModal {
+        /**
+          * Closes the modal dialog
+          * @param returnValue - Optional value to pass to the close event
+         */
+        "close": (returnValue?: string) => Promise<void>;
+        /**
+          * Whether the modal can be closed by clicking the backdrop
+          * @default true
+         */
+        "closeOnBackdrop": boolean;
+        /**
+          * Whether the modal can be closed by pressing Escape
+          * @default true
+         */
+        "closeOnEscape": boolean;
+        /**
+          * Modal header text
+         */
+        "header"?: string;
+        /**
+          * Whether the modal is a non-modal dialog (doesn't block interaction)
+          * @default false
+         */
+        "nonModal": boolean;
+        /**
+          * Whether the modal is open
+          * @default false
+         */
+        "open": boolean;
+        /**
+          * Whether to show the backdrop overlay
+          * @default true
+         */
+        "overlay": boolean;
+        /**
+          * Opens as non-modal dialog
+         */
+        "show": () => Promise<void>;
+        /**
+          * Whether to show the close button in the header
+          * @default true
+         */
+        "showCloseButton": boolean;
+        /**
+          * Opens the modal dialog
+         */
+        "showModal": () => Promise<void>;
+        /**
+          * Modal size preset
+          * @default 'md'
+         */
+        "size": ModalSize;
+    }
+    /**
      * @component sg-skeleton
      * @description Skeleton loading placeholder component for SageBox
      * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
@@ -624,6 +741,10 @@ export interface SgButtonCustomEvent<T> extends CustomEvent<T> {
 export interface SgDropdownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSgDropdownElement;
+}
+export interface SgModalCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSgModalElement;
 }
 export interface SgThemeToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -835,6 +956,86 @@ declare global {
         prototype: HTMLSgIconElement;
         new (): HTMLSgIconElement;
     };
+    interface HTMLSgModalElementEventMap {
+        "sgOpen": void;
+        "sgClose": string;
+        "sgCancel": void;
+    }
+    /**
+     * @component sg-modal
+     * @description A modern modal dialog component built on the native HTML <dialog> element.
+     * Provides built-in accessibility, focus trapping, and backdrop handling.
+     * @example <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      VANILLA HTML / JS
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-modal id="myModal" header="Confirm Action">
+     *   <p>Are you sure you want to continue?</p>
+     *   <div slot="footer">
+     *     <sg-button variant="secondary" onclick="document.getElementById('myModal').close()">Cancel</sg-button>
+     *     <sg-button variant="primary">Confirm</sg-button>
+     *   </div>
+     * </sg-modal>
+     * <sg-button onclick="document.getElementById('myModal').showModal()">Open Modal</sg-button>
+     * <script>
+     *   document.getElementById('myModal').addEventListener('sgClose', (e) => {
+     *     console.log('Modal closed with:', e.detail);
+     *   });
+     * </script>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      ANGULAR
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-modal
+     *   #modal
+     *   header="Edit Profile"
+     *   [attr.open]="isOpen || null"
+     *   (sgClose)="onClose($event)"
+     *   (sgCancel)="onCancel()">
+     *   <form>...</form>
+     *   <div slot="footer">
+     *     <sg-button (sgClick)="modal.close()">Cancel</sg-button>
+     *     <sg-button variant="primary" (sgClick)="save()">Save</sg-button>
+     *   </div>
+     * </sg-modal>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      REACT
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-modal
+     *   ref={modalRef}
+     *   header="Delete Item"
+     *   size="sm"
+     *   onSgClose={(e) => handleClose(e.detail)}
+     *   onSgCancel={() => handleCancel()}>
+     *   <p>This action cannot be undone.</p>
+     *   <div slot="footer">
+     *     <sg-button onClick={() => modalRef.current.close()}>Cancel</sg-button>
+     *     <sg-button variant="error" onClick={() => handleDelete()}>Delete</sg-button>
+     *   </div>
+     * </sg-modal>
+     * @fires sgOpen - Emitted when the modal opens
+     * @fires sgClose - Emitted when the modal closes, detail contains returnValue
+     * @fires sgCancel - Emitted when user cancels (Escape or backdrop click)
+     * @cssprop --sg-modal-width - Modal width (default: auto based on size)
+     * @cssprop --sg-modal-max-width - Modal max width
+     * @cssprop --sg-modal-max-height - Modal max height
+     * @cssprop --sg-modal-padding - Modal content padding
+     * @cssprop --sg-modal-radius - Modal border radius
+     * @cssprop --sg-modal-backdrop-color - Backdrop overlay color
+     * @cssprop --sg-modal-shadow - Modal box shadow
+     */
+    interface HTMLSgModalElement extends Components.SgModal, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSgModalElementEventMap>(type: K, listener: (this: HTMLSgModalElement, ev: SgModalCustomEvent<HTMLSgModalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSgModalElementEventMap>(type: K, listener: (this: HTMLSgModalElement, ev: SgModalCustomEvent<HTMLSgModalElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSgModalElement: {
+        prototype: HTMLSgModalElement;
+        new (): HTMLSgModalElement;
+    };
     /**
      * @component sg-skeleton
      * @description Skeleton loading placeholder component for SageBox
@@ -871,6 +1072,7 @@ declare global {
         "sg-button": HTMLSgButtonElement;
         "sg-dropdown": HTMLSgDropdownElement;
         "sg-icon": HTMLSgIconElement;
+        "sg-modal": HTMLSgModalElement;
         "sg-skeleton": HTMLSgSkeletonElement;
         "sg-theme-toggle": HTMLSgThemeToggleElement;
     }
@@ -1413,6 +1615,120 @@ declare namespace LocalJSX {
         "width"?: number | string;
     }
     /**
+     * @component sg-modal
+     * @description A modern modal dialog component built on the native HTML <dialog> element.
+     * Provides built-in accessibility, focus trapping, and backdrop handling.
+     * @example <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      VANILLA HTML / JS
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-modal id="myModal" header="Confirm Action">
+     *   <p>Are you sure you want to continue?</p>
+     *   <div slot="footer">
+     *     <sg-button variant="secondary" onclick="document.getElementById('myModal').close()">Cancel</sg-button>
+     *     <sg-button variant="primary">Confirm</sg-button>
+     *   </div>
+     * </sg-modal>
+     * <sg-button onclick="document.getElementById('myModal').showModal()">Open Modal</sg-button>
+     * <script>
+     *   document.getElementById('myModal').addEventListener('sgClose', (e) => {
+     *     console.log('Modal closed with:', e.detail);
+     *   });
+     * </script>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      ANGULAR
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-modal
+     *   #modal
+     *   header="Edit Profile"
+     *   [attr.open]="isOpen || null"
+     *   (sgClose)="onClose($event)"
+     *   (sgCancel)="onCancel()">
+     *   <form>...</form>
+     *   <div slot="footer">
+     *     <sg-button (sgClick)="modal.close()">Cancel</sg-button>
+     *     <sg-button variant="primary" (sgClick)="save()">Save</sg-button>
+     *   </div>
+     * </sg-modal>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      REACT
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-modal
+     *   ref={modalRef}
+     *   header="Delete Item"
+     *   size="sm"
+     *   onSgClose={(e) => handleClose(e.detail)}
+     *   onSgCancel={() => handleCancel()}>
+     *   <p>This action cannot be undone.</p>
+     *   <div slot="footer">
+     *     <sg-button onClick={() => modalRef.current.close()}>Cancel</sg-button>
+     *     <sg-button variant="error" onClick={() => handleDelete()}>Delete</sg-button>
+     *   </div>
+     * </sg-modal>
+     * @fires sgOpen - Emitted when the modal opens
+     * @fires sgClose - Emitted when the modal closes, detail contains returnValue
+     * @fires sgCancel - Emitted when user cancels (Escape or backdrop click)
+     * @cssprop --sg-modal-width - Modal width (default: auto based on size)
+     * @cssprop --sg-modal-max-width - Modal max width
+     * @cssprop --sg-modal-max-height - Modal max height
+     * @cssprop --sg-modal-padding - Modal content padding
+     * @cssprop --sg-modal-radius - Modal border radius
+     * @cssprop --sg-modal-backdrop-color - Backdrop overlay color
+     * @cssprop --sg-modal-shadow - Modal box shadow
+     */
+    interface SgModal {
+        /**
+          * Whether the modal can be closed by clicking the backdrop
+          * @default true
+         */
+        "closeOnBackdrop"?: boolean;
+        /**
+          * Whether the modal can be closed by pressing Escape
+          * @default true
+         */
+        "closeOnEscape"?: boolean;
+        /**
+          * Modal header text
+         */
+        "header"?: string;
+        /**
+          * Whether the modal is a non-modal dialog (doesn't block interaction)
+          * @default false
+         */
+        "nonModal"?: boolean;
+        /**
+          * Emitted when modal is cancelled (Escape or backdrop)
+         */
+        "onSgCancel"?: (event: SgModalCustomEvent<void>) => void;
+        /**
+          * Emitted when modal closes
+         */
+        "onSgClose"?: (event: SgModalCustomEvent<string>) => void;
+        /**
+          * Emitted when modal opens
+         */
+        "onSgOpen"?: (event: SgModalCustomEvent<void>) => void;
+        /**
+          * Whether the modal is open
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * Whether to show the backdrop overlay
+          * @default true
+         */
+        "overlay"?: boolean;
+        /**
+          * Whether to show the close button in the header
+          * @default true
+         */
+        "showCloseButton"?: boolean;
+        /**
+          * Modal size preset
+          * @default 'md'
+         */
+        "size"?: ModalSize;
+    }
+    /**
      * @component sg-skeleton
      * @description Skeleton loading placeholder component for SageBox
      * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
@@ -1463,6 +1779,7 @@ declare namespace LocalJSX {
         "sg-button": SgButton;
         "sg-dropdown": SgDropdown;
         "sg-icon": SgIcon;
+        "sg-modal": SgModal;
         "sg-skeleton": SgSkeleton;
         "sg-theme-toggle": SgThemeToggle;
     }
@@ -1611,6 +1928,68 @@ declare module "@stencil/core" {
              * <sg-icon name="my-icon" json-src="/assets/icons.json"></sg-icon>
              */
             "sg-icon": LocalJSX.SgIcon & JSXBase.HTMLAttributes<HTMLSgIconElement>;
+            /**
+             * @component sg-modal
+             * @description A modern modal dialog component built on the native HTML <dialog> element.
+             * Provides built-in accessibility, focus trapping, and backdrop handling.
+             * @example <!-- ═══════════════════════════════════════════════════════════════════════════════
+             *      VANILLA HTML / JS
+             *      ═══════════════════════════════════════════════════════════════════════════════ -->
+             * <sg-modal id="myModal" header="Confirm Action">
+             *   <p>Are you sure you want to continue?</p>
+             *   <div slot="footer">
+             *     <sg-button variant="secondary" onclick="document.getElementById('myModal').close()">Cancel</sg-button>
+             *     <sg-button variant="primary">Confirm</sg-button>
+             *   </div>
+             * </sg-modal>
+             * <sg-button onclick="document.getElementById('myModal').showModal()">Open Modal</sg-button>
+             * <script>
+             *   document.getElementById('myModal').addEventListener('sgClose', (e) => {
+             *     console.log('Modal closed with:', e.detail);
+             *   });
+             * </script>
+             * <!-- ═══════════════════════════════════════════════════════════════════════════════
+             *      ANGULAR
+             *      ═══════════════════════════════════════════════════════════════════════════════ -->
+             * <sg-modal
+             *   #modal
+             *   header="Edit Profile"
+             *   [attr.open]="isOpen || null"
+             *   (sgClose)="onClose($event)"
+             *   (sgCancel)="onCancel()">
+             *   <form>...</form>
+             *   <div slot="footer">
+             *     <sg-button (sgClick)="modal.close()">Cancel</sg-button>
+             *     <sg-button variant="primary" (sgClick)="save()">Save</sg-button>
+             *   </div>
+             * </sg-modal>
+             * <!-- ═══════════════════════════════════════════════════════════════════════════════
+             *      REACT
+             *      ═══════════════════════════════════════════════════════════════════════════════ -->
+             * <sg-modal
+             *   ref={modalRef}
+             *   header="Delete Item"
+             *   size="sm"
+             *   onSgClose={(e) => handleClose(e.detail)}
+             *   onSgCancel={() => handleCancel()}>
+             *   <p>This action cannot be undone.</p>
+             *   <div slot="footer">
+             *     <sg-button onClick={() => modalRef.current.close()}>Cancel</sg-button>
+             *     <sg-button variant="error" onClick={() => handleDelete()}>Delete</sg-button>
+             *   </div>
+             * </sg-modal>
+             * @fires sgOpen - Emitted when the modal opens
+             * @fires sgClose - Emitted when the modal closes, detail contains returnValue
+             * @fires sgCancel - Emitted when user cancels (Escape or backdrop click)
+             * @cssprop --sg-modal-width - Modal width (default: auto based on size)
+             * @cssprop --sg-modal-max-width - Modal max width
+             * @cssprop --sg-modal-max-height - Modal max height
+             * @cssprop --sg-modal-padding - Modal content padding
+             * @cssprop --sg-modal-radius - Modal border radius
+             * @cssprop --sg-modal-backdrop-color - Backdrop overlay color
+             * @cssprop --sg-modal-shadow - Modal box shadow
+             */
+            "sg-modal": LocalJSX.SgModal & JSXBase.HTMLAttributes<HTMLSgModalElement>;
             /**
              * @component sg-skeleton
              * @description Skeleton loading placeholder component for SageBox

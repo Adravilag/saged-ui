@@ -7,6 +7,7 @@ export const DIRECTIVES = [
   d.SgButton,
   d.SgDropdown,
   d.SgIcon,
+  d.SgModal,
   d.SgSkeleton,
   d.SgThemeToggle
 ];

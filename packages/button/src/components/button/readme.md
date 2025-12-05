@@ -35,6 +35,19 @@
 |      | Button content (text, icons, etc.) |
 
 
+## Dependencies
+
+### Depends on
+
+- [sg-icon](../../../../icons/src/components/svg-icon)
+
+### Graph
+```mermaid
+graph TD;
+  sg-button --> sg-icon
+  style sg-button fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

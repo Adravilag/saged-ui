@@ -3,6 +3,7 @@ import ComponentLayout from '../../layouts/ComponentLayout.astro';
 import DemoRow from '../../components/DemoRow.astro';
 import DemoBox from '../../components/DemoBox.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
+import Playground from '../../components/Playground.astro';
 
 const props = [
   { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'error' | 'success' | 'warning' | 'info'", default: "'primary'", description: 'Variante de color del botón' },
@@ -115,16 +116,35 @@ const slots = [
     </DemoBox>
 
     <DemoBox label="Combinaciones" code={`<sg-button variant="success" leading-icon="check" shape="pill">Completado</sg-button>
-<sg-button variant="error" leading-icon="trash" size="sm">Eliminar</sg-button>
-<sg-button variant="warning" trailing-icon="alert" size="lg">Advertencia</sg-button>
+<sg-button variant="error" leading-icon="delete" size="sm">Eliminar</sg-button>
+<sg-button variant="warning" trailing-icon="warning" size="lg">Advertencia</sg-button>
 <sg-button variant="info" leading-icon="info" shape="pill" size="sm">Info</sg-button>`}>
       <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: center;">
         <sg-button variant="success" leading-icon="check" shape="pill">Completado</sg-button>
-        <sg-button variant="error" leading-icon="trash" size="sm">Eliminar</sg-button>
-        <sg-button variant="warning" trailing-icon="alert" size="lg">Advertencia</sg-button>
+        <sg-button variant="error" leading-icon="delete" size="sm">Eliminar</sg-button>
+        <sg-button variant="warning" trailing-icon="warning" size="lg">Advertencia</sg-button>
         <sg-button variant="info" leading-icon="info" shape="pill" size="sm">Info</sg-button>
       </div>
     </DemoBox>
+
+    <div class="playground-section">
+      <h3><sg-icon name="code" size="20"></sg-icon> Playground</h3>
+      <p>Edita el código y ve los cambios en tiempo real:</p>
+      <Playground 
+        code={`<sg-button variant="primary" size="md">
+  Click me!
+</sg-button>
+
+<sg-button variant="secondary" leading-icon="star">
+  Favorito
+</sg-button>
+
+<sg-button variant="outline" shape="pill">
+  Pill Button
+</sg-button>`}
+        height="180px"
+      />
+    </div>
   </Fragment>
 
   <Fragment slot="usage">
@@ -286,5 +306,22 @@ button.addEventListener('sgClick', (event) => {
     border-radius: 4px;
     box-shadow: 0 1px 0 var(--border);
     color: var(--text);
+  }
+
+  .playground-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .playground-section h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .playground-section p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
   }
 </style>

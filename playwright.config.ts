@@ -47,9 +47,9 @@ export default defineConfig({
 
   /* Run the Stencil dev server before starting the tests */
   webServer: {
-    command: 'npx stencil build --dev --watch --serve --port 3333',
+    command: 'npx http-server ./www -p 3333 -c-1 --cors',
     url: 'http://localhost:3333',
     reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
+    timeout: 30 * 1000,
   },
 });

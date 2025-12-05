@@ -1,0 +1,57 @@
+{
+  "name": "@sagebox/modal",
+  "version": "1.0.0",
+  "description": "Dialog modal component using native HTML dialog - SageBox component",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "unpkg": "dist/sagebox-modal/sagebox-modal.esm.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./loader": {
+      "types": "./loader/index.d.ts",
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adravilag/sagebox.git",
+    "directory": "packages/modal"
+  },
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "build:watch": "stencil build --watch",
+    "test": "stencil test --spec",
+    "storybook": "stencil build && storybook dev -p 6006",
+    "storybook:fast": "storybook dev -p 6006",
+    "build-storybook": "stencil build && storybook build"
+  },
+  "peerDependencies": {
+    "@sagebox/core": "^1.0.0"
+  },
+  "devDependencies": {
+    "@stencil/core": "^4.27.1",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "sagebox",
+    "modal",
+    "web-components",
+    "stencil"
+  ],
+  "author": "adravilag",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}
