@@ -1,0 +1,778 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import Playground from '../../components/Playground.astro';
+
+const props = [
+  { name: 'name', type: 'string', default: 'undefined', description: 'Nombre del icono de la librería integrada' },
+  { name: 'src', type: 'string', default: 'undefined', description: 'URL a un SVG personalizado' },
+  { name: 'size', type: 'number | string', default: '24', description: 'Tamaño del icono en pixels' },
+  { name: 'color', type: 'string', default: "'currentColor'", description: 'Color del icono (valor CSS)' },
+  { name: 'spin', type: 'boolean', default: 'false', description: 'Animación de rotación continua' },
+  { name: 'rotate', type: 'number', default: 'undefined', description: 'Ángulo de rotación en grados' },
+  { name: 'flip-h', type: 'boolean', default: 'false', description: 'Voltear horizontalmente' },
+  { name: 'flip-v', type: 'boolean', default: 'false', description: 'Voltear verticalmente' },
+  { name: 'decorative', type: 'boolean', default: 'false', description: 'Oculto para lectores de pantalla' },
+  { name: 'aria-label', type: 'string', default: 'undefined', description: 'Etiqueta accesible' },
+  { name: 'width', type: 'number | string', default: 'undefined', description: 'Ancho personalizado (sobreescribe size)' },
+  { name: 'height', type: 'number | string', default: 'undefined', description: 'Alto personalizado (sobreescribe size)' },
+  { name: 'stroke-width', type: 'number', default: 'undefined', description: 'Grosor del trazo' },
+];
+---
+
+<ComponentLayout
+  title="Icon"
+  tag="sg-icon"
+  packageName="icons"
+  description="Componente de iconos SVG flexible con acceso a más de 200,000 iconos de Iconify. Importa solo los iconos que necesitas usando el CLI o el Icon Manager visual."
+  props={props}
+>
+  <Fragment slot="examples">
+    <DemoBox label="Iconos de navegación" code={`<sg-icon name="home" size="24"></sg-icon>
+<sg-icon name="search" size="24"></sg-icon>
+<sg-icon name="menu" size="24"></sg-icon>
+<sg-icon name="settings" size="24"></sg-icon>
+<sg-icon name="user" size="24"></sg-icon>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+        <sg-icon name="home" size="24"></sg-icon>
+        <sg-icon name="search" size="24"></sg-icon>
+        <sg-icon name="menu" size="24"></sg-icon>
+        <sg-icon name="settings" size="24"></sg-icon>
+        <sg-icon name="user" size="24"></sg-icon>
+        <sg-icon name="close" size="24"></sg-icon>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Iconos de acciones" code={`<sg-icon name="add" size="24"></sg-icon>
+<sg-icon name="edit" size="24"></sg-icon>
+<sg-icon name="delete" size="24"></sg-icon>
+<sg-icon name="save" size="24"></sg-icon>
+<sg-icon name="copy" size="24"></sg-icon>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+        <sg-icon name="add" size="24"></sg-icon>
+        <sg-icon name="edit" size="24"></sg-icon>
+        <sg-icon name="delete" size="24"></sg-icon>
+        <sg-icon name="save" size="24"></sg-icon>
+        <sg-icon name="copy" size="24"></sg-icon>
+        <sg-icon name="download" size="24"></sg-icon>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Con colores" code={`<sg-icon name="heart" size="24" color="#ef4444"></sg-icon>
+<sg-icon name="star" size="24" color="#f59e0b"></sg-icon>
+<sg-icon name="check" size="24" color="#22c55e"></sg-icon>
+<sg-icon name="info" size="24" color="#3b82f6"></sg-icon>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: center;">
+        <sg-icon name="heart" size="24" color="#ef4444"></sg-icon>
+        <sg-icon name="star" size="24" color="#f59e0b"></sg-icon>
+        <sg-icon name="check" size="24" color="#22c55e"></sg-icon>
+        <sg-icon name="info" size="24" color="#3b82f6"></sg-icon>
+        <sg-icon name="warning" size="24" color="#f97316"></sg-icon>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Tamaños" code={`<sg-icon name="star" size="16"></sg-icon>
+<sg-icon name="star" size="24"></sg-icon>
+<sg-icon name="star" size="32"></sg-icon>
+<sg-icon name="star" size="48"></sg-icon>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: center;">
+        <sg-icon name="star" size="16"></sg-icon>
+        <sg-icon name="star" size="24"></sg-icon>
+        <sg-icon name="star" size="32"></sg-icon>
+        <sg-icon name="star" size="48"></sg-icon>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Animaciones y transformaciones" code={`<sg-icon name="refresh" size="24" spin></sg-icon>
+<sg-icon name="chevron-right" size="24" rotate="90"></sg-icon>
+<sg-icon name="arrow-right" size="24" flip-h></sg-icon>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: center;">
+        <sg-icon name="refresh" size="24" spin></sg-icon>
+        <sg-icon name="chevron-right" size="24" rotate="90"></sg-icon>
+        <sg-icon name="arrow-right" size="24" flip-h></sg-icon>
+      </div>
+    </DemoBox>
+
+    <div class="playground-section">
+      <h3><sg-icon name="code" size="20"></sg-icon> Playground</h3>
+      <p>Experimenta con los iconos en tiempo real:</p>
+      <Playground 
+        code={`<!-- Galería de iconos con diferentes estilos -->
+<div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: center;">
+  <!-- Tamaños -->
+  <sg-icon name="home" size="16"></sg-icon>
+  <sg-icon name="home" size="24"></sg-icon>
+  <sg-icon name="home" size="32"></sg-icon>
+  <sg-icon name="home" size="48"></sg-icon>
+  
+  <!-- Colores -->
+  <sg-icon name="heart" size="24" style="color: #ef4444;"></sg-icon>
+  <sg-icon name="star" size="24" style="color: #f59e0b;"></sg-icon>
+  <sg-icon name="check-circle" size="24" style="color: #10b981;"></sg-icon>
+  
+  <!-- Animaciones -->
+  <sg-icon name="refresh" size="24" spin></sg-icon>
+  <sg-icon name="loader" size="24" spin></sg-icon>
+  
+  <!-- Transformaciones -->
+  <sg-icon name="arrow-right" size="24"></sg-icon>
+  <sg-icon name="arrow-right" size="24" rotate="90"></sg-icon>
+  <sg-icon name="arrow-right" size="24" rotate="180"></sg-icon>
+  <sg-icon name="arrow-right" size="24" flip-h></sg-icon>
+</div>`}
+        height="200px"
+      />
+    </div>
+  </Fragment>
+
+  <Fragment slot="usage">
+    <div class="usage-block">
+      <h3>Cómo funciona</h3>
+      <p>El componente <code>sg-icon</code> renderiza iconos SVG que se importan dinámicamente desde <strong>Iconify</strong> usando el CLI o el Icon Manager. Esto te permite acceder a más de <strong>200,000 iconos</strong> de colecciones populares como Lucide, Material Design, Heroicons, Font Awesome y muchas más.</p>
+    </div>
+
+    <div class="usage-block">
+      <h3>Uso básico</h3>
+      <p>Una vez importados los iconos a tu proyecto, úsalos con el atributo <code>name</code>:</p>
+      <CodeBlock
+        filename="example.html"
+        code={`<!-- Iconos importados desde Iconify -->
+<sg-icon name="lucide-home" size="24"></sg-icon>
+<sg-icon name="mdi-heart" size="24" color="red"></sg-icon>
+<sg-icon name="heroicons-star" size="32"></sg-icon>`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>SVG personalizado</h3>
+      <p>También puedes cargar iconos SVG externos usando el atributo <code>src</code>:</p>
+      <CodeBlock
+        filename="custom-icon.html"
+        code={`<sg-icon src="/icons/custom.svg" size="24"></sg-icon>`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>Iconos desde JSON</h3>
+      <p>Carga iconos desde un archivo JSON con el atributo <code>json-src</code>:</p>
+      <CodeBlock
+        filename="json-icons.html"
+        code={`<!-- Cargar icono específico desde JSON -->
+<sg-icon name="my-icon" json-src="/assets/custom-icons.json"></sg-icon>
+
+<!-- O configurar globalmente -->
+<script type="module">
+  import { SgIcon } from '@sagebox/icons';
+
+  // Configurar origen JSON por defecto
+  SgIcon.configure({ jsonSrc: '/assets/icons.json' });
+
+  // O pre-cargar iconos
+  await SgIcon.loadIcons('/assets/icons.json');
+</script>`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>Registrar iconos personalizados</h3>
+      <p>Registra tus propios iconos SVG programáticamente:</p>
+      <CodeBlock
+        filename="register-icons.js"
+        language="js"
+        code={`import { registerIcons, registerIcon } from '@sagebox/icons';
+
+// Registrar múltiples iconos
+registerIcons({
+  'my-logo': '<svg viewBox="0 0 24 24"><path d="M12..."/></svg>',
+  'custom-icon': '<svg>...</svg>'
+});
+
+// Registrar un solo icono
+registerIcon('brand-icon', '<svg viewBox="0 0 24 24">...</svg>');`}
+      />
+    </div>
+
+    <!-- CLI & Icon Manager Section -->
+    <div class="cli-section" id="icon-manager">
+      <div class="cli-header">
+        <div class="cli-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+        </div>
+        <div>
+          <h3>CLI & Icon Manager</h3>
+          <p>Gestiona miles de iconos de Iconify directamente desde tu terminal o interfaz visual</p>
+        </div>
+      </div>
+
+      <div class="cli-features">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </div>
+          <h4>Buscar iconos</h4>
+          <p>Accede a más de 200,000 iconos de colecciones como Lucide, Material Design, Heroicons y más.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          </div>
+          <h4>Fetch desde Iconify</h4>
+          <p>Descarga iconos optimizados directamente desde la API de Iconify con un solo comando.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <h4>Seleccionar para build</h4>
+          <p>Marca qué iconos incluir en tu bundle final. Solo se compilan los que realmente usas.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <h4>Build automático</h4>
+          <p>Genera TypeScript tipado con auto-registro de iconos para tu proyecto.</p>
+        </div>
+      </div>
+
+      <div class="cli-preview">
+        <h4>Icon Manager - Interfaz Visual</h4>
+        <p>Una interfaz web para gestionar tus iconos de forma visual:</p>
+        <div class="preview-image">
+          <img src="/sagebox/images/icon-manager-screenshot.png" alt="Icon Manager UI" />
+        </div>
+      </div>
+
+      <div class="cli-commands">
+        <h4>Comandos principales</h4>
+
+        <div class="command-group">
+          <div class="command-label">Inicializar proyecto</div>
+          <CodeBlock
+            filename="terminal"
+            language="bash"
+            code={`npx sagebox init`}
+          />
+        </div>
+
+        <div class="command-group">
+          <div class="command-label">Buscar iconos en Iconify</div>
+          <CodeBlock
+            filename="terminal"
+            language="bash"
+            code={`npx sagebox icons search home`}
+          />
+        </div>
+
+        <div class="command-group">
+          <div class="command-label">Descargar iconos de Iconify</div>
+          <CodeBlock
+            filename="terminal"
+            language="bash"
+            code={`npx sagebox icons add lucide:home mdi:settings heroicons:star`}
+          />
+        </div>
+
+        <div class="command-group">
+          <div class="command-label">Explorar colecciones de iconos</div>
+          <CodeBlock
+            filename="terminal"
+            language="bash"
+            code={`npx sagebox icons browse`}
+          />
+        </div>
+
+        <div class="command-group">
+          <div class="command-label">Generar TypeScript</div>
+          <CodeBlock
+            filename="terminal"
+            language="bash"
+            code={`npx sagebox icons build`}
+          />
+        </div>
+
+        <div class="command-group">
+          <div class="command-label">Iniciar Icon Manager (GUI)</div>
+          <CodeBlock
+            filename="terminal"
+            language="bash"
+            code={`npx sagebox icons server`}
+          />
+        </div>
+      </div>
+
+      <div class="cli-workflow">
+        <h4>Flujo de trabajo</h4>
+        <div class="workflow-steps">
+          <div class="workflow-step">
+            <div class="step-number">1</div>
+            <strong>Inicializar</strong>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div class="step-number">2</div>
+            <strong>Fetch / Icon Manager</strong>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div class="step-number">3</div>
+            <strong>Build</strong>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div class="step-number">4</div>
+            <strong>Usar</strong>
+          </div>
+        </div>
+        <p class="workflow-description">
+          Inicializa la configuración del proyecto, descarga los iconos que necesitas desde Iconify (CLI o interfaz visual),
+          genera el archivo TypeScript tipado con <code>build</code>, e importa los iconos en tu aplicación.
+        </p>
+      </div>
+
+      <div class="cli-output">
+        <h4>Salida generada</h4>
+        <p>El comando <code>build</code> genera automáticamente un archivo TypeScript con los iconos seleccionados:</p>
+        <CodeBlock
+          filename="src/icons/index.ts"
+          language="ts"
+          code={`// Auto-generated - do not edit manually
+import { registerIcons } from '@sagebox/icons';
+
+export const icons: Record<string, string> = {
+  'lucide-home': '<svg xmlns="http://www.w3.org/2000/svg" ...>...</svg>',
+  'lucide-settings': '<svg xmlns="http://www.w3.org/2000/svg" ...>...</svg>',
+  'mdi-heart': '<svg xmlns="http://www.w3.org/2000/svg" ...>...</svg>',
+};
+
+// Auto-register icons
+registerIcons(icons);
+
+// Type definitions
+export type IconName = 'lucide-home' | 'lucide-settings' | 'mdi-heart';
+export const iconNames: IconName[] = ['lucide-home', 'lucide-settings', 'mdi-heart'];`}
+        />
+      </div>
+
+      <div class="cli-usage">
+        <h4>Uso en tu aplicación</h4>
+        <CodeBlock
+          filename="app.tsx"
+          language="tsx"
+          code={`// Importa los iconos (se auto-registran)
+import './icons';
+
+// Úsalos en tus componentes
+<sg-icon name="lucide-home" size="24"></sg-icon>
+<sg-icon name="mdi-heart" size="24" color="red"></sg-icon>`}
+        />
+      </div>
+
+      <div class="iconify-collections">
+        <h4>Colecciones populares de Iconify</h4>
+        <p>Accede a iconos de las colecciones más populares usando el formato <code>prefix:icon-name</code>:</p>
+        <div class="collections-grid">
+          <div class="collection-item">
+            <strong>lucide</strong>
+            <span>Lucide Icons - Iconos modernos y limpios</span>
+          </div>
+          <div class="collection-item">
+            <strong>mdi</strong>
+            <span>Material Design Icons - Amplia colección de Google</span>
+          </div>
+          <div class="collection-item">
+            <strong>heroicons</strong>
+            <span>Heroicons - Por los creadores de Tailwind CSS</span>
+          </div>
+          <div class="collection-item">
+            <strong>tabler</strong>
+            <span>Tabler Icons - +4000 iconos de línea</span>
+          </div>
+          <div class="collection-item">
+            <strong>phosphor</strong>
+            <span>Phosphor Icons - Familia flexible de iconos</span>
+          </div>
+          <div class="collection-item">
+            <strong>carbon</strong>
+            <span>Carbon Icons - Sistema de diseño de IBM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Fragment>
+</ComponentLayout>
+
+<style>
+  .usage-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+  }
+  .usage-block h3 { font-size: 0.875rem; font-weight: 600; margin: 0 0 0.75rem 0; }
+  .usage-block p { font-size: 0.875rem; color: var(--text-muted); margin: 0 0 0.75rem 0; }
+  .usage-block ul { margin: 0; padding-left: 1.25rem; font-size: 0.875rem; color: var(--text-muted); line-height: 1.8; }
+
+  /* CLI Section Styles */
+  .cli-section {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--bg) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .cli-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cli-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--accent);
+    border-radius: var(--radius-md);
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .cli-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem 0;
+    color: var(--text);
+  }
+
+  .cli-header p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* Feature Cards */
+  .cli-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    transition: all 0.2s ease;
+  }
+
+  .feature-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-card h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: var(--text);
+  }
+
+  .feature-card p {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Preview Placeholder */
+  .cli-preview {
+    margin-bottom: 2rem;
+  }
+
+  .cli-preview h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .cli-preview > p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0 0 1rem 0;
+  }
+
+  .preview-image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .preview-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .preview-placeholder {
+    background: var(--surface);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .placeholder-content svg {
+    opacity: 0.5;
+  }
+
+  .placeholder-content span {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .placeholder-content code {
+    font-size: 0.75rem;
+    background: var(--bg);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+
+  /* Commands */
+  .cli-commands {
+    margin-bottom: 2rem;
+  }
+
+  .cli-commands h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+  }
+
+  .command-group {
+    margin-bottom: 1rem;
+  }
+
+  .command-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Workflow */
+  .cli-workflow {
+    margin-bottom: 2rem;
+  }
+
+  .cli-workflow h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+  }
+
+  .workflow-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .workflow-step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 1rem;
+  }
+
+  .workflow-step strong {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .workflow-arrow {
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .workflow-description {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .workflow-description code {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-xs);
+    font-size: 0.8125rem;
+  }
+
+  /* Output & Usage */
+  .cli-output,
+  .cli-usage {
+    margin-bottom: 1.5rem;
+  }
+
+  .cli-output h4,
+  .cli-usage h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .cli-output > p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0 0 1rem 0;
+  }
+
+  .cli-output code {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-xs);
+    font-size: 0.8125rem;
+  }
+
+  /* Iconify Collections */
+  .iconify-collections {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .iconify-collections h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .iconify-collections > p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0 0 1rem 0;
+  }
+
+  .iconify-collections code {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-xs);
+    font-size: 0.8125rem;
+  }
+
+  .collections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .collection-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+  }
+
+  .collection-item strong {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent);
+    font-family: var(--font-mono);
+  }
+
+  .collection-item span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .cli-section {
+      padding: 1.25rem;
+    }
+
+    .cli-features {
+      grid-template-columns: 1fr;
+    }
+
+    .workflow-steps {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .workflow-step {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .collections-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

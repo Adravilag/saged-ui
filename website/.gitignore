@@ -1,0 +1,28 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# SageBox compiled files - symlink to root dist/sagebox (created by npm run setup:symlink)
+# This is a Junction link, not a real folder - do NOT commit
+public/dist/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/

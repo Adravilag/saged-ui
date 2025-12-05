@@ -1,0 +1,289 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SG-MODAL - Native <dialog> based modal component
+   Uses global design tokens from @sagebox/core
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+:host {
+  --sg-modal-padding: 1.5rem;
+  --sg-modal-radius: var(--ui-radius-lg, 0.75rem);
+  --sg-modal-backdrop-color: var(--ui-bg-overlay, rgba(0, 0, 0, 0.5));
+  --sg-modal-shadow: var(--ui-shadow-xl, 0 25px 50px -12px rgba(0, 0, 0, 0.25));
+  --sg-modal-bg: var(--ui-bg-elevated, #ffffff);
+  --sg-modal-color: var(--ui-text, #1a1a1a);
+  --sg-modal-border: var(--ui-border, #e5e5e5);
+  --sg-modal-header-bg: transparent;
+  --sg-modal-footer-bg: var(--ui-bg-secondary, #f9fafb);
+
+  display: contents;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   DIALOG BASE
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.sg-modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  padding: 0;
+  border: none;
+  border-radius: var(--sg-modal-radius);
+  background: var(--sg-modal-bg);
+  color: var(--sg-modal-color);
+  box-shadow: var(--sg-modal-shadow);
+  max-height: calc(100vh - 4rem);
+  max-width: calc(100vw - 2rem);
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Native backdrop styling */
+.sg-modal::backdrop {
+  background: var(--sg-modal-backdrop-color);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* No overlay variant */
+:host([overlay='false']) .sg-modal::backdrop,
+.sg-modal--no-overlay::backdrop {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Open state animation */
+.sg-modal[open] {
+  animation: sg-modal-show 0.2s ease-out;
+}
+
+.sg-modal[open]::backdrop {
+  animation: sg-modal-backdrop-show 0.2s ease-out;
+}
+
+@keyframes sg-modal-show {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes sg-modal-backdrop-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SIZE VARIANTS
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.sg-modal--sm {
+  width: 100%;
+  max-width: 24rem; /* 384px */
+}
+
+.sg-modal--md {
+  width: 100%;
+  max-width: 32rem; /* 512px */
+}
+
+.sg-modal--lg {
+  width: 100%;
+  max-width: 42rem; /* 672px */
+}
+
+.sg-modal--xl {
+  width: 100%;
+  max-width: 56rem; /* 896px */
+}
+
+.sg-modal--full {
+  width: calc(100vw - 2rem);
+  height: calc(100vh - 2rem);
+  max-width: none;
+  max-height: none;
+  border-radius: var(--sg-modal-radius);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.sg-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: var(--sg-modal-padding);
+  padding-bottom: 0.75rem;
+  background: var(--sg-modal-header-bg);
+  flex-shrink: 0;
+}
+
+.sg-modal__header-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sg-modal__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: inherit;
+}
+
+/* Close button */
+.sg-modal__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: var(--ui-radius-sm, 0.375rem);
+  background: transparent;
+  color: var(--ui-text-muted, #6b7280);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.sg-modal__close:hover {
+  background: var(--ui-bg-tertiary, #f3f4f6);
+  color: var(--sg-modal-color);
+}
+
+.sg-modal__close:focus-visible {
+  outline: 2px solid var(--ui-accent, #3b82f6);
+  outline-offset: 2px;
+}
+
+.sg-modal__close svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   BODY
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.sg-modal__body {
+  flex: 1;
+  padding: var(--sg-modal-padding);
+  padding-top: 0.75rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Custom scrollbar */
+.sg-modal__body::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.sg-modal__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sg-modal__body::-webkit-scrollbar-thumb {
+  background: var(--ui-border, #d1d5db);
+  border-radius: var(--ui-radius-sm, 0.25rem);
+}
+
+.sg-modal__body::-webkit-scrollbar-thumb:hover {
+  background: var(--ui-text-muted, #9ca3af);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.sg-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem var(--sg-modal-padding);
+  background: var(--sg-modal-footer-bg);
+  border-top: 1px solid var(--sg-modal-border);
+  flex-shrink: 0;
+}
+
+/* Asegurar botones visibles en footer */
+.sg-modal__footer ::slotted(button),
+.sg-modal__footer ::slotted(.btn) {
+  color: inherit;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   DARK MODE - Uses global tokens automatically
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --sg-modal-bg: var(--ui-bg-elevated, #1f2937);
+    --sg-modal-color: var(--ui-text, #f9fafb);
+    --sg-modal-border: var(--ui-border, #374151);
+    --sg-modal-footer-bg: var(--ui-bg-tertiary, #111827);
+    --sg-modal-backdrop-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .sg-modal__close:hover {
+    background: var(--ui-bg-tertiary, #374151);
+  }
+}
+
+/* Support for data-theme attribute */
+:host([data-theme='dark']),
+:host-context([data-theme='dark']) {
+  --sg-modal-bg: var(--ui-bg-elevated, #1f2937);
+  --sg-modal-color: var(--ui-text, #f9fafb);
+  --sg-modal-border: var(--ui-border, #374151);
+  --sg-modal-footer-bg: var(--ui-bg-tertiary, #111827);
+  --sg-modal-backdrop-color: rgba(0, 0, 0, 0.7);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  .sg-modal {
+    max-width: calc(100vw - 1rem);
+    max-height: calc(100vh - 1rem);
+    margin: 0.5rem;
+  }
+
+  .sg-modal--sm,
+  .sg-modal--md,
+  .sg-modal--lg,
+  .sg-modal--xl {
+    max-width: calc(100vw - 1rem);
+  }
+
+  .sg-modal__header,
+  .sg-modal__body,
+  .sg-modal__footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .sg-modal__footer {
+    flex-direction: column;
+  }
+
+  .sg-modal__footer ::slotted(*) {
+    width: 100%;
+  }
+}

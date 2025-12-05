@@ -6,25 +6,23 @@
       "inputs": ["src/**", "stencil.config.ts", "tsconfig.json", "package.json"],
       "outputs": ["dist/**", "loader/**"]
     },
-    "build:angular": {
-      "dependsOn": ["build"],
-      "outputs": ["dist/angular/**"]
-    },
-    "build:react": {
-      "dependsOn": ["build"],
-      "outputs": ["react/dist/**"]
-    },
-    "build:all": {
-      "dependsOn": ["build", "build:angular", "build:react"],
-      "outputs": ["dist/**", "loader/**", "react/dist/**"]
-    },
     "test": {
       "dependsOn": ["build"],
-      "outputs": []
+      "outputs": [],
+      "inputs": ["src/**/*.spec.ts", "src/**/*.spec.tsx"]
     },
     "test:spec": {
       "dependsOn": ["build"],
       "outputs": []
+    },
+    "build:angular": {
+      "outputs": ["dist/angular/**"]
+    },
+    "build:react": {
+      "outputs": ["wrappers/react/dist/**"]
+    },
+    "build:all": {
+      "outputs": ["dist/**", "loader/**", "wrappers/react/dist/**"]
     },
     "dev": {
       "cache": false,

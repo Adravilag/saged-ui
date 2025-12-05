@@ -1,0 +1,53 @@
+﻿{
+    "name":  "@sagebox/theme-toggle",
+    "version":  "0.1.0",
+    "description":  "Theme toggle component for SageBox - Dark/light mode switcher",
+    "main":  "dist/index.cjs.js",
+    "module":  "dist/index.js",
+    "types":  "dist/types/index.d.ts",
+    "collection":  "dist/collection/collection-manifest.json",
+    "unpkg":  "dist/sagebox-theme-toggle/sagebox-theme-toggle.esm.js",
+    "exports":  {
+                    ".":  {
+                              "types":  "./dist/types/index.d.ts",
+                              "import":  "./dist/index.js",
+                              "require":  "./dist/index.cjs.js"
+                          },
+                    "./loader":  {
+                                     "types":  "./loader/index.d.ts",
+                                     "import":  "./loader/index.js",
+                                     "require":  "./loader/index.cjs"
+                                 }
+                },
+    "repository":  {
+                       "type":  "git",
+                       "url":  "https://github.com/Adravilag/sagebox.git",
+                       "directory":  "packages/theme-toggle"
+                   },
+    "files":  [
+                  "dist/",
+                  "loader/"
+              ],
+    "scripts":  {
+                    "build":  "stencil build",
+                    "test":  "stencil test --spec"
+                },
+    "peerDependencies":  {
+                             "@sagebox/core":  "^1.0.0"
+                         },
+    "devDependencies":  {
+                            "@stencil/core":  "^4.27.1",
+                            "typescript":  "^5.9.3"
+                        },
+    "keywords":  [
+                     "sagebox",
+                     "theme-toggle",
+                     "dark-mode",
+                     "web-components"
+                 ],
+    "author":  "adravilag",
+    "license":  "MIT",
+    "publishConfig":  {
+                          "access":  "public"
+                      }
+}

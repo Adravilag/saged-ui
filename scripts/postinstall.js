@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const PACKAGE_NAME = 'saged-ui';
+const PACKAGE_NAME = 'sagebox';
 
 function findAngularJson() {
   // Try INIT_CWD first (set by npm during install)
@@ -13,7 +13,7 @@ function findAngularJson() {
     }
   }
   
-  // Navigate up from node_modules/saged-ui
+  // Navigate up from node_modules/sagebox
   let currentDir = process.cwd();
   if (currentDir.includes('node_modules')) {
     currentDir = path.resolve(currentDir, '..', '..');
@@ -40,7 +40,7 @@ function configureAngularProject() {
     return;
   }
   
-  console.log('\n[saged-ui] Configuring Angular project...');
+  console.log('\n[sagebox] Configuring Angular project...');
   
   try {
     const angularJson = JSON.parse(fs.readFileSync(angularJsonPath, 'utf8'));
@@ -81,15 +81,15 @@ function configureAngularProject() {
     
     if (modified) {
       fs.writeFileSync(angularJsonPath, JSON.stringify(angularJson, null, 2) + '\n');
-      console.log('[saged-ui] Added prebundle.exclude to angular.json');
+      console.log('[sagebox] Added prebundle.exclude to angular.json');
     } else {
-      console.log('[saged-ui] angular.json already configured.');
+      console.log('[sagebox] angular.json already configured.');
     }
     
   } catch (error) {
-    console.warn('[saged-ui] Could not auto-configure: ' + error.message);
+    console.warn('[sagebox] Could not auto-configure: ' + error.message);
     console.warn('Add to angular.json -> architect.serve.options:');
-    console.warn('"prebundle": { "exclude": ["saged-ui", "saged-ui/angular"] }');
+    console.warn('"prebundle": { "exclude": ["sagebox", "sagebox/angular"] }');
   }
 }
 

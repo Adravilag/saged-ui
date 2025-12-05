@@ -1,5 +1,5 @@
 /**
- * saged-ui - Global Styles
+ * sagebox - Global Styles
  * Export all style utilities and tokens
  */
 

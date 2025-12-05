@@ -1,0 +1,48 @@
+﻿{
+    "name":  "@sagebox/core",
+    "version":  "0.1.0",
+    "description":  "Core styles, tokens and utilities for SageBox components",
+    "main":  "dist/index.js",
+    "module":  "dist/index.js",
+    "types":  "dist/index.d.ts",
+    "exports":  {
+                    ".":  {
+                              "types":  "./dist/index.d.ts",
+                              "import":  "./dist/index.js",
+                              "require":  "./dist/index.js"
+                          },
+                    "./styles":  {
+                                     "import":  "./dist/styles/tokens.css"
+                                 },
+                    "./tokens":  {
+                                     "types":  "./dist/styles/tokens.d.ts",
+                                     "import":  "./dist/styles/tokens.js"
+                                 }
+                },
+    "repository":  {
+                       "type":  "git",
+                       "url":  "https://github.com/Adravilag/sagebox.git",
+                       "directory":  "packages/core"
+                   },
+    "files":  [
+                  "dist/"
+              ],
+    "scripts":  {
+                    "build":  "tsc \u0026\u0026 npm run copy:css",
+                    "copy:css":  "node -e \"require(\u0027fs\u0027).cpSync(\u0027src/styles\u0027, \u0027dist/styles\u0027, {recursive: true})\""
+                },
+    "devDependencies":  {
+                            "typescript":  "^5.9.3"
+                        },
+    "keywords":  [
+                     "sagebox",
+                     "core",
+                     "design-tokens",
+                     "css-variables"
+                 ],
+    "author":  "adravilag",
+    "license":  "MIT",
+    "publishConfig":  {
+                          "access":  "public"
+                      }
+}

@@ -1,0 +1,204 @@
+{
+  "generated": "2025-12-05T12:57:56.732Z",
+  "releases": [
+    {
+      "version": "1.3.0",
+      "date": null,
+      "changes": {
+        "features": [],
+        "fixes": [],
+        "breaking": [],
+        "docs": [],
+        "chore": [],
+        "other": [
+          {
+            "scope": null,
+            "message": "add astro documentation site with github pages deployment ([04e0e4b](https://github.com/Adravilag/sagebox/commit/04e0e4be188d4db4cad8a630ecac6149b4a34298))",
+            "raw": "add astro documentation site with github pages deployment ([04e0e4b](https://github.com/Adravilag/sagebox/commit/04e0e4be188d4db4cad8a630ecac6149b4a34298))"
+          },
+          {
+            "scope": null,
+            "message": "build only stencil components for docs deployment ([f064357](https://github.com/Adravilag/sagebox/commit/f064357037566db847e08bee03c92f3a442625b0))",
+            "raw": "build only stencil components for docs deployment ([f064357](https://github.com/Adravilag/sagebox/commit/f064357037566db847e08bee03c92f3a442625b0))"
+          },
+          {
+            "scope": null,
+            "message": "ensure base url has trailing slash for docs links ([92da3bf](https://github.com/Adravilag/sagebox/commit/92da3bfa7b18d46ec5aed5530c62932f4b2112ec))",
+            "raw": "ensure base url has trailing slash for docs links ([92da3bf](https://github.com/Adravilag/sagebox/commit/92da3bfa7b18d46ec5aed5530c62932f4b2112ec))"
+          },
+          {
+            "scope": null,
+            "message": "resolve angular and react build errors ([4bc0fb1](https://github.com/Adravilag/sagebox/commit/4bc0fb128d0fb2392dfb2edf42893bfdf5ac4772))",
+            "raw": "resolve angular and react build errors ([4bc0fb1](https://github.com/Adravilag/sagebox/commit/4bc0fb128d0fb2392dfb2edf42893bfdf5ac4772))"
+          },
+          {
+            "scope": null,
+            "message": "resolve merge conflict in package.json angular exports ([cb23a79](https://github.com/Adravilag/sagebox/commit/cb23a79108b52f772d8244584e0f56d917753f5a))",
+            "raw": "resolve merge conflict in package.json angular exports ([cb23a79](https://github.com/Adravilag/sagebox/commit/cb23a79108b52f772d8244584e0f56d917753f5a))"
+          },
+          {
+            "scope": null,
+            "message": "simplify build process and fix docs urls ([5fa6e4f](https://github.com/Adravilag/sagebox/commit/5fa6e4f44ca6b4e8667fd4883387adefd60552a3))",
+            "raw": "simplify build process and fix docs urls ([5fa6e4f](https://github.com/Adravilag/sagebox/commit/5fa6e4f44ca6b4e8667fd4883387adefd60552a3))"
+          },
+          {
+            "scope": null,
+            "message": "update back-link to use base_url and fix tests ([efa0ad0](https://github.com/Adravilag/sagebox/commit/efa0ad0ad54cbd3199941ce6d8671744c522391a))",
+            "raw": "update back-link to use base_url and fix tests ([efa0ad0](https://github.com/Adravilag/sagebox/commit/efa0ad0ad54cbd3199941ce6d8671744c522391a))"
+          },
+          {
+            "scope": null,
+            "message": "update node version to 20+ and fix test configuration ([e760b2a](https://github.com/Adravilag/sagebox/commit/e760b2ab19b6801d52ed92c842d5b10ee2034dd8))",
+            "raw": "update node version to 20+ and fix test configuration ([e760b2a](https://github.com/Adravilag/sagebox/commit/e760b2ab19b6801d52ed92c842d5b10ee2034dd8))"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.2.1",
+      "date": null,
+      "changes": {
+        "features": [],
+        "fixes": [],
+        "breaking": [],
+        "docs": [],
+        "chore": [],
+        "other": [
+          {
+            "scope": null,
+            "message": "**angular:** add event binding to angular wrapper proxies ([3506f50](https://github.com/Adravilag/sagebox/commit/3506f5056b00e4a92c1ada77e862cc9a9d67fcb1))",
+            "raw": "**angular:** add event binding to angular wrapper proxies ([3506f50](https://github.com/Adravilag/sagebox/commit/3506f5056b00e4a92c1ada77e862cc9a9d67fcb1))"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.2.0",
+      "date": null,
+      "changes": {
+        "features": [],
+        "fixes": [],
+        "breaking": [],
+        "docs": [],
+        "chore": [],
+        "other": [
+          {
+            "scope": null,
+            "message": "**angular:** add angular standalone wrappers for all components ([b0b3a0d](https://github.com/Adravilag/sagebox/commit/b0b3a0d8c3f1c7d83544a3ed332ca609b41710ad))",
+            "raw": "**angular:** add angular standalone wrappers for all components ([b0b3a0d](https://github.com/Adravilag/sagebox/commit/b0b3a0d8c3f1c7d83544a3ed332ca609b41710ad))"
+          },
+          {
+            "scope": null,
+            "message": "**components:** add theme-toggle component and badge tests ([8824f7b](https://github.com/Adravilag/sagebox/commit/8824f7b12b9e63ec86fa1d860354654ed02995ae))",
+            "raw": "**components:** add theme-toggle component and badge tests ([8824f7b](https://github.com/Adravilag/sagebox/commit/8824f7b12b9e63ec86fa1d860354654ed02995ae))"
+          },
+          {
+            "scope": null,
+            "message": "**angular:** simplify angular wrappers with manual proxies ([d6bd07a](https://github.com/Adravilag/sagebox/commit/d6bd07ada4c16b1dce9720932618a3dbfe412b20))",
+            "raw": "**angular:** simplify angular wrappers with manual proxies ([d6bd07a](https://github.com/Adravilag/sagebox/commit/d6bd07ada4c16b1dce9720932618a3dbfe412b20))"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.1.0",
+      "date": null,
+      "changes": {
+        "features": [],
+        "fixes": [],
+        "breaking": [],
+        "docs": [],
+        "chore": [],
+        "other": [
+          {
+            "scope": null,
+            "message": "**svg-icon:** add fill property as alias for color and enhance icon name handling ([b86410f](https://github.com/Adravilag/sagebox/commit/b86410f098d280d015b3f9a57c07af44dc0ee8e2))",
+            "raw": "**svg-icon:** add fill property as alias for color and enhance icon name handling ([b86410f](https://github.com/Adravilag/sagebox/commit/b86410f098d280d015b3f9a57c07af44dc0ee8e2))"
+          },
+          {
+            "scope": null,
+            "message": "improve code structure for readability and maintainability ([076603b](https://github.com/Adravilag/sagebox/commit/076603b24ac4681330d7c0a45b7f77bc580f2d8f))",
+            "raw": "improve code structure for readability and maintainability ([076603b](https://github.com/Adravilag/sagebox/commit/076603b24ac4681330d7c0a45b7f77bc580f2d8f))"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.0.1",
+      "date": null,
+      "changes": {
+        "features": [],
+        "fixes": [],
+        "breaking": [],
+        "docs": [],
+        "chore": [],
+        "other": [
+          {
+            "scope": null,
+            "message": "correct repository url case for npm provenance ([c6999a3](https://github.com/Adravilag/sagebox/commit/c6999a3f94a31b254ffaef303031b780ea055e5a))",
+            "raw": "correct repository url case for npm provenance ([c6999a3](https://github.com/Adravilag/sagebox/commit/c6999a3f94a31b254ffaef303031b780ea055e5a))"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.0.0",
+      "date": null,
+      "changes": {
+        "features": [
+          {
+            "scope": null,
+            "message": "CI/CD pipeline with GitHub Actions",
+            "raw": "CI/CD pipeline with GitHub Actions"
+          },
+          {
+            "scope": null,
+            "message": "Automatic versioning with semantic-release",
+            "raw": "Automatic versioning with semantic-release"
+          },
+          {
+            "scope": null,
+            "message": "Storybook deployment to GitHub Pages",
+            "raw": "Storybook deployment to GitHub Pages"
+          },
+          {
+            "scope": null,
+            "message": "Contributing guidelines",
+            "raw": "Contributing guidelines"
+          },
+          {
+            "scope": null,
+            "message": "Pull request template",
+            "raw": "Pull request template"
+          }
+        ],
+        "fixes": [],
+        "breaking": [],
+        "docs": [],
+        "chore": [],
+        "other": [
+          {
+            "scope": null,
+            "message": "initial release with ci/cd pipeline ([1363127](https://github.com/adravilag/sagebox/commit/1363127b798a4f72c27e3bf7eeb90e00dbff3c67))",
+            "raw": "initial release with ci/cd pipeline ([1363127](https://github.com/adravilag/sagebox/commit/1363127b798a4f72c27e3bf7eeb90e00dbff3c67))"
+          },
+          {
+            "scope": null,
+            "message": "disable husky in ci and add prettierignore ([37c0266](https://github.com/adravilag/sagebox/commit/37c026619db8ce0136a8882638d420dedb650f24))",
+            "raw": "disable husky in ci and add prettierignore ([37c0266](https://github.com/adravilag/sagebox/commit/37c026619db8ce0136a8882638d420dedb650f24))"
+          },
+          {
+            "scope": null,
+            "message": "resolve test failures in i18n and svg-icon ([e2061fd](https://github.com/adravilag/sagebox/commit/e2061fd1af490ad47e2435c9630f848a064eda13))",
+            "raw": "resolve test failures in i18n and svg-icon ([e2061fd](https://github.com/adravilag/sagebox/commit/e2061fd1af490ad47e2435c9630f848a064eda13))"
+          },
+          {
+            "scope": null,
+            "message": "update release workflow npm auth ([6b4c3f8](https://github.com/adravilag/sagebox/commit/6b4c3f870b80924ae33df0e566e6ecf290880018))",
+            "raw": "update release workflow npm auth ([6b4c3f8](https://github.com/adravilag/sagebox/commit/6b4c3f870b80924ae33df0e566e6ecf290880018))"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,397 @@
+---
+/**
+ * CodeBlock.astro
+ * Componente reutilizable para mostrar bloques de código con estilo terminal
+ * Incluye: dots macOS, nombre de archivo, números de línea, syntax highlighting, botón copiar
+ */
+import { useTranslations, type Language, defaultLang } from '../i18n/translations';
+
+interface Props {
+  code: string;
+  filename?: string;
+  language?: string;
+  lang?: Language;
+}
+
+const {
+  code,
+  filename = 'example.html',
+  language = 'html',
+  lang = defaultLang
+} = Astro.props;
+
+const t = useTranslations(lang);
+// ID único para sincronizar el scroll y mejorar la accesibilidad
+const uniqueId = `codeblock-${crypto.randomUUID().slice(0, 8)}`;
+
+// Simple syntax highlighting usando marcadores Unicode (Mejorado)
+function highlightCode(codeStr: string, lang: string): string {
+  // 1. Escape HTML primero para evitar problemas de inyección
+  let result = codeStr
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  // Marcadores de área de uso privado Unicode
+  const OPEN = '\uE000';   // Marcador de inicio de tag
+  const CLOSE = '\uE001';  // Marcador de fin de tag
+
+  // Función auxiliar para envolver y marcar
+  const wrap = (text: string, className: string) =>
+    `${OPEN}span class="${className}"${CLOSE}${text}${OPEN}/span${CLOSE}`;
+
+  // Arrays para almacenar elementos que no deben ser reprocesados
+  const preservedItems: string[] = [];
+  const preserve = (text: string, className: string): string => {
+    const index = preservedItems.length;
+    preservedItems.push(wrap(text, className));
+    return `__PRESERVED_${index}__`;
+  };
+
+  // --- Reglas de Resaltado (orden importante) ---
+
+  // 1. Comentarios (JS single-line) - preservar primero
+  if (['js', 'ts', 'jsx', 'tsx'].includes(lang)) {
+    result = result.replace(/(\/\/.*?)(?=\n|$)/g, (match) => preserve(match, 'hl-comment'));
+  }
+
+  // 2. Comentarios (multi-line) - preservar
+  if (!['html', 'astro', 'markdown'].includes(lang)) {
+    result = result.replace(/(\/\*[\s\S]*?\*\/)/g, (match) => preserve(match, 'hl-comment'));
+  }
+
+  // 3. Comentarios (HTML/Astro/JSX) - preservar
+  result = result.replace(/(&lt;!--[\s\S]*?--&gt;)/g, (match) => preserve(match, 'hl-comment'));
+
+  // 4. Cadenas (Strings) - preservar
+  const stringRegex = /("(?:[^"\\]|\\.)*")|('(?:[^'\\]|\\.)*')/g;
+  result = result.replace(stringRegex, (match) => preserve(match, 'hl-string'));
+
+  // 5. Palabras clave (Keywords) - expandidas para JS/TS
+  const keywords = /\b(import|export|default|from|as|const|let|var|function|class|extends|implements|return|async|await|type|interface|enum|new|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|delete|in|instanceof|yield|true|false|null|undefined)\b/g;
+  result = result.replace(keywords, (match) => wrap(match, 'hl-keyword'));
+
+  // 6. Tipos (Types) - solo para TS/TSX
+  if (['ts', 'tsx'].includes(lang)) {
+    const types = /\b(string|number|boolean|any|void|never|unknown|T\b)/g;
+    result = result.replace(types, (match) => wrap(match, 'hl-type'));
+  }
+
+  // 7. Funciones y Métodos (seguidos de paréntesis)
+  const functions = /(\b[\w$]+\b)(?=\s*\()/g;
+  result = result.replace(functions, (match) => wrap(match, 'hl-function'));
+
+  // 8. Números
+  result = result.replace(/\b(\d+(\.\d*)?([eE][+-]?\d+)?)\b/g, (match) => wrap(match, 'hl-number'));
+
+  // 9. Etiquetas HTML/Astro/JSX
+  const tags = /(&lt;)(\/?\s*)([\w-]+|sg-[\w-]+)(\s*[^&]*?)(&gt;)/gi;
+  result = result.replace(tags, (match, lt, slash, tagName, attrs, gt) => {
+    const highlightedTag = wrap(tagName, 'hl-tag');
+    let highlightedAttrs = attrs;
+
+    // Atributos (se asume que están fuera de las strings, que ya fueron resaltadas)
+    highlightedAttrs = highlightedAttrs.replace(/\s([\w-]+)(=)/g, (_attrMatch: string, attrName: string, equal: string) =>
+      ' ' + wrap(attrName, 'hl-attr') + equal
+    );
+
+    return lt + slash + highlightedTag + highlightedAttrs + gt;
+  });
+
+  // 10. Restaurar todos los elementos preservados
+  result = result.replace(/__PRESERVED_(\d+)__/g, (_match: string, index: string) => {
+    return preservedItems[parseInt(index, 10)] || '';
+  });
+
+  // Convertir marcadores a tags reales
+  result = result.replace(new RegExp(OPEN, 'g'), '<');
+  result = result.replace(new RegExp(CLOSE, 'g'), '>');
+
+  return result;
+}
+
+const lines = code.split('\n');
+---
+
+<div class="code-block" id={uniqueId}>
+  <div class="code-window">
+    <div class="code-titlebar">
+      <div class="code-dots" role="presentation">
+        <span class="dot red" title="Cerrar"></span>
+        <span class="dot yellow" title="Minimizar"></span>
+        <span class="dot green" title="Maximizar"></span>
+      </div>
+      <div class="code-filename">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>
+        </svg>
+        <span>{filename}</span>
+      </div>
+      <button class="copy-btn" data-code={code} title={t.common.copy} aria-label={t.common.copy}>
+        <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2"/>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+        <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+        <span class="copy-label" aria-hidden="true">{t.common.copy}</span>
+        <span class="copied-label" aria-hidden="true">{t.common.copied}</span>
+      </button>
+    </div>
+    <div class="code-content" data-language={language}>
+      <div class="line-numbers" aria-hidden="true">
+        {lines.map((_, i) => <span class="line-num">{i + 1}</span>)}
+      </div>
+      <pre class="code-container"><code set:html={highlightCode(code, language)} class={`language-${language}`} />
+    </div>
+  </div>
+</div>
+
+<style>
+  .code-block {
+    width: 100%;
+  }
+
+  .code-window {
+    background: #0d1117;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.2),
+      0 2px 4px -2px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .code-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .code-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .code-dots .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: opacity 0.2s;
+  }
+
+  .code-dots .dot.red {
+    background: linear-gradient(135deg, #ff5f57 0%, #e64940 100%);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  }
+
+  .code-dots .dot.yellow {
+    background: linear-gradient(135deg, #febc2e 0%, #d9a119 100%);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  }
+
+  .code-dots .dot.green {
+    background: linear-gradient(135deg, #28c840 0%, #1fa52e 100%);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  }
+
+  .code-window:hover .code-dots .dot {
+    opacity: 0.8;
+  }
+
+  .code-filename {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: #8b949e;
+    font-family: var(--font-mono);
+  }
+
+  .code-filename svg {
+    opacity: 0.6;
+  }
+
+  .code-content {
+    display: flex;
+    /* Maneja el scroll horizontal */
+    overflow-x: auto;
+  }
+
+  .line-numbers {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    user-select: none;
+    min-width: 3rem;
+    text-align: right;
+    /* Debe tener hidden para que el scroll horizontal solo lo maneje .code-content */
+    overflow-x: hidden;
+  }
+
+  .line-num {
+    padding: 0 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #6e7681;
+  }
+
+  .code-block pre {
+    margin: 0;
+    padding: 1rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    overflow-x: visible;
+    flex: 1;
+    white-space: pre;
+    tab-size: 2;
+  }
+
+  .code-block code {
+    color: #c9d1d9;
+    white-space: pre;
+  }
+
+  .copy-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    color: #8b949e;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .copy-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #c9d1d9;
+  }
+
+  .copy-btn .check-icon,
+  .copy-btn .copied-label {
+    display: none;
+  }
+
+  .copy-btn.copied .copy-icon,
+  .copy-btn.copied .copy-label {
+    display: none;
+  }
+
+  .copy-btn.copied .check-icon,
+  .copy-btn.copied .copied-label {
+    display: inline;
+  }
+
+  .copy-btn.copied {
+    background: rgba(46, 160, 67, 0.2);
+    border-color: rgba(46, 160, 67, 0.4);
+    color: #3fb950;
+  }
+
+  /* Syntax Highlighting - GitHub Dark Theme */
+  .code-block :global(.hl-comment) {
+    color: #8b949e;
+    font-style: italic;
+  }
+
+  .code-block :global(.hl-tag) {
+    color: #7ee787;
+  }
+
+  .code-block :global(.hl-attr) {
+    color: #79c0ff;
+  }
+
+  .code-block :global(.hl-string) {
+    color: #a5d6ff;
+  }
+
+  .code-block :global(.hl-keyword) {
+    color: #ff7b72;
+  }
+
+  .code-block :global(.hl-type) {
+    color: #ffa657;
+  }
+
+  .code-block :global(.hl-function) {
+    color: #d2a8ff;
+  }
+
+  .code-block :global(.hl-number) {
+    color: #79c0ff;
+  }
+
+  /* Scrollbar */
+  .code-content::-webkit-scrollbar,
+  .code-block pre::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  .code-content::-webkit-scrollbar-track,
+  .code-block pre::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .code-content::-webkit-scrollbar-thumb,
+  .code-block pre::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .code-content::-webkit-scrollbar-thumb:hover,
+  .code-block pre::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+</style>
+
+<script>
+  // Script para sincronizar el scroll horizontal de los números de línea y el código.
+  // Es necesario porque son dos contenedores flex diferentes.
+  document.querySelectorAll('.code-block').forEach(codeBlock => {
+    const content = codeBlock.querySelector('.code-content');
+    const lineNumbers = codeBlock.querySelector('.line-numbers');
+
+    if (content && lineNumbers) {
+      // Sincronizar scroll horizontal: el número de línea sigue al contenido.
+      content.addEventListener('scroll', () => {
+        lineNumbers.scrollLeft = content.scrollLeft;
+      });
+    }
+  });
+
+  // Funcionalidad del botón de copia
+  document.querySelectorAll('.code-block .copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const code = btn.getAttribute('data-code') || '';
+
+      try {
+        await navigator.clipboard.writeText(code);
+        btn.classList.add('copied');
+        // Quita la clase 'copied' después de 2 segundos
+        setTimeout(() => btn.classList.remove('copied'), 2000);
+      } catch (err) {
+        console.error('Error al copiar el código:', err);
+      }
+    });
+  });
+</script>

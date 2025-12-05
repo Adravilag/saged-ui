@@ -1,11 +1,11 @@
-# Contributing to SagedUI
+# Contributing to SageBox
 
-Thank you for your interest in contributing to SagedUI! 🎉
+Thank you for your interest in contributing to SageBox! 🎉
 
 ## Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/saged-ui.git`
+2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/sagebox.git`
 3. Install dependencies: `npm install`
 4. Create a branch: `git checkout -b feat/your-feature`
 
@@ -85,6 +85,43 @@ git commit -m "feat(button)!: change default size to medium
 BREAKING CHANGE: Default button size changed from small to medium"
 ```
 
+## Versioning with Changesets
+
+We use [Changesets](https://github.com/changesets/changesets) for version management. This ensures all packages in the monorepo are versioned consistently.
+
+### Adding a Changeset
+
+After making changes that should trigger a version bump, run:
+
+```bash
+npm run changeset
+```
+
+This will prompt you to:
+1. Select which packages were affected
+2. Choose the bump type (major/minor/patch)
+3. Write a summary of changes
+
+### Version Bump Rules
+
+| Change Type | Version Bump | Example |
+|-------------|--------------|---------|
+| Breaking changes | **MAJOR** (2.0.0) | Removing/renaming props, changing behavior |
+| New features | **MINOR** (1.1.0) | Adding new props, new components |
+| Bug fixes | **PATCH** (1.0.1) | Fixing bugs, performance improvements |
+
+### Release Process
+
+1. Create your feature/fix branch and make changes
+2. Run `npm run changeset` to document your changes
+3. Commit the generated changeset file
+4. Create a Pull Request
+5. When merged, maintainers will run:
+   ```bash
+   npm run changeset:version  # Updates versions and changelogs
+   npm run release            # Builds and publishes to npm
+   ```
+
 ## Creating a Component
 
 ```bash
@@ -98,7 +135,8 @@ Follow the prompts to create a new component with all necessary files.
 1. Update the README.md with details of changes if applicable
 2. Ensure all tests pass: `npm test`
 3. Ensure the build succeeds: `npm run build`
-4. Create a Pull Request with a clear description
+4. **Add a changeset if your changes affect package versions**: `npm run changeset`
+5. Create a Pull Request with a clear description
 
 ## Code Style
 

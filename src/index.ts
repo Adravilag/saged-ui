@@ -9,7 +9,10 @@
  */
 
 export { format } from './utils/utils';
-export type * from './components.d.ts';
+// Icon management utilities - re-exported from @sagebox/icons package
+export { registerIcons, registerIcon, getRegisteredIcons, hasRegisteredIcon, type IconDefinition } from '@sagebox/icons';
 
-// Icon management utilities
-export { registerIcons, registerIcon, getRegisteredIcons, hasRegisteredIcon, type IconDefinition } from './components/svg-icon';
+// Default export for Stencil globalScript import compatibility.
+// Stencil imports the globalScript as a default import; provide a noop function
+// so builds that reference `src/index.ts` as `globalScript` work correctly.
+export default () => {};

@@ -1,0 +1,1152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+
+// Get base URL
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+
+const colors = {
+  accent: [
+    { name: '--accent', light: '#4f46e5', dark: '#6366f1', desc: 'Primary accent color' },
+    { name: '--accent-hover', light: '#4338ca', dark: '#818cf8', desc: 'Accent on hover' },
+    { name: '--accent-soft', light: '#eef2ff', dark: 'rgba(99, 102, 241, 0.12)', desc: 'Soft accent background' },
+    { name: '--accent-text', light: '#3730a3', dark: '#c7d2fe', desc: 'Text on accent background' },
+  ],
+  background: [
+    { name: '--bg', light: '#f8fafc', dark: '#080d16', desc: 'Main background' },
+    { name: '--bg-muted', light: '#e2e8f0', dark: '#0f1420', desc: 'Muted background' },
+    { name: '--surface', light: '#ffffff', dark: '#111827', desc: 'Card surface' },
+    { name: '--surface-elevated', light: '#ffffff', dark: '#1c2840', desc: 'Elevated surface' },
+    { name: '--surface-hover', light: '#f1f5f9', dark: '#1e293b', desc: 'Surface on hover' },
+  ],
+  text: [
+    { name: '--text', light: '#0f172a', dark: '#f8fafc', desc: 'Primary text' },
+    { name: '--text-muted', light: '#374151', dark: '#b8c5d6', desc: 'Secondary text' },
+    { name: '--text-subtle', light: '#4b5563', dark: '#9ca9bc', desc: 'Subtle text' },
+  ],
+  border: [
+    { name: '--border', light: '#e2e8f0', dark: '#293548', desc: 'Primary border' },
+    { name: '--border-muted', light: '#cbd5e1', dark: '#334155', desc: 'Muted border' },
+    { name: '--border-subtle', light: '#f1f5f9', dark: '#1e293b', desc: 'Subtle border' },
+  ],
+  semantic: [
+    { name: '--success', light: '#059669', dark: '#34d399', desc: 'Success / Positive' },
+    { name: '--warning', light: '#f59e0b', dark: '#fbbf24', desc: 'Warning' },
+    { name: '--danger', light: '#ef4444', dark: '#f87171', desc: 'Error / Danger' },
+  ],
+};
+
+const spacing = [
+  { name: '0.125rem', px: '2px', use: 'Micro spacing' },
+  { name: '0.25rem', px: '4px', use: 'XS spacing' },
+  { name: '0.5rem', px: '8px', use: 'SM spacing' },
+  { name: '0.75rem', px: '12px', use: 'MD spacing' },
+  { name: '1rem', px: '16px', use: 'Base spacing' },
+  { name: '1.5rem', px: '24px', use: 'LG spacing' },
+  { name: '2rem', px: '32px', use: 'XL spacing' },
+  { name: '3rem', px: '48px', use: '2XL spacing' },
+];
+
+const radii = [
+  { name: '--radius-xs', value: '4px', desc: 'Small badges, tags' },
+  { name: '--radius-sm', value: '6px', desc: 'Small buttons, inputs' },
+  { name: '--radius-md', value: '8px', desc: 'Buttons, small cards' },
+  { name: '--radius-lg', value: '12px', desc: 'Cards, modals' },
+  { name: '--radius-xl', value: '16px', desc: 'Large containers' },
+];
+
+const shadows = [
+  { name: '--shadow-xs', value: '0 1px 2px rgba(0,0,0,0.05)', desc: 'Minimal elevation' },
+  { name: '--shadow-sm', value: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06)', desc: 'Low elevation' },
+  { name: '--shadow-md', value: '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)', desc: 'Medium elevation' },
+  { name: '--shadow-lg', value: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)', desc: 'High elevation' },
+];
+
+const typography = {
+  families: [
+    { name: '--font-sans', value: "'Inter', system-ui, -apple-system, sans-serif", desc: 'Primary typography' },
+    { name: '--font-mono', value: "'Fira Code', 'SF Mono', Consolas, monospace", desc: 'Code and data' },
+  ],
+  sizes: [
+    { name: '0.625rem', px: '10px', use: 'Micro text' },
+    { name: '0.75rem', px: '12px', use: 'Small text, labels' },
+    { name: '0.8125rem', px: '13px', use: 'Secondary text' },
+    { name: '0.875rem', px: '14px', use: 'UI base text' },
+    { name: '1rem', px: '16px', use: 'Body text' },
+    { name: '1.125rem', px: '18px', use: 'Large text' },
+    { name: '1.5rem', px: '24px', use: 'Heading H3' },
+    { name: '2rem', px: '32px', use: 'Heading H2' },
+    { name: '3rem', px: '48px', use: 'Heading H1' },
+  ],
+};
+
+const transitions = [
+  { name: '--transition-fast', value: '0.15s ease', desc: 'Micro-interactions' },
+  { name: '--transition-normal', value: '0.2s ease', desc: 'Standard transitions' },
+  { name: '--transition-slow', value: '0.3s ease', desc: 'Smooth animations' },
+];
+---
+
+<Layout title="Design Tokens - SageBox">
+  <div class="app">
+    <Sidebar />
+    <main class="tokens-page">
+      <div class="content-wrapper">
+        <header class="tokens-header">
+      <a href={base} class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+        <span data-i18n="tokens.back">Volver</span>
+      </a>
+      <div class="header-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/>
+          <circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+        </svg>
+      </div>
+      <h1 class="tokens-title" data-i18n="tokens.title">Design Tokens</h1>
+      <p class="tokens-description">
+        <span data-i18n="tokens.description">Variables CSS para mantener consistencia visual en tu proyecto.</span><br/>
+        <span data-i18n="tokens.subtitle">Colores, tipografía, espaciado y efectos listos para usar.</span>
+      </p>
+      <div class="header-actions">
+        <a href="#colors" class="action-link">
+          <span class="action-dot" style="background: var(--accent);"></span>
+          <span data-i18n="tokens.colors">Colores</span>
+        </a>
+        <a href="#typography" class="action-link">
+          <span class="action-dot" style="background: #f59e0b;"></span>
+          <span data-i18n="tokens.typography">Tipografía</span>
+        </a>
+        <a href="#spacing" class="action-link">
+          <span class="action-dot" style="background: #10b981;"></span>
+          <span data-i18n="tokens.spacing">Espaciado</span>
+        </a>
+        <a href="#effects" class="action-link">
+          <span class="action-dot" style="background: #8b5cf6;"></span>
+          <span data-i18n="tokens.effects">Efectos</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Instalación -->
+    <section class="tokens-section">
+      <h2 class="section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        </svg>
+        <span data-i18n="tokens.installation">Instalación</span>
+      </h2>
+      <p class="section-desc" data-i18n="tokens.installDesc">Los tokens se incluyen automáticamente con los componentes. También puedes importarlos por separado:</p>
+      
+      <div class="install-options">
+        <div class="install-option">
+          <h4 data-i18n="tokens.jsImport">JavaScript / Bundler</h4>
+          <CodeBlock 
+            filename="main.js"
+            code={`// Import only CSS tokens
+import 'sagebox/dist/sagebox/styles/tokens.css';
+
+// Or import all SageBox CSS (includes tokens)
+import 'sagebox/dist/sagebox/sagebox.css';`}
+          />
+        </div>
+        
+        <div class="install-option">
+          <h4 data-i18n="tokens.htmlCdn">HTML (CDN)</h4>
+          <CodeBlock 
+            filename="index.html"
+            code={`<!-- From unpkg -->
+<link rel="stylesheet" href="https://unpkg.com/sagebox/dist/sagebox/styles/tokens.css">
+
+<!-- Or from jsDelivr -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sagebox/dist/sagebox/styles/tokens.css">`}
+          />
+        </div>
+        
+        <div class="install-option">
+          <h4 data-i18n="tokens.cssImport">CSS @import</h4>
+          <CodeBlock 
+            filename="styles.css"
+            code={`/* If using a bundler like Vite, Webpack, etc. */
+@import 'sagebox/dist/sagebox/styles/tokens.css';`}
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Colors -->
+    <section class="tokens-section" id="colors">
+      <h2 class="section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/>
+          <circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+        </svg>
+        <span data-i18n="tokens.colors">Colores</span>
+      </h2>
+
+      <!-- Accent -->
+      <div class="color-group">
+        <h3 class="group-title" data-i18n="tokens.accent">Acento</h3>
+        <div class="color-grid">
+          {colors.accent.map(color => (
+            <div class="color-card">
+              <div class="color-swatches">
+                <div class="color-swatch light" style={`background: ${color.light}`}>
+                  <span class="swatch-label">Light</span>
+                </div>
+                <div class="color-swatch dark" style={`background: ${color.dark}`}>
+                  <span class="swatch-label">Dark</span>
+                </div>
+              </div>
+              <div class="color-info">
+                <code class="color-name">{color.name}</code>
+                <span class="color-desc">{color.desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Background -->
+      <div class="color-group">
+        <h3 class="group-title" data-i18n="tokens.backgrounds">Fondos</h3>
+        <div class="color-grid">
+          {colors.background.map(color => (
+            <div class="color-card">
+              <div class="color-swatches">
+                <div class="color-swatch light" style={`background: ${color.light}; border: 1px solid #e2e8f0;`}>
+                  <span class="swatch-label">Light</span>
+                </div>
+                <div class="color-swatch dark" style={`background: ${color.dark}`}>
+                  <span class="swatch-label">Dark</span>
+                </div>
+              </div>
+              <div class="color-info">
+                <code class="color-name">{color.name}</code>
+                <span class="color-desc">{color.desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="color-group">
+        <h3 class="group-title" data-i18n="tokens.text">Texto</h3>
+        <div class="color-grid">
+          {colors.text.map(color => (
+            <div class="color-card">
+              <div class="color-swatches">
+                <div class="color-swatch light" style={`background: ${color.light}`}>
+                  <span class="swatch-label" style="color: white;">Light</span>
+                </div>
+                <div class="color-swatch dark" style={`background: ${color.dark}`}>
+                  <span class="swatch-label" style="color: #0f172a;">Dark</span>
+                </div>
+              </div>
+              <div class="color-info">
+                <code class="color-name">{color.name}</code>
+                <span class="color-desc">{color.desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Semantic -->
+      <div class="color-group">
+        <h3 class="group-title" data-i18n="tokens.semantic">Semánticos</h3>
+        <div class="color-grid">
+          {colors.semantic.map(color => (
+            <div class="color-card">
+              <div class="color-swatches">
+                <div class="color-swatch light" style={`background: ${color.light}`}>
+                  <span class="swatch-label" style="color: white;">Light</span>
+                </div>
+                <div class="color-swatch dark" style={`background: ${color.dark}`}>
+                  <span class="swatch-label" style="color: #0f172a;">Dark</span>
+                </div>
+              </div>
+              <div class="color-info">
+                <code class="color-name">{color.name}</code>
+                <span class="color-desc">{color.desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography -->
+    <section class="tokens-section" id="typography">
+      <h2 class="section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>
+        </svg>
+        <span data-i18n="tokens.typography">Tipografía</span>
+      </h2>
+
+      <div class="typography-section">
+        <h3 class="group-title" data-i18n="tokens.families">Familias</h3>
+        <div class="font-families">
+          {typography.families.map(font => (
+            <div class="font-card">
+              <div class="font-preview" style={font.name.includes('mono') ? 'font-family: monospace;' : ''}>
+                Aa Bb Cc 123
+              </div>
+              <div class="font-info">
+                <code class="font-name">{font.name}</code>
+                <span class="font-desc">{font.desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="typography-section">
+        <h3 class="group-title" data-i18n="tokens.sizes">Tamaños</h3>
+        <div class="sizes-table">
+          <div class="sizes-header">
+            <span data-i18n="tokens.size">Tamaño</span>
+            <span data-i18n="tokens.pixels">Pixels</span>
+            <span data-i18n="tokens.use">Uso</span>
+            <span data-i18n="tokens.preview">Preview</span>
+          </div>
+          {typography.sizes.map(size => (
+            <div class="size-row">
+              <code>{size.name}</code>
+              <span class="size-px">{size.px}</span>
+              <span class="size-use">{size.use}</span>
+              <span class="size-preview" style={`font-size: ${size.name}`}>Sample</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Spacing -->
+    <section class="tokens-section" id="spacing">
+      <h2 class="section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+        </svg>
+        <span data-i18n="tokens.spacing">Espaciado</span>
+      </h2>
+
+      <div class="spacing-grid">
+        {spacing.map(space => (
+          <div class="spacing-card">
+            <div class="spacing-visual">
+              <div class="spacing-box" style={`width: ${space.name}; height: ${space.name};`}></div>
+            </div>
+            <div class="spacing-info">
+              <code class="spacing-value">{space.name}</code>
+              <span class="spacing-px">{space.px}</span>
+              <span class="spacing-use">{space.use}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Effects -->
+    <section class="tokens-section" id="effects">
+      <h2 class="section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/>
+        </svg>
+        <span data-i18n="tokens.effects">Efectos</span>
+      </h2>
+
+      <!-- Border Radius -->
+      <div class="effects-group">
+        <h3 class="group-title" data-i18n="tokens.borderRadius">Border Radius</h3>
+        <div class="radius-grid">
+          {radii.map(radius => (
+            <div class="radius-card">
+              <div class="radius-preview" style={`border-radius: ${radius.value};`}></div>
+              <div class="radius-info">
+                <code class="radius-name">{radius.name}</code>
+                <span class="radius-value">{radius.value}</span>
+                <span class="radius-desc">{radius.desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Shadows -->
+      <div class="effects-group">
+        <h3 class="group-title" data-i18n="tokens.shadows">Sombras</h3>
+        <div class="shadows-grid">
+          {shadows.map(shadow => (
+            <div class="shadow-card">
+              <div class="shadow-preview" style={`box-shadow: ${shadow.value};`}></div>
+              <div class="shadow-info">
+                <code class="shadow-name">{shadow.name}</code>
+                <span class="shadow-desc">{shadow.desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Transitions -->
+      <div class="effects-group">
+        <h3 class="group-title" data-i18n="tokens.transitions">Transiciones</h3>
+        <div class="transitions-grid">
+          {transitions.map(trans => (
+            <div class="transition-card">
+              <div class="transition-preview" style={`transition: all ${trans.value};`}>
+                <span data-i18n="tokens.hoverMe">Hover me</span>
+              </div>
+              <div class="transition-info">
+                <code class="transition-name">{trans.name}</code>
+                <span class="transition-value">{trans.value}</span>
+                <span class="transition-desc">{trans.desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section class="tokens-section">
+      <h2 class="section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>
+        </svg>
+        <span data-i18n="tokens.usage">Uso en CSS</span>
+      </h2>
+      <CodeBlock 
+        filename="component.css"
+        code={`.my-component {
+  /* Colors */
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  
+  /* Spacing */
+  padding: 1rem 1.5rem;
+  gap: 0.75rem;
+  
+  /* Effects */
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.my-component:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}`}
+      />
+    </section>
+
+    <!-- Figma -->
+    <section class="tokens-section figma-section">
+      <div class="figma-card">
+        <div class="figma-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/>
+            <path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/>
+            <path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"/>
+            <path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/>
+            <path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/>
+          </svg>
+        </div>
+        <div class="figma-content">
+          <h3 data-i18n="tokens.figmaTitle">Figma Library</h3>
+          <p data-i18n="tokens.figmaDesc">Descarga el archivo Figma con todos los tokens sincronizados para mantener consistencia entre diseño y desarrollo.</p>
+          <a href="#" class="figma-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span data-i18n="tokens.comingSoon">Próximamente</span>
+          </a>
+        </div>
+      </div>
+    </section>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  .app {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+  }
+
+  .tokens-page {
+    padding: 2.5rem;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    background: var(--bg);
+  }
+
+  .content-wrapper {
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  /* Header */
+  .tokens-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    transition: color var(--transition-fast);
+    align-self: flex-start;
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.875rem;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .header-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--accent) 0%, #818cf8 100%);
+    border-radius: var(--radius-lg);
+    color: white;
+    margin-bottom: 1rem;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+  }
+
+  .tokens-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .tokens-description {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.7;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 0.375rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .action-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .action-link:hover {
+    color: var(--text);
+    border-color: var(--border-muted);
+    background: var(--surface-hover);
+    transform: translateY(-1px);
+  }
+
+  .action-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Sections */
+  .tokens-section {
+    margin-bottom: 3rem;
+  }
+
+  /* Install Options */
+  .install-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .install-option h4 {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin: 0 0 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .coming-soon-notice {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    background: var(--warning-soft, rgba(245, 158, 11, 0.1));
+    border: 1px solid var(--warning, #f59e0b);
+    border-radius: var(--radius-md);
+    color: var(--warning, #f59e0b);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .coming-soon-notice svg {
+    flex-shrink: 0;
+  }
+
+  .code-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(0.3);
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.5rem;
+  }
+
+  .section-title svg {
+    color: var(--accent);
+  }
+
+  .section-desc {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    margin: 0 0 1.25rem;
+  }
+
+  .group-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 1.5rem 0 1rem;
+  }
+
+  /* Color Cards */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .color-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .color-swatches {
+    display: flex;
+    height: 64px;
+  }
+
+  .color-swatch {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 0.5rem;
+  }
+
+  .swatch-label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+  }
+
+  .color-info {
+    padding: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .color-name {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-xs);
+    width: fit-content;
+  }
+
+  .color-desc {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  /* Typography */
+  .font-families {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+
+  .font-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .font-preview {
+    padding: 1.5rem;
+    font-size: 2rem;
+    text-align: center;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .font-info {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .font-name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-xs);
+    width: fit-content;
+  }
+
+  .font-desc {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  /* Sizes Table */
+  .sizes-table {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .sizes-header {
+    display: grid;
+    grid-template-columns: 1fr 80px 1.5fr 1fr;
+    gap: 1rem;
+    padding: 0.875rem 1.25rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .size-row {
+    display: grid;
+    grid-template-columns: 1fr 80px 1.5fr 1fr;
+    gap: 1rem;
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .size-row:last-child {
+    border-bottom: none;
+  }
+
+  .size-row code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--accent);
+  }
+
+  .size-px {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  .size-use {
+    font-size: 0.8125rem;
+    color: var(--text);
+  }
+
+  .size-preview {
+    color: var(--text);
+  }
+
+  /* Spacing */
+  .spacing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .spacing-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .spacing-visual {
+    width: 48px;
+    height: 48px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .spacing-box {
+    background: var(--accent);
+    border-radius: 2px;
+    min-width: 4px;
+    min-height: 4px;
+  }
+
+  .spacing-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .spacing-value {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .spacing-px {
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .spacing-use {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* Border Radius */
+  .radius-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .radius-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .radius-preview {
+    width: 48px;
+    height: 48px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .radius-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .radius-name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+  }
+
+  .radius-value {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .radius-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* Shadows */
+  .shadows-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .shadow-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .shadow-preview {
+    width: 64px;
+    height: 48px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+  }
+
+  .shadow-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .shadow-name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+  }
+
+  .shadow-desc {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  /* Transitions */
+  .transitions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .transition-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .transition-preview {
+    width: 64px;
+    height: 40px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .transition-preview:hover {
+    background: var(--accent);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  .transition-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .transition-name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+  }
+
+  .transition-value {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .transition-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* Figma Section */
+  .figma-section {
+    margin-top: 3rem;
+  }
+
+  .figma-card {
+    background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .figma-icon {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #f24e1e 0%, #a259ff 50%, #1abcfe 100%);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .figma-content {
+    flex: 1;
+  }
+
+  .figma-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 0.5rem;
+  }
+
+  .figma-content p {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 1rem;
+    line-height: 1.6;
+  }
+
+  .figma-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: white;
+    color: #1e1e2e;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .figma-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 1024px) {
+    .app {
+      grid-template-columns: 220px 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .app {
+      grid-template-columns: 1fr;
+    }
+
+    .tokens-page {
+      padding: 1.5rem;
+    }
+
+    .tokens-title {
+      font-size: 2rem;
+    }
+
+    .figma-card {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .sizes-header,
+    .size-row {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .sizes-header span:nth-child(3),
+    .sizes-header span:nth-child(4),
+    .size-row .size-use,
+    .size-row .size-preview {
+      display: none;
+    }
+  }
+</style>

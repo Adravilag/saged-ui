@@ -16,12 +16,35 @@
     "jsx": "react",
     "jsxFactory": "h",
     "jsxFragmentFactory": "h.Fragment",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@sagebox/badge": ["./packages/badge/src/index.ts"],
+      "@sagebox/button": ["./packages/button/src/index.ts"],
+      "@sagebox/dropdown": ["./packages/dropdown/src/index.ts"],
+      "@sagebox/icons": ["./packages/icons/src/index.ts"],
+      "@sagebox/modal": ["./packages/modal/src/index.ts"],
+      "@sagebox/skeleton": ["./packages/skeleton/src/index.ts"],
+      "@sagebox/theme-toggle": ["./packages/theme-toggle/src/index.ts"],
+      "@sagebox/article-editor": ["./packages/article-editor/src/index.ts"],
+      "@sagebox/core": ["./packages/core/src/index.ts"]
+    }
   },
   "include": [
-    "src"
+    ".",
+    "src",
+    "packages/*/src"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist",
+    "loader",
+    "www",
+    "wrappers",
+    "tools",
+    "docs",
+    "website",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.e2e.ts"
   ]
 }

@@ -1,0 +1,242 @@
+---
+/**
+ * Interactive Playground Component
+ * 
+ * Provides a live code editor with preview for SageBox components.
+ * Uses a simple iframe-based approach without external dependencies.
+ */
+
+interface Props {
+  code: string;
+  height?: string;
+  showCode?: boolean;
+}
+
+const { code, height = '200px', showCode = true } = Astro.props;
+
+// Generate unique ID for this playground instance
+const id = `playground-${Math.random().toString(36).substr(2, 9)}`;
+
+// Escape code for HTML attribute
+const escapedCode = code.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+---
+
+<div class="playground" data-playground-id={id}>
+  <div class="playground-preview" style={`height: ${height}`}>
+    <iframe 
+      class="playground-frame"
+      title="Component Preview"
+    ></iframe>
+  </div>
+  
+  {showCode && (
+    <div class="playground-editor">
+      <div class="playground-toolbar">
+        <span class="playground-label">HTML</span>
+        <button class="playground-copy" title="Copy code">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </button>
+        <button class="playground-reset" title="Reset code">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+            <path d="M3 3v5h5"></path>
+          </svg>
+        </button>
+      </div>
+      <textarea 
+        class="playground-textarea"
+        spellcheck="false"
+        data-original={escapedCode}
+      >{code}</textarea>
+    </div>
+  )}
+</div>
+
+<script define:vars={{ id, code }}>
+  // Initialize playground
+  const container = document.querySelector(`[data-playground-id="${id}"]`);
+  const iframe = container.querySelector('.playground-frame');
+  const textarea = container.querySelector('.playground-textarea');
+  const copyBtn = container.querySelector('.playground-copy');
+  const resetBtn = container.querySelector('.playground-reset');
+  
+  // Get base URL for assets
+  const baseUrl = window.location.origin + '/sagebox';
+  
+  // HTML template for iframe using srcdoc
+  const getIframeContent = (html) => `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="${baseUrl}/dist/sagebox.css">
+  <script type="module" src="${baseUrl}/dist/sagebox.esm.js"><\/script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 1rem;
+      font-family: system-ui, sans-serif;
+      background: var(--ui-color-surface-900, #0f172a);
+      color: var(--ui-color-text-primary, #f8fafc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+    }
+    .preview-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-container">
+    ${html}
+  </div>
+</body>
+</html>`;
+  
+  // Update iframe content using srcdoc
+  const updatePreview = (html) => {
+    iframe.srcdoc = getIframeContent(html);
+  };
+  
+  // Initial render
+  updatePreview(code);
+  
+  // Update on textarea change
+  if (textarea) {
+    let debounceTimer;
+    textarea.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        updatePreview(e.target.value);
+      }, 300);
+    });
+    
+    // Tab key support
+    textarea.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        textarea.value = textarea.value.substring(0, start) + '  ' + textarea.value.substring(end);
+        textarea.selectionStart = textarea.selectionEnd = start + 2;
+      }
+    });
+  }
+  
+  // Copy button
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(textarea.value);
+      copyBtn.classList.add('copied');
+      setTimeout(() => copyBtn.classList.remove('copied'), 2000);
+    });
+  }
+  
+  // Reset button
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      const original = textarea.dataset.original
+        .replace(/&quot;/g, '"')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>');
+      textarea.value = original;
+      updatePreview(original);
+    });
+  }
+</script>
+
+<style>
+  .playground {
+    border: 1px solid var(--ui-color-surface-700, #334155);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: var(--ui-color-surface-800, #1e293b);
+  }
+  
+  .playground-preview {
+    background: var(--ui-color-surface-900, #0f172a);
+    border-bottom: 1px solid var(--ui-color-surface-700, #334155);
+  }
+  
+  .playground-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  .playground-editor {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .playground-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--ui-color-surface-700, #334155);
+    border-bottom: 1px solid var(--ui-color-surface-600, #475569);
+  }
+  
+  .playground-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--ui-color-text-secondary, #94a3b8);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex: 1;
+  }
+  
+  .playground-copy,
+  .playground-reset {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 0.25rem;
+    background: transparent;
+    color: var(--ui-color-text-secondary, #94a3b8);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  
+  .playground-copy:hover,
+  .playground-reset:hover {
+    background: var(--ui-color-surface-600, #475569);
+    color: var(--ui-color-text-primary, #f8fafc);
+  }
+  
+  .playground-copy.copied {
+    color: var(--ui-color-success, #22c55e);
+  }
+  
+  .playground-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 0.75rem;
+    border: none;
+    background: var(--ui-color-surface-800, #1e293b);
+    color: var(--ui-color-text-primary, #f8fafc);
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    resize: vertical;
+  }
+  
+  .playground-textarea:focus {
+    outline: none;
+    background: var(--ui-color-surface-700, #334155);
+  }
+</style>

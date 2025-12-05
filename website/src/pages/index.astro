@@ -1,0 +1,75 @@
+---
+/**
+ * index.astro - Página principal de documentación
+ * Versión refactorizada usando componentes reutilizables
+ */
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+
+// Secciones reutilizables
+import FrameworksSection from '../components/sections/FrameworksSection.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+
+// Demos de componentes
+import ButtonDemo from '../components/demos/ButtonDemo.astro';
+import BadgeDemo from '../components/demos/BadgeDemo.astro';
+import IconDemo from '../components/demos/IconDemo.astro';
+import DropdownDemo from '../components/demos/DropdownDemo.astro';
+import SkeletonDemo from '../components/demos/SkeletonDemo.astro';
+import ArticleEditorDemo from '../components/demos/ArticleEditorDemo.astro';
+import ThemeToggleDemo from '../components/demos/ThemeToggleDemo.astro';
+---
+
+<Layout title="SageBox - Component Library">
+  <div class="app">
+    <Sidebar />
+    <main class="main">
+
+      <!-- Framework Compatibility Section -->
+      <FrameworksSection />
+
+      <!-- Hero Section with Header + Quick Start -->
+      <HeroSection />
+
+      <!-- Components Grid - Ordenados por popularidad -->
+      <div class="components-grid">
+        <ButtonDemo />
+        <IconDemo />
+        <DropdownDemo />
+        <BadgeDemo />
+        <SkeletonDemo />
+        <ThemeToggleDemo />
+        <ArticleEditorDemo />
+      </div>
+
+    </main>
+  </div>
+</Layout>
+
+<style>
+  .app {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .main {
+    flex: 1;
+    padding: 0 2rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .components-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .main {
+      padding: 0 1rem 1rem;
+    }
+  }
+</style>

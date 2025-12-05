@@ -1,0 +1,181 @@
+---
+import { useTranslations, type Language, defaultLang } from '../i18n/translations';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: Language;
+}
+
+const { title, lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+const description = Astro.props.description || t.home.description;
+const baseRaw = import.meta.env.BASE_URL;
+const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
+---
+
+<!doctype html>
+<html lang={lang} data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <title>{title}</title>
+
+    <!-- Theme initialization - must run before body renders to prevent flash -->
+    <script is:inline>
+      (function() {
+        var THEME_KEY = 'sage-theme';
+        var LANG_KEY = 'sage-lang';
+        var theme = 'light'; // Default to light
+
+        try {
+          var saved = localStorage.getItem(THEME_KEY);
+          if (saved === 'light' || saved === 'dark') {
+            theme = saved;
+          }
+        } catch (e) {}
+
+        document.documentElement.setAttribute('data-theme', theme);
+
+        // Get saved language
+        try {
+          var lang = localStorage.getItem(LANG_KEY) || 'es';
+          document.documentElement.setAttribute('lang', lang);
+        } catch (e) {}
+
+        // Expose helper for theme toggle
+        window.__setTheme = function(t) {
+          document.documentElement.setAttribute('data-theme', t);
+          try { localStorage.setItem(THEME_KEY, t); } catch(e) {}
+        };
+
+        // Expose helper for language
+        window.__setLang = function(l) {
+          document.documentElement.setAttribute('lang', l);
+          try { localStorage.setItem(LANG_KEY, l); } catch(e) {}
+        };
+
+        window.__getLang = function() {
+          try { return localStorage.getItem(LANG_KEY) || 'es'; } catch(e) { return 'es'; }
+        };
+      })();
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Styles - SageBox components -->
+    <link rel="stylesheet" href={`${base}dist/sagebox.css`} />
+
+    <!-- Theme tokens - inline to ensure immediate availability -->
+    <style is:inline>
+      :root,
+      [data-theme="light"] {
+        --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-mono: 'Fira Code', 'SF Mono', 'Cascadia Code', 'JetBrains Mono', Consolas, monospace;
+        --bg: #f8fafc;
+        --surface: #ffffff;
+        --surface-elevated: #ffffff;
+        --surface-hover: #f1f5f9;
+        --code-bg: #1e293b;
+        --code-surface: #0f172a;
+        --code-text: #e2e8f0;
+        --code-border: #334155;
+        --border: #e2e8f0;
+        --border-muted: #cbd5e1;
+        --border-subtle: #f1f5f9;
+        --text: #0f172a;
+        --text-muted: #475569;
+        --text-subtle: #64748b;
+        --bg-muted: #e2e8f0;
+        --accent: #4f46e5;
+        --accent-hover: #4338ca;
+        --accent-soft: #eef2ff;
+        --accent-text: #4338ca;
+        --success: #059669;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+        --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        --radius-xs: 4px;
+        --radius-sm: 6px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 16px;
+        --transition-fast: 0.15s ease;
+        --transition-normal: 0.2s ease;
+        --transition-slow: 0.3s ease;
+      }
+
+      [data-theme="dark"] {
+        --bg: #080d16;
+        --surface: #111827;
+        --surface-elevated: #1f2937;
+        --surface-hover: #1f2937;
+        --code-bg: #0f172a;
+        --code-surface: #1e293b;
+        --code-text: #e2e8f0;
+        --code-border: #334155;
+        --border: #1f2937;
+        --border-muted: #374151;
+        --border-subtle: #1f2937;
+        --text: #f8fafc;
+        --text-muted: #94a3b8;
+        --text-subtle: #64748b;
+        --bg-muted: #1e293b;
+        --accent: #818cf8;
+        --accent-hover: #a5b4fc;
+        --accent-soft: rgba(99, 102, 241, 0.15);
+        --accent-text: #a5b4fc;
+        --success: #34d399;
+        --warning: #fbbf24;
+        --danger: #f87171;
+        --shadow-xs: 0 1px 2px rgba(0,0,0,0.3);
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+        --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3);
+        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4), 0 4px 6px -2px rgba(0,0,0,0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SageBox Web Components - loaded before content for immediate availability -->
+    <script type="module" src={`${base}dist/sagebox.esm.js`}></script>
+
+    <slot />
+    <script>
+      import '../scripts/theme.ts';
+      import '../scripts/i18n.ts';
+
+      // Update active nav link based on current URL
+      function updateActiveLink() {
+        const currentPath = window.location.pathname.replace(/\/$/, '');
+        const navLinks = document.querySelectorAll('[data-navlink]');
+
+        navLinks.forEach(link => {
+          const href = link.getAttribute('href')?.replace(/\/$/, '') || '';
+          if (currentPath === href) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+
+      // Run on page load
+      updateActiveLink();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/base.css';
+  @import '../styles/animations.css';
+  @import '../styles/demo.css';
+</style>

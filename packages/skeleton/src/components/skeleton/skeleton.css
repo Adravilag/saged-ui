@@ -1,0 +1,68 @@
+/**
+ * SageBox Skeleton Component Styles
+ * ================================
+ * Uses global design tokens from @sagebox/core
+ */
+
+:host {
+  display: block;
+}
+
+.skeleton {
+  /* Use global tokens with fallbacks */
+  --skeleton-bg-start: var(--ui-color-neutral-200, #e2e8f0);
+  --skeleton-bg-mid: var(--ui-color-neutral-100, #f1f5f9);
+  --skeleton-bg-end: var(--ui-color-neutral-200, #e2e8f0);
+
+  background: linear-gradient(90deg, var(--skeleton-bg-start) 0%, var(--skeleton-bg-mid) 50%, var(--skeleton-bg-end) 100%);
+  background-size: 200% 100%;
+}
+
+/* Dark mode support */
+:host-context([data-theme='dark']) .skeleton,
+:host-context(.dark) .skeleton {
+  --skeleton-bg-start: var(--ui-color-neutral-700, #334155);
+  --skeleton-bg-mid: var(--ui-color-neutral-600, #475569);
+  --skeleton-bg-end: var(--ui-color-neutral-700, #334155);
+}
+
+/* Variants */
+.skeleton--text {
+  border-radius: var(--ui-radius-sm, 4px);
+}
+
+.skeleton--rect {
+  border-radius: var(--ui-radius-md, 8px);
+}
+
+.skeleton--circle {
+  border-radius: 50%;
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.skeleton--shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.skeleton--pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}

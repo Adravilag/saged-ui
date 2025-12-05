@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { ANIMATED_ICONS, readIcons, writeIcons } from '../../lib/icons';
+import { ANIMATED_ICONS, readIcons, saveIcons } from '../../lib/icons';
 
 export const POST: APIRoute = async () => {
   try {
@@ -24,7 +24,7 @@ export const POST: APIRoute = async () => {
 
     // Merge and save
     const allIcons = [...currentIcons, ...newIcons];
-    writeIcons(allIcons);
+    await saveIcons(allIcons);
 
     return new Response(JSON.stringify({
       success: true,

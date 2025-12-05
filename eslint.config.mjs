@@ -19,6 +19,13 @@ export default tseslint.config(
       'bin/**',
       'cli/**',
       '**/*.stories.ts',
+      // Monorepo packages
+      'packages/**/dist/**',
+      'packages/**/loader/**',
+      'packages/**/node_modules/**',
+      'packages/**/cli/**',
+      'packages/**/bin/**',
+      'packages/**/src/components.d.ts',
     ],
   },
   {
@@ -29,7 +36,22 @@ export default tseslint.config(
       },
     },
     rules: {
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^(h|Host|Fragment)$' }],
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+    },
+  },
+  {
+    files: ['packages/**/*.ts', 'packages/**/*.tsx'],
+    languageOptions: {
+      parserOptions: {
+        project: null,
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^(h|Host|Fragment)$' }],
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
