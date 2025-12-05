@@ -71,6 +71,10 @@
     },
     "./styles/*": {
       "import": "./dist/styles/*"
+    },
+    "./components/sg-modal.js": {
+      "types": "./dist/components/sg-modal.d.ts",
+      "import": "./dist/components/sg-modal.js"
     }
   },
   "repository": {
@@ -122,6 +126,8 @@
     "size": "size-limit",
     "size:check": "size-limit --json",
     "generate": "stencil generate",
+    "generate:component": "node scripts/generate-component.js",
+    "new-component": "node scripts/generate-component.js",
     "storybook": "stencil build && storybook dev -p 6006",
     "build-storybook": "stencil build && storybook build",
     "generate-icons": "node scripts/generate-icons.js",
@@ -131,7 +137,11 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"packages/**/*.{ts,tsx,css}\"",
     "prepublishOnly": "npm run build",
     "semantic-release": "semantic-release",
-    "prepare": "husky"
+    "prepare": "husky",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish",
+    "release": "npm run build && changeset publish"
   },
   "peerDependencies": {
     "@angular/common": ">=18.0.0",
@@ -183,6 +193,7 @@
     "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-cli": "^29.7.0",
+    "lint-staged": "^16.2.7",
     "ng-packagr": "^20.0.0",
     "prettier": "^3.7.3",
     "puppeteer": "^24.3.0",
@@ -227,5 +238,14 @@
       "path": "dist/index.js",
       "limit": "10 KB"
     }
-  ]
+  ],
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,json,md}": [
+      "prettier --write"
+    ]
+  }
 }
