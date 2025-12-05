@@ -30,8 +30,14 @@ jobs:
       - name: Build packages
         run: npm run build:packages
 
-      - name: Build
+      - name: Build main
         run: npm run build
+
+      - name: Build Angular wrapper
+        run: npm run build:angular
+
+      - name: Build React wrapper
+        run: npm run build:react
 
       - name: Run tests with coverage
         run: npm run test:coverage
