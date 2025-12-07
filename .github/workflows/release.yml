@@ -33,11 +33,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build all packages
-        run: npx turbo run build --filter="@sage-box/*"
-
       - name: Build Stencil core
         run: npm run build
+
+      - name: Build all packages
+        run: npx turbo run build --filter="@sage-box/*"
 
       - name: Build Angular wrapper
         run: npm run build:angular
