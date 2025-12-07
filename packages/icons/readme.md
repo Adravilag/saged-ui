@@ -1,11 +1,11 @@
-# @sagebox/icons
+# @sage-box/icons
 
 A flexible, accessible SVG icon component from the SageBox library.
 
 ## Installation
 
 ```bash
-npm install @sagebox/icons
+npm install @sage-box/icons
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ npm install @sagebox/icons
 ```html
 <!-- Using custom element -->
 <script type="module">
-  import { defineCustomElements } from '@sagebox/icons/loader';
+  import { defineCustomElements } from '@sage-box/icons/loader';
   defineCustomElements();
 </script>
 
@@ -29,7 +29,7 @@ npm install @sagebox/icons
 #### Vanilla JS / HTML
 
 ```javascript
-import { defineCustomElements } from '@sagebox/icons/loader';
+import { defineCustomElements } from '@sage-box/icons/loader';
 defineCustomElements();
 ```
 
@@ -40,7 +40,7 @@ defineCustomElements();
 ### Register Custom Icons
 
 ```javascript
-import { registerIcons, registerIcon } from '@sagebox/icons';
+import { registerIcons, registerIcon } from '@sage-box/icons';
 
 // Register multiple icons
 registerIcons({
@@ -61,7 +61,7 @@ registerIcon('my-custom-icon', '<svg viewBox="0 0 24 24">...</svg>');
 Or configure globally:
 
 ```javascript
-import { SgIcon } from '@sagebox/icons';
+import { SgIcon } from '@sage-box/icons';
 
 // Set default JSON source for all icons
 SgIcon.configure({ jsonSrc: '/assets/custom-icons.json' });

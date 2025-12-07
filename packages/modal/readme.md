@@ -1,11 +1,11 @@
-# @sagebox/modal
+# @sage-box/modal
 
 Dialog modal component using native HTML dialog
 
 ## Installation
 
 ```bash
-npm install @sagebox/modal
+npm install @sage-box/modal
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ npm install @sagebox/modal
 
 ```html
 <script type="module">
-  import { defineCustomElements } from '@sagebox/modal/loader';
+  import { defineCustomElements } from '@sage-box/modal/loader';
   defineCustomElements();
 </script>
 
@@ -24,7 +24,7 @@ npm install @sagebox/modal
 ### React
 
 ```jsx
-import '@sagebox/modal';
+import '@sage-box/modal';
 
 function App() {
   return <sg-modal>Content</sg-modal>;
@@ -34,7 +34,7 @@ function App() {
 ### Angular
 
 ```typescript
-import '@sagebox/modal';
+import '@sage-box/modal';
 
 @Component({
   template: `<sg-modal>Content</sg-modal>`

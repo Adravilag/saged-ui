@@ -1,5 +1,5 @@
 {
-    "name":  "@sagebox/icons",
+    "name":  "@sage-box/icons",
     "version":  "0.1.0",
     "description":  "SVG Icon component for SageBox - A flexible, accessible icon system",
     "main":  "dist/index.cjs.js",

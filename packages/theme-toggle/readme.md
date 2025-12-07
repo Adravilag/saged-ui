@@ -1,11 +1,11 @@
-# @sagebox/theme-toggle
+# @sage-box/theme-toggle
 
 > Theme toggle component for SageBox - Dark/light mode switcher
 
 ## Installation
 
 ```bash
-npm install @sagebox/theme-toggle @sagebox/core
+npm install @sage-box/theme-toggle @sage-box/core
 ```
 
 ## Usage

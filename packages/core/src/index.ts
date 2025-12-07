@@ -1,5 +1,5 @@
 /**
- * @sagebox/core
+ * @sage-box/core
  * Core styles, tokens and utilities for SageBox components
  */
 

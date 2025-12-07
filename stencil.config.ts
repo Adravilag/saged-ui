@@ -6,20 +6,20 @@ import { resolve } from 'path';
 // Fast mode: --watch OR STENCIL_FAST env var
 const isDev = process.argv.includes('--watch') || process.env.STENCIL_FAST === 'true';
 
-// Rollup alias plugin for resolving @sagebox/* packages to source
+// Rollup alias plugin for resolving @sage-box/* packages to source
 const aliasPlugin = {
   name: 'sagebox-alias',
   resolveId(source: string) {
     const aliases: Record<string, string> = {
-      '@sagebox/icons': resolve(__dirname, 'packages/icons/src/index.ts'),
-      '@sagebox/badge': resolve(__dirname, 'packages/badge/src/index.ts'),
-      '@sagebox/button': resolve(__dirname, 'packages/button/src/index.ts'),
-      '@sagebox/dropdown': resolve(__dirname, 'packages/dropdown/src/index.ts'),
-      '@sagebox/modal': resolve(__dirname, 'packages/modal/src/index.ts'),
-      '@sagebox/skeleton': resolve(__dirname, 'packages/skeleton/src/index.ts'),
-      '@sagebox/theme-toggle': resolve(__dirname, 'packages/theme-toggle/src/index.ts'),
-      '@sagebox/article-editor': resolve(__dirname, 'packages/article-editor/src/index.ts'),
-      '@sagebox/core': resolve(__dirname, 'packages/core/src/index.ts'),
+      '@sage-box/icons': resolve(__dirname, 'packages/icons/src/index.ts'),
+      '@sage-box/badge': resolve(__dirname, 'packages/badge/src/index.ts'),
+      '@sage-box/button': resolve(__dirname, 'packages/button/src/index.ts'),
+      '@sage-box/dropdown': resolve(__dirname, 'packages/dropdown/src/index.ts'),
+      '@sage-box/modal': resolve(__dirname, 'packages/modal/src/index.ts'),
+      '@sage-box/skeleton': resolve(__dirname, 'packages/skeleton/src/index.ts'),
+      '@sage-box/theme-toggle': resolve(__dirname, 'packages/theme-toggle/src/index.ts'),
+      '@sage-box/article-editor': resolve(__dirname, 'packages/article-editor/src/index.ts'),
+      '@sage-box/core': resolve(__dirname, 'packages/core/src/index.ts'),
     };
     if (aliases[source]) {
       return aliases[source];
@@ -38,7 +38,7 @@ export const config: Config = {
   globalScript: 'src/index.ts',
   // Ignore directories for watch mode - IMPORTANT: ignore output directories to prevent infinite rebuild loops
   watchIgnoredRegex: /node_modules|dist|dist-docs|\.git|coverage|website|wrappers|loader|tools|\.stencil|packages\/.*\/loader/,
-  // Rollup plugins for resolving @sagebox/* aliases
+  // Rollup plugins for resolving @sage-box/* aliases
   rollupPlugins: {
     before: [aliasPlugin],
   },

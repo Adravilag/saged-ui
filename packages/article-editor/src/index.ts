@@ -1,5 +1,5 @@
 /**
- * @sagebox/article-editor
+ * @sage-box/article-editor
  * Rich text and markdown editor component
  */
 

@@ -8,8 +8,8 @@ SageBox is a monorepo containing Web Components built with Stencil.js.
 sagebox/
 ├── packages/           # Individual component packages
 │   ├── core/          # Shared utilities and tokens
-│   ├── button/        # @sagebox/button
-│   ├── modal/         # @sagebox/modal
+│   ├── button/        # @sage-box/button
+│   ├── modal/         # @sage-box/modal
 │   └── ...
 ├── src/               # Root Stencil entry point
 ├── website/           # Astro documentation site
@@ -131,7 +131,7 @@ npm run test:e2e            # Playwright
 
 Using [Changesets](https://github.com/changesets/changesets) in **lockstep mode**.
 
-All `@sagebox/*` packages share the same version number.
+All `@sage-box/*` packages share the same version number.
 
 ```bash
 npm run changeset      # Create changeset

@@ -82,7 +82,7 @@ function toKebabCase(str) {
 function getPackageJson(name, description) {
   return JSON.stringify(
     {
-      name: `@sagebox/${name}`,
+      name: `@sage-box/${name}`,
       version: '1.0.0',
       description: `${description} - SageBox component`,
       main: 'dist/index.cjs.js',
@@ -117,7 +117,7 @@ function getPackageJson(name, description) {
         'build-storybook': 'stencil build && storybook build',
       },
       peerDependencies: {
-        '@sagebox/core': '^1.0.0',
+        '@sage-box/core': '^1.0.0',
       },
       devDependencies: {
         '@stencil/core': '^4.27.1',
@@ -349,7 +349,7 @@ import { defineCustomElements } from '../loader';
 // Register Stencil web components
 defineCustomElements();
 
-// Inject CSS tokens for Storybook (auto-generated from @sagebox/core)
+// Inject CSS tokens for Storybook (auto-generated from @sage-box/core)
 const style = document.createElement('style');
 style.textContent = \`
   :root {
@@ -388,14 +388,14 @@ export default preview;
 }
 
 function getReadme(name, pascalName, tagName, description) {
-  return `# @sagebox/${name}
+  return `# @sage-box/${name}
 
 ${description}
 
 ## Installation
 
 \`\`\`bash
-npm install @sagebox/${name}
+npm install @sage-box/${name}
 \`\`\`
 
 ## Usage
@@ -404,7 +404,7 @@ npm install @sagebox/${name}
 
 \`\`\`html
 <script type="module">
-  import { defineCustomElements } from '@sagebox/${name}/loader';
+  import { defineCustomElements } from '@sage-box/${name}/loader';
   defineCustomElements();
 </script>
 
@@ -414,7 +414,7 @@ npm install @sagebox/${name}
 ### React
 
 \`\`\`jsx
-import '@sagebox/${name}';
+import '@sage-box/${name}';
 
 function App() {
   return <${tagName}>Content</${tagName}>;
@@ -424,7 +424,7 @@ function App() {
 ### Angular
 
 \`\`\`typescript
-import '@sagebox/${name}';
+import '@sage-box/${name}';
 
 @Component({
   template: \`<${tagName}>Content</${tagName}>\`
@@ -476,7 +476,7 @@ function updateComponentsIndex(name) {
   const indexPath = path.join(ROOT_DIR, 'src', 'components', 'index.ts');
   let content = fs.readFileSync(indexPath, 'utf-8');
 
-  const exportLine = `export * from '@sagebox/${name}';`;
+  const exportLine = `export * from '@sage-box/${name}';`;
 
   // Check if already exported
   if (content.includes(exportLine)) {
@@ -504,7 +504,7 @@ function updateTsConfigPaths(name) {
   const jsonContent = content.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
   const tsconfig = JSON.parse(jsonContent);
 
-  const pathKey = `@sagebox/${name}`;
+  const pathKey = `@sage-box/${name}`;
   const pathValue = [`./packages/${name}/src/index.ts`];
 
   // Check if path already exists
@@ -533,7 +533,7 @@ function updateChangesetConfig(name) {
   const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
 
   // Add to fixed group if not already there
-  const packageName = `@sagebox/${name}`;
+  const packageName = `@sage-box/${name}`;
   if (config.fixed && config.fixed[0] && !config.fixed[0].includes(packageName)) {
     config.fixed[0].push(packageName);
     fs.writeFileSync(configPath, JSON.stringify(config, null, 2) + '\n');

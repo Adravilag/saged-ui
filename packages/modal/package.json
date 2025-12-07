@@ -1,5 +1,5 @@
 {
-    "name":  "@sagebox/modal",
+    "name":  "@sage-box/modal",
     "version":  "0.1.0",
     "description":  "Dialog modal component using native HTML dialog - SageBox component",
     "main":  "dist/index.cjs.js",
@@ -37,7 +37,7 @@
                     "build-storybook":  "stencil build \u0026\u0026 storybook build"
                 },
     "peerDependencies":  {
-                             "@sagebox/core": "^0.1.0"
+                             "@sage-box/core": "^0.1.0"
                          },
     "devDependencies":  {
                             "@stencil/core":  "^4.27.1",

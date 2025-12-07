@@ -1,5 +1,5 @@
 {
-    "name":  "@sagebox/dropdown",
+    "name":  "@sage-box/dropdown",
     "version":  "0.1.0",
     "description":  "Dropdown component for SageBox - Accessible dropdown menus",
     "main":  "dist/index.cjs.js",
@@ -33,11 +33,11 @@
                     "test":  "stencil test --spec"
                 },
     "peerDependencies":  {
-                             "@sagebox/core":  "^0.1.0",
-                             "@sagebox/icons":  "^0.1.0"
+                             "@sage-box/core":  "^0.1.0",
+                             "@sage-box/icons":  "^0.1.0"
                          },
     "peerDependenciesMeta":  {
-                                 "@sagebox/icons":  {
+                                 "@sage-box/icons":  {
                                                         "optional":  true
                                                     }
                              },

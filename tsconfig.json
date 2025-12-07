@@ -18,15 +18,15 @@
     "jsxFragmentFactory": "h.Fragment",
     "skipLibCheck": true,
     "paths": {
-      "@sagebox/badge": ["./packages/badge/src/index.ts"],
-      "@sagebox/button": ["./packages/button/src/index.ts"],
-      "@sagebox/dropdown": ["./packages/dropdown/src/index.ts"],
-      "@sagebox/icons": ["./packages/icons/src/index.ts"],
-      "@sagebox/modal": ["./packages/modal/src/index.ts"],
-      "@sagebox/skeleton": ["./packages/skeleton/src/index.ts"],
-      "@sagebox/theme-toggle": ["./packages/theme-toggle/src/index.ts"],
-      "@sagebox/article-editor": ["./packages/article-editor/src/index.ts"],
-      "@sagebox/core": ["./packages/core/src/index.ts"]
+      "@sage-box/badge": ["./packages/badge/src/index.ts"],
+      "@sage-box/button": ["./packages/button/src/index.ts"],
+      "@sage-box/dropdown": ["./packages/dropdown/src/index.ts"],
+      "@sage-box/icons": ["./packages/icons/src/index.ts"],
+      "@sage-box/modal": ["./packages/modal/src/index.ts"],
+      "@sage-box/skeleton": ["./packages/skeleton/src/index.ts"],
+      "@sage-box/theme-toggle": ["./packages/theme-toggle/src/index.ts"],
+      "@sage-box/article-editor": ["./packages/article-editor/src/index.ts"],
+      "@sage-box/core": ["./packages/core/src/index.ts"]
     }
   },
   "include": [

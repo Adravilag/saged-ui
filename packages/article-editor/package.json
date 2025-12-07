@@ -1,5 +1,5 @@
 {
-    "name":  "@sagebox/article-editor",
+    "name":  "@sage-box/article-editor",
     "version":  "0.1.0",
     "description":  "Article editor component for SageBox - Rich text and markdown editor",
     "main":  "dist/index.cjs.js",
@@ -33,19 +33,19 @@
                     "test":  "stencil test --spec"
                 },
     "peerDependencies":  {
-                             "@sagebox/core":  "^0.1.0",
-                             "@sagebox/icons":  "^0.1.0",
-                             "@sagebox/button":  "^0.1.0",
-                             "@sagebox/dropdown":  "^0.1.0"
+                             "@sage-box/core":  "^0.1.0",
+                             "@sage-box/icons":  "^0.1.0",
+                             "@sage-box/button":  "^0.1.0",
+                             "@sage-box/dropdown":  "^0.1.0"
                          },
     "peerDependenciesMeta":  {
-                                 "@sagebox/icons":  {
+                                 "@sage-box/icons":  {
                                                         "optional":  true
                                                     },
-                                 "@sagebox/button":  {
+                                 "@sage-box/button":  {
                                                          "optional":  true
                                                      },
-                                 "@sagebox/dropdown":  {
+                                 "@sage-box/dropdown":  {
                                                            "optional":  true
                                                        }
                              },

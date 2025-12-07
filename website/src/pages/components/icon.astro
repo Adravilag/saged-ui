@@ -163,7 +163,7 @@ const props = [
 
 <!-- O configurar globalmente -->
 <script type="module">
-  import { SgIcon } from '@sagebox/icons';
+  import { SgIcon } from '@sage-box/icons';
 
   // Configurar origen JSON por defecto
   SgIcon.configure({ jsonSrc: '/assets/icons.json' });
@@ -180,7 +180,7 @@ const props = [
       <CodeBlock
         filename="register-icons.js"
         language="js"
-        code={`import { registerIcons, registerIcon } from '@sagebox/icons';
+        code={`import { registerIcons, registerIcon } from '@sage-box/icons';
 
 // Registrar múltiples iconos
 registerIcons({
@@ -348,7 +348,7 @@ registerIcon('brand-icon', '<svg viewBox="0 0 24 24">...</svg>');`}
           filename="src/icons/index.ts"
           language="ts"
           code={`// Auto-generated - do not edit manually
-import { registerIcons } from '@sagebox/icons';
+import { registerIcons } from '@sage-box/icons';
 
 export const icons: Record<string, string> = {
   'lucide-home': '<svg xmlns="http://www.w3.org/2000/svg" ...>...</svg>',

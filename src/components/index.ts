@@ -6,11 +6,11 @@
  */
 
 // Re-export all components from their respective packages
-export * from '@sagebox/badge';
-export * from '@sagebox/button';
-export * from '@sagebox/dropdown';
-export * from '@sagebox/icons';
-export * from '@sagebox/modal';
-export * from '@sagebox/skeleton';
-export * from '@sagebox/theme-toggle';
-export * from '@sagebox/article-editor';
+export * from '@sage-box/badge';
+export * from '@sage-box/button';
+export * from '@sage-box/dropdown';
+export * from '@sage-box/icons';
+export * from '@sage-box/modal';
+export * from '@sage-box/skeleton';
+export * from '@sage-box/theme-toggle';
+export * from '@sage-box/article-editor';

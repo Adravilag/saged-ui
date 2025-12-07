@@ -9,8 +9,8 @@
  */
 
 export { format } from './utils/utils';
-// Icon management utilities - re-exported from @sagebox/icons package
-export { registerIcons, registerIcon, getRegisteredIcons, hasRegisteredIcon, type IconDefinition } from '@sagebox/icons';
+// Icon management utilities - re-exported from @sage-box/icons package
+export { registerIcons, registerIcon, getRegisteredIcons, hasRegisteredIcon, type IconDefinition } from '@sage-box/icons';
 
 // Default export for Stencil globalScript import compatibility.
 // Stencil imports the globalScript as a default import; provide a noop function

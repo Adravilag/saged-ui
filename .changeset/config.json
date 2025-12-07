@@ -9,15 +9,15 @@
   "commit": false,
   "fixed": [
     [
-      "@sagebox/core",
-      "@sagebox/badge",
-      "@sagebox/button",
-      "@sagebox/dropdown",
-      "@sagebox/skeleton",
-      "@sagebox/icons",
-      "@sagebox/theme-toggle",
-      "@sagebox/article-editor",
-      "@sagebox/modal"
+      "@sage-box/core",
+      "@sage-box/badge",
+      "@sage-box/button",
+      "@sage-box/dropdown",
+      "@sage-box/skeleton",
+      "@sage-box/icons",
+      "@sage-box/theme-toggle",
+      "@sage-box/article-editor",
+      "@sage-box/modal"
     ]
   ],
   "linked": [],
@@ -26,7 +26,7 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "docs",
-    "@sagebox/icon-manager"
+    "@sage-box/icon-manager"
   ],
   "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
     "onlyUpdatePeerDependentsWhenOutOfRange": true

@@ -1,11 +1,11 @@
-# @sagebox/skeleton
+# @sage-box/skeleton
 
 > Skeleton component for SageBox - Loading placeholder animations
 
 ## Installation
 
 ```bash
-npm install @sagebox/skeleton @sagebox/core
+npm install @sage-box/skeleton @sage-box/core
 ```
 
 ## Usage

@@ -1,11 +1,11 @@
-# @sagebox/button
+# @sage-box/button
 
 > Button component for SageBox - Versatile button with variants and states
 
 ## Installation
 
 ```bash
-npm install @sagebox/button @sagebox/core
+npm install @sage-box/button @sage-box/core
 ```
 
 ## Usage
@@ -41,7 +41,7 @@ npm install @sagebox/button @sagebox/core
 <sg-button loading>Loading...</sg-button>
 <sg-button loading loading-text="Please wait...">Submit</sg-button>
 
-<!-- With Icons (requires @sagebox/icons) -->
+<!-- With Icons (requires @sage-box/icons) -->
 <sg-button leading-icon="check">Save</sg-button>
 <sg-button trailing-icon="arrow-right">Next</sg-button>
 ```
@@ -49,7 +49,7 @@ npm install @sagebox/button @sagebox/core
 ## JavaScript
 
 ```js
-import '@sagebox/button';
+import '@sage-box/button';
 
 document.querySelector('sg-button').addEventListener('sgClick', (e) => {
   console.log('Button clicked!', e.detail);
@@ -59,7 +59,7 @@ document.querySelector('sg-button').addEventListener('sgClick', (e) => {
 ## React
 
 ```jsx
-import '@sagebox/button';
+import '@sage-box/button';
 
 function App() {
   return (
@@ -78,7 +78,7 @@ function App() {
 ```typescript
 // app.module.ts
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import '@sagebox/button';
+import '@sage-box/button';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

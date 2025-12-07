@@ -1,5 +1,5 @@
 {
-    "name":  "@sagebox/badge",
+    "name":  "@sage-box/badge",
     "version":  "0.1.0",
     "description":  "Badge component for SageBox - Labels, tags and status indicators",
     "main":  "dist/index.cjs.js",
@@ -33,7 +33,7 @@
                     "test":  "stencil test --spec"
                 },
     "peerDependencies":  {
-                             "@sagebox/core":  "^0.1.0"
+                             "@sage-box/core":  "^0.1.0"
                          },
     "devDependencies":  {
                             "@stencil/core":  "^4.27.1",

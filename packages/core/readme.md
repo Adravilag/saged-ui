@@ -1,11 +1,11 @@
-# @sagebox/core
+# @sage-box/core
 
 Core styles, design tokens and utilities for SageBox components.
 
 ## Installation
 
 ```bash
-npm install @sagebox/core
+npm install @sage-box/core
 ```
 
 ## Usage
@@ -15,19 +15,19 @@ npm install @sagebox/core
 Import the CSS file to get all design tokens as CSS custom properties:
 
 ```css
-@import '@sagebox/core/styles';
+@import '@sage-box/core/styles';
 ```
 
 Or in JavaScript:
 
 ```javascript
-import '@sagebox/core/dist/styles/tokens.css';
+import '@sage-box/core/dist/styles/tokens.css';
 ```
 
 ### JavaScript Tokens
 
 ```javascript
-import { colors, spacing, tokens } from '@sagebox/core';
+import { colors, spacing, tokens } from '@sage-box/core';
 
 // Use tokens in your code
 console.log(colors.primary); // 'var(--sg-color-primary, #6366f1)'
@@ -36,7 +36,7 @@ console.log(colors.primary); // 'var(--sg-color-primary, #6366f1)'
 ### Utilities
 
 ```javascript
-import { generateId, debounce, clamp } from '@sagebox/core';
+import { generateId, debounce, clamp } from '@sage-box/core';
 
 const id = generateId('button'); // 'button-abc123'
 const value = clamp(150, 0, 100); // 100

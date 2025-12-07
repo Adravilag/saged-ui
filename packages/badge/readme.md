@@ -1,11 +1,11 @@
-# @sagebox/badge
+# @sage-box/badge
 
 > Badge component for SageBox - Labels, tags and status indicators
 
 ## Installation
 
 ```bash
-npm install @sagebox/badge @sagebox/core
+npm install @sage-box/badge @sage-box/core
 ```
 
 ## Usage

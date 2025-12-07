@@ -1,5 +1,5 @@
 {
-    "name":  "@sagebox/core",
+    "name":  "@sage-box/core",
     "version":  "0.1.0",
     "description":  "Core styles, tokens and utilities for SageBox components",
     "main":  "dist/index.js",
