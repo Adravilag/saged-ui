@@ -114,11 +114,19 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
-      - name: Build
+      - name: Build components
         run: npm run build
+
+      - name: Prepare www directory for E2E tests
+        run: |
+          mkdir -p www/build
+          cp -r dist/sagebox/* www/build/
+          cp src/index.html www/
+          cp src/dev.css www/
 
       - name: Run E2E tests
         run: npm run test:e2e
+        timeout-minutes: 10
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
