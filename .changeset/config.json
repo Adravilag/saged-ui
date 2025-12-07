@@ -25,7 +25,7 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "website",
+    "docs",
     "@sagebox/icon-manager"
   ],
   "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
