@@ -1,0 +1,148 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+
+const props = [
+  { name: 'label', type: 'string', default: "''", description: 'Etiqueta del campo' },
+  { name: 'value', type: 'any', default: 'undefined', description: 'Valor a mostrar' },
+  {
+    name: 'type',
+    type: "'text' | 'date' | 'datetime' | 'status' | 'currency' | 'boolean' | 'html' | 'array' | 'custom'",
+    default: "'text'",
+    description: 'Tipo de formateo',
+  },
+  { name: 'status-map', type: 'Record<string, StatusMapItem>', default: '{...}', description: 'Mapa de estados personalizados' },
+  { name: 'currency-symbol', type: 'string', default: "'€'", description: 'Símbolo de moneda' },
+  { name: 'locale', type: 'string', default: "'es-ES'", description: 'Locale para formateo de fechas' },
+  { name: 'empty-text', type: 'string', default: "'No especificado'", description: 'Texto cuando no hay valor' },
+  { name: 'true-text', type: 'string', default: "'Sí'", description: 'Texto para boolean true' },
+  { name: 'false-text', type: 'string', default: "'No'", description: 'Texto para boolean false' },
+];
+---
+
+<ComponentLayout
+  title="Info Field"
+  tag="sg-info-field"
+  packageName="info-field"
+  description="Muestra pares etiqueta-valor con formateo automático según el tipo. Soporta texto, fechas, estados, monedas, booleanos y arrays."
+  props={props}
+>
+  <Fragment slot="examples">
+    <DemoBox
+      label="Texto"
+      code={`<sg-info-field label="Nombre" value="John Doe"></sg-info-field>
+<sg-info-field label="Email" value="john@example.com"></sg-info-field>
+<sg-info-field label="Descripción"></sg-info-field>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+        <sg-info-field label="Nombre" value="John Doe"></sg-info-field>
+        <sg-info-field label="Email" value="john@example.com"></sg-info-field>
+        <sg-info-field label="Descripción"></sg-info-field>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Fechas"
+      code={`<sg-info-field label="Creado" value="2024-01-15" type="date"></sg-info-field>
+<sg-info-field label="Última actualización" value="2024-01-15T14:30:00" type="datetime"></sg-info-field>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+        <sg-info-field label="Creado" value="2024-01-15" type="date"></sg-info-field>
+        <sg-info-field label="Última actualización" value="2024-01-15T14:30:00" type="datetime"></sg-info-field>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Estados"
+      code={`<sg-info-field label="Estado" value="active" type="status"></sg-info-field>
+<sg-info-field label="Estado" value="pending" type="status"></sg-info-field>
+<sg-info-field label="Estado" value="inactive" type="status"></sg-info-field>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem;">
+        <sg-info-field label="Activo" value="active" type="status"></sg-info-field>
+        <sg-info-field label="Pendiente" value="pending" type="status"></sg-info-field>
+        <sg-info-field label="Inactivo" value="inactive" type="status"></sg-info-field>
+        <sg-info-field label="Borrador" value="draft" type="status"></sg-info-field>
+        <sg-info-field label="Completado" value="completed" type="status"></sg-info-field>
+        <sg-info-field label="Cancelado" value="cancelled" type="status"></sg-info-field>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Moneda"
+      code={`<sg-info-field label="Precio" value="99.99" type="currency"></sg-info-field>
+<sg-info-field label="Total USD" value="149.50" type="currency" currency-symbol="$"></sg-info-field>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+        <sg-info-field label="Precio" value="99.99" type="currency"></sg-info-field>
+        <sg-info-field label="Total USD" value="149.50" type="currency" currency-symbol="$"></sg-info-field>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Booleano"
+      code={`<sg-info-field label="Verificado" value="true" type="boolean"></sg-info-field>
+<sg-info-field label="Activo" value="false" type="boolean"></sg-info-field>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem;">
+        <sg-info-field label="Verificado" value="true" type="boolean"></sg-info-field>
+        <sg-info-field label="Activo" value="false" type="boolean"></sg-info-field>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Ficha completa"
+      code={`<sg-card card-title="Información del Usuario">
+  <sg-info-field label="Nombre" value="John Doe"></sg-info-field>
+  <sg-info-field label="Email" value="john@example.com"></sg-info-field>
+  <sg-info-field label="Estado" value="active" type="status"></sg-info-field>
+  <sg-info-field label="Suscripción" value="49.99" type="currency"></sg-info-field>
+  <sg-info-field label="Verificado" value="true" type="boolean"></sg-info-field>
+  <sg-info-field label="Fecha registro" value="2024-01-15" type="date"></sg-info-field>
+</sg-card>`}
+    >
+      <sg-card card-title="Información del Usuario" style="max-width: 400px; margin: 0 auto;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <sg-info-field label="Nombre" value="John Doe"></sg-info-field>
+          <sg-info-field label="Email" value="john@example.com"></sg-info-field>
+          <sg-info-field label="Estado" value="active" type="status"></sg-info-field>
+          <sg-info-field label="Suscripción" value="49.99" type="currency"></sg-info-field>
+          <sg-info-field label="Verificado" value="true" type="boolean"></sg-info-field>
+          <sg-info-field label="Fecha registro" value="2024-01-15" type="date"></sg-info-field>
+        </div>
+      </sg-card>
+    </DemoBox>
+  </Fragment>
+
+  <Fragment slot="api">
+    <h3 style="font-size: 1.125rem; font-weight: 600; margin: 1.5rem 0 1rem;">Interface: StatusMapItem</h3>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem;">
+        <thead>
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <th style="text-align: left; padding: 0.75rem; font-weight: 600;">Propiedad</th>
+            <th style="text-align: left; padding: 0.75rem; font-weight: 600;">Tipo</th>
+            <th style="text-align: left; padding: 0.75rem; font-weight: 600;">Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 0.75rem;"><code>label</code></td>
+            <td style="padding: 0.75rem;"><code>string</code></td>
+            <td style="padding: 0.75rem;">Texto a mostrar</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 0.75rem;"><code>bgColor</code></td>
+            <td style="padding: 0.75rem;"><code>string</code></td>
+            <td style="padding: 0.75rem;">Color de fondo del badge</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 0.75rem;"><code>textColor</code></td>
+            <td style="padding: 0.75rem;"><code>string</code></td>
+            <td style="padding: 0.75rem;">Color del texto</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </Fragment>
+</ComponentLayout>

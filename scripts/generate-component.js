@@ -14,9 +14,9 @@
  * - Updates .changeset/config.json
  */
 
-const fs = require('fs');
-const path = require('path');
-const readline = require('readline');
+const fs = require('node:fs');
+const path = require('node:path');
+const readline = require('node:readline');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const PACKAGES_DIR = path.join(ROOT_DIR, 'packages');
@@ -51,7 +51,7 @@ function extractCSSTokens(filePath) {
   // Match CSS custom properties in :root
   const rootMatch = content.match(/:root\s*\{([^}]+(?:\{[^}]*\}[^}]*)*)\}/gs);
   if (rootMatch) {
-    rootMatch.forEach(block => {
+    for (const block of rootMatch) {
       // Extract all --sg-* or --ui-* properties with their values
       const propMatches = block.matchAll(/^\s*(--(?:sg|ui)-[a-z0-9-]+)\s*:\s*([^;]+);/gm);
       for (const match of propMatches) {
@@ -505,7 +505,6 @@ function updateTsConfigPaths(name) {
   const tsconfig = JSON.parse(jsonContent);
 
   const pathKey = `@sage-box/${name}`;
-  const pathValue = [`./packages/${name}/src/index.ts`];
 
   // Check if path already exists
   if (tsconfig.compilerOptions.paths[pathKey]) {
@@ -594,10 +593,10 @@ async function main() {
     { path: path.join(packageDir, '.storybook', 'preview.ts'), content: getStorybookPreview() },
   ];
 
-  files.forEach(({ path: filePath, content }) => {
+  for (const { path: filePath, content } of files) {
     fs.writeFileSync(filePath, content);
     console.log(`  ✅ Created ${path.relative(ROOT_DIR, filePath)}`);
-  });
+  }
 
   // Update root configs
   console.log('\n📝 Updating configurations...\n');

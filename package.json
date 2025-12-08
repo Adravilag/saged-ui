@@ -1,257 +1,259 @@
 {
-    "name": "sagebox",
-    "version": "0.1.0-beta.1",
-    "description": "SageBox - Modern Web Components Library - Reusable UI components for any project",
-    "private": false,
-    "main": "dist/index.cjs.js",
-    "module": "dist/index.js",
-    "types": "dist/types/index.d.ts",
-    "bin": {
-        "sagebox": "./bin/cli.js"
+  "name": "sagebox",
+  "version": "0.1.1",
+  "description": "SageBox - Modern Web Components Library - Reusable UI components for any project",
+  "private": false,
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "bin": {
+    "sagebox": "./bin/cli.js"
+  },
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/sagebox/sagebox.esm.js",
+  "workspaces": [
+    "packages/*",
+    "wrappers/*",
+    "website",
+    "tools/*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js"
     },
-    "collection": "dist/collection/collection-manifest.json",
-    "collection:main": "dist/collection/index.js",
-    "unpkg": "dist/sagebox/sagebox.esm.js",
-    "workspaces": [
-        "packages/*",
-        "wrappers/*",
-        "website",
-        "tools/*"
-    ],
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/index.js",
-            "require": "./dist/index.cjs.js"
-        },
-        "./components": {
-            "types": "./dist/types/components.d.ts",
-            "import": "./dist/components/index.js"
-        },
-        "./angular": {
-            "types": "./dist/angular/types/sagebox-angular.d.ts",
-            "import": "./dist/angular/fesm2022/sagebox-angular.mjs"
-        },
-        "./components/*": {
-            "types": "./dist/components/*.d.ts",
-            "import": "./dist/components/*"
-        },
-        "./components/sg-article-editor.js": {
-            "types": "./dist/components/sg-article-editor.d.ts",
-            "import": "./dist/components/sg-article-editor.js"
-        },
-        "./components/sg-badge.js": {
-            "types": "./dist/components/sg-badge.d.ts",
-            "import": "./dist/components/sg-badge.js"
-        },
-        "./components/sg-button.js": {
-            "types": "./dist/components/sg-button.d.ts",
-            "import": "./dist/components/sg-button.js"
-        },
-        "./components/sg-dropdown.js": {
-            "types": "./dist/components/sg-dropdown.d.ts",
-            "import": "./dist/components/sg-dropdown.js"
-        },
-        "./components/sg-icon.js": {
-            "types": "./dist/components/sg-icon.d.ts",
-            "import": "./dist/components/sg-icon.js"
-        },
-        "./components/sg-skeleton.js": {
-            "types": "./dist/components/sg-skeleton.d.ts",
-            "import": "./dist/components/sg-skeleton.js"
-        },
-        "./components/sg-theme-toggle.js": {
-            "types": "./dist/components/sg-theme-toggle.d.ts",
-            "import": "./dist/components/sg-theme-toggle.js"
-        },
-        "./loader": {
-            "types": "./loader/index.d.ts",
-            "import": "./loader/index.js",
-            "require": "./loader/index.cjs"
-        },
-        "./styles/*": {
-            "import": "./dist/styles/*"
-        },
-        "./components/sg-modal.js": {
-            "types": "./dist/components/sg-modal.d.ts",
-            "import": "./dist/components/sg-modal.js"
-        }
+    "./components": {
+      "types": "./dist/types/components.d.ts",
+      "import": "./dist/components/index.js"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Adravilag/sagebox.git"
+    "./angular": {
+      "types": "./dist/angular/types/sagebox-angular.d.ts",
+      "import": "./dist/angular/fesm2022/sagebox-angular.mjs"
     },
-    "bugs": {
-        "url": "https://github.com/Adravilag/sagebox/issues"
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "import": "./dist/components/*"
     },
-    "homepage": "https://github.com/Adravilag/sagebox#readme",
-    "files": [
-        "dist/",
-        "loader/",
-        "scripts/",
-        "bin/",
-        "tools/"
-    ],
-    "sideEffects": [
-        "dist/sagebox/sagebox.esm.js",
-        "loader/index.js"
-    ],
-    "scripts": {
-        "build": "stencil build",
-        "build:fast": "cross-env STENCIL_FAST=true stencil build",
-        "build:all": "npm run build && npm run build:angular && npm run build:react",
-        "build:icons": "cd packages/icons && npm run build",
-        "build:components": "cd packages/components && npm run build",
-        "build:packages": "turbo run build --filter='./packages/*'",
-        "build:angular": "node scripts/link-sagebox.js && ng-packagr -p wrappers/angular/ng-package.json",
-        "build:react": "cd wrappers/react && npx tsc -p tsconfig.json",
-        "start": "stencil build --watch",
-        "dev": "npm run build && concurrently -n stencil,website -c blue,green \"stencil build --watch\" \"npm run website:dev\"",
-        "dev:fast": "concurrently -n stencil,website -c blue,green \"stencil build --watch\" \"npm run website:dev\"",
-        "website:dev": "cd website && npm run dev",
-        "website:build": "npm run build && cd website && npm run build",
-        "setup:symlink": "node -e \"const fs=require('fs');const p=require('path');const d='website/public/dist';try{fs.rmSync(d,{recursive:true,force:true})}catch{};require('child_process').execSync(process.platform==='win32'?'mklink /J '+d+' dist\\\\sagebox':'ln -sf ../../dist/sagebox '+d,{stdio:'inherit'})\"",
-        "website:preview": "cd website && npm run preview",
-        "test": "turbo run test:spec",
-        "test:spec": "stencil test --spec",
-        "test:icons": "cd packages/icons && npm run test",
-        "test:components": "cd packages/components && npm run test",
-        "test:packages": "turbo run test --filter='./packages/*'",
-        "test:e2e": "playwright test",
-        "test:e2e:ui": "playwright test --ui",
-        "test:e2e:headed": "playwright test --headed",
-        "test:watch": "stencil test --spec --watchAll",
-        "test:coverage": "stencil test --spec --coverage",
-        "lint": "eslint src/ packages/",
-        "lint:fix": "eslint src/ packages/ --fix",
-        "size": "size-limit",
-        "size:check": "size-limit --json",
-        "generate": "stencil generate",
-        "generate:component": "node scripts/generate-component.js",
-        "new-component": "node scripts/generate-component.js",
-        "storybook": "stencil build && storybook dev -p 6006",
-        "build-storybook": "stencil build && storybook build",
-        "generate-icons": "node scripts/generate-icons.js",
-        "add-icon": "node scripts/generate-icons.js add",
-        "icon-server": "node scripts/icon-server.js",
-        "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"packages/**/*.{ts,tsx,css}\"",
-        "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"packages/**/*.{ts,tsx,css}\"",
-        "sync:stories": "node scripts/sync-stories.js",
-        "sync:changelog": "node scripts/generate-changelog.js",
-        "sync:all": "npm run sync:stories && npm run sync:changelog",
-        "prepublishOnly": "npm run build",
-        "semantic-release": "semantic-release",
-        "prepare": "husky",
-        "changeset": "changeset",
-        "changeset:version": "changeset version",
-        "changeset:publish": "changeset publish",
-        "release": "npm run build && changeset publish"
+    "./components/sg-article-editor.js": {
+      "types": "./dist/components/sg-article-editor.d.ts",
+      "import": "./dist/components/sg-article-editor.js"
     },
-    "peerDependencies": {
-        "@angular/common": ">=18.0.0",
-        "@angular/core": ">=18.0.0",
-        "react": ">=17.0.0",
-        "react-dom": ">=17.0.0"
+    "./components/sg-badge.js": {
+      "types": "./dist/components/sg-badge.d.ts",
+      "import": "./dist/components/sg-badge.js"
     },
-    "peerDependenciesMeta": {
-        "@angular/common": {
-            "optional": true
-        },
-        "@angular/core": {
-            "optional": true
-        },
-        "react": {
-            "optional": true
-        },
-        "react-dom": {
-            "optional": true
-        }
+    "./components/sg-button.js": {
+      "types": "./dist/components/sg-button.d.ts",
+      "import": "./dist/components/sg-button.js"
     },
-    "devDependencies": {
-        "@angular/common": "^20.3.0",
-        "@angular/compiler-cli": "^20.3.0",
-        "@angular/core": "^20.3.0",
-        "@changesets/changelog-github": "^0.5.2",
-        "@changesets/cli": "^2.29.8",
-        "@commitlint/cli": "^18.6.1",
-        "@commitlint/config-conventional": "^18.6.3",
-        "@eslint/js": "^9.39.1",
-        "@playwright/test": "^1.57.0",
-        "@semantic-release/changelog": "^6.0.3",
-        "@semantic-release/git": "^10.0.1",
-        "@size-limit/preset-small-lib": "^12.0.0",
-        "@stencil/angular-output-target": "^1.1.1",
-        "@stencil/core": "^4.27.1",
-        "@stencil/react-output-target": "^1.2.0",
-        "@storybook/addon-essentials": "^8.6.14",
-        "@storybook/blocks": "^8.6.14",
-        "@storybook/html": "^8.6.14",
-        "@storybook/html-vite": "^8.6.14",
-        "@types/jest": "^29.5.14",
-        "@types/node": "^22.13.5",
-        "@typescript-eslint/eslint-plugin": "^8.48.1",
-        "@typescript-eslint/parser": "^8.48.1",
-        "concurrently": "^9.2.1",
-        "conventional-changelog-conventionalcommits": "^7.0.2",
-        "cross-env": "^10.1.0",
-        "eslint": "^9.39.1",
-        "http-server": "^14.1.1",
-        "husky": "^9.1.7",
-        "jest": "^29.7.0",
-        "jest-cli": "^29.7.0",
-        "lint-staged": "^16.2.7",
-        "ng-packagr": "^20.0.0",
-        "prettier": "^3.7.3",
-        "puppeteer": "^24.3.0",
-        "semantic-release": "^25.0.2",
-        "size-limit": "^12.0.0",
-        "storybook": "^8.6.14",
-        "turbo": "^2.6.1",
-        "typescript": "^5.9.3",
-        "typescript-eslint": "^8.48.1",
-        "vite": "^6.4.1"
+    "./components/sg-dropdown.js": {
+      "types": "./dist/components/sg-dropdown.d.ts",
+      "import": "./dist/components/sg-dropdown.js"
     },
-    "dependencies": {
-        "commander": "^12.1.0"
+    "./components/sg-icon.js": {
+      "types": "./dist/components/sg-icon.d.ts",
+      "import": "./dist/components/sg-icon.js"
     },
-    "keywords": [
-        "sagebox",
-        "SageBox",
-        "web-components",
-        "stencil",
-        "design-system",
-        "ui-library",
-        "ui",
-        "components",
-        "custom-elements",
-        "shadowdom"
-    ],
-    "author": "adravilag",
-    "license": "MIT",
-    "packageManager": "npm@10.9.2",
-    "engines": {
-        "node": ">=20.0.0"
+    "./components/sg-skeleton.js": {
+      "types": "./dist/components/sg-skeleton.d.ts",
+      "import": "./dist/components/sg-skeleton.js"
     },
-    "publishConfig": {
-        "access": "public"
+    "./components/sg-theme-toggle.js": {
+      "types": "./dist/components/sg-theme-toggle.d.ts",
+      "import": "./dist/components/sg-theme-toggle.js"
     },
-    "size-limit": [
-        {
-            "path": "dist/sagebox/sagebox.esm.js",
-            "limit": "50 KB"
-        },
-        {
-            "path": "dist/index.js",
-            "limit": "10 KB"
-        }
-    ],
-    "lint-staged": {
-        "*.{ts,tsx}": [
-            "eslint --fix",
-            "prettier --write"
-        ],
-        "*.{css,json,md}": [
-            "prettier --write"
-        ]
+    "./loader": {
+      "types": "./loader/index.d.ts",
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs"
+    },
+    "./styles/*": {
+      "import": "./dist/styles/*"
+    },
+    "./components/sg-modal.js": {
+      "types": "./dist/components/sg-modal.d.ts",
+      "import": "./dist/components/sg-modal.js"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adravilag/sagebox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Adravilag/sagebox/issues"
+  },
+  "homepage": "https://github.com/Adravilag/sagebox#readme",
+  "files": [
+    "dist/",
+    "loader/",
+    "scripts/",
+    "bin/",
+    "tools/"
+  ],
+  "sideEffects": [
+    "dist/sagebox/sagebox.esm.js",
+    "loader/index.js"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "build:fast": "cross-env STENCIL_FAST=true stencil build",
+    "build:all": "npm run build && npm run build:angular && npm run build:react",
+    "build:icons": "cd packages/icons && npm run build",
+    "build:components": "cd packages/components && npm run build",
+    "build:packages": "turbo run build --filter='./packages/*'",
+    "build:angular": "node scripts/link-sagebox.js && ng-packagr -p wrappers/angular/ng-package.json",
+    "build:react": "cd wrappers/react && npx tsc -p tsconfig.json",
+    "start": "stencil build --watch",
+    "dev": "npm run build && concurrently -n stencil,website -c blue,green \"stencil build --watch\" \"npm run website:dev\"",
+    "dev:fast": "concurrently -n stencil,website -c blue,green \"stencil build --watch\" \"npm run website:dev\"",
+    "website:dev": "cd website && npm run dev",
+    "website:build": "npm run build && cd website && npm run build",
+    "setup:symlink": "node -e \"const fs=require('fs');const p=require('path');const d='website/public/dist';try{fs.rmSync(d,{recursive:true,force:true})}catch{};require('child_process').execSync(process.platform==='win32'?'mklink /J '+d+' dist\\\\sagebox':'ln -sf ../../dist/sagebox '+d,{stdio:'inherit'})\"",
+    "website:preview": "cd website && npm run preview",
+    "test": "turbo run test:spec",
+    "test:spec": "stencil test --spec",
+    "test:icons": "cd packages/icons && npm run test",
+    "test:components": "cd packages/components && npm run test",
+    "test:packages": "turbo run test --filter='./packages/*'",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:watch": "stencil test --spec --watchAll",
+    "test:coverage": "stencil test --spec --coverage",
+    "lint": "eslint src/ packages/",
+    "lint:fix": "eslint src/ packages/ --fix",
+    "size": "size-limit",
+    "size:check": "size-limit --json",
+    "generate": "stencil generate",
+    "generate:component": "node scripts/generate-component.js",
+    "new-component": "node scripts/generate-component.js",
+    "storybook": "stencil build && storybook dev -p 6006",
+    "storybook:fast": "storybook dev -p 6006",
+    "build-storybook": "stencil build && storybook build",
+    "generate-icons": "node scripts/generate-icons.js",
+    "add-icon": "node scripts/generate-icons.js add",
+    "icon-server": "node scripts/icon-server.js",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"packages/**/*.{ts,tsx,css}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"packages/**/*.{ts,tsx,css}\"",
+    "sync:stories": "node scripts/sync-stories.js",
+    "sync:changelog": "node scripts/generate-changelog.js",
+    "sync:all": "npm run sync:stories && npm run sync:changelog",
+    "prepublishOnly": "npm run build",
+    "semantic-release": "semantic-release",
+    "prepare": "husky",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish",
+    "release": "npm run build && changeset publish"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=18.0.0",
+    "@angular/core": ">=18.0.0",
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@angular/common": {
+      "optional": true
+    },
+    "@angular/core": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@angular/common": "^20.3.0",
+    "@angular/compiler-cli": "^20.3.0",
+    "@angular/core": "^20.3.0",
+    "@changesets/changelog-github": "^0.5.2",
+    "@changesets/cli": "^2.29.8",
+    "@commitlint/cli": "^18.6.1",
+    "@commitlint/config-conventional": "^18.6.3",
+    "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.57.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@size-limit/preset-small-lib": "^12.0.0",
+    "@stencil/angular-output-target": "^1.1.1",
+    "@stencil/core": "^4.27.1",
+    "@stencil/react-output-target": "^1.2.0",
+    "@storybook/addon-docs": "^8.6.14",
+    "@storybook/blocks": "^8.6.14",
+    "@storybook/html": "^8.6.14",
+    "@storybook/html-vite": "^8.6.14",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.5",
+    "@typescript-eslint/eslint-plugin": "^8.48.1",
+    "@typescript-eslint/parser": "^8.48.1",
+    "concurrently": "^9.2.1",
+    "conventional-changelog-conventionalcommits": "^7.0.2",
+    "cross-env": "^10.1.0",
+    "eslint": "^9.39.1",
+    "eslint-plugin-storybook": "^0.12.0",
+    "http-server": "^14.1.1",
+    "husky": "^9.1.7",
+    "jest": "^29.7.0",
+    "jest-cli": "^29.7.0",
+    "lint-staged": "^16.2.7",
+    "ng-packagr": "^20.0.0",
+    "prettier": "^3.7.3",
+    "puppeteer": "^24.3.0",
+    "semantic-release": "^25.0.2",
+    "size-limit": "^12.0.0",
+    "storybook": "^8.6.14",
+    "turbo": "^2.6.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1",
+    "vite": "^6.4.1"
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
+  "keywords": [
+    "sagebox",
+    "SageBox",
+    "web-components",
+    "stencil",
+    "design-system",
+    "ui-library",
+    "ui",
+    "components",
+    "custom-elements",
+    "shadowdom"
+  ],
+  "author": "adravilag",
+  "license": "MIT",
+  "packageManager": "npm@10.9.2",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "path": "dist/sagebox/sagebox.esm.js",
+      "limit": "50 KB"
+    },
+    {
+      "path": "dist/index.js",
+      "limit": "10 KB"
+    }
+  ],
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,json,md}": [
+      "prettier --write"
+    ]
+  }
 }

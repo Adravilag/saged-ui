@@ -27,5 +27,8 @@
     "**/.turbo": true,
     "**/.stencil": true
   },
-  "jest.enable": false
+  "jest.enable": false,
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  }
 }

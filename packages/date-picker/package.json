@@ -1,0 +1,39 @@
+{
+  "name": "@sage-box/date-picker",
+  "version": "0.1.1",
+  "description": "SageBox Date Picker - Calendar date selector with i18n support",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/components/date-picker/date-picker.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/date-picker/date-picker.esm.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "dev": "stencil build --dev --watch",
+    "test": "stencil test --spec",
+    "storybook": "stencil build && storybook dev -p 6006",
+    "storybook:fast": "storybook dev -p 6006",
+    "build-storybook": "stencil build && storybook build"
+  },
+  "dependencies": {
+    "@sage-box/core": "^0.1.0"
+  },
+  "devDependencies": {
+    "@sage-box/icons": "^0.1.0",
+    "@stencil/core": "^4.38.1"
+  },
+  "keywords": [
+    "stencil",
+    "web-components",
+    "date-picker",
+    "calendar",
+    "sagebox"
+  ],
+  "license": "MIT"
+}
+

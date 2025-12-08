@@ -1,0 +1,210 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import { useTranslations, type Language, defaultLang } from '../../i18n/translations';
+
+const lang = defaultLang;
+const t = useTranslations(lang);
+
+const props = [
+  { name: 'value', type: 'string', default: 'undefined', description: 'Valor seleccionado' },
+  { name: 'values', type: 'string[]', default: '[]', description: 'Valores (multi-select)' },
+  { name: 'options', type: 'SelectOption[] | string', default: 'undefined', description: 'Opciones' },
+  { name: 'label', type: 'string', default: 'undefined', description: 'Etiqueta del campo' },
+  { name: 'placeholder', type: 'string', default: 'undefined', description: 'Texto placeholder' },
+  { name: 'size', type: 'sm | md | lg', default: "'md'", description: 'Tamano' },
+  { name: 'variant', type: 'default | filled | outline', default: "'default'", description: 'Variante visual' },
+  { name: 'multiple', type: 'boolean', default: 'false', description: 'Seleccion multiple' },
+  { name: 'searchable', type: 'boolean', default: 'false', description: 'Habilita busqueda' },
+  { name: 'creatable', type: 'boolean', default: 'false', description: 'Crear opciones' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Deshabilitado' },
+  { name: 'clearable', type: 'boolean', default: 'false', description: 'Permite limpiar' },
+];
+
+const events = [
+  { name: 'sgChange', type: 'CustomEvent', description: 'Emitido cuando cambia la seleccion' },
+  { name: 'sgSearch', type: 'CustomEvent', description: 'Emitido al escribir en busqueda' },
+  { name: 'sgOpen', type: 'CustomEvent', description: 'Emitido cuando se abre' },
+  { name: 'sgClose', type: 'CustomEvent', description: 'Emitido cuando se cierra' },
+];
+
+const slots = [
+  { name: '(default)', description: 'Elementos sg-option' },
+  { name: 'empty', description: 'Sin resultados' },
+];
+
+const basicCode = `<sg-select
+  label="Pais"
+  placeholder="Selecciona un pais"
+></sg-select>`;
+
+const sizesCode = `<sg-select size="sm" placeholder="Small"></sg-select>
+<sg-select size="md" placeholder="Medium"></sg-select>
+<sg-select size="lg" placeholder="Large"></sg-select>`;
+
+const searchCode = `<sg-select
+  label="Buscar pais"
+  placeholder="Escribe para buscar..."
+  searchable
+></sg-select>`;
+
+const multipleCode = `<sg-select
+  label="Idiomas"
+  placeholder="Selecciona idiomas..."
+  multiple
+></sg-select>`;
+
+const clearableCode = `<sg-select
+  label="Categoria"
+  clearable
+></sg-select>`;
+
+const creatableCode = `<sg-select
+  label="Tags"
+  placeholder="Escribe para crear..."
+  searchable
+  creatable
+  multiple
+></sg-select>`;
+
+const countryOptions = JSON.stringify([
+  { value: 'es', label: 'Espana' },
+  { value: 'mx', label: 'Mexico' },
+  { value: 'ar', label: 'Argentina' },
+  { value: 'co', label: 'Colombia' },
+]);
+
+const simpleOptions = JSON.stringify([
+  { value: '1', label: 'Opcion 1' },
+  { value: '2', label: 'Opcion 2' },
+]);
+
+const langOptions = JSON.stringify([
+  { value: 'es', label: 'Espanol' },
+  { value: 'en', label: 'English' },
+  { value: 'pt', label: 'Portugues' },
+]);
+
+const catOptions = JSON.stringify([
+  { value: 'tech', label: 'Tecnologia' },
+  { value: 'design', label: 'Diseno' },
+  { value: 'marketing', label: 'Marketing' },
+]);
+
+const tagOptions = JSON.stringify([
+  { value: 'bug', label: 'Bug' },
+  { value: 'feature', label: 'Feature' },
+  { value: 'docs', label: 'Documentation' },
+]);
+---
+
+<ComponentLayout
+  title={t.components.select.name}
+  tag="sg-select"
+  packageName="select"
+  description={t.components.select.description}
+  props={props}
+  events={events}
+  slots={slots}
+>
+  <Fragment slot="examples">
+    <DemoBox label={t.components.select.basic} code={basicCode}>
+      <div style="max-width: 320px; margin: 0 auto;">
+        <sg-select label="Pais" placeholder="Selecciona un pais" options={countryOptions}></sg-select>
+      </div>
+    </DemoBox>
+
+    <DemoBox label={t.components.select.sizes} code={sizesCode}>
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 320px; margin: 0 auto;">
+        <sg-select size="sm" placeholder="Small" options={simpleOptions}></sg-select>
+        <sg-select size="md" placeholder="Medium" options={simpleOptions}></sg-select>
+        <sg-select size="lg" placeholder="Large" options={simpleOptions}></sg-select>
+      </div>
+    </DemoBox>
+
+    <DemoBox label={t.components.select.withSearch} code={searchCode}>
+      <div style="max-width: 320px; margin: 0 auto;">
+        <sg-select label="Buscar pais" placeholder="Escribe para buscar..." searchable options={countryOptions}></sg-select>
+      </div>
+    </DemoBox>
+
+    <DemoBox label={t.components.select.multiple} code={multipleCode}>
+      <div style="max-width: 320px; margin: 0 auto;">
+        <sg-select label="Idiomas" placeholder="Selecciona idiomas..." multiple options={langOptions}></sg-select>
+      </div>
+    </DemoBox>
+
+    <DemoBox label={t.components.select.clearable} code={clearableCode}>
+      <div style="max-width: 320px; margin: 0 auto;">
+        <sg-select label="Categoria" placeholder="Selecciona..." clearable options={catOptions}></sg-select>
+      </div>
+    </DemoBox>
+
+    <DemoBox label={t.components.select.creatable} code={creatableCode}>
+      <div style="max-width: 320px; margin: 0 auto;">
+        <sg-select label="Tags" placeholder="Escribe para crear..." searchable creatable multiple options={tagOptions}></sg-select>
+      </div>
+    </DemoBox>
+  </Fragment>
+
+  <Fragment slot="usage">
+    <div class="usage-block">
+      <h3>{t.components.select.usage}</h3>
+      <CodeBlock
+        filename="example.html"
+        code={`<sg-select
+  label="Pais"
+  placeholder="Selecciona..."
+>
+  <sg-option value="es">Espana</sg-option>
+  <sg-option value="mx">Mexico</sg-option>
+</sg-select>`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>{t.components.select.withSearchUsage}</h3>
+      <CodeBlock
+        filename="searchable.html"
+        code={`<sg-select
+  label="Buscar"
+  searchable
+>
+  <sg-option value="es">Espana</sg-option>
+  <sg-option value="mx">Mexico</sg-option>
+</sg-select>`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>{t.components.select.multiSelect}</h3>
+      <CodeBlock
+        filename="multiple.html"
+        code={`<sg-select
+  label="Idiomas"
+  multiple
+>
+  <sg-option value="es">Espanol</sg-option>
+  <sg-option value="en">English</sg-option>
+</sg-select>`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>{t.components.select.javascript}</h3>
+      <CodeBlock
+        filename="events.js"
+        language="javascript"
+        code={`const select = document.querySelector('sg-select');
+
+select.addEventListener('sgChange', (e) => {
+  console.log('Seleccionado:', e.detail.value);
+});
+
+await select.open();
+await select.clear();`}
+      />
+    </div>
+  </Fragment>
+</ComponentLayout>

@@ -1,0 +1,252 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import Playground from '../../components/Playground.astro';
+
+const props = [
+  { name: 'card-title', type: 'string', default: 'undefined', description: 'Título de la tarjeta' },
+  { name: 'subtitle', type: 'string', default: 'undefined', description: 'Subtítulo debajo del título' },
+  { name: 'header', type: 'string', default: 'undefined', description: 'Texto de badge en el header' },
+  {
+    name: 'variant',
+    type: "'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'gradient' | 'outlined'",
+    default: "'default'",
+    description: 'Variante visual',
+  },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Tamaño del padding y tipografía' },
+  { name: 'icon', type: 'string', default: 'undefined', description: 'Nombre del icono (usa sg-icon)' },
+  { name: 'icon-size', type: 'number | string', default: '48', description: 'Tamaño del icono en píxeles' },
+  { name: 'icon-color', type: 'string', default: 'undefined', description: 'Color del icono' },
+  { name: 'action-label', type: 'string', default: 'undefined', description: 'Texto del botón de acción' },
+  { name: 'action-variant', type: "'primary' | 'secondary' | 'ghost'", default: "'primary'", description: 'Variante del botón' },
+  { name: 'href', type: 'string', default: 'undefined', description: 'URL para navegación' },
+  { name: 'target', type: 'string', default: "'_self'", description: 'Target del enlace' },
+  { name: 'flat', type: 'boolean', default: 'false', description: 'Elimina la sombra' },
+  { name: 'hoverable', type: 'boolean', default: 'false', description: 'Efecto de elevación al hover' },
+  { name: 'clickable', type: 'boolean', default: 'false', description: 'Hace la tarjeta clickeable' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Desactiva la tarjeta' },
+  { name: 'loading', type: 'boolean', default: 'false', description: 'Muestra skeleton de carga' },
+];
+
+const events = [
+  { name: 'sgClick', type: 'CustomEvent<void>', description: 'Emitido cuando se hace click en la tarjeta (si es clickable)' },
+  { name: 'sgAction', type: 'CustomEvent<void>', description: 'Emitido cuando se hace click en el botón de acción' },
+];
+
+const slots = [
+  { name: '(default)', description: 'Contenido principal de la tarjeta' },
+  { name: 'header', description: 'Contenido personalizado del header' },
+  { name: 'footer', description: 'Contenido personalizado del footer' },
+  { name: 'icon', description: 'Icono personalizado' },
+  { name: 'media', description: 'Contenido multimedia (imagen/video) en la parte superior' },
+];
+---
+
+<ComponentLayout
+  title="Card"
+  tag="sg-card"
+  packageName="card"
+  description="Contenedor flexible para mostrar contenido agrupado. Soporta múltiples variantes, iconos, acciones y estados."
+  props={props}
+  events={events}
+  slots={slots}
+>
+  <Fragment slot="examples">
+    <DemoBox
+      label="Básico"
+      code={`<sg-card card-title="Card Title" subtitle="This is a subtitle">
+  <p>Card content goes here. You can add any content.</p>
+</sg-card>`}
+    >
+      <sg-card card-title="Card Title" subtitle="This is a subtitle">
+        <p style="margin: 0; color: var(--text-muted);">Card content goes here. You can add any content.</p>
+      </sg-card>
+    </DemoBox>
+
+    <DemoBox
+      label="Variantes de color"
+      code={`<sg-card variant="primary" card-title="Primary">Content</sg-card>
+<sg-card variant="success" card-title="Success">Content</sg-card>
+<sg-card variant="warning" card-title="Warning">Content</sg-card>
+<sg-card variant="error" card-title="Error">Content</sg-card>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <sg-card variant="primary" card-title="Primary">
+          <p style="margin: 0; font-size: 0.875rem; color: var(--text-muted);">Primary variant card</p>
+        </sg-card>
+        <sg-card variant="success" card-title="Success">
+          <p style="margin: 0; font-size: 0.875rem; color: var(--text-muted);">Success variant card</p>
+        </sg-card>
+        <sg-card variant="warning" card-title="Warning">
+          <p style="margin: 0; font-size: 0.875rem; color: var(--text-muted);">Warning variant card</p>
+        </sg-card>
+        <sg-card variant="error" card-title="Error">
+          <p style="margin: 0; font-size: 0.875rem; color: var(--text-muted);">Error variant card</p>
+        </sg-card>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Con icono"
+      code={`<sg-card
+  card-title="Users"
+  subtitle="Active team members"
+  icon="user"
+  variant="primary">
+  <p>You have 24 active users.</p>
+</sg-card>`}
+    >
+      <div style="max-width: 300px; margin: 0 auto;">
+        <sg-card card-title="Users" subtitle="Active team members" icon="user" variant="primary">
+          <p style="margin: 0; font-size: 0.875rem; color: var(--text-muted);">You have 24 active users in your team.</p>
+        </sg-card>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Con acción"
+      code={`<sg-card
+  card-title="Subscription"
+  subtitle="Pro Plan"
+  variant="success"
+  action-label="Upgrade Plan">
+  <p>Your plan is active until Dec 2025.</p>
+</sg-card>`}
+    >
+      <div style="max-width: 300px; margin: 0 auto;">
+        <sg-card card-title="Subscription" subtitle="Pro Plan" variant="success" action-label="Upgrade Plan">
+          <p style="margin: 0; font-size: 0.875rem; color: var(--text-muted);">Your plan is active until Dec 2025.</p>
+        </sg-card>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Hoverable y Clickable"
+      code={`<sg-card
+  card-title="Dashboard"
+  subtitle="View analytics"
+  icon="chart"
+  variant="info"
+  hoverable
+  clickable>
+</sg-card>`}
+    >
+      <div style="max-width: 300px; margin: 0 auto;">
+        <sg-card card-title="Dashboard" subtitle="Click to view analytics" icon="home" variant="info" hoverable clickable>
+          <p style="margin: 0; font-size: 0.875rem; color: var(--text-muted);">Click this card to navigate.</p>
+        </sg-card>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Variantes especiales"
+      code={`<sg-card variant="gradient" card-title="Gradient">...</sg-card>
+<sg-card variant="outlined" card-title="Outlined">...</sg-card>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <sg-card variant="gradient" card-title="Gradient Card">
+          <p style="margin: 0; font-size: 0.875rem; color: var(--text-muted);">Beautiful gradient background</p>
+        </sg-card>
+        <sg-card variant="outlined" card-title="Outlined Card">
+          <p style="margin: 0; font-size: 0.875rem; color: var(--text-muted);">Clean outlined style</p>
+        </sg-card>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Loading State" code={`<sg-card loading></sg-card>`}>
+      <div style="max-width: 300px; margin: 0 auto;">
+        <sg-card loading></sg-card>
+      </div>
+    </DemoBox>
+
+    <div class="playground-section">
+      <h3><sg-icon name="code" size="20"></sg-icon> Playground</h3>
+      <p>Edita el código y ve los cambios en tiempo real:</p>
+      <Playground
+        code={`<sg-card
+  card-title="My Card"
+  subtitle="Customize me!"
+  variant="primary"
+  icon="star"
+  action-label="Click Me"
+  hoverable>
+  <p style="margin: 0;">
+    This is the card content.
+    Try changing the props!
+  </p>
+</sg-card>`}
+        height="280px"
+      />
+    </div>
+  </Fragment>
+
+  <Fragment slot="usage">
+    <div class="usage-block">
+      <h3>Escuchar eventos</h3>
+      <CodeBlock
+        filename="events.js"
+        code={`const card = document.querySelector('sg-card');
+
+card.addEventListener('sgClick', () => {
+  console.log('Card clicked!');
+});
+
+card.addEventListener('sgAction', () => {
+  console.log('Action button clicked!');
+});`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>Con slots personalizados</h3>
+      <CodeBlock
+        filename="slots.html"
+        code={`<sg-card variant="gradient">
+  <img slot="media" src="cover.jpg" alt="Cover" />
+  <div slot="header">
+    <sg-badge variant="success">New</sg-badge>
+  </div>
+  <p>Custom content here</p>
+  <div slot="footer">
+    <sg-button variant="primary">Custom Action</sg-button>
+  </div>
+</sg-card>`}
+      />
+    </div>
+  </Fragment>
+</ComponentLayout>
+
+<style>
+  .usage-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .usage-block h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    color: var(--text);
+  }
+
+  .playground-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .playground-section h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .playground-section p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+</style>

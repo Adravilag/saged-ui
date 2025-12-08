@@ -1,0 +1,184 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import { useTranslations, type Language, defaultLang } from '../../i18n/translations';
+
+const lang = defaultLang;
+const t = useTranslations(lang);
+
+const props = [
+  { name: 'value', type: 'string', default: 'undefined', description: 'Valor actual del input' },
+  { name: 'type', type: 'text | email | password | number | tel | url | search', default: "'text'", description: 'Tipo de input' },
+  { name: 'label', type: 'string', default: 'undefined', description: 'Etiqueta del campo' },
+  { name: 'placeholder', type: 'string', default: 'undefined', description: 'Texto placeholder' },
+  { name: 'size', type: 'sm | md | lg', default: "'md'", description: 'Tamano del input' },
+  { name: 'variant', type: 'default | filled | outline', default: "'default'", description: 'Variante visual' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Estado deshabilitado' },
+  { name: 'readonly', type: 'boolean', default: 'false', description: 'Solo lectura' },
+  { name: 'required', type: 'boolean', default: 'false', description: 'Campo requerido' },
+  { name: 'error', type: 'string', default: 'undefined', description: 'Mensaje de error' },
+  { name: 'helper', type: 'string', default: 'undefined', description: 'Texto de ayuda' },
+  { name: 'prefix-icon', type: 'string', default: 'undefined', description: 'Icono prefijo' },
+  { name: 'suffix-icon', type: 'string', default: 'undefined', description: 'Icono sufijo' },
+  { name: 'clearable', type: 'boolean', default: 'false', description: 'Mostrar boton limpiar' },
+  { name: 'max-length', type: 'number', default: 'undefined', description: 'Longitud maxima' },
+  { name: 'show-count', type: 'boolean', default: 'false', description: 'Mostrar contador' },
+];
+
+const events = [
+  { name: 'sgInput', type: 'CustomEvent<string>', description: 'Emitido en cada cambio de valor' },
+  { name: 'sgChange', type: 'CustomEvent<string>', description: 'Emitido al perder foco con cambios' },
+  { name: 'sgFocus', type: 'CustomEvent', description: 'Emitido cuando recibe foco' },
+  { name: 'sgBlur', type: 'CustomEvent', description: 'Emitido cuando pierde foco' },
+  { name: 'sgClear', type: 'CustomEvent', description: 'Emitido al limpiar el valor' },
+];
+
+const slots = [
+  { name: 'prefix', description: 'Contenido antes del input' },
+  { name: 'suffix', description: 'Contenido despues del input' },
+];
+
+const basicCode = `<sg-input
+  label="Nombre"
+  placeholder="Escribe tu nombre"
+></sg-input>`;
+
+const sizesCode = `<sg-input size="sm" placeholder="Small"></sg-input>
+<sg-input size="md" placeholder="Medium"></sg-input>
+<sg-input size="lg" placeholder="Large"></sg-input>`;
+
+const variantsCode = `<sg-input variant="default" placeholder="Default"></sg-input>
+<sg-input variant="filled" placeholder="Filled"></sg-input>
+<sg-input variant="outline" placeholder="Outline"></sg-input>`;
+
+const iconsCode = `<sg-input
+  prefix-icon="search"
+  placeholder="Buscar..."
+></sg-input>
+<sg-input
+  suffix-icon="email"
+  placeholder="Email"
+></sg-input>`;
+
+const validationCode = `<sg-input
+  label="Email"
+  type="email"
+  required
+  error="Email invalido"
+></sg-input>`;
+
+const statesCode = `<sg-input disabled placeholder="Deshabilitado"></sg-input>
+<sg-input readonly value="Solo lectura"></sg-input>`;
+
+const typesCode = `<sg-input type="email" placeholder="Email"></sg-input>
+<sg-input type="password" placeholder="Password"></sg-input>
+<sg-input type="number" placeholder="Numero"></sg-input>`;
+---
+
+<ComponentLayout
+  title={t.components.input.name}
+  tag="sg-input"
+  packageName="input"
+  description={t.components.input.description}
+  props={props}
+  events={events}
+  slots={slots}
+>
+  <Fragment slot="examples">
+    <DemoBox label={t.components.input.basic} code={basicCode}>
+      <div style="max-width: 320px; margin: 0 auto;">
+        <sg-input label="Nombre" placeholder="Escribe tu nombre"></sg-input>
+      </div>
+    </DemoBox>
+
+    <DemoBox label={t.components.input.sizes} code={sizesCode}>
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 320px; margin: 0 auto;">
+        <sg-input size="sm" placeholder="Small"></sg-input>
+        <sg-input size="md" placeholder="Medium"></sg-input>
+        <sg-input size="lg" placeholder="Large"></sg-input>
+      </div>
+    </DemoBox>
+
+    <DemoBox label={t.components.input.variants} code={variantsCode}>
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 320px; margin: 0 auto;">
+        <sg-input variant="default" placeholder="Default"></sg-input>
+        <sg-input variant="filled" placeholder="Filled"></sg-input>
+        <sg-input variant="outline" placeholder="Outline"></sg-input>
+      </div>
+    </DemoBox>
+
+    <DemoBox label={t.components.input.withIcons} code={iconsCode}>
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 320px; margin: 0 auto;">
+        <sg-input prefix-icon="search" placeholder="Buscar..."></sg-input>
+        <sg-input suffix-icon="email" placeholder="Email"></sg-input>
+      </div>
+    </DemoBox>
+
+    <DemoBox label={t.components.input.validation} code={validationCode}>
+      <div style="max-width: 320px; margin: 0 auto;">
+        <sg-input label="Email" type="email" required error="Email invalido"></sg-input>
+      </div>
+    </DemoBox>
+
+    <DemoBox label={t.components.input.states} code={statesCode}>
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 320px; margin: 0 auto;">
+        <sg-input disabled placeholder="Deshabilitado"></sg-input>
+        <sg-input readonly value="Solo lectura"></sg-input>
+      </div>
+    </DemoBox>
+
+    <DemoBox label={t.components.input.types} code={typesCode}>
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 320px; margin: 0 auto;">
+        <sg-input type="email" placeholder="Email"></sg-input>
+        <sg-input type="password" placeholder="Password"></sg-input>
+        <sg-input type="number" placeholder="Numero"></sg-input>
+      </div>
+    </DemoBox>
+  </Fragment>
+
+  <Fragment slot="usage">
+    <div class="usage-block">
+      <h3>{t.components.input.usage}</h3>
+      <CodeBlock
+        filename="example.html"
+        code={`<sg-input
+  label="Nombre"
+  placeholder="Escribe tu nombre"
+  required
+></sg-input>`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>{t.components.input.withValidation}</h3>
+      <CodeBlock
+        filename="validation.html"
+        code={`<sg-input
+  label="Email"
+  type="email"
+  required
+  error="Por favor ingresa un email valido"
+  helper="Usaremos tu email para notificaciones"
+></sg-input>`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>{t.components.input.javascript}</h3>
+      <CodeBlock
+        filename="events.js"
+        language="javascript"
+        code={`const input = document.querySelector('sg-input');
+
+input.addEventListener('sgInput', (e) => {
+  console.log('Valor:', e.detail);
+});
+
+input.addEventListener('sgChange', (e) => {
+  console.log('Cambio confirmado:', e.detail);
+});`}
+      />
+    </div>
+  </Fragment>
+</ComponentLayout>

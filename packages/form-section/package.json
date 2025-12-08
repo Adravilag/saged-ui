@@ -1,0 +1,33 @@
+{
+  "name": "@sage-box/form-section",
+  "version": "0.1.1",
+  "description": "SageBox Form Section - Section container for forms with title, icon and steps",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/components/form-section/form-section.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/form-section/form-section.esm.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "dev": "stencil build --dev --watch"
+  },
+  "dependencies": {
+    "@sage-box/core": "^0.1.0"
+  },
+  "devDependencies": {
+    "@stencil/core": "^4.38.1"
+  },
+  "keywords": [
+    "stencil",
+    "web-components",
+    "form-section",
+    "sagebox"
+  ],
+  "license": "MIT"
+}
+

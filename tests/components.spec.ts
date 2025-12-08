@@ -12,20 +12,20 @@ import { test, expect, type Page } from '@playwright/test';
 async function setupPage(page: Page, html: string): Promise<void> {
   // Navigate to the server which has the Stencil components loaded
   await page.goto('/');
-  
+
   // Wait for Stencil to initialize by checking for defined components
   await page.waitForFunction(() => {
-    return customElements.get('sg-button') || 
-           customElements.get('sg-badge') || 
+    return customElements.get('sg-button') ||
+           customElements.get('sg-badge') ||
            customElements.get('sg-icon') ||
            customElements.get('sg-skeleton');
   }, { timeout: 15000 });
-  
+
   // Inject the test HTML into the body
   await page.evaluate((content) => {
     document.body.innerHTML = content;
   }, html);
-  
+
   // Wait for components to hydrate
   await page.waitForTimeout(100);
 }
@@ -525,14 +525,14 @@ test.describe('sg-theme-toggle', () => {
       await waitForComponent(page, 'sg-theme-toggle');
 
       // Get initial theme
-      const initialTheme = await page.evaluate(() => 
+      const initialTheme = await page.evaluate(() =>
         document.documentElement.getAttribute('data-theme')
       );
 
       await page.locator('sg-theme-toggle').click();
 
       // Theme should change
-      const newTheme = await page.evaluate(() => 
+      const newTheme = await page.evaluate(() =>
         document.documentElement.getAttribute('data-theme')
       );
 
@@ -548,10 +548,10 @@ test.describe('sg-theme-toggle', () => {
 
       await page.locator('sg-theme-toggle').click();
 
-      const savedTheme = await page.evaluate(() => 
+      const savedTheme = await page.evaluate(() =>
         localStorage.getItem('theme') || localStorage.getItem('sg-theme')
       );
-      
+
       // Theme should be saved (might be null if component doesn't persist)
       // This test validates the behavior exists
       expect(savedTheme === null || ['light', 'dark', 'system'].includes(savedTheme!)).toBe(true);
@@ -562,7 +562,7 @@ test.describe('sg-theme-toggle', () => {
     test('should have focusable inner button', async ({ page }) => {
       await setupPage(page, `<sg-theme-toggle></sg-theme-toggle>`);
       await waitForComponent(page, 'sg-theme-toggle');
-      
+
       // Inner button should be focusable
       const innerButton = page.locator('sg-theme-toggle').locator('button');
       await innerButton.focus();
@@ -708,11 +708,11 @@ test.describe('sg-dropdown', () => {
         </sg-dropdown>
       `);
       await waitForComponent(page, 'sg-dropdown');
-      
+
       const dropdown = page.locator('sg-dropdown');
       // Click the trigger wrapper (shadow DOM part)
       await dropdown.click();
-      
+
       // Check that open attribute is set
       await expect(dropdown).toHaveAttribute('open');
     });
@@ -727,11 +727,11 @@ test.describe('sg-dropdown', () => {
       await waitForComponent(page, 'sg-dropdown');
 
       const dropdown = page.locator('sg-dropdown');
-      
+
       // First click - opens
       await dropdown.click();
       await expect(dropdown).toHaveAttribute('open');
-      
+
       // Second click - closes
       await dropdown.click();
       await expect(dropdown).not.toHaveAttribute('open');
@@ -808,10 +808,10 @@ test.describe('sg-dropdown', () => {
           dropdown?.addEventListener('sgClose', () => {
             resolve(true);
           });
-          
+
           // Timeout if event doesn't fire
           setTimeout(() => resolve(false), 1000);
-          
+
           // Open then close
           dropdown?.openDropdown().then(() => {
             setTimeout(() => {
@@ -820,7 +820,7 @@ test.describe('sg-dropdown', () => {
           });
         });
       });
-      
+
       expect(result).toBe(true);
     });
   });
@@ -882,7 +882,7 @@ test.describe('sg-dropdown', () => {
 });
 
 // ============================================================================
-// SG-MODAL TESTS  
+// SG-MODAL TESTS
 // ============================================================================
 
 test.describe('sg-modal', () => {
@@ -1072,7 +1072,7 @@ test.describe('sg-modal', () => {
       // Click close button in shadow DOM
       const closeBtn = page.locator('sg-modal').locator('button').first();
       await closeBtn.click();
-      
+
       await page.waitForTimeout(100);
       const cancelled = await page.evaluate(() => (window as any).cancelled);
       expect(cancelled).toBe(true);
@@ -1269,7 +1269,7 @@ test.describe('Integration', () => {
     await page.locator('sg-theme-toggle').click();
 
     // Theme should change on document
-    const theme = await page.evaluate(() => 
+    const theme = await page.evaluate(() =>
       document.documentElement.getAttribute('data-theme')
     );
     expect(['light', 'dark']).toContain(theme);

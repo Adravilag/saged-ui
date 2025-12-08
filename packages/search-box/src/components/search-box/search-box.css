@@ -1,0 +1,110 @@
+:host {
+  display: block;
+}
+
+.search-box {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 16rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--sg-border-color, #d1d5db);
+  border-radius: 0.5rem;
+  background-color: var(--sg-bg-primary, #ffffff);
+  color: var(--sg-text-primary, #111827);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--sg-color-primary, #3b82f6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-input:disabled {
+  background-color: var(--sg-bg-disabled, #f3f4f6);
+  cursor: not-allowed;
+}
+
+.search-input::placeholder {
+  color: var(--sg-text-placeholder, #9ca3af);
+}
+
+/* Size variants */
+.search-box--sm .search-input {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  min-width: 12rem;
+}
+
+.search-box--lg .search-input {
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  min-width: 20rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--sg-color-primary, #3b82f6);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--sg-color-primary-dark, #2563eb);
+}
+
+.btn-danger {
+  background-color: var(--sg-color-error, #ef4444);
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+/* Size variants for buttons */
+.search-box--sm .btn {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+.search-box--lg .btn {
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+}

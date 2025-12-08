@@ -87,6 +87,19 @@ Type: `Promise<void>`
 | `"header"`       |             |
 
 
+## Dependencies
+
+### Depends on
+
+- [sg-icon](../../../../icons/src/components/svg-icon)
+
+### Graph
+```mermaid
+graph TD;
+  sg-modal --> sg-icon
+  style sg-modal fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

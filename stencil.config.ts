@@ -20,6 +20,17 @@ const aliasPlugin = {
       '@sage-box/theme-toggle': resolve(__dirname, 'packages/theme-toggle/src/index.ts'),
       '@sage-box/article-editor': resolve(__dirname, 'packages/article-editor/src/index.ts'),
       '@sage-box/core': resolve(__dirname, 'packages/core/src/index.ts'),
+      '@sage-box/input': resolve(__dirname, 'packages/input/src/index.ts'),
+      '@sage-box/select': resolve(__dirname, 'packages/select/src/index.ts'),
+      '@sage-box/card': resolve(__dirname, 'packages/card/src/index.ts'),
+      '@sage-box/breadcrumb': resolve(__dirname, 'packages/breadcrumb/src/index.ts'),
+      '@sage-box/tooltip': resolve(__dirname, 'packages/tooltip/src/index.ts'),
+      '@sage-box/stats-card': resolve(__dirname, 'packages/stats-card/src/index.ts'),
+      '@sage-box/form-section': resolve(__dirname, 'packages/form-section/src/index.ts'),
+      '@sage-box/context-menu': resolve(__dirname, 'packages/context-menu/src/index.ts'),
+      '@sage-box/search-box': resolve(__dirname, 'packages/search-box/src/index.ts'),
+      '@sage-box/info-field': resolve(__dirname, 'packages/info-field/src/index.ts'),
+      '@sage-box/date-picker': resolve(__dirname, 'packages/date-picker/src/index.ts'),
     };
     if (aliases[source]) {
       return aliases[source];

@@ -280,11 +280,11 @@ describe('sg-modal', () => {
           dialog.dispatchEvent(new Event('close'));
         });
       }
-      
+
       const modal = page.rootInstance as SgModal;
       modal.open = true;
       await page.waitForChanges();
-      
+
       await modal.close();
       await page.waitForChanges();
       expect(modal.open).toBe(false);
@@ -305,11 +305,11 @@ describe('sg-modal', () => {
           dialog.dispatchEvent(new Event('close'));
         });
       }
-      
+
       const modal = page.rootInstance as SgModal;
       modal.open = true;
       await page.waitForChanges();
-      
+
       await modal.close('test-value');
       await page.waitForChanges();
       expect(modal.open).toBe(false);

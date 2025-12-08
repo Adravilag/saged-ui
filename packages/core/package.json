@@ -1,6 +1,6 @@
 {
     "name":  "@sage-box/core",
-    "version":  "0.1.0",
+    "version": "0.1.1",
     "description":  "Core styles, tokens and utilities for SageBox components",
     "main":  "dist/index.js",
     "module":  "dist/index.js",
@@ -46,3 +46,4 @@
                           "access":  "public"
                       }
 }
+

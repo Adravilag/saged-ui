@@ -1,0 +1,127 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+
+const props = [
+  { name: 'value', type: 'string', default: "''", description: 'Valor actual de búsqueda' },
+  { name: 'placeholder', type: 'string', default: "'Buscar...'", description: 'Texto del placeholder' },
+  { name: 'search-button-label', type: 'string', default: "'Buscar'", description: 'Texto del botón buscar' },
+  { name: 'clear-button-label', type: 'string', default: "'Limpiar'", description: 'Texto del botón limpiar' },
+  { name: 'search-icon', type: 'string', default: "'view'", description: 'Icono del botón buscar' },
+  { name: 'clear-icon', type: 'string', default: "'delete'", description: 'Icono del botón limpiar' },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Tamaño del componente' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Deshabilita el componente' },
+  { name: 'hide-search-button', type: 'boolean', default: 'false', description: 'Oculta el botón de búsqueda' },
+  { name: 'hide-clear-button', type: 'boolean', default: 'false', description: 'Oculta el botón de limpiar' },
+];
+
+const events = [
+  { name: 'sgInput', type: 'CustomEvent<string>', description: 'Emitido cuando el texto cambia' },
+  { name: 'sgSearch', type: 'CustomEvent<string>', description: 'Emitido al buscar (click o Enter)' },
+  { name: 'sgClear', type: 'CustomEvent<void>', description: 'Emitido al limpiar' },
+];
+---
+
+<ComponentLayout
+  title="Search Box"
+  tag="sg-search-box"
+  packageName="search-box"
+  description="Componente de búsqueda con input, botón de buscar y botón de limpiar. Soporta Enter para buscar."
+  props={props}
+  events={events}
+>
+  <Fragment slot="examples">
+    <DemoBox label="Básico" code={`<sg-search-box placeholder="Buscar usuarios..."></sg-search-box>`}>
+      <sg-search-box placeholder="Buscar usuarios..."></sg-search-box>
+    </DemoBox>
+
+    <DemoBox
+      label="Con valor inicial"
+      code={`<sg-search-box
+  value="John Doe"
+  placeholder="Buscar..."
+></sg-search-box>`}
+    >
+      <sg-search-box value="John Doe" placeholder="Buscar..."></sg-search-box>
+    </DemoBox>
+
+    <DemoBox
+      label="Tamaños"
+      code={`<sg-search-box size="sm" placeholder="Pequeño"></sg-search-box>
+<sg-search-box size="md" placeholder="Mediano"></sg-search-box>
+<sg-search-box size="lg" placeholder="Grande"></sg-search-box>`}
+    >
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <sg-search-box size="sm" placeholder="Pequeño..."></sg-search-box>
+        <sg-search-box size="md" placeholder="Mediano..."></sg-search-box>
+        <sg-search-box size="lg" placeholder="Grande..."></sg-search-box>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Textos personalizados"
+      code={`<sg-search-box
+  placeholder="Find products..."
+  search-button-label="Find"
+  clear-button-label="Clear"
+></sg-search-box>`}
+    >
+      <sg-search-box placeholder="Find products..." search-button-label="Find" clear-button-label="Clear" value="Sample"></sg-search-box>
+    </DemoBox>
+
+    <DemoBox
+      label="Solo input"
+      code={`<sg-search-box
+  placeholder="Escribe y presiona Enter..."
+  hide-search-button="true"
+  hide-clear-button="true"
+></sg-search-box>`}
+    >
+      <sg-search-box placeholder="Escribe y presiona Enter..." hide-search-button="true"></sg-search-box>
+    </DemoBox>
+
+    <DemoBox
+      label="Deshabilitado"
+      code={`<sg-search-box
+  placeholder="No disponible"
+  disabled="true"
+></sg-search-box>`}
+    >
+      <sg-search-box placeholder="No disponible" disabled="true"></sg-search-box>
+    </DemoBox>
+
+    <DemoBox
+      label="Con eventos"
+      code={`<sg-search-box
+  id="search-events"
+  placeholder="Buscar y ver consola..."
+></sg-search-box>
+
+<script>
+  const searchBox = document.getElementById('search-events');
+  searchBox.addEventListener('sgSearch', (e) => {
+    console.log('Buscando:', e.detail);
+  });
+  searchBox.addEventListener('sgClear', () => {
+    console.log('Limpiado');
+  });
+</script>`}
+    >
+      <sg-search-box id="search-demo-events" placeholder="Buscar y ver consola..."></sg-search-box>
+      <p style="margin: 0.5rem 0 0; font-size: 0.75rem; color: var(--text-muted);">Abre la consola para ver los eventos</p>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const searchBox = document.getElementById('search-demo-events');
+          if (searchBox) {
+            searchBox.addEventListener('sgSearch', (e: any) => {
+              console.log('🔍 Buscando:', e.detail);
+            });
+            searchBox.addEventListener('sgClear', () => {
+              console.log('🗑️ Limpiado');
+            });
+          }
+        });
+      </script>
+    </DemoBox>
+  </Fragment>
+</ComponentLayout>

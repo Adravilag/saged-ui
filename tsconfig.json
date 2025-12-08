@@ -19,14 +19,23 @@
     "skipLibCheck": true,
     "paths": {
       "@sage-box/badge": ["./packages/badge/src/index.ts"],
+      "@sage-box/breadcrumb": ["./packages/breadcrumb/src/index.ts"],
       "@sage-box/button": ["./packages/button/src/index.ts"],
+      "@sage-box/card": ["./packages/card/src/index.ts"],
       "@sage-box/dropdown": ["./packages/dropdown/src/index.ts"],
       "@sage-box/icons": ["./packages/icons/src/index.ts"],
       "@sage-box/modal": ["./packages/modal/src/index.ts"],
       "@sage-box/skeleton": ["./packages/skeleton/src/index.ts"],
+      "@sage-box/stats-card": ["./packages/stats-card/src/index.ts"],
       "@sage-box/theme-toggle": ["./packages/theme-toggle/src/index.ts"],
+      "@sage-box/tooltip": ["./packages/tooltip/src/index.ts"],
       "@sage-box/article-editor": ["./packages/article-editor/src/index.ts"],
-      "@sage-box/core": ["./packages/core/src/index.ts"]
+      "@sage-box/core": ["./packages/core/src/index.ts"],
+      "@sage-box/form-section": ["./packages/form-section/src/index.ts"],
+      "@sage-box/context-menu": ["./packages/context-menu/src/index.ts"],
+      "@sage-box/search-box": ["./packages/search-box/src/index.ts"],
+      "@sage-box/info-field": ["./packages/info-field/src/index.ts"],
+      "@sage-box/date-picker": ["./packages/date-picker/src/index.ts"]
     }
   },
   "include": [

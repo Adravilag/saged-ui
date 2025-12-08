@@ -19,14 +19,14 @@ const preview: Preview = {
       toc: true,
     },
     backgrounds: {
-      default: 'light',
-      values: [
-        { name: 'light', value: '#ffffff' },
-        { name: 'dark', value: '#1f2937' },
-        { name: 'neutral', value: '#f3f4f6' },
-      ],
+      options: {
+        light: { name: 'light', value: '#ffffff' },
+        dark: { name: 'dark', value: '#1f2937' },
+        neutral: { name: 'neutral', value: '#f3f4f6' }
+      }
     },
   },
+
   globalTypes: {
     theme: {
       name: 'Theme',
@@ -67,13 +67,14 @@ const preview: Preview = {
       },
     },
   },
+
   decorators: [
     (story, context) => {
       const theme = context.globals.theme;
       const container = document.createElement('div');
 
       if (theme) {
-        container.setAttribute('data-theme', theme);
+        container.dataset.theme = theme;
       }
 
       // Apply theme-appropriate background
@@ -98,6 +99,12 @@ const preview: Preview = {
       return container;
     },
   ],
+
+  initialGlobals: {
+    backgrounds: {
+      value: 'light'
+    }
+  }
 };
 
 export default preview;

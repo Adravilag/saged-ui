@@ -21,7 +21,9 @@ const translations: Record<Language, Record<string, any>> = {
       components: 'Componentes',
       groups: {
         general: 'General',
+        navigation: 'Navegación',
         form: 'Formularios',
+        'data display': 'Visualización',
         feedback: 'Feedback',
         content: 'Contenido',
         utils: 'Utilidades',
@@ -30,7 +32,18 @@ const translations: Record<Language, Record<string, any>> = {
         button: 'Botón',
         badge: 'Badge',
         icon: 'Icono',
+        card: 'Card',
+        tooltip: 'Tooltip',
+        breadcrumb: 'Breadcrumb',
+        'context-menu': 'Menú Contextual',
+        input: 'Input',
+        select: 'Select',
         dropdown: 'Dropdown',
+        'date-picker': 'Selector de Fecha',
+        'search-box': 'Caja de Búsqueda',
+        'form-section': 'Sección de Formulario',
+        'stats-card': 'Stats Card',
+        'info-field': 'Campo Info',
         skeleton: 'Skeleton',
         'article-editor': 'Editor de Artículos',
         'theme-toggle': 'Theme Toggle',
@@ -39,7 +52,8 @@ const translations: Record<Language, Record<string, any>> = {
     home: {
       badge: 'Documentación',
       title: 'Componentes',
-      description: 'Explora la colección completa de componentes SageBox. Cada componente está diseñado pensando en accesibilidad, rendimiento y personalización.',
+      description:
+        'Explora la colección completa de componentes SageBox. Cada componente está diseñado pensando en accesibilidad, rendimiento y personalización.',
       quickStart: 'Inicio Rápido',
       install: '1. Instalar',
       import: '2. Importar',
@@ -159,12 +173,15 @@ const translations: Record<Language, Record<string, any>> = {
       title: 'Sobre SageBox',
       description: 'Una librería de Web Components moderna, accesible y altamente personalizable construida con Stencil.js.',
       mission: 'Nuestra Misión',
-      missionText: 'SageBox fue creado para proporcionar a los desarrolladores un conjunto de componentes UI de alta calidad, accesibles y agnósticos de framework.',
-      missionText2: 'Creemos que los buenos componentes UI deberían funcionar en todas partes, ser fáciles de personalizar y no obligarte a usar ningún framework en particular.',
+      missionText:
+        'SageBox fue creado para proporcionar a los desarrolladores un conjunto de componentes UI de alta calidad, accesibles y agnósticos de framework.',
+      missionText2:
+        'Creemos que los buenos componentes UI deberían funcionar en todas partes, ser fáciles de personalizar y no obligarte a usar ningún framework en particular.',
       features: 'Características',
       team: 'Equipo',
       contributing: 'Contribuir',
-      contributingText: 'SageBox es código abierto y damos la bienvenida a contribuciones. Ya sea corrigiendo bugs, añadiendo nuevas funcionalidades o mejorando la documentación.',
+      contributingText:
+        'SageBox es código abierto y damos la bienvenida a contribuciones. Ya sea corrigiendo bugs, añadiendo nuevas funcionalidades o mejorando la documentación.',
       license: 'Licencia MIT',
       licenseText: 'SageBox está liberado bajo la Licencia MIT. Puedes usarlo en proyectos personales y comerciales.',
       stats: {
@@ -200,7 +217,9 @@ const translations: Record<Language, Record<string, any>> = {
       components: 'Components',
       groups: {
         general: 'General',
+        navigation: 'Navigation',
         form: 'Forms',
+        'data display': 'Data Display',
         feedback: 'Feedback',
         content: 'Content',
         utils: 'Utilities',
@@ -209,7 +228,18 @@ const translations: Record<Language, Record<string, any>> = {
         button: 'Button',
         badge: 'Badge',
         icon: 'Icon',
+        card: 'Card',
+        tooltip: 'Tooltip',
+        breadcrumb: 'Breadcrumb',
+        'context-menu': 'Context Menu',
+        input: 'Input',
+        select: 'Select',
         dropdown: 'Dropdown',
+        'date-picker': 'Date Picker',
+        'search-box': 'Search Box',
+        'form-section': 'Form Section',
+        'stats-card': 'Stats Card',
+        'info-field': 'Info Field',
         skeleton: 'Skeleton',
         'article-editor': 'Article Editor',
         'theme-toggle': 'Theme Toggle',
@@ -218,7 +248,8 @@ const translations: Record<Language, Record<string, any>> = {
     home: {
       badge: 'Documentation',
       title: 'Components',
-      description: 'Explore the complete collection of SageBox components. Each component is designed with accessibility, performance, and customization in mind.',
+      description:
+        'Explore the complete collection of SageBox components. Each component is designed with accessibility, performance, and customization in mind.',
       quickStart: 'Quick Start',
       install: '1. Install',
       import: '2. Import',
@@ -339,13 +370,15 @@ const translations: Record<Language, Record<string, any>> = {
       description: 'A modern, accessible, and highly customizable Web Components library built with Stencil.js.',
       mission: 'Our Mission',
       missionText: 'SageBox was created to provide developers with a set of high-quality, accessible, and framework-agnostic UI components.',
-      missionText2: 'We believe that great UI components should work everywhere, be easy to customize, and not force you into any particular framework.',
+      missionText2:
+        'We believe that great UI components should work everywhere, be easy to customize, and not force you into any particular framework.',
       features: 'Key Features',
       team: 'Team',
       contributing: 'Contributing',
-      contributingText: 'SageBox is open source and we welcome contributions! Whether it\'s fixing bugs, adding new features, or improving documentation.',
+      contributingText:
+        "SageBox is open source and we welcome contributions! Whether it's fixing bugs, adding new features, or improving documentation.",
       license: 'MIT License',
-      licenseText: 'SageBox is released under the MIT License. You\'re free to use it in personal and commercial projects.',
+      licenseText: "SageBox is released under the MIT License. You're free to use it in personal and commercial projects.",
       stats: {
         components: 'Components',
         typescript: 'TypeScript',
@@ -386,7 +419,7 @@ export function t(path: string, lang?: Language): string {
   const currentLang = lang || getCurrentLang();
   const keys = path.split('.');
   let value: any = translations[currentLang];
-  
+
   for (const key of keys) {
     if (value && typeof value === 'object' && key in value) {
       value = value[key];
@@ -394,14 +427,14 @@ export function t(path: string, lang?: Language): string {
       return path;
     }
   }
-  
+
   return typeof value === 'string' ? value : path;
 }
 
 // Update all elements with data-i18n attribute
 export function updateI18n() {
   const lang = getCurrentLang();
-  
+
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const path = el.getAttribute('data-i18n');
     if (path) {
@@ -423,7 +456,7 @@ export function updateI18n() {
 if (typeof window !== 'undefined') {
   // Update on page load
   document.addEventListener('DOMContentLoaded', updateI18n);
-  
+
   // Also run immediately if DOM is already loaded
   if (document.readyState !== 'loading') {
     updateI18n();

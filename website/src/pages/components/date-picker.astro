@@ -1,0 +1,133 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+
+const props = [
+  { name: 'value', type: 'string | null', default: 'null', description: 'Fecha en formato ISO (YYYY-MM-DD)' },
+  { name: 'placeholder', type: 'string', default: "'Seleccionar fecha...'", description: 'Texto del placeholder' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Deshabilita el selector' },
+  { name: 'has-error', type: 'boolean', default: 'false', description: 'Muestra estado de error' },
+  { name: 'clearable', type: 'boolean', default: 'true', description: 'Permite limpiar la fecha' },
+  { name: 'align-right', type: 'boolean', default: 'false', description: 'Alinea el dropdown a la derecha' },
+  { name: 'locale', type: "'es' | 'en'", default: "'es'", description: 'Idioma del calendario' },
+  { name: 'min-date', type: 'string', default: 'undefined', description: 'Fecha mínima seleccionable (ISO)' },
+  { name: 'max-date', type: 'string', default: 'undefined', description: 'Fecha máxima seleccionable (ISO)' },
+];
+
+const events = [{ name: 'sgChange', type: 'CustomEvent<string | null>', description: 'Emitido cuando cambia la fecha' }];
+
+const methods = [
+  { name: 'open()', type: 'Promise<void>', description: 'Abre el selector de fecha' },
+  { name: 'close()', type: 'Promise<void>', description: 'Cierra el selector de fecha' },
+];
+---
+
+<ComponentLayout
+  title="Date Picker"
+  tag="sg-date-picker"
+  packageName="date-picker"
+  description="Selector de fecha con calendario completo. Soporta i18n (español/inglés), fechas mínimas/máximas y es totalmente accesible."
+  props={props}
+  events={events}
+>
+  <Fragment slot="examples">
+    <DemoBox label="Básico" code={`<sg-date-picker placeholder="Seleccionar fecha..."></sg-date-picker>`}>
+      <div style="max-width: 300px;">
+        <sg-date-picker placeholder="Seleccionar fecha..."></sg-date-picker>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Con valor inicial" code={`<sg-date-picker value="2024-12-25"></sg-date-picker>`}>
+      <div style="max-width: 300px;">
+        <sg-date-picker value="2024-12-25"></sg-date-picker>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Idiomas"
+      code={`<sg-date-picker locale="es" placeholder="Español..."></sg-date-picker>
+<sg-date-picker locale="en" placeholder="English..."></sg-date-picker>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+        <div>
+          <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 500;">Español</label>
+          <sg-date-picker locale="es" placeholder="Seleccionar fecha..."></sg-date-picker>
+        </div>
+        <div>
+          <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 500;">English</label>
+          <sg-date-picker locale="en" placeholder="Select date..."></sg-date-picker>
+        </div>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Con restricciones"
+      code={`<sg-date-picker
+  min-date="2024-01-01"
+  max-date="2024-12-31"
+  placeholder="Solo año 2024..."
+></sg-date-picker>`}
+    >
+      <div style="max-width: 300px;">
+        <p style="margin: 0 0 0.5rem; font-size: 0.75rem; color: var(--text-muted);">Solo permite fechas del año 2024</p>
+        <sg-date-picker min-date="2024-01-01" max-date="2024-12-31" placeholder="Solo año 2024..."></sg-date-picker>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Estados"
+      code={`<sg-date-picker disabled placeholder="Deshabilitado"></sg-date-picker>
+<sg-date-picker has-error placeholder="Con error"></sg-date-picker>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+        <div>
+          <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 500;">Deshabilitado</label>
+          <sg-date-picker disabled placeholder="No disponible"></sg-date-picker>
+        </div>
+        <div>
+          <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 500;">Con error</label>
+          <sg-date-picker has-error placeholder="Campo requerido"></sg-date-picker>
+          <p style="margin: 0.25rem 0 0; font-size: 0.75rem; color: #ef4444;">Este campo es requerido</p>
+        </div>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="No limpiable"
+      code={`<sg-date-picker
+  value="2024-06-15"
+  clearable="false"
+></sg-date-picker>`}
+    >
+      <div style="max-width: 300px;">
+        <p style="margin: 0 0 0.5rem; font-size: 0.75rem; color: var(--text-muted);">Sin botón de limpiar</p>
+        <sg-date-picker value="2024-06-15" clearable="false"></sg-date-picker>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="En formulario"
+      code={`<sg-form-section section-title="Fechas del Evento" icon-bg-class="bg-blue-100">
+  <sg-icon slot="icon" name="calendar" size="20"></sg-icon>
+  <label>Fecha de inicio</label>
+  <sg-date-picker placeholder="Seleccionar..."></sg-date-picker>
+  <label>Fecha de fin</label>
+  <sg-date-picker placeholder="Seleccionar..."></sg-date-picker>
+</sg-form-section>`}
+    >
+      <sg-form-section section-title="Fechas del Evento" icon-bg-class="bg-blue-100">
+        <sg-icon slot="icon" name="calendar" size="20"></sg-icon>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div>
+            <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 500;">Fecha de inicio</label>
+            <sg-date-picker placeholder="Seleccionar..."></sg-date-picker>
+          </div>
+          <div>
+            <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 500;">Fecha de fin</label>
+            <sg-date-picker placeholder="Seleccionar..."></sg-date-picker>
+          </div>
+        </div>
+      </sg-form-section>
+    </DemoBox>
+  </Fragment>
+</ComponentLayout>

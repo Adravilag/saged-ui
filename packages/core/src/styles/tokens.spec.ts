@@ -190,7 +190,7 @@ describe('Design Tokens', () => {
 
     it('should work with different themes', () => {
       const element = document.createElement('div');
-      
+
       applyTheme(element, 'light');
       expect(element.getAttribute('data-theme')).toBe('light');
 

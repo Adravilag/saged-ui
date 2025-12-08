@@ -30,6 +30,7 @@
   border-radius: var(--sg-modal-radius);
   background: var(--sg-modal-bg);
   color: var(--sg-modal-color);
+  font-family: var(--ui-font-sans, sans-serif);
   box-shadow: var(--sg-modal-shadow);
   max-height: calc(100vh - 4rem);
   max-width: calc(100vw - 2rem);
@@ -137,8 +138,8 @@
 
 .sg-modal__title {
   margin: 0;
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: var(--ui-font-size-xl, 1.25rem);
+  font-weight: var(--ui-font-weight-semibold, 600);
   line-height: 1.4;
   color: inherit;
 }
@@ -168,11 +169,6 @@
 .sg-modal__close:focus-visible {
   outline: 2px solid var(--ui-accent, #3b82f6);
   outline-offset: 2px;
-}
-
-.sg-modal__close svg {
-  width: 1.25rem;
-  height: 1.25rem;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════

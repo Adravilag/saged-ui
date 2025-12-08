@@ -1,6 +1,6 @@
 {
     "name":  "@sage-box/badge",
-    "version":  "0.1.0",
+    "version": "0.1.1",
     "description":  "Badge component for SageBox - Labels, tags and status indicators",
     "main":  "dist/index.cjs.js",
     "module":  "dist/index.js",
@@ -52,3 +52,4 @@
                           "access":  "public"
                       }
 }
+

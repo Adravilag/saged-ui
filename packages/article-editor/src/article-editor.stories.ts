@@ -389,7 +389,7 @@ export const DarkTheme: Story = {
   decorators: [
     story => {
       const container = document.createElement('div');
-      container.setAttribute('data-theme', 'dark');
+      container.dataset.theme = 'dark';
       container.style.padding = '2rem';
       container.style.background = '#1f2937';
       container.style.borderRadius = '8px';

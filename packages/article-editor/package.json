@@ -1,6 +1,6 @@
 {
     "name":  "@sage-box/article-editor",
-    "version":  "0.1.0",
+    "version": "0.1.1",
     "description":  "Article editor component for SageBox - Rich text and markdown editor",
     "main":  "dist/index.cjs.js",
     "module":  "dist/index.js",
@@ -67,3 +67,4 @@
                           "access":  "public"
                       }
 }
+

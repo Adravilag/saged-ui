@@ -1,0 +1,211 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SG-TOOLTIP STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:host {
+  --_tooltip-bg: var(--sg-tooltip-bg, var(--ui-color-neutral-800, #1f2937));
+  --_tooltip-color: var(--sg-tooltip-color, var(--ui-color-neutral-0, #ffffff));
+  --_tooltip-radius: var(--sg-tooltip-radius, var(--ui-radius-md, 0.375rem));
+  --_tooltip-padding: var(--sg-tooltip-padding, 0.5rem 0.75rem);
+  --_tooltip-font-size: var(--sg-tooltip-font-size, var(--ui-font-size-sm, 0.8125rem));
+  --_tooltip-shadow: var(--sg-tooltip-shadow, var(--ui-shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.2)));
+  --_tooltip-offset: var(--sg-tooltip-offset, 8px);
+  --_tooltip-arrow-size: 6px;
+  --_tooltip-z-index: var(--sg-tooltip-z-index, var(--ui-z-tooltip, 9999));
+
+  display: inline-block;
+  position: relative;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   TRIGGER
+   ───────────────────────────────────────────────────────────────────────────── */
+.tooltip-trigger {
+  display: inline-block;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   TOOLTIP CONTAINER
+   ───────────────────────────────────────────────────────────────────────────── */
+.tooltip {
+  position: absolute;
+  z-index: var(--_tooltip-z-index);
+  max-width: var(--tooltip-max-width, 250px);
+  pointer-events: none;
+
+  /* Animation */
+  animation: tooltip-fade-in 0.15s ease-out;
+}
+
+:host(.sg-tooltip--interactive) .tooltip {
+  pointer-events: auto;
+}
+
+@keyframes tooltip-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   TOOLTIP CONTENT
+   ───────────────────────────────────────────────────────────────────────────── */
+.tooltip-content {
+  background: var(--_tooltip-bg);
+  color: var(--_tooltip-color);
+  padding: var(--_tooltip-padding);
+  border-radius: var(--_tooltip-radius);
+  font-size: var(--_tooltip-font-size);
+  line-height: 1.4;
+  box-shadow: var(--_tooltip-shadow);
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   ARROW
+   ───────────────────────────────────────────────────────────────────────────── */
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: var(--_tooltip-arrow-size) solid transparent;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   POSITION: TOP
+   ───────────────────────────────────────────────────────────────────────────── */
+:host(.sg-tooltip--top) .tooltip {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: var(--_tooltip-offset);
+}
+
+:host(.sg-tooltip--top) .tooltip-arrow {
+  bottom: calc(-1 * var(--_tooltip-arrow-size) * 2);
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: var(--_tooltip-bg);
+  border-bottom: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   POSITION: BOTTOM
+   ───────────────────────────────────────────────────────────────────────────── */
+:host(.sg-tooltip--bottom) .tooltip {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: var(--_tooltip-offset);
+}
+
+:host(.sg-tooltip--bottom) .tooltip-arrow {
+  top: calc(-1 * var(--_tooltip-arrow-size) * 2);
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: var(--_tooltip-bg);
+  border-top: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   POSITION: LEFT
+   ───────────────────────────────────────────────────────────────────────────── */
+:host(.sg-tooltip--left) .tooltip {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: var(--_tooltip-offset);
+}
+
+:host(.sg-tooltip--left) .tooltip-arrow {
+  right: calc(-1 * var(--_tooltip-arrow-size) * 2);
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: var(--_tooltip-bg);
+  border-right: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   POSITION: RIGHT
+   ───────────────────────────────────────────────────────────────────────────── */
+:host(.sg-tooltip--right) .tooltip {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: var(--_tooltip-offset);
+}
+
+:host(.sg-tooltip--right) .tooltip-arrow {
+  left: calc(-1 * var(--_tooltip-arrow-size) * 2);
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: var(--_tooltip-bg);
+  border-left: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   VARIANTS
+   ───────────────────────────────────────────────────────────────────────────── */
+:host(.sg-tooltip--dark) {
+  --_tooltip-bg: #111827;
+  --_tooltip-color: #f9fafb;
+}
+
+:host(.sg-tooltip--light) {
+  --_tooltip-bg: #ffffff;
+  --_tooltip-color: #374151;
+  --_tooltip-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 0 0 1px rgb(0 0 0 / 0.05);
+}
+
+:host(.sg-tooltip--primary) {
+  --_tooltip-bg: var(--ui-color-primary, #6366f1);
+  --_tooltip-color: #ffffff;
+}
+
+:host(.sg-tooltip--success) {
+  --_tooltip-bg: var(--ui-color-success, #22c55e);
+  --_tooltip-color: #ffffff;
+}
+
+:host(.sg-tooltip--warning) {
+  --_tooltip-bg: var(--ui-color-warning, #f59e0b);
+  --_tooltip-color: #ffffff;
+}
+
+:host(.sg-tooltip--error) {
+  --_tooltip-bg: var(--ui-color-error, #ef4444);
+  --_tooltip-color: #ffffff;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   DISABLED STATE
+   ───────────────────────────────────────────────────────────────────────────── */
+:host(.sg-tooltip--disabled) {
+  pointer-events: none;
+}
+
+:host(.sg-tooltip--disabled) .tooltip {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   DARK MODE (for light variant)
+   ───────────────────────────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :host(.sg-tooltip--light) {
+    --_tooltip-bg: #374151;
+    --_tooltip-color: #f9fafb;
+  }
+}
+
+:host-context([data-theme='dark']) .sg-tooltip--light,
+:host-context(.dark) .sg-tooltip--light {
+  --_tooltip-bg: #374151;
+  --_tooltip-color: #f9fafb;
+}

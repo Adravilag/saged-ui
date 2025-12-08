@@ -345,9 +345,11 @@ export const CustomHeader = {
     createStoryContainer(`
     <button class="btn btn-primary" data-open-modal="custom-header-modal">Open with Custom Header</button>
     <sg-modal id="custom-header-modal" size="md">
-      <div slot="header" style="display: flex; align-items: center; gap: 0.5rem;">
-        <span style="font-size: 1.25rem;">ℹ️</span>
-        <span style="font-weight: 600; font-size: 1.125rem;">Custom Header with Icon</span>
+      <div slot="header" style="display: flex; align-items: center; gap: 0.75rem;">
+        <div style="display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 9999px; background-color: var(--ui-color-primary-50, #eff6ff); color: var(--ui-color-primary-600, #2563eb);">
+          <sg-icon name="info" size="20"></sg-icon>
+        </div>
+        <span style="font-weight: 600; font-size: 1.125rem; color: var(--ui-text, #111827);">Custom Header with Icon</span>
       </div>
       <p>This modal has a custom header using the header slot instead of the header prop.</p>
       <div slot="footer">

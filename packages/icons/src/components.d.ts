@@ -93,6 +93,11 @@ export namespace Components {
          */
         "rotate"?: number;
         /**
+          * Show a placeholder when the icon is not found. Useful during development to visualize missing icons.
+          * @default true
+         */
+        "showPlaceholder": boolean;
+        /**
           * Size of the icon in pixels
           * @default 24
          */
@@ -207,6 +212,11 @@ declare namespace LocalJSX {
           * Rotation angle in degrees
          */
         "rotate"?: number;
+        /**
+          * Show a placeholder when the icon is not found. Useful during development to visualize missing icons.
+          * @default true
+         */
+        "showPlaceholder"?: boolean;
         /**
           * Size of the icon in pixels
           * @default 24

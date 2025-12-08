@@ -1,312 +1,402 @@
-<!DOCTYPE html>
+<!doctype html>
 <html dir="ltr" lang="es" data-theme="light">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="light dark" />
-  <title>SageBox - Components</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>SageBox - Components</title>
 
-  <!-- SageBox -->
-  <link rel="stylesheet" href="/build/sagebox.css" />
-  <script type="module" src="/build/sagebox.esm.js"></script>
+    <!-- SageBox -->
+    <link rel="stylesheet" href="/build/sagebox.css" />
+    <script type="module" src="/build/sagebox.esm.js"></script>
 
-  <!-- Dev Styles -->
-  <link rel="stylesheet" href="/dev.css" />
-</head>
-<body>
-  <div class="dev-layout">
-
-    <!-- ------------------------------------------------------------------- -->
-    <!-- SIDEBAR -->
-    <!-- ------------------------------------------------------------------- -->
-    <aside class="dev-sidebar">
-      <header class="dev-sidebar__header">
-        <span class="dev-sidebar__logo">
-          SageBox
-          <span class="dev-sidebar__version">1.2.1</span>
-        </span>
-        <button class="dev-sidebar__theme-btn" onclick="toggleTheme()" title="Toggle theme">
-          <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-          </svg>
-        </button>
-      </header>
-
-      <nav>
-        <ul class="dev-nav">
-          <li class="dev-nav__group">General</li>
-          <li><a href="#button" class="dev-nav__link">Button</a></li>
-          <li><a href="#badge" class="dev-nav__link">Badge</a></li>
-          <li><a href="#icon" class="dev-nav__link">Icon</a></li>
-
-          <li class="dev-nav__group">Form</li>
-          <li><a href="#dropdown" class="dev-nav__link">Dropdown</a></li>
-
-          <li class="dev-nav__group">Feedback</li>
-          <li><a href="#skeleton" class="dev-nav__link">Skeleton</a></li>
-
-          <li class="dev-nav__group">Content</li>
-          <li><a href="#article-editor" class="dev-nav__link">Article Editor</a></li>
-
-          <li class="dev-nav__group">Utils</li>
-          <li><a href="#theme-toggle" class="dev-nav__link">Theme Toggle</a></li>
-        </ul>
-      </nav>
-    </aside>
-
-    <!-- ------------------------------------------------------------------- -->
-    <!-- MAIN -->
-    <!-- ------------------------------------------------------------------- -->
-    <main class="dev-main">
-
-      <!-- BUTTON ------------------------------------------------------------ -->
-      <article class="component" id="button">
-        <header class="component__header">
-          <h2 class="component__title">Button</h2>
-          <code class="component__tag">&lt;sg-button&gt;</code>
+    <!-- Dev Styles -->
+    <link rel="stylesheet" href="/dev.css" />
+  </head>
+  <body>
+    <div class="dev-layout">
+      <!-- ------------------------------------------------------------------- -->
+      <!-- SIDEBAR -->
+      <!-- ------------------------------------------------------------------- -->
+      <aside class="dev-sidebar">
+        <header class="dev-sidebar__header">
+          <span class="dev-sidebar__logo">
+            SageBox
+            <span class="dev-sidebar__version">1.2.1</span>
+          </span>
+          <button class="dev-sidebar__theme-btn" onclick="toggleTheme()" title="Toggle theme">
+            <svg
+              id="theme-icon"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            </svg>
+          </button>
         </header>
-        <div class="component__body">
-          <div class="demo-section">
-            <p class="demo-label">Variants</p>
-            <div class="demo-row">
-              <sg-button variant="primary">Primary</sg-button>
-              <sg-button variant="secondary">Secondary</sg-button>
-              <sg-button variant="outline">Outline</sg-button>
-              <sg-button variant="ghost">Ghost</sg-button>
-              <sg-button variant="danger">Danger</sg-button>
-            </div>
-          </div>
-          <div class="demo-section">
-            <p class="demo-label">Sizes</p>
-            <div class="demo-row">
-              <sg-button size="sm">Small</sg-button>
-              <sg-button size="md">Medium</sg-button>
-              <sg-button size="lg">Large</sg-button>
-            </div>
-          </div>
-          <div class="demo-section">
-            <p class="demo-label">States</p>
-            <div class="demo-row">
-              <sg-button disabled>Disabled</sg-button>
-              <sg-button loading>Loading</sg-button>
-            </div>
-          </div>
-        </div>
-      </article>
 
-      <!-- BADGE ------------------------------------------------------------- -->
-      <article class="component" id="badge">
-        <header class="component__header">
-          <h2 class="component__title">Badge</h2>
-          <code class="component__tag">&lt;sg-badge&gt;</code>
-        </header>
-        <div class="component__body">
-          <div class="demo-section">
-            <p class="demo-label">Variants</p>
-            <div class="demo-row">
-              <sg-badge variant="primary">Primary</sg-badge>
-              <sg-badge variant="secondary">Secondary</sg-badge>
-              <sg-badge variant="success">Success</sg-badge>
-              <sg-badge variant="warning">Warning</sg-badge>
-              <sg-badge variant="danger">Danger</sg-badge>
-              <sg-badge variant="info">Info</sg-badge>
-            </div>
-          </div>
-          <div class="demo-section">
-            <p class="demo-label">Sizes</p>
-            <div class="demo-row">
-              <sg-badge size="sm">Small</sg-badge>
-              <sg-badge size="md">Medium</sg-badge>
-              <sg-badge size="lg">Large</sg-badge>
-            </div>
-          </div>
-        </div>
-      </article>
+        <nav>
+          <ul class="dev-nav">
+            <li class="dev-nav__group">General</li>
+            <li><a href="#button" class="dev-nav__link">Button</a></li>
+            <li><a href="#badge" class="dev-nav__link">Badge</a></li>
+            <li><a href="#icon" class="dev-nav__link">Icon</a></li>
 
-      <!-- ICON -------------------------------------------------------------- -->
-      <article class="component" id="icon">
-        <header class="component__header">
-          <h2 class="component__title">Icon</h2>
-          <code class="component__tag">&lt;sg-icon&gt;</code>
-        </header>
-        <div class="component__body">
-          <div class="demo-section">
-            <p class="demo-label">Common</p>
-            <div class="demo-row">
-              <sg-icon name="home" size="24"></sg-icon>
-              <sg-icon name="search" size="24"></sg-icon>
-              <sg-icon name="settings" size="24"></sg-icon>
-              <sg-icon name="user" size="24"></sg-icon>
-              <sg-icon name="menu" size="24"></sg-icon>
-              <sg-icon name="close" size="24"></sg-icon>
-              <sg-icon name="add" size="24"></sg-icon>
-              <sg-icon name="edit" size="24"></sg-icon>
-              <sg-icon name="delete" size="24"></sg-icon>
-              <sg-icon name="save" size="24"></sg-icon>
-            </div>
-          </div>
-          <div class="demo-section">
-            <p class="demo-label">Colored</p>
-            <div class="demo-row">
-              <sg-icon name="heart" size="24" color="#ef4444"></sg-icon>
-              <sg-icon name="star" size="24" color="#f59e0b"></sg-icon>
-              <sg-icon name="check" size="24" color="#22c55e"></sg-icon>
-              <sg-icon name="info" size="24" color="#3b82f6"></sg-icon>
-              <sg-icon name="refresh" size="24" color="#8b5cf6" spin></sg-icon>
-            </div>
-          </div>
-          <div class="demo-section">
-            <p class="demo-label">Sizes</p>
-            <div class="demo-row">
-              <sg-icon name="star" size="16"></sg-icon>
-              <sg-icon name="star" size="24"></sg-icon>
-              <sg-icon name="star" size="32"></sg-icon>
-              <sg-icon name="star" size="48"></sg-icon>
-            </div>
-          </div>
-        </div>
-      </article>
+            <li class="dev-nav__group">Form</li>
+            <li><a href="#input" class="dev-nav__link">Input</a></li>
+            <li><a href="#dropdown" class="dev-nav__link">Dropdown</a></li>
 
-      <!-- DROPDOWN ---------------------------------------------------------- -->
-      <article class="component" id="dropdown">
-        <header class="component__header">
-          <h2 class="component__title">Dropdown</h2>
-          <code class="component__tag">&lt;sg-dropdown&gt;</code>
-        </header>
-        <div class="component__body">
-          <div class="demo-section">
-            <p class="demo-label">Basic</p>
-            <div class="demo-row">
-              <sg-dropdown align="start">
-                <button slot="trigger" class="demo-btn">Select option ?</button>
-                <button class="demo-menu-item">Option 1</button>
-                <button class="demo-menu-item">Option 2</button>
-                <button class="demo-menu-item">Option 3</button>
-              </sg-dropdown>
-            </div>
-          </div>
-          <div class="demo-section">
-            <p class="demo-label">With Header & Footer</p>
-            <div class="demo-row">
-              <sg-dropdown align="start">
-                <button slot="trigger" class="demo-btn">Menu ?</button>
-                <div slot="header" class="demo-menu-header">Settings</div>
-                <button class="demo-menu-item">Profile</button>
-                <button class="demo-menu-item">Preferences</button>
-                <button class="demo-menu-item">Logout</button>
-                <div slot="footer" class="demo-menu-footer">v1.2.1</div>
-              </sg-dropdown>
-            </div>
-          </div>
-        </div>
-      </article>
+            <li class="dev-nav__group">Feedback</li>
+            <li><a href="#skeleton" class="dev-nav__link">Skeleton</a></li>
 
-      <!-- SKELETON ---------------------------------------------------------- -->
-      <article class="component" id="skeleton">
-        <header class="component__header">
-          <h2 class="component__title">Skeleton</h2>
-          <code class="component__tag">&lt;sg-skeleton&gt;</code>
-        </header>
-        <div class="component__body">
-          <div class="demo-grid">
-            <div class="demo-box">
-              <p class="demo-label">Text</p>
-              <div class="demo-col">
-                <sg-skeleton variant="text" width="100%" height="1rem"></sg-skeleton>
-                <sg-skeleton variant="text" width="80%" height="1rem"></sg-skeleton>
-                <sg-skeleton variant="text" width="60%" height="1rem"></sg-skeleton>
-              </div>
-            </div>
-            <div class="demo-box">
-              <p class="demo-label">Rectangle</p>
-              <sg-skeleton variant="rect" width="100%" height="80px"></sg-skeleton>
-            </div>
-            <div class="demo-box">
-              <p class="demo-label">Circle</p>
+            <li class="dev-nav__group">Content</li>
+            <li><a href="#article-editor" class="dev-nav__link">Article Editor</a></li>
+
+            <li class="dev-nav__group">Utils</li>
+            <li><a href="#theme-toggle" class="dev-nav__link">Theme Toggle</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- ------------------------------------------------------------------- -->
+      <!-- MAIN -->
+      <!-- ------------------------------------------------------------------- -->
+      <main class="dev-main">
+        <!-- BUTTON ------------------------------------------------------------ -->
+        <article class="component" id="button">
+          <header class="component__header">
+            <h2 class="component__title">Button</h2>
+            <code class="component__tag">&lt;sg-button&gt;</code>
+          </header>
+          <div class="component__body">
+            <div class="demo-section">
+              <p class="demo-label">Variants</p>
               <div class="demo-row">
-                <sg-skeleton variant="circle" width="40px" height="40px"></sg-skeleton>
-                <sg-skeleton variant="circle" width="56px" height="56px"></sg-skeleton>
+                <sg-button variant="primary">Primary</sg-button>
+                <sg-button variant="secondary">Secondary</sg-button>
+                <sg-button variant="outline">Outline</sg-button>
+                <sg-button variant="ghost">Ghost</sg-button>
+                <sg-button variant="danger">Danger</sg-button>
               </div>
             </div>
-            <div class="demo-box">
-              <p class="demo-label">Pulse</p>
-              <sg-skeleton variant="rect" width="100%" height="60px" animation="pulse"></sg-skeleton>
+            <div class="demo-section">
+              <p class="demo-label">Sizes</p>
+              <div class="demo-row">
+                <sg-button size="sm">Small</sg-button>
+                <sg-button size="md">Medium</sg-button>
+                <sg-button size="lg">Large</sg-button>
+              </div>
+            </div>
+            <div class="demo-section">
+              <p class="demo-label">States</p>
+              <div class="demo-row">
+                <sg-button disabled>Disabled</sg-button>
+                <sg-button loading>Loading</sg-button>
+              </div>
             </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- ARTICLE EDITOR ---------------------------------------------------- -->
-      <article class="component" id="article-editor">
-        <header class="component__header">
-          <h2 class="component__title">Article Editor</h2>
-          <code class="component__tag">&lt;sg-article-editor&gt;</code>
-        </header>
-        <div class="component__body">
-          <sg-article-editor
-            value="<p>Start editing...</p>"
-            mode="split"
-            min-height="280"
-            placeholder="Write something...">
-          </sg-article-editor>
-        </div>
-      </article>
-
-      <!-- THEME TOGGLE ------------------------------------------------------ -->
-      <article class="component" id="theme-toggle">
-        <header class="component__header">
-          <h2 class="component__title">Theme Toggle</h2>
-          <code class="component__tag">&lt;sg-theme-toggle&gt;</code>
-        </header>
-        <div class="component__body">
-          <div class="demo-row">
-            <sg-theme-toggle></sg-theme-toggle>
+        <!-- BADGE ------------------------------------------------------------- -->
+        <article class="component" id="badge">
+          <header class="component__header">
+            <h2 class="component__title">Badge</h2>
+            <code class="component__tag">&lt;sg-badge&gt;</code>
+          </header>
+          <div class="component__body">
+            <div class="demo-section">
+              <p class="demo-label">Variants</p>
+              <div class="demo-row">
+                <sg-badge variant="primary">Primary</sg-badge>
+                <sg-badge variant="secondary">Secondary</sg-badge>
+                <sg-badge variant="success">Success</sg-badge>
+                <sg-badge variant="warning">Warning</sg-badge>
+                <sg-badge variant="danger">Danger</sg-badge>
+                <sg-badge variant="info">Info</sg-badge>
+              </div>
+            </div>
+            <div class="demo-section">
+              <p class="demo-label">Sizes</p>
+              <div class="demo-row">
+                <sg-badge size="sm">Small</sg-badge>
+                <sg-badge size="md">Medium</sg-badge>
+                <sg-badge size="lg">Large</sg-badge>
+              </div>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-    </main>
-  </div>
+        <!-- ICON -------------------------------------------------------------- -->
+        <article class="component" id="icon">
+          <header class="component__header">
+            <h2 class="component__title">Icon</h2>
+            <code class="component__tag">&lt;sg-icon&gt;</code>
+          </header>
+          <div class="component__body">
+            <div class="demo-section">
+              <p class="demo-label">Common</p>
+              <div class="demo-row">
+                <sg-icon name="home" size="24"></sg-icon>
+                <sg-icon name="search" size="24"></sg-icon>
+                <sg-icon name="settings" size="24"></sg-icon>
+                <sg-icon name="user" size="24"></sg-icon>
+                <sg-icon name="menu" size="24"></sg-icon>
+                <sg-icon name="close" size="24"></sg-icon>
+                <sg-icon name="add" size="24"></sg-icon>
+                <sg-icon name="edit" size="24"></sg-icon>
+                <sg-icon name="delete" size="24"></sg-icon>
+                <sg-icon name="save" size="24"></sg-icon>
+              </div>
+            </div>
+            <div class="demo-section">
+              <p class="demo-label">Colored</p>
+              <div class="demo-row">
+                <sg-icon name="heart" size="24" color="#ef4444"></sg-icon>
+                <sg-icon name="star" size="24" color="#f59e0b"></sg-icon>
+                <sg-icon name="check" size="24" color="#22c55e"></sg-icon>
+                <sg-icon name="info" size="24" color="#3b82f6"></sg-icon>
+                <sg-icon name="refresh" size="24" color="#8b5cf6" spin></sg-icon>
+              </div>
+            </div>
+            <div class="demo-section">
+              <p class="demo-label">Sizes</p>
+              <div class="demo-row">
+                <sg-icon name="star" size="16"></sg-icon>
+                <sg-icon name="star" size="24"></sg-icon>
+                <sg-icon name="star" size="32"></sg-icon>
+                <sg-icon name="star" size="48"></sg-icon>
+              </div>
+            </div>
+          </div>
+        </article>
 
-  <!-- ----------------------------------------------------------------------- -->
-  <!-- SCRIPTS -->
-  <!-- ----------------------------------------------------------------------- -->
-  <script>
-    // Theme
-    function toggleTheme() {
-      const html = document.documentElement;
-      const isDark = html.dataset.theme === 'dark';
-      html.dataset.theme = isDark ? 'light' : 'dark';
-      document.getElementById('theme-icon').innerHTML = isDark
-        ? '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>'
-        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
-    }
+        <!-- INPUT ------------------------------------------------------------- -->
+        <article class="component" id="input">
+          <header class="component__header">
+            <h2 class="component__title">Input</h2>
+            <code class="component__tag">&lt;sg-input&gt;</code>
+          </header>
+          <div class="component__body">
+            <div class="demo-section">
+              <p class="demo-label">Basic</p>
+              <div class="demo-column" style="gap: 1rem; max-width: 320px">
+                <sg-input placeholder="Enter text..."></sg-input>
+                <sg-input label="With Label" placeholder="Type here"></sg-input>
+                <sg-input label="Required Field" placeholder="Required" required></sg-input>
+              </div>
+            </div>
 
-    // Active nav on scroll - track which section is most visible
-    let currentActive = null;
-    const observer = new IntersectionObserver(entries => {
-      let maxRatio = 0;
-      let mostVisible = null;
+            <div class="demo-section">
+              <p class="demo-label">Sizes</p>
+              <div class="demo-column" style="gap: 1rem; max-width: 320px">
+                <sg-input size="sm" placeholder="Small"></sg-input>
+                <sg-input size="md" placeholder="Medium (default)"></sg-input>
+                <sg-input size="lg" placeholder="Large"></sg-input>
+              </div>
+            </div>
 
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
-          maxRatio = entry.intersectionRatio;
-          mostVisible = entry.target;
-        }
-      });
+            <div class="demo-section">
+              <p class="demo-label">Variants</p>
+              <div class="demo-column" style="gap: 1rem; max-width: 320px">
+                <sg-input variant="default" label="Default" placeholder="Outline style"></sg-input>
+                <sg-input variant="filled" label="Filled" placeholder="Filled background"></sg-input>
+                <sg-input variant="underline" label="Underline" placeholder="Minimal style"></sg-input>
+              </div>
+            </div>
 
-      if (mostVisible && mostVisible.id !== currentActive) {
-        currentActive = mostVisible.id;
-        document.querySelectorAll('.dev-nav__link').forEach(l => l.classList.remove('active'));
-        document.querySelector(`.dev-nav__link[href="#${mostVisible.id}"]`)?.classList.add('active');
+            <div class="demo-section">
+              <p class="demo-label">With Icons</p>
+              <div class="demo-column" style="gap: 1rem; max-width: 320px">
+                <sg-input leading-icon="search" placeholder="Search..."></sg-input>
+                <sg-input leading-icon="email" label="Email" placeholder="you@example.com"></sg-input>
+                <sg-input leading-icon="lock" type="password" label="Password" placeholder="Enter password"></sg-input>
+              </div>
+            </div>
+
+            <div class="demo-section">
+              <p class="demo-label">Validation States</p>
+              <div class="demo-column" style="gap: 1rem; max-width: 320px">
+                <sg-input label="Success" value="valid@email.com" validation-state="success" helper-text="Email is valid"></sg-input>
+                <sg-input label="Warning" value="weak123" validation-state="warning" helper-text="Password could be stronger"></sg-input>
+                <sg-input label="Error" value="invalid" validation-state="error" error-message="Please enter a valid value"></sg-input>
+              </div>
+            </div>
+
+            <div class="demo-section">
+              <p class="demo-label">Special Features</p>
+              <div class="demo-column" style="gap: 1rem; max-width: 320px">
+                <sg-input label="Clearable" value="Click X to clear" clearable></sg-input>
+                <sg-input label="Disabled" value="Cannot edit" disabled></sg-input>
+                <sg-input label="Read Only" value="Read only value" readonly></sg-input>
+              </div>
+            </div>
+
+            <div class="demo-section">
+              <p class="demo-label">Input Types</p>
+              <div class="demo-column" style="gap: 1rem; max-width: 320px">
+                <sg-input type="number" label="Number" placeholder="0" min="0" max="100"></sg-input>
+                <sg-input type="date" label="Date"></sg-input>
+                <sg-input type="tel" label="Phone" placeholder="+1 (555) 123-4567" leading-icon="phone"></sg-input>
+              </div>
+            </div>
+
+            <div class="demo-section">
+              <p class="demo-label">Login Form Example</p>
+              <div
+                class="demo-column"
+                style="gap: 1rem; max-width: 320px; padding: 1.5rem; background: var(--ui-bg-secondary); border-radius: 0.75rem"
+              >
+                <sg-input type="email" label="Email" placeholder="you@example.com" leading-icon="email" required></sg-input>
+                <sg-input type="password" label="Password" placeholder="Enter password" leading-icon="lock" required></sg-input>
+                <sg-button variant="primary" style="margin-top: 0.5rem">Sign In</sg-button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- DROPDOWN ---------------------------------------------------------- -->
+        <article class="component" id="dropdown">
+          <header class="component__header">
+            <h2 class="component__title">Dropdown</h2>
+            <code class="component__tag">&lt;sg-dropdown&gt;</code>
+          </header>
+          <div class="component__body">
+            <div class="demo-section">
+              <p class="demo-label">Basic</p>
+              <div class="demo-row">
+                <sg-dropdown align="start">
+                  <button slot="trigger" class="demo-btn">Select option ?</button>
+                  <button class="demo-menu-item">Option 1</button>
+                  <button class="demo-menu-item">Option 2</button>
+                  <button class="demo-menu-item">Option 3</button>
+                </sg-dropdown>
+              </div>
+            </div>
+            <div class="demo-section">
+              <p class="demo-label">With Header & Footer</p>
+              <div class="demo-row">
+                <sg-dropdown align="start">
+                  <button slot="trigger" class="demo-btn">Menu ?</button>
+                  <div slot="header" class="demo-menu-header">Settings</div>
+                  <button class="demo-menu-item">Profile</button>
+                  <button class="demo-menu-item">Preferences</button>
+                  <button class="demo-menu-item">Logout</button>
+                  <div slot="footer" class="demo-menu-footer">v1.2.1</div>
+                </sg-dropdown>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SKELETON ---------------------------------------------------------- -->
+        <article class="component" id="skeleton">
+          <header class="component__header">
+            <h2 class="component__title">Skeleton</h2>
+            <code class="component__tag">&lt;sg-skeleton&gt;</code>
+          </header>
+          <div class="component__body">
+            <div class="demo-grid">
+              <div class="demo-box">
+                <p class="demo-label">Text</p>
+                <div class="demo-col">
+                  <sg-skeleton variant="text" width="100%" height="1rem"></sg-skeleton>
+                  <sg-skeleton variant="text" width="80%" height="1rem"></sg-skeleton>
+                  <sg-skeleton variant="text" width="60%" height="1rem"></sg-skeleton>
+                </div>
+              </div>
+              <div class="demo-box">
+                <p class="demo-label">Rectangle</p>
+                <sg-skeleton variant="rect" width="100%" height="80px"></sg-skeleton>
+              </div>
+              <div class="demo-box">
+                <p class="demo-label">Circle</p>
+                <div class="demo-row">
+                  <sg-skeleton variant="circle" width="40px" height="40px"></sg-skeleton>
+                  <sg-skeleton variant="circle" width="56px" height="56px"></sg-skeleton>
+                </div>
+              </div>
+              <div class="demo-box">
+                <p class="demo-label">Pulse</p>
+                <sg-skeleton variant="rect" width="100%" height="60px" animation="pulse"></sg-skeleton>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ARTICLE EDITOR ---------------------------------------------------- -->
+        <article class="component" id="article-editor">
+          <header class="component__header">
+            <h2 class="component__title">Article Editor</h2>
+            <code class="component__tag">&lt;sg-article-editor&gt;</code>
+          </header>
+          <div class="component__body">
+            <sg-article-editor value="<p>Start editing...</p>" mode="split" min-height="280" placeholder="Write something..."> </sg-article-editor>
+          </div>
+        </article>
+
+        <!-- THEME TOGGLE ------------------------------------------------------ -->
+        <article class="component" id="theme-toggle">
+          <header class="component__header">
+            <h2 class="component__title">Theme Toggle</h2>
+            <code class="component__tag">&lt;sg-theme-toggle&gt;</code>
+          </header>
+          <div class="component__body">
+            <div class="demo-row">
+              <sg-theme-toggle></sg-theme-toggle>
+            </div>
+          </div>
+        </article>
+      </main>
+    </div>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- SCRIPTS -->
+    <!-- ----------------------------------------------------------------------- -->
+    <script>
+      // Theme
+      function toggleTheme() {
+        const html = document.documentElement;
+        const isDark = html.dataset.theme === 'dark';
+        html.dataset.theme = isDark ? 'light' : 'dark';
+        document.getElementById('theme-icon').innerHTML = isDark
+          ? '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>'
+          : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
       }
-    }, { threshold: [0, 0.25, 0.5, 0.75, 1], rootMargin: '-10% 0px -60% 0px' });
 
-    document.querySelectorAll('.component').forEach(el => observer.observe(el));
+      // Active nav on scroll - track which section is most visible
+      let currentActive = null;
+      const observer = new IntersectionObserver(
+        entries => {
+          let maxRatio = 0;
+          let mostVisible = null;
 
-    // Set first item as active initially
-    document.querySelector('.dev-nav__link')?.classList.add('active');
-  </script>
-</body>
+          entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+              maxRatio = entry.intersectionRatio;
+              mostVisible = entry.target;
+            }
+          });
+
+          if (mostVisible && mostVisible.id !== currentActive) {
+            currentActive = mostVisible.id;
+            document.querySelectorAll('.dev-nav__link').forEach(l => l.classList.remove('active'));
+            document.querySelector(`.dev-nav__link[href="#${mostVisible.id}"]`)?.classList.add('active');
+          }
+        },
+        { threshold: [0, 0.25, 0.5, 0.75, 1], rootMargin: '-10% 0px -60% 0px' }
+      );
+
+      document.querySelectorAll('.component').forEach(el => observer.observe(el));
+
+      // Set first item as active initially
+      document.querySelector('.dev-nav__link')?.classList.add('active');
+    </script>
+  </body>
 </html>
-

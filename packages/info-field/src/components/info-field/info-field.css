@@ -1,0 +1,71 @@
+:host {
+  display: block;
+}
+
+.info-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.info-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--sg-text-secondary, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.info-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--sg-text-primary, #111827);
+}
+
+.info-value .missing {
+  color: var(--sg-text-muted, #9ca3af);
+  font-style: italic;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.text-success {
+  color: var(--sg-color-success, #16a34a);
+  font-weight: 600;
+}
+
+.text-error {
+  color: var(--sg-color-error, #dc2626);
+  font-weight: 600;
+}
+
+.html-content {
+  line-height: 1.5;
+}
+
+.html-content :first-child {
+  margin-top: 0;
+}
+
+.html-content :last-child {
+  margin-bottom: 0;
+}
+
+.array-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+}
+
+.array-list li {
+  font-size: 0.875rem;
+  color: var(--sg-text-primary, #374151);
+  padding: 0.125rem 0;
+}

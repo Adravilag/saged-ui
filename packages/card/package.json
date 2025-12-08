@@ -1,0 +1,52 @@
+{
+  "name": "@sage-box/card",
+  "version": "0.1.1",
+  "description": "Card component for SageBox - Flexible container with variants, icons and actions",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "unpkg": "dist/sagebox-card/sagebox-card.esm.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./loader": {
+      "types": "./loader/index.d.ts",
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adravilag/sagebox.git",
+    "directory": "packages/card"
+  },
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "test": "stencil test --spec"
+  },
+  "peerDependencies": {
+    "@sage-box/core": "^0.1.0"
+  },
+  "devDependencies": {
+    "@stencil/core": "^4.27.1",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "sagebox",
+    "card",
+    "container",
+    "web-components",
+    "stencil"
+  ],
+  "author": "adravilag",
+  "license": "MIT"
+}
+

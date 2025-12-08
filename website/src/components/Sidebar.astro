@@ -1,11 +1,25 @@
 ---
 import { navigation, siteConfig } from '../config/navigation';
 import LanguageSelector from './LanguageSelector.astro';
-import { useTranslations, type Language, defaultLang } from '../i18n/translations';
+import { useTranslations, type Language, defaultLang, translations } from '../i18n/translations';
 
 // For SSG, we use default language. JS will update on client side.
 const lang = defaultLang;
 const t = useTranslations(lang);
+
+// Helper to get translations for both languages
+const t_es = translations.es;
+const t_en = translations.en;
+
+function getGroup(group: string, langCode: 'es' | 'en') {
+  const key = group.toLowerCase() as keyof typeof t_es.nav.groups;
+  return translations[langCode].nav.groups[key] || group;
+}
+
+function getItem(id: string, langCode: 'es' | 'en', defaultName: string) {
+  const key = id as keyof typeof t_es.nav.items;
+  return translations[langCode].nav.items[key] || defaultName;
+}
 
 // Get base URL from Astro config
 const baseRaw = import.meta.env.BASE_URL;
@@ -17,8 +31,16 @@ const icons: Record<string, string> = {
   button: `<path d="M4 6h16M4 12h16M4 18h16"/><rect x="2" y="4" width="20" height="16" rx="2"/>`,
   badge: `<circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/>`,
   image: `<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>`,
+  card: `<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>`,
+  tooltip: `<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M12 18v3"/><path d="M9 21h6"/>`,
+  // Navigation
+  breadcrumb: `<path d="m9 18 6-6-6-6"/><path d="m3 18 6-6-6-6"/><path d="m15 18 6-6-6-6"/>`,
   // Form
+  input: `<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 12h.01"/><path d="M12 12h5"/>`,
+  select: `<rect x="3" y="6" width="18" height="12" rx="2"/><path d="m9 10 3 3 3-3"/>`,
   dropdown: `<path d="m6 9 6 6 6-6"/><rect x="3" y="3" width="18" height="18" rx="2"/>`,
+  // Data Display
+  stats: `<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15h18"/><path d="M8 15v6"/><path d="M12 11v10"/><path d="M16 7v14"/>`,
   // Feedback
   skeleton: `<rect x="3" y="3" width="18" height="4" rx="1"/><rect x="3" y="10" width="12" height="4" rx="1"/><rect x="3" y="17" width="15" height="4" rx="1"/>`,
   // Content
@@ -48,22 +70,22 @@ function resolveHref(href: string | undefined, id: string): string {
     <a href={base} class="logo">
       <span class="logo-icon">
         <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
-          <rect x="2" y="2" width="12" height="12" rx="3" fill="url(#g1)"/>
-          <rect x="18" y="2" width="12" height="12" rx="3" fill="url(#g2)"/>
-          <rect x="2" y="18" width="12" height="12" rx="3" fill="url(#g2)"/>
-          <rect x="18" y="18" width="12" height="12" rx="3" fill="url(#g3)"/>
+          <rect x="2" y="2" width="12" height="12" rx="3" fill="url(#g1)"></rect>
+          <rect x="18" y="2" width="12" height="12" rx="3" fill="url(#g2)"></rect>
+          <rect x="2" y="18" width="12" height="12" rx="3" fill="url(#g2)"></rect>
+          <rect x="18" y="18" width="12" height="12" rx="3" fill="url(#g3)"></rect>
           <defs>
             <linearGradient id="g1" x1="2" y1="2" x2="14" y2="14" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#818cf8"/>
-              <stop offset="1" stop-color="#6366f1"/>
+              <stop stop-color="#818cf8"></stop>
+              <stop offset="1" stop-color="#6366f1"></stop>
             </linearGradient>
             <linearGradient id="g2" x1="2" y1="2" x2="14" y2="14" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#a5b4fc"/>
-              <stop offset="1" stop-color="#818cf8"/>
+              <stop stop-color="#a5b4fc"></stop>
+              <stop offset="1" stop-color="#818cf8"></stop>
             </linearGradient>
             <linearGradient id="g3" x1="2" y1="2" x2="14" y2="14" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#c7d2fe"/>
-              <stop offset="1" stop-color="#a5b4fc"/>
+              <stop stop-color="#c7d2fe"></stop>
+              <stop offset="1" stop-color="#a5b4fc"></stop>
             </linearGradient>
           </defs>
         </svg>
@@ -73,13 +95,13 @@ function resolveHref(href: string | undefined, id: string): string {
     </a>
   </header>
 
-  <nav class="nav-container">
+  <nav class="nav-container" id="sidebar-nav">
     <!-- Design Tokens Link -->
     <a href={`${base}tokens/`} class="tokens-link" data-navlink>
       <span class="tokens-icon">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/>
-          <circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+          <circle cx="13.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="10.5" r="2.5"></circle><circle cx="8.5" cy="7.5" r="2.5"></circle>
+          <circle cx="6.5" cy="12.5" r="2.5"></circle><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
         </svg>
       </span>
       <span>Design Tokens</span>
@@ -87,91 +109,203 @@ function resolveHref(href: string | undefined, id: string): string {
     </a>
 
     <ul class="nav">
-      {navigation.map(section => (
-        <>
-          <li class="nav-group">
-            <span class="nav-group-icon">
-              {section.icon === 'layers' && (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
-                </svg>
-              )}
-              {section.icon === 'form' && (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 15h6"/>
-                </svg>
-              )}
-              {section.icon === 'activity' && (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                </svg>
-              )}
-              {section.icon === 'file-text' && (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-                </svg>
-              )}
-              {section.icon === 'settings' && (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-                </svg>
-              )}
-            </span>
-            <span data-i18n={`nav.groups.${section.group.toLowerCase()}`}>{section.group}</span>
-          </li>
-          {section.items.map(item => (
-            <li class="nav-item">
-              <a
-                href={resolveHref(item.href, item.id)}
-                class="nav-link"
-                data-navlink
-              >
-                <span class="nav-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <Fragment set:html={getIcon(item.icon)} />
+      {
+        navigation.map(section => (
+          <>
+            <li class="nav-group">
+              <span class="nav-group-icon">
+                {section.icon === 'layers' && (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polyline points="2 17 12 22 22 17" />
+                    <polyline points="2 12 12 17 22 12" />
                   </svg>
-                </span>
-                <span data-i18n={`nav.items.${item.id}`}>{item.name}</span>
-              </a>
+                )}
+                {section.icon === 'navigation' && (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="3 11 22 2 13 21 11 13 3 11" />
+                  </svg>
+                )}
+                {section.icon === 'form' && (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <path d="M9 9h6M9 15h6" />
+                  </svg>
+                )}
+                {section.icon === 'chart' && (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10" />
+                    <line x1="12" y1="20" x2="12" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="14" />
+                  </svg>
+                )}
+                {section.icon === 'activity' && (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                  </svg>
+                )}
+                {section.icon === 'file-text' && (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                  </svg>
+                )}
+                {section.icon === 'settings' && (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  </svg>
+                )}
+              </span>
+              <span class="nav-group-title">
+                <span class="lang-es">{getGroup(section.group, 'es')}</span>
+                <span class="lang-en">{getGroup(section.group, 'en')}</span>
+              </span>
             </li>
-          ))}
-        </>
-      ))}
+            {section.items.map(item => (
+              <li class="nav-item">
+                <a href={resolveHref(item.href, item.id)} class="nav-link" data-navlink>
+                  <span class="nav-icon">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <Fragment set:html={getIcon(item.icon)} />
+                    </svg>
+                  </span>
+                  <span class="nav-text">
+                    <span class="lang-es">{getItem(item.id, 'es', item.name)}</span>
+                    <span class="lang-en">{getItem(item.id, 'en', item.name)}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </>
+        ))
+      }
     </ul>
   </nav>
 
   <!-- About Link -->
   <a href={`${base}about/`} class="about-link" data-navlink>
     <svg width="16" height="16" viewBox="0 -960 960 960" fill="currentColor">
-      <path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
+      <path
+        d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+      ></path>
     </svg>
-    <span data-i18n="about.title">About</span>
+    <span class="nav-text">
+      <span class="lang-es">{translations.es.about.title}</span>
+      <span class="lang-en">{translations.en.about.title}</span>
+    </span>
   </a>
 
   <footer class="sidebar-footer">
     <button class="theme-btn" id="theme-toggle-btn" title={t.common.toggleTheme}>
       <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        <circle cx="12" cy="12" r="5"></circle><path
+          d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
       </svg>
       <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
       </svg>
     </button>
     <LanguageSelector currentLang={lang} />
     <a href="https://github.com/adravilag/sagebox" target="_blank" class="footer-link" aria-label="GitHub">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        <path
+          d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
+        ></path>
       </svg>
     </a>
   </footer>
 </aside>
 
+<script is:inline>
+  // Immediate scroll restoration to prevent jumping
+  (function () {
+    try {
+      var nav = document.getElementById('sidebar-nav');
+      var key = 'sagebox-sidebar-scroll';
+      var saved = sessionStorage.getItem(key);
+      if (nav && saved) {
+        nav.scrollTop = parseInt(saved, 10);
+      }
+    } catch (e) {}
+  })();
+</script>
+
 <script>
+  const SIDEBAR_SCROLL_KEY = 'sagebox-sidebar-scroll';
+
+  // Update active nav link based on current path
+  function updateActiveLink() {
+    const currentPath = window.location.pathname.replace(/\/$/, '');
+    const navLinks = document.querySelectorAll('.sidebar [data-navlink]');
+
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href')?.replace(/\/$/, '') || '';
+      const normalizedCurrent = currentPath.toLowerCase();
+      const normalizedHref = href.toLowerCase();
+      const isActive = normalizedCurrent === normalizedHref || normalizedCurrent.endsWith(normalizedHref.split('/').pop() || '');
+
+      if (isActive && normalizedHref !== '') {
+        link.classList.add('active');
+        // Ensure active link is visible if not already
+        // We use a small timeout to let the layout settle if needed,
+        // but the inline script above handles the main scroll position.
+        setTimeout(() => {
+          const navContainer = document.getElementById('sidebar-nav');
+          if (navContainer) {
+            const linkRect = link.getBoundingClientRect();
+            const containerRect = navContainer.getBoundingClientRect();
+            if (linkRect.top < containerRect.top || linkRect.bottom > containerRect.bottom) {
+              link.scrollIntoView({ block: 'center', behavior: 'instant' });
+            }
+          }
+        }, 0);
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  // Save scroll position
+  const navContainer = document.getElementById('sidebar-nav');
+  if (navContainer) {
+    navContainer.addEventListener(
+      'scroll',
+      () => {
+        sessionStorage.setItem(SIDEBAR_SCROLL_KEY, navContainer.scrollTop.toString());
+      },
+      { passive: true }
+    );
+  }
+
+  // Initialize
+  updateActiveLink();
+
+  // Prevent reload when clicking the active link
+  document.querySelectorAll('.sidebar [data-navlink]').forEach(link => {
+    link.addEventListener('click', e => {
+      if (link.classList.contains('active')) {
+        e.preventDefault();
+      }
+    });
+  });
+
   // Theme toggle button handler
-  const btn = document.getElementById('theme-toggle-btn');
-  if (btn) {
-    btn.addEventListener('click', () => {
-      const THEME_KEY = 'saged-theme';
+  const themeBtn = document.getElementById('theme-toggle-btn');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const THEME_KEY = 'sage-theme';
       const current = document.documentElement.getAttribute('data-theme') || 'light';
       const newTheme = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', newTheme);
@@ -191,9 +325,6 @@ function resolveHref(href: string | undefined, id: string): string {
     flex-direction: column;
     overflow: hidden;
     min-width: 250px;
-    /* Ensure sidebar is always interactive during view transitions */
-    view-transition-name: none;
-    pointer-events: auto !important;
     z-index: 100;
   }
 
@@ -498,9 +629,15 @@ function resolveHref(href: string | undefined, id: string): string {
     height: 16px;
   }
 
-  .moon-icon { display: none; }
-  :global([data-theme="dark"]) .sun-icon { display: none; }
-  :global([data-theme="dark"]) .moon-icon { display: block; }
+  .moon-icon {
+    display: none;
+  }
+  :global([data-theme='dark']) .sun-icon {
+    display: none;
+  }
+  :global([data-theme='dark']) .moon-icon {
+    display: block;
+  }
 
   .footer-link {
     display: flex;
@@ -551,6 +688,14 @@ function resolveHref(href: string | undefined, id: string): string {
     background: var(--border-muted);
   }
 
+  /* Language switching - prevents FOUC */
+  :global(html[lang='en']) .lang-es {
+    display: none !important;
+  }
+  :global(html[lang='es']) .lang-en {
+    display: none !important;
+  }
+
   @media (max-width: 768px) {
     .sidebar {
       position: relative;
@@ -593,44 +738,3 @@ function resolveHref(href: string | undefined, id: string): string {
     }
   }
 </style>
-
-<script>
-  // Update active nav link based on current path
-  function updateActiveLink() {
-    const currentPath = window.location.pathname.replace(/\/$/, '');
-    const navLinks = document.querySelectorAll('.sidebar [data-navlink]');
-
-    navLinks.forEach(link => {
-      const href = link.getAttribute('href')?.replace(/\/$/, '') || '';
-      
-      // Normalize both paths for comparison
-      const normalizedCurrent = currentPath.toLowerCase();
-      const normalizedHref = href.toLowerCase();
-      
-      // Check for exact match or if current path ends with the href path
-      const isActive = normalizedCurrent === normalizedHref || 
-                       normalizedCurrent.endsWith(normalizedHref.split('/').pop() || '');
-
-      if (isActive && normalizedHref !== '') {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
-    });
-  }
-
-  // Run on page load
-  updateActiveLink();
-
-  // Handle navigation clicks - ensures navigation works correctly
-  document.querySelectorAll('.sidebar [data-navlink]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      // Only handle left-click without modifier keys
-      if (href && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
-        e.preventDefault();
-        window.location.href = href;
-      }
-    });
-  });
-</script>

@@ -1,6 +1,6 @@
 {
     "name":  "@sage-box/theme-toggle",
-    "version":  "0.1.0",
+    "version": "0.1.1",
     "description":  "Theme toggle component for SageBox - Dark/light mode switcher",
     "main":  "dist/index.cjs.js",
     "module":  "dist/index.js",
@@ -51,3 +51,4 @@
                           "access":  "public"
                       }
 }
+

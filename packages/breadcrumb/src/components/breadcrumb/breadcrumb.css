@@ -1,0 +1,77 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SG-BREADCRUMB STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:host {
+  --_breadcrumb-font-size: var(--sg-breadcrumb-font-size, 0.875rem);
+  --_breadcrumb-gap: var(--sg-breadcrumb-gap, 0.5rem);
+  --_breadcrumb-color: var(--sg-breadcrumb-color, var(--ui-text-muted, #6b7280));
+  --_breadcrumb-color-hover: var(--sg-breadcrumb-color-hover, var(--ui-accent, #6366f1));
+  --_breadcrumb-color-active: var(--sg-breadcrumb-color-active, var(--ui-text, #111827));
+  --_breadcrumb-separator-color: var(--sg-breadcrumb-separator-color, var(--ui-text-muted, #9ca3af));
+
+  display: block;
+  font-size: var(--_breadcrumb-font-size);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   NAV & LIST
+   ───────────────────────────────────────────────────────────────────────────── */
+nav {
+  display: block;
+}
+
+.breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--_breadcrumb-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   SEPARATOR TEMPLATE (hidden, used by items)
+   ───────────────────────────────────────────────────────────────────────────── */
+.separator-template {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   SIZE VARIANTS
+   ───────────────────────────────────────────────────────────────────────────── */
+:host(.sg-breadcrumb--sm) {
+  --_breadcrumb-font-size: 0.75rem;
+  --_breadcrumb-gap: 0.375rem;
+}
+
+:host(.sg-breadcrumb--lg) {
+  --_breadcrumb-font-size: 1rem;
+  --_breadcrumb-gap: 0.625rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   COLLAPSIBLE (Mobile)
+   ───────────────────────────────────────────────────────────────────────────── */
+:host(.sg-breadcrumb--collapsible) .breadcrumb-list {
+  /* Items will handle their own visibility via CSS */
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   DARK MODE
+   ───────────────────────────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :host {
+    --_breadcrumb-color: var(--sg-breadcrumb-color, var(--ui-color-text-muted-dark, #9ca3af));
+    --_breadcrumb-color-active: var(--sg-breadcrumb-color-active, var(--ui-color-text-dark, #f9fafb));
+    --_breadcrumb-separator-color: var(--sg-breadcrumb-separator-color, var(--ui-color-text-muted-dark, #6b7280));
+  }
+}
+
+:host-context([data-theme='dark']),
+:host-context(.dark) {
+  --_breadcrumb-color: var(--sg-breadcrumb-color, var(--ui-color-text-muted-dark, #9ca3af));
+  --_breadcrumb-color-active: var(--sg-breadcrumb-color-active, var(--ui-color-text-dark, #f9fafb));
+  --_breadcrumb-separator-color: var(--sg-breadcrumb-separator-color, var(--ui-color-text-muted-dark, #6b7280));
+}

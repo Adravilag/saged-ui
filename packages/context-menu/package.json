@@ -1,0 +1,38 @@
+{
+  "name": "@sage-box/context-menu",
+  "version": "0.1.1",
+  "description": "SageBox Context Menu - Floating context menu triggered by right-click",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/components/context-menu/context-menu.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/context-menu/context-menu.esm.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "dev": "stencil build --dev --watch",
+    "test": "stencil test --spec",
+    "storybook": "stencil build && storybook dev -p 6006",
+    "storybook:fast": "storybook dev -p 6006",
+    "build-storybook": "stencil build && storybook build"
+  },
+  "dependencies": {
+    "@sage-box/core": "^0.1.0"
+  },
+  "devDependencies": {
+    "@sage-box/icons": "^0.1.0",
+    "@stencil/core": "^4.38.1"
+  },
+  "keywords": [
+    "stencil",
+    "web-components",
+    "context-menu",
+    "sagebox"
+  ],
+  "license": "MIT"
+}
+

@@ -1,0 +1,304 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import Playground from '../../components/Playground.astro';
+
+const props = [
+  { name: 'separator', type: "'chevron' | 'slash' | 'arrow' | 'dot'", default: "'chevron'", description: 'Tipo de separador entre items' },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Tamaño del breadcrumb' },
+  { name: 'max-items', type: 'number', default: 'undefined', description: 'Máximo de items visibles (colapsa el resto)' },
+];
+
+const itemProps = [
+  { name: 'href', type: 'string', default: 'undefined', description: 'URL del enlace' },
+  { name: 'icon', type: 'string', default: 'undefined', description: 'Nombre del icono (usa sg-icon)' },
+  { name: 'active', type: 'boolean', default: 'false', description: 'Indica si es el item actual/activo' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Desactiva el item' },
+];
+
+const slots = [{ name: '(default)', description: 'Items del breadcrumb (sg-breadcrumb-item)' }];
+
+const itemSlots = [{ name: '(default)', description: 'Contenido del item (texto)' }];
+---
+
+<ComponentLayout
+  title="Breadcrumb"
+  tag="sg-breadcrumb"
+  packageName="breadcrumb"
+  description="Componente de navegación que muestra la ubicación actual dentro de una jerarquía. Incluye soporte para separadores, iconos y colapso automático."
+  props={props}
+  slots={slots}
+>
+  <Fragment slot="examples">
+    <DemoBox
+      label="Básico"
+      code={`<sg-breadcrumb>
+  <sg-breadcrumb-item href="/">Home</sg-breadcrumb-item>
+  <sg-breadcrumb-item href="/products">Products</sg-breadcrumb-item>
+  <sg-breadcrumb-item href="/products/electronics">Electronics</sg-breadcrumb-item>
+  <sg-breadcrumb-item active>Laptops</sg-breadcrumb-item>
+</sg-breadcrumb>`}
+    >
+      <sg-breadcrumb>
+        <sg-breadcrumb-item href="#">Home</sg-breadcrumb-item>
+        <sg-breadcrumb-item href="#">Products</sg-breadcrumb-item>
+        <sg-breadcrumb-item href="#">Electronics</sg-breadcrumb-item>
+        <sg-breadcrumb-item active>Laptops</sg-breadcrumb-item>
+      </sg-breadcrumb>
+    </DemoBox>
+
+    <DemoBox
+      label="Separadores"
+      code={`<sg-breadcrumb separator="chevron">...</sg-breadcrumb>
+<sg-breadcrumb separator="slash">...</sg-breadcrumb>
+<sg-breadcrumb separator="arrow">...</sg-breadcrumb>
+<sg-breadcrumb separator="dot">...</sg-breadcrumb>`}
+    >
+      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0 0 0.5rem 0;">Chevron (default)</p>
+          <sg-breadcrumb separator="chevron">
+            <sg-breadcrumb-item href="#">Home</sg-breadcrumb-item>
+            <sg-breadcrumb-item href="#">Products</sg-breadcrumb-item>
+            <sg-breadcrumb-item active>Item</sg-breadcrumb-item>
+          </sg-breadcrumb>
+        </div>
+        <div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0 0 0.5rem 0;">Slash</p>
+          <sg-breadcrumb separator="slash">
+            <sg-breadcrumb-item href="#">Home</sg-breadcrumb-item>
+            <sg-breadcrumb-item href="#">Products</sg-breadcrumb-item>
+            <sg-breadcrumb-item active>Item</sg-breadcrumb-item>
+          </sg-breadcrumb>
+        </div>
+        <div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0 0 0.5rem 0;">Arrow</p>
+          <sg-breadcrumb separator="arrow">
+            <sg-breadcrumb-item href="#">Home</sg-breadcrumb-item>
+            <sg-breadcrumb-item href="#">Products</sg-breadcrumb-item>
+            <sg-breadcrumb-item active>Item</sg-breadcrumb-item>
+          </sg-breadcrumb>
+        </div>
+        <div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0 0 0.5rem 0;">Dot</p>
+          <sg-breadcrumb separator="dot">
+            <sg-breadcrumb-item href="#">Home</sg-breadcrumb-item>
+            <sg-breadcrumb-item href="#">Products</sg-breadcrumb-item>
+            <sg-breadcrumb-item active>Item</sg-breadcrumb-item>
+          </sg-breadcrumb>
+        </div>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Tamaños"
+      code={`<sg-breadcrumb size="sm">...</sg-breadcrumb>
+<sg-breadcrumb size="md">...</sg-breadcrumb>
+<sg-breadcrumb size="lg">...</sg-breadcrumb>`}
+    >
+      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0 0 0.5rem 0;">Small</p>
+          <sg-breadcrumb size="sm">
+            <sg-breadcrumb-item href="#">Home</sg-breadcrumb-item>
+            <sg-breadcrumb-item href="#">Section</sg-breadcrumb-item>
+            <sg-breadcrumb-item active>Page</sg-breadcrumb-item>
+          </sg-breadcrumb>
+        </div>
+        <div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0 0 0.5rem 0;">Medium (default)</p>
+          <sg-breadcrumb size="md">
+            <sg-breadcrumb-item href="#">Home</sg-breadcrumb-item>
+            <sg-breadcrumb-item href="#">Section</sg-breadcrumb-item>
+            <sg-breadcrumb-item active>Page</sg-breadcrumb-item>
+          </sg-breadcrumb>
+        </div>
+        <div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0 0 0.5rem 0;">Large</p>
+          <sg-breadcrumb size="lg">
+            <sg-breadcrumb-item href="#">Home</sg-breadcrumb-item>
+            <sg-breadcrumb-item href="#">Section</sg-breadcrumb-item>
+            <sg-breadcrumb-item active>Page</sg-breadcrumb-item>
+          </sg-breadcrumb>
+        </div>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Con iconos"
+      code={`<sg-breadcrumb>
+  <sg-breadcrumb-item href="/" icon="home">Home</sg-breadcrumb-item>
+  <sg-breadcrumb-item href="/settings" icon="settings">Settings</sg-breadcrumb-item>
+  <sg-breadcrumb-item icon="user" active>Profile</sg-breadcrumb-item>
+</sg-breadcrumb>`}
+    >
+      <sg-breadcrumb>
+        <sg-breadcrumb-item href="#" icon="home">Home</sg-breadcrumb-item>
+        <sg-breadcrumb-item href="#" icon="cog">Settings</sg-breadcrumb-item>
+        <sg-breadcrumb-item icon="user" active>Profile</sg-breadcrumb-item>
+      </sg-breadcrumb>
+    </DemoBox>
+
+    <DemoBox
+      label="Item deshabilitado"
+      code={`<sg-breadcrumb>
+  <sg-breadcrumb-item href="/">Home</sg-breadcrumb-item>
+  <sg-breadcrumb-item disabled>Restricted</sg-breadcrumb-item>
+  <sg-breadcrumb-item active>Current</sg-breadcrumb-item>
+</sg-breadcrumb>`}
+    >
+      <sg-breadcrumb>
+        <sg-breadcrumb-item href="#">Home</sg-breadcrumb-item>
+        <sg-breadcrumb-item disabled>Restricted</sg-breadcrumb-item>
+        <sg-breadcrumb-item active>Current</sg-breadcrumb-item>
+      </sg-breadcrumb>
+    </DemoBox>
+
+    <div class="playground-section">
+      <h3><sg-icon name="code" size="20"></sg-icon> Playground</h3>
+      <p>Edita el código y ve los cambios en tiempo real:</p>
+      <Playground
+        code={`<sg-breadcrumb separator="chevron" size="md">
+  <sg-breadcrumb-item href="#" icon="home">
+    Home
+  </sg-breadcrumb-item>
+  <sg-breadcrumb-item href="#">
+    Library
+  </sg-breadcrumb-item>
+  <sg-breadcrumb-item href="#">
+    Data
+  </sg-breadcrumb-item>
+  <sg-breadcrumb-item active>
+    Current Page
+  </sg-breadcrumb-item>
+</sg-breadcrumb>`}
+        height="140px"
+      />
+    </div>
+  </Fragment>
+
+  <Fragment slot="usage">
+    <div class="usage-block">
+      <h3>Componentes relacionados</h3>
+      <p style="color: var(--text-muted); margin: 0 0 1rem 0;">El breadcrumb usa dos componentes:</p>
+
+      <h4 style="font-size: 0.875rem; color: var(--text); margin: 1.5rem 0 0.75rem 0;">sg-breadcrumb-item Props</h4>
+      <div class="props-mini-table">
+        {
+          itemProps.map(prop => (
+            <div class="prop-row">
+              <code class="prop-name">{prop.name}</code>
+              <span class="prop-type">{prop.type}</span>
+              <span class="prop-desc">{prop.description}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="usage-block">
+      <h3>Uso en frameworks</h3>
+      <CodeBlock
+        filename="navigation.tsx"
+        code={`// React example
+const PageHeader = ({ path }) => {
+  const segments = path.split('/').filter(Boolean);
+
+  return (
+    <sg-breadcrumb separator="chevron">
+      <sg-breadcrumb-item href="/" icon="home">
+        Home
+      </sg-breadcrumb-item>
+      {segments.map((segment, i) => (
+        <sg-breadcrumb-item
+          key={segment}
+          href={"/" + segments.slice(0, i + 1).join('/')}
+          active={i === segments.length - 1}
+        >
+          {segment}
+        </sg-breadcrumb-item>
+      ))}
+    </sg-breadcrumb>
+  );
+};`}
+      />
+    </div>
+  </Fragment>
+</ComponentLayout>
+
+<style>
+  .usage-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .usage-block h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    color: var(--text);
+  }
+
+  .playground-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .playground-section h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .playground-section p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .props-mini-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .prop-row {
+    display: grid;
+    grid-template-columns: 100px 180px 1fr;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: 0.8125rem;
+  }
+  .prop-name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    background: var(--surface-raised);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    color: var(--primary);
+  }
+  .prop-type {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+  }
+  .prop-desc {
+    color: var(--text);
+  }
+
+  @media (max-width: 640px) {
+    .prop-row {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .prop-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+</style>

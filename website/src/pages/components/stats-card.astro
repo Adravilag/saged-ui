@@ -1,0 +1,317 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import Playground from '../../components/Playground.astro';
+
+const props = [
+  { name: 'card-title', type: 'string', default: 'undefined', description: 'Título/etiqueta de la tarjeta' },
+  { name: 'value', type: 'string | number', default: 'undefined', description: 'Valor principal de la estadística' },
+  { name: 'unit', type: 'string', default: 'undefined', description: 'Sufijo de unidad para el valor' },
+  { name: 'description', type: 'string', default: 'undefined', description: 'Texto descriptivo debajo del valor' },
+  { name: 'icon', type: 'string', default: 'undefined', description: 'Nombre del icono (usa sg-icon)' },
+  {
+    name: 'color',
+    type: "'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'cyan'",
+    default: "'primary'",
+    description: 'Esquema de color',
+  },
+  { name: 'trend', type: 'string', default: 'undefined', description: 'Indicador de tendencia: up, down o valor como +12%' },
+  { name: 'trend-positive', type: 'boolean', default: 'true', description: 'Si la tendencia es positiva (verde) o negativa (roja)' },
+  { name: 'stats', type: 'string | StatItem[]', default: 'undefined', description: 'Breakdown de estadísticas adicionales (JSON)' },
+  { name: 'loading', type: 'boolean', default: 'false', description: 'Muestra skeleton de carga' },
+  { name: 'animation-delay', type: 'number', default: '0', description: 'Delay de animación en ms (para animaciones escalonadas)' },
+];
+
+const events = [{ name: 'sgClick', type: 'CustomEvent<void>', description: 'Emitido cuando se hace click en la tarjeta' }];
+
+const slots = [
+  { name: '(default)', description: 'Contenido adicional' },
+  { name: 'stats', description: 'Breakdown de estadísticas adicionales' },
+];
+---
+
+<ComponentLayout
+  title="Stats Card"
+  tag="sg-stats-card"
+  packageName="stats-card"
+  description="Tarjeta especializada para mostrar estadísticas y métricas. Soporta indicadores de tendencia, iconos decorativos y animaciones escalonadas."
+  props={props}
+  events={events}
+  slots={slots}
+>
+  <Fragment slot="examples">
+    <DemoBox
+      label="Básico"
+      code={`<sg-stats-card
+  value="1,234"
+  label="Total Users"
+  icon="user">
+</sg-stats-card>`}
+    >
+      <div style="max-width: 280px; margin: 0 auto;">
+        <sg-stats-card value="1,234" label="Total Users" icon="user"> </sg-stats-card>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Colores"
+      code={`<sg-stats-card color="primary" value="2.4k" label="Views" icon="eye"></sg-stats-card>
+<sg-stats-card color="success" value="$12.8k" label="Revenue" icon="dollar-sign"></sg-stats-card>
+<sg-stats-card color="warning" value="89" label="Pending" icon="clock"></sg-stats-card>
+<sg-stats-card color="error" value="5" label="Issues" icon="exclamation-triangle"></sg-stats-card>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <sg-stats-card color="primary" value="2.4k" label="Page Views" icon="eye"></sg-stats-card>
+        <sg-stats-card color="success" value="$12.8k" label="Revenue" icon="check-circle"></sg-stats-card>
+        <sg-stats-card color="warning" value="89" label="Pending Tasks" icon="clock"></sg-stats-card>
+        <sg-stats-card color="error" value="5" label="Open Issues" icon="exclamation-triangle"></sg-stats-card>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Más colores"
+      code={`<sg-stats-card color="info" value="47" label="Messages" icon="envelope"></sg-stats-card>
+<sg-stats-card color="purple" value="12" label="Projects" icon="folder"></sg-stats-card>
+<sg-stats-card color="cyan" value="99%" label="Uptime" icon="server"></sg-stats-card>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <sg-stats-card color="info" value="47" label="Unread Messages" icon="envelope"></sg-stats-card>
+        <sg-stats-card color="purple" value="12" label="Active Projects" icon="folder"></sg-stats-card>
+        <sg-stats-card color="cyan" value="99.9%" label="Server Uptime" icon="cog"></sg-stats-card>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Con tendencia"
+      code={`<sg-stats-card
+  value="8,249"
+  label="Sales"
+  trend="up"
+  trend-value="+12.5%">
+</sg-stats-card>
+<sg-stats-card
+  value="342"
+  label="Returns"
+  trend="down"
+  trend-value="-5.2%">
+</sg-stats-card>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <sg-stats-card
+          value="8,249"
+          label="Monthly Sales"
+          sublabel="vs last month"
+          icon="shopping-cart"
+          color="success"
+          trend="up"
+          trend-value="+12.5%"
+        >
+        </sg-stats-card>
+        <sg-stats-card value="342" label="Returns" sublabel="vs last month" icon="undo" color="error" trend="down" trend-value="-5.2%">
+        </sg-stats-card>
+        <sg-stats-card value="4.2" label="Avg Rating" sublabel="stable" icon="star" color="warning" trend="neutral" trend-value="0.0%">
+        </sg-stats-card>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Con watermark icon"
+      code={`<sg-stats-card
+  value="$45,231"
+  label="Total Revenue"
+  watermark-icon="dollar-sign"
+  color="success">
+</sg-stats-card>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+        <sg-stats-card
+          value="$45,231"
+          label="Total Revenue"
+          sublabel="This quarter"
+          icon="check-circle"
+          watermark-icon="check"
+          color="success"
+          trend="up"
+          trend-value="+18.2%"
+        >
+        </sg-stats-card>
+        <sg-stats-card
+          value="1,847"
+          label="New Customers"
+          sublabel="This month"
+          icon="user"
+          watermark-icon="users"
+          color="primary"
+          trend="up"
+          trend-value="+8.1%"
+        >
+        </sg-stats-card>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Animaciones escalonadas"
+      code={`<sg-stats-card animated animation-delay="0" ...></sg-stats-card>
+<sg-stats-card animated animation-delay="100" ...></sg-stats-card>
+<sg-stats-card animated animation-delay="200" ...></sg-stats-card>`}
+    >
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+        <sg-stats-card value="156" label="Orders" icon="shopping-cart" color="primary" animated animation-delay="0"> </sg-stats-card>
+        <sg-stats-card value="84" label="Deliveries" icon="truck" color="success" animated animation-delay="100"> </sg-stats-card>
+        <sg-stats-card value="23" label="Processing" icon="clock" color="warning" animated animation-delay="200"> </sg-stats-card>
+        <sg-stats-card value="3" label="Issues" icon="exclamation-circle" color="error" animated animation-delay="300"> </sg-stats-card>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Estado de carga" code={`<sg-stats-card loading></sg-stats-card>`}>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <sg-stats-card loading></sg-stats-card>
+        <sg-stats-card loading></sg-stats-card>
+        <sg-stats-card loading></sg-stats-card>
+      </div>
+    </DemoBox>
+
+    <div class="playground-section">
+      <h3><sg-icon name="code" size="20"></sg-icon> Playground</h3>
+      <p>Edita el código y ve los cambios en tiempo real:</p>
+      <Playground
+        code={`<sg-stats-card
+  value="$24,500"
+  label="Monthly Revenue"
+  sublabel="vs. last month"
+  icon="check-circle"
+  watermark-icon="dollar-sign"
+  color="success"
+  trend="up"
+  trend-value="+15.3%"
+  animated>
+</sg-stats-card>`}
+        height="200px"
+      />
+    </div>
+  </Fragment>
+
+  <Fragment slot="usage">
+    <div class="usage-block">
+      <h3>Dashboard de métricas</h3>
+      <CodeBlock
+        filename="dashboard.html"
+        code={`<div class="stats-grid">
+  <sg-stats-card
+    value="12,847"
+    label="Total Users"
+    icon="users"
+    color="primary"
+    watermark-icon="user"
+    trend="up"
+    trend-value="+5.2%"
+    animated
+    animation-delay="0">
+  </sg-stats-card>
+
+  <sg-stats-card
+    value="$89,420"
+    label="Revenue"
+    icon="dollar-sign"
+    color="success"
+    trend="up"
+    trend-value="+12.8%"
+    animated
+    animation-delay="100">
+  </sg-stats-card>
+
+  <sg-stats-card
+    value="1,234"
+    label="Orders"
+    icon="shopping-cart"
+    color="info"
+    trend="down"
+    trend-value="-2.1%"
+    animated
+    animation-delay="200">
+  </sg-stats-card>
+</div>
+
+<style>
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+</style>`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>Escuchar eventos</h3>
+      <CodeBlock
+        filename="events.js"
+        code={`const statsCard = document.querySelector('sg-stats-card');
+
+statsCard.addEventListener('sgClick', () => {
+  // Navigate to detailed stats view
+  router.push('/analytics/details');
+});`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>Uso con slot stats</h3>
+      <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem;">
+        Usa el slot <code>stats</code> para agregar un breakdown adicional:
+      </p>
+      <CodeBlock
+        filename="with-breakdown.html"
+        code={`<sg-stats-card value="1,847" label="New Users" color="primary">
+  <div slot="stats" class="breakdown">
+    <span>Desktop: 1,200</span>
+    <span>Mobile: 647</span>
+  </div>
+</sg-stats-card>`}
+      />
+    </div>
+  </Fragment>
+</ComponentLayout>
+
+<style>
+  .usage-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .usage-block h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    color: var(--text);
+  }
+  .usage-block code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    background: var(--surface-raised);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    color: var(--primary);
+  }
+
+  .playground-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .playground-section h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .playground-section p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+</style>

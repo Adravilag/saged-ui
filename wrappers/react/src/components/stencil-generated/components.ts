@@ -10,15 +10,29 @@
 import type { EventName, StencilReactComponent } from '@stencil/react-output-target/runtime';
 import { createComponent } from '@stencil/react-output-target/runtime';
 import React from 'react';
-import { type ContentTypeChangeEvent, type EditorChangeEvent, type MediaItem, type SgArticleEditorCustomEvent, type SgButtonCustomEvent, type SgThemeToggleCustomEvent, type ThemeMode, type ViewModeChangeEvent } from "sagebox";
+import { type ContentTypeChangeEvent, type EditorChangeEvent, type MediaItem, type SelectOption, type SgArticleEditorCustomEvent, type SgButtonCustomEvent, type SgInputCustomEvent, type SgSelectCustomEvent, type SgThemeToggleCustomEvent, type ThemeMode, type ViewModeChangeEvent } from "sagebox";
 import { SgArticleEditor as SgArticleEditorElement, defineCustomElement as defineSgArticleEditor } from "sagebox/dist/components/sg-article-editor.js";
 import { SgBadge as SgBadgeElement, defineCustomElement as defineSgBadge } from "sagebox/dist/components/sg-badge.js";
+import { SgBreadcrumbItem as SgBreadcrumbItemElement, defineCustomElement as defineSgBreadcrumbItem } from "sagebox/dist/components/sg-breadcrumb-item.js";
+import { SgBreadcrumb as SgBreadcrumbElement, defineCustomElement as defineSgBreadcrumb } from "sagebox/dist/components/sg-breadcrumb.js";
 import { SgButton as SgButtonElement, defineCustomElement as defineSgButton } from "sagebox/dist/components/sg-button.js";
+import { SgCard as SgCardElement, defineCustomElement as defineSgCard } from "sagebox/dist/components/sg-card.js";
+import { SgContextMenu as SgContextMenuElement, defineCustomElement as defineSgContextMenu } from "sagebox/dist/components/sg-context-menu.js";
+import { SgDatePicker as SgDatePickerElement, defineCustomElement as defineSgDatePicker } from "sagebox/dist/components/sg-date-picker.js";
 import { SgDropdown as SgDropdownElement, defineCustomElement as defineSgDropdown } from "sagebox/dist/components/sg-dropdown.js";
+import { SgFormSection as SgFormSectionElement, defineCustomElement as defineSgFormSection } from "sagebox/dist/components/sg-form-section.js";
 import { SgIcon as SgIconElement, defineCustomElement as defineSgIcon } from "sagebox/dist/components/sg-icon.js";
+import { SgInfoField as SgInfoFieldElement, defineCustomElement as defineSgInfoField } from "sagebox/dist/components/sg-info-field.js";
+import { SgInput as SgInputElement, defineCustomElement as defineSgInput } from "sagebox/dist/components/sg-input.js";
 import { SgModal as SgModalElement, defineCustomElement as defineSgModal } from "sagebox/dist/components/sg-modal.js";
+import { SgOptionGroup as SgOptionGroupElement, defineCustomElement as defineSgOptionGroup } from "sagebox/dist/components/sg-option-group.js";
+import { SgOption as SgOptionElement, defineCustomElement as defineSgOption } from "sagebox/dist/components/sg-option.js";
+import { SgSearchBox as SgSearchBoxElement, defineCustomElement as defineSgSearchBox } from "sagebox/dist/components/sg-search-box.js";
+import { SgSelect as SgSelectElement, defineCustomElement as defineSgSelect } from "sagebox/dist/components/sg-select.js";
 import { SgSkeleton as SgSkeletonElement, defineCustomElement as defineSgSkeleton } from "sagebox/dist/components/sg-skeleton.js";
+import { SgStatsCard as SgStatsCardElement, defineCustomElement as defineSgStatsCard } from "sagebox/dist/components/sg-stats-card.js";
 import { SgThemeToggle as SgThemeToggleElement, defineCustomElement as defineSgThemeToggle } from "sagebox/dist/components/sg-theme-toggle.js";
+import { SgTooltip as SgTooltipElement, defineCustomElement as defineSgTooltip } from "sagebox/dist/components/sg-tooltip.js";
 
 export type SgArticleEditorEvents = {
     onEditorChange: EventName<SgArticleEditorCustomEvent<EditorChangeEvent>>,
@@ -56,6 +70,28 @@ export const SgBadge: StencilReactComponent<SgBadgeElement, SgBadgeEvents> = /*@
     defineCustomElement: defineSgBadge
 });
 
+export type SgBreadcrumbEvents = NonNullable<unknown>;
+
+export const SgBreadcrumb: StencilReactComponent<SgBreadcrumbElement, SgBreadcrumbEvents> = /*@__PURE__*/ createComponent<SgBreadcrumbElement, SgBreadcrumbEvents>({
+    tagName: 'sg-breadcrumb',
+    elementClass: SgBreadcrumbElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as SgBreadcrumbEvents,
+    defineCustomElement: defineSgBreadcrumb
+});
+
+export type SgBreadcrumbItemEvents = NonNullable<unknown>;
+
+export const SgBreadcrumbItem: StencilReactComponent<SgBreadcrumbItemElement, SgBreadcrumbItemEvents> = /*@__PURE__*/ createComponent<SgBreadcrumbItemElement, SgBreadcrumbItemEvents>({
+    tagName: 'sg-breadcrumb-item',
+    elementClass: SgBreadcrumbItemElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as SgBreadcrumbItemEvents,
+    defineCustomElement: defineSgBreadcrumbItem
+});
+
 export type SgButtonEvents = { onSgClick: EventName<SgButtonCustomEvent<MouseEvent>> };
 
 export const SgButton: StencilReactComponent<SgButtonElement, SgButtonEvents> = /*@__PURE__*/ createComponent<SgButtonElement, SgButtonEvents>({
@@ -65,6 +101,51 @@ export const SgButton: StencilReactComponent<SgButtonElement, SgButtonEvents> = 
     react: React,
     events: { onSgClick: 'sgClick' } as SgButtonEvents,
     defineCustomElement: defineSgButton
+});
+
+export type SgCardEvents = {
+    onSgClick: EventName<CustomEvent<void>>,
+    onSgAction: EventName<CustomEvent<void>>
+};
+
+export const SgCard: StencilReactComponent<SgCardElement, SgCardEvents> = /*@__PURE__*/ createComponent<SgCardElement, SgCardEvents>({
+    tagName: 'sg-card',
+    elementClass: SgCardElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {
+        onSgClick: 'sgClick',
+        onSgAction: 'sgAction'
+    } as SgCardEvents,
+    defineCustomElement: defineSgCard
+});
+
+export type SgContextMenuEvents = {
+    onItemClick: EventName<CustomEvent<string>>,
+    onMenuClose: EventName<CustomEvent<void>>
+};
+
+export const SgContextMenu: StencilReactComponent<SgContextMenuElement, SgContextMenuEvents> = /*@__PURE__*/ createComponent<SgContextMenuElement, SgContextMenuEvents>({
+    tagName: 'sg-context-menu',
+    elementClass: SgContextMenuElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {
+        onItemClick: 'itemClick',
+        onMenuClose: 'menuClose'
+    } as SgContextMenuEvents,
+    defineCustomElement: defineSgContextMenu
+});
+
+export type SgDatePickerEvents = { onSgChange: EventName<CustomEvent<string | null>> };
+
+export const SgDatePicker: StencilReactComponent<SgDatePickerElement, SgDatePickerEvents> = /*@__PURE__*/ createComponent<SgDatePickerElement, SgDatePickerEvents>({
+    tagName: 'sg-date-picker',
+    elementClass: SgDatePickerElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: { onSgChange: 'sgChange' } as SgDatePickerEvents,
+    defineCustomElement: defineSgDatePicker
 });
 
 export type SgDropdownEvents = {
@@ -86,6 +167,17 @@ export const SgDropdown: StencilReactComponent<SgDropdownElement, SgDropdownEven
     defineCustomElement: defineSgDropdown
 });
 
+export type SgFormSectionEvents = NonNullable<unknown>;
+
+export const SgFormSection: StencilReactComponent<SgFormSectionElement, SgFormSectionEvents> = /*@__PURE__*/ createComponent<SgFormSectionElement, SgFormSectionEvents>({
+    tagName: 'sg-form-section',
+    elementClass: SgFormSectionElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as SgFormSectionEvents,
+    defineCustomElement: defineSgFormSection
+});
+
 export type SgIconEvents = NonNullable<unknown>;
 
 export const SgIcon: StencilReactComponent<SgIconElement, SgIconEvents> = /*@__PURE__*/ createComponent<SgIconElement, SgIconEvents>({
@@ -95,6 +187,40 @@ export const SgIcon: StencilReactComponent<SgIconElement, SgIconEvents> = /*@__P
     react: React,
     events: {} as SgIconEvents,
     defineCustomElement: defineSgIcon
+});
+
+export type SgInfoFieldEvents = NonNullable<unknown>;
+
+export const SgInfoField: StencilReactComponent<SgInfoFieldElement, SgInfoFieldEvents> = /*@__PURE__*/ createComponent<SgInfoFieldElement, SgInfoFieldEvents>({
+    tagName: 'sg-info-field',
+    elementClass: SgInfoFieldElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as SgInfoFieldEvents,
+    defineCustomElement: defineSgInfoField
+});
+
+export type SgInputEvents = {
+    onSgInput: EventName<SgInputCustomEvent<{ value: string; event: InputEvent }>>,
+    onSgChange: EventName<CustomEvent<{ value: string }>>,
+    onSgFocus: EventName<CustomEvent<void>>,
+    onSgBlur: EventName<CustomEvent<void>>,
+    onSgClear: EventName<CustomEvent<void>>
+};
+
+export const SgInput: StencilReactComponent<SgInputElement, SgInputEvents> = /*@__PURE__*/ createComponent<SgInputElement, SgInputEvents>({
+    tagName: 'sg-input',
+    elementClass: SgInputElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {
+        onSgInput: 'sgInput',
+        onSgChange: 'sgChange',
+        onSgFocus: 'sgFocus',
+        onSgBlur: 'sgBlur',
+        onSgClear: 'sgClear'
+    } as SgInputEvents,
+    defineCustomElement: defineSgInput
 });
 
 export type SgModalEvents = {
@@ -116,6 +242,70 @@ export const SgModal: StencilReactComponent<SgModalElement, SgModalEvents> = /*@
     defineCustomElement: defineSgModal
 });
 
+export type SgOptionEvents = NonNullable<unknown>;
+
+export const SgOption: StencilReactComponent<SgOptionElement, SgOptionEvents> = /*@__PURE__*/ createComponent<SgOptionElement, SgOptionEvents>({
+    tagName: 'sg-option',
+    elementClass: SgOptionElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as SgOptionEvents,
+    defineCustomElement: defineSgOption
+});
+
+export type SgOptionGroupEvents = NonNullable<unknown>;
+
+export const SgOptionGroup: StencilReactComponent<SgOptionGroupElement, SgOptionGroupEvents> = /*@__PURE__*/ createComponent<SgOptionGroupElement, SgOptionGroupEvents>({
+    tagName: 'sg-option-group',
+    elementClass: SgOptionGroupElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as SgOptionGroupEvents,
+    defineCustomElement: defineSgOptionGroup
+});
+
+export type SgSearchBoxEvents = {
+    onSgInput: EventName<CustomEvent<string>>,
+    onSgSearch: EventName<CustomEvent<string>>,
+    onSgClear: EventName<CustomEvent<void>>
+};
+
+export const SgSearchBox: StencilReactComponent<SgSearchBoxElement, SgSearchBoxEvents> = /*@__PURE__*/ createComponent<SgSearchBoxElement, SgSearchBoxEvents>({
+    tagName: 'sg-search-box',
+    elementClass: SgSearchBoxElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {
+        onSgInput: 'sgInput',
+        onSgSearch: 'sgSearch',
+        onSgClear: 'sgClear'
+    } as SgSearchBoxEvents,
+    defineCustomElement: defineSgSearchBox
+});
+
+export type SgSelectEvents = {
+    onSgChange: EventName<SgSelectCustomEvent<{ value: string | string[]; option?: SelectOption }>>,
+    onSgSearch: EventName<CustomEvent<{ query: string }>>,
+    onSgOpen: EventName<CustomEvent<void>>,
+    onSgClose: EventName<CustomEvent<void>>,
+    onSgCreate: EventName<CustomEvent<{ value: string }>>
+};
+
+export const SgSelect: StencilReactComponent<SgSelectElement, SgSelectEvents> = /*@__PURE__*/ createComponent<SgSelectElement, SgSelectEvents>({
+    tagName: 'sg-select',
+    elementClass: SgSelectElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {
+        onSgChange: 'sgChange',
+        onSgSearch: 'sgSearch',
+        onSgOpen: 'sgOpen',
+        onSgClose: 'sgClose',
+        onSgCreate: 'sgCreate'
+    } as SgSelectEvents,
+    defineCustomElement: defineSgSelect
+});
+
 export type SgSkeletonEvents = NonNullable<unknown>;
 
 export const SgSkeleton: StencilReactComponent<SgSkeletonElement, SgSkeletonEvents> = /*@__PURE__*/ createComponent<SgSkeletonElement, SgSkeletonEvents>({
@@ -127,6 +317,17 @@ export const SgSkeleton: StencilReactComponent<SgSkeletonElement, SgSkeletonEven
     defineCustomElement: defineSgSkeleton
 });
 
+export type SgStatsCardEvents = NonNullable<unknown>;
+
+export const SgStatsCard: StencilReactComponent<SgStatsCardElement, SgStatsCardEvents> = /*@__PURE__*/ createComponent<SgStatsCardElement, SgStatsCardEvents>({
+    tagName: 'sg-stats-card',
+    elementClass: SgStatsCardElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as SgStatsCardEvents,
+    defineCustomElement: defineSgStatsCard
+});
+
 export type SgThemeToggleEvents = { onSgThemeChange: EventName<SgThemeToggleCustomEvent<ThemeMode>> };
 
 export const SgThemeToggle: StencilReactComponent<SgThemeToggleElement, SgThemeToggleEvents> = /*@__PURE__*/ createComponent<SgThemeToggleElement, SgThemeToggleEvents>({
@@ -136,4 +337,21 @@ export const SgThemeToggle: StencilReactComponent<SgThemeToggleElement, SgThemeT
     react: React,
     events: { onSgThemeChange: 'sgThemeChange' } as SgThemeToggleEvents,
     defineCustomElement: defineSgThemeToggle
+});
+
+export type SgTooltipEvents = {
+    onSgShow: EventName<CustomEvent<void>>,
+    onSgHide: EventName<CustomEvent<void>>
+};
+
+export const SgTooltip: StencilReactComponent<SgTooltipElement, SgTooltipEvents> = /*@__PURE__*/ createComponent<SgTooltipElement, SgTooltipEvents>({
+    tagName: 'sg-tooltip',
+    elementClass: SgTooltipElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {
+        onSgShow: 'sgShow',
+        onSgHide: 'sgHide'
+    } as SgTooltipEvents,
+    defineCustomElement: defineSgTooltip
 });

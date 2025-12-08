@@ -15,22 +15,21 @@ const { currentLang = defaultLang } = Astro.props;
 <div class="language-selector">
   <button class="lang-btn" aria-label="Cambiar idioma" title="Cambiar idioma">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M2 12h20"/>
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M2 12h20"></path>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
     </svg>
   </button>
-  
+
   <div class="lang-dropdown">
-    {Object.entries(languages).map(([code, name]) => (
-      <button 
-        class={`lang-option ${code === currentLang ? 'active' : ''}`}
-        data-lang={code}
-      >
-        <span class="lang-flag">{code === 'es' ? '🇪🇸' : '🇬🇧'}</span>
-        <span class="lang-name">{name}</span>
-      </button>
-    ))}
+    {
+      Object.entries(languages).map(([code, name]) => (
+        <button class={`lang-option ${code === currentLang ? 'active' : ''}`} data-lang={code}>
+          <span class="lang-flag">{code === 'es' ? '🇪🇸' : '🇬🇧'}</span>
+          <span class="lang-name">{name}</span>
+        </button>
+      ))
+    }
   </div>
 </div>
 
@@ -128,7 +127,7 @@ const { currentLang = defaultLang } = Astro.props;
 </style>
 
 <script>
-  const LANG_KEY = 'saged-lang';
+  const LANG_KEY = 'sage-lang';
 
   // Get initial language
   function getLang(): string {
@@ -145,7 +144,7 @@ const { currentLang = defaultLang } = Astro.props;
     document.querySelectorAll('.language-selector').forEach(selector => {
       const codeSpan = selector.querySelector('.lang-code');
       if (codeSpan) codeSpan.textContent = lang.toUpperCase();
-      
+
       selector.querySelectorAll('.lang-option').forEach(opt => {
         const optLang = opt.getAttribute('data-lang');
         if (optLang === lang) {
@@ -163,7 +162,7 @@ const { currentLang = defaultLang } = Astro.props;
     const options = selector.querySelectorAll('.lang-option');
 
     // Toggle dropdown
-    btn?.addEventListener('click', (e) => {
+    btn?.addEventListener('click', e => {
       e.stopPropagation();
       selector.classList.toggle('open');
     });

@@ -1,0 +1,170 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+
+const props = [{ name: 'items', type: 'ContextMenuItem[]', default: '[]', description: 'Array de items del menú' }];
+
+const events = [
+  { name: 'itemClick', type: 'CustomEvent<string>', description: 'Emitido cuando se hace click en un item. Devuelve el ID del item.' },
+  { name: 'menuClose', type: 'CustomEvent<void>', description: 'Emitido cuando el menú se cierra' },
+];
+
+const methods = [
+  { name: 'show(x, y)', type: 'Promise<void>', description: 'Muestra el menú en la posición especificada' },
+  { name: 'close()', type: 'Promise<void>', description: 'Cierra el menú' },
+];
+---
+
+<ComponentLayout
+  title="Context Menu"
+  tag="sg-context-menu"
+  packageName="context-menu"
+  description="Menú contextual flotante que aparece con click derecho o programáticamente. Se cierra automáticamente con Escape o click fuera."
+  props={props}
+  events={events}
+>
+  <Fragment slot="examples">
+    <DemoBox
+      label="Básico - Click derecho aquí"
+      code={`<div id="context-area" style="padding: 2rem; border: 2px dashed #ccc;">
+  Haz click derecho aquí
+</div>
+<sg-context-menu id="my-menu"></sg-context-menu>
+
+<script>
+  const menu = document.getElementById('my-menu');
+  const area = document.getElementById('context-area');
+
+  menu.items = [
+    { id: 'edit', label: 'Editar', icon: 'edit' },
+    { id: 'copy', label: 'Copiar', icon: 'copy' },
+    { id: 'divider1', divider: true },
+    { id: 'delete', label: 'Eliminar', icon: 'delete', danger: true }
+  ];
+
+  area.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    menu.show(e.clientX, e.clientY);
+  });
+</script>`}
+    >
+      <div
+        id="context-demo-area"
+        style="padding: 3rem; border: 2px dashed var(--border-color); border-radius: 0.5rem; text-align: center; background: var(--bg-secondary); cursor: context-menu;"
+      >
+        <p style="margin: 0; color: var(--text-muted);">🖱️ Haz click derecho aquí para ver el menú contextual</p>
+      </div>
+      <sg-context-menu id="context-demo-menu"></sg-context-menu>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const menuEl = document.getElementById('context-demo-menu');
+          const area = document.getElementById('context-demo-area');
+
+          if (menuEl && area) {
+            const menu = menuEl as any;
+            menu.items = [
+              { id: 'edit', label: 'Editar', icon: 'edit' },
+              { id: 'copy', label: 'Copiar', icon: 'copy' },
+              { id: 'view', label: 'Ver detalles', icon: 'view' },
+              { id: 'divider1', divider: true },
+              { id: 'delete', label: 'Eliminar', icon: 'delete', danger: true },
+            ];
+
+            area.addEventListener('contextmenu', e => {
+              e.preventDefault();
+              menu.show(e.clientX, e.clientY);
+            });
+
+            menu.addEventListener('itemClick', (e: any) => {
+              console.log('Item clicked:', e.detail);
+            });
+          }
+        });
+      </script>
+    </DemoBox>
+
+    <DemoBox
+      label="Items deshabilitados"
+      code={`menu.items = [
+  { id: 'save', label: 'Guardar', icon: 'save' },
+  { id: 'print', label: 'Imprimir', icon: 'print', disabled: true },
+  { id: 'export', label: 'Exportar', icon: 'download' }
+];`}
+    >
+      <div
+        id="context-demo-disabled"
+        style="padding: 3rem; border: 2px dashed var(--border-color); border-radius: 0.5rem; text-align: center; background: var(--bg-secondary); cursor: context-menu;"
+      >
+        <p style="margin: 0; color: var(--text-muted);">🖱️ Click derecho - tiene items deshabilitados</p>
+      </div>
+      <sg-context-menu id="context-demo-menu-disabled"></sg-context-menu>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const menuEl = document.getElementById('context-demo-menu-disabled');
+          const area = document.getElementById('context-demo-disabled');
+
+          if (menuEl && area) {
+            const menu = menuEl as any;
+            menu.items = [
+              { id: 'save', label: 'Guardar', icon: 'save' },
+              { id: 'print', label: 'Imprimir (deshabilitado)', icon: 'print', disabled: true },
+              { id: 'export', label: 'Exportar', icon: 'download' },
+            ];
+
+            area.addEventListener('contextmenu', e => {
+              e.preventDefault();
+              menu.show(e.clientX, e.clientY);
+            });
+          }
+        });
+      </script>
+    </DemoBox>
+  </Fragment>
+
+  <Fragment slot="api">
+    <h3 style="font-size: 1.125rem; font-weight: 600; margin: 1.5rem 0 1rem;">Interface: ContextMenuItem</h3>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem;">
+        <thead>
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <th style="text-align: left; padding: 0.75rem; font-weight: 600;">Propiedad</th>
+            <th style="text-align: left; padding: 0.75rem; font-weight: 600;">Tipo</th>
+            <th style="text-align: left; padding: 0.75rem; font-weight: 600;">Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 0.75rem;"><code>id</code></td>
+            <td style="padding: 0.75rem;"><code>string</code></td>
+            <td style="padding: 0.75rem;">Identificador único del item</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 0.75rem;"><code>label</code></td>
+            <td style="padding: 0.75rem;"><code>string</code></td>
+            <td style="padding: 0.75rem;">Texto a mostrar</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 0.75rem;"><code>icon</code></td>
+            <td style="padding: 0.75rem;"><code>string?</code></td>
+            <td style="padding: 0.75rem;">Nombre del icono (opcional)</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 0.75rem;"><code>divider</code></td>
+            <td style="padding: 0.75rem;"><code>boolean?</code></td>
+            <td style="padding: 0.75rem;">Si es true, muestra un separador</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 0.75rem;"><code>disabled</code></td>
+            <td style="padding: 0.75rem;"><code>boolean?</code></td>
+            <td style="padding: 0.75rem;">Deshabilita el item</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 0.75rem;"><code>danger</code></td>
+            <td style="padding: 0.75rem;"><code>boolean?</code></td>
+            <td style="padding: 0.75rem;">Estilo de acción peligrosa (rojo)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </Fragment>
+</ComponentLayout>

@@ -1,6 +1,6 @@
 {
     "name":  "@sage-box/dropdown",
-    "version":  "0.1.0",
+    "version": "0.1.1",
     "description":  "Dropdown component for SageBox - Accessible dropdown menus",
     "main":  "dist/index.cjs.js",
     "module":  "dist/index.js",
@@ -58,3 +58,4 @@
                           "access":  "public"
                       }
 }
+

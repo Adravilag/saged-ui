@@ -8,17 +8,33 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from "./packages/article-editor/src/utils";
 import { EditorTranslations, SupportedLocale } from "./packages/article-editor/src/utils/i18n";
 import { BadgeSize, BadgeVariant } from "./packages/badge/src/components/badge/badge";
+import { BreadcrumbSeparator, BreadcrumbSize } from "./packages/breadcrumb/src/components/breadcrumb/breadcrumb";
 import { ButtonShape, ButtonSize, ButtonVariant } from "./packages/button/src/components/button/button";
+import { CardSize, CardVariant } from "./packages/card/src/components/card/card";
+import { ContextMenuItem } from "./packages/context-menu/src/components/context-menu/context-menu";
 import { IconDefinition } from "./packages/icons/src/components/svg-icon/icons/builtin";
+import { InfoFieldType, StatusMapItem } from "./packages/info-field/src/components/info-field/info-field";
+import { InputSize, InputType, InputVariant, SelectOption, ValidationState } from "./packages/input/src/components/input/input";
 import { ModalSize } from "./packages/modal/src/components/modal/modal";
+import { SelectOption as SelectOption1, SelectSize, SelectVariant, ValidationState as ValidationState1 } from "./packages/select/src/components/select/select";
+import { StatItem, StatsCardColor } from "./packages/stats-card/src/components/stats-card/stats-card";
 import { ThemeMode } from "./packages/theme-toggle/src/components/theme-toggle/theme-toggle";
+import { TooltipPosition, TooltipTrigger, TooltipVariant } from "./packages/tooltip/src/components/tooltip/tooltip";
 export { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from "./packages/article-editor/src/utils";
 export { EditorTranslations, SupportedLocale } from "./packages/article-editor/src/utils/i18n";
 export { BadgeSize, BadgeVariant } from "./packages/badge/src/components/badge/badge";
+export { BreadcrumbSeparator, BreadcrumbSize } from "./packages/breadcrumb/src/components/breadcrumb/breadcrumb";
 export { ButtonShape, ButtonSize, ButtonVariant } from "./packages/button/src/components/button/button";
+export { CardSize, CardVariant } from "./packages/card/src/components/card/card";
+export { ContextMenuItem } from "./packages/context-menu/src/components/context-menu/context-menu";
 export { IconDefinition } from "./packages/icons/src/components/svg-icon/icons/builtin";
+export { InfoFieldType, StatusMapItem } from "./packages/info-field/src/components/info-field/info-field";
+export { InputSize, InputType, InputVariant, SelectOption, ValidationState } from "./packages/input/src/components/input/input";
 export { ModalSize } from "./packages/modal/src/components/modal/modal";
+export { SelectOption as SelectOption1, SelectSize, SelectVariant, ValidationState as ValidationState1 } from "./packages/select/src/components/select/select";
+export { StatItem, StatsCardColor } from "./packages/stats-card/src/components/stats-card/stats-card";
 export { ThemeMode } from "./packages/theme-toggle/src/components/theme-toggle/theme-toggle";
+export { TooltipPosition, TooltipTrigger, TooltipVariant } from "./packages/tooltip/src/components/tooltip/tooltip";
 export namespace Components {
     /**
      * SageBox - Article Editor Component
@@ -263,6 +279,83 @@ export namespace Components {
         "variant"?: "primary" | "secondary" | "success" | "warning" | "error" | "info" | "neutral" | "purple" | "cyan";
     }
     /**
+     * @component sg-breadcrumb
+     * @description Navigation breadcrumb component showing the current page location within a hierarchy.
+     * @example ```html
+     * <sg-breadcrumb>
+     *   <sg-breadcrumb-item href="/">Home</sg-breadcrumb-item>
+     *   <sg-breadcrumb-item href="/products">Products</sg-breadcrumb-item>
+     *   <sg-breadcrumb-item active>Details</sg-breadcrumb-item>
+     * </sg-breadcrumb>
+     * ```
+     */
+    interface SgBreadcrumb {
+        /**
+          * Collapse items on mobile (show only first and last)
+          * @default false
+         */
+        "collapsible": boolean;
+        /**
+          * Custom separator character (overrides separator prop)
+         */
+        "customSeparator": string;
+        /**
+          * Maximum items to show before collapsing (when collapsible)
+          * @default 4
+         */
+        "maxItems": number;
+        /**
+          * Separator style between items
+          * @default 'chevron'
+         */
+        "separator": BreadcrumbSeparator;
+        /**
+          * Show home icon for first item
+          * @default false
+         */
+        "showHomeIcon": boolean;
+        /**
+          * Size variant
+          * @default 'md'
+         */
+        "size": BreadcrumbSize;
+    }
+    /**
+     * @component sg-breadcrumb-item
+     * @description Individual breadcrumb item. Must be used inside sg-breadcrumb.
+     * @example ```html
+     * <sg-breadcrumb-item href="/home">
+     *   <sg-icon slot="icon" name="home" size="14"></sg-icon>
+     *   Home
+     * </sg-breadcrumb-item>
+     * ```
+     */
+    interface SgBreadcrumbItem {
+        /**
+          * Whether this is the current/active page
+          * @default false
+         */
+        "active": boolean;
+        /**
+          * Disable the item
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * URL to navigate to
+         */
+        "href": string;
+        /**
+          * Icon name to display (uses sg-icon)
+         */
+        "icon": string;
+        /**
+          * Target for the link
+          * @default '_self'
+         */
+        "target": string;
+    }
+    /**
      * @component sg-button
      * @description A versatile button component with multiple variants, sizes, and states.
      * Framework-agnostic: works with Angular, React, Vue, and vanilla JS without wrappers.
@@ -366,6 +459,217 @@ export namespace Components {
         "variant": ButtonVariant;
     }
     /**
+     * @component sg-card
+     * @description A flexible card component with multiple variants, optional header/footer, icons and actions.
+     * Framework-agnostic: works with Angular, React, Vue, and vanilla JS.
+     * @example ### Basic Usage
+     * ```html
+     * <sg-card title="Card Title" subtitle="Card subtitle">
+     *   <p>Card content goes here</p>
+     * </sg-card>
+     * ```
+     * ### With Icon and Action
+     * ```html
+     * <sg-card
+     *   title="Users"
+     *   subtitle="Manage your team"
+     *   icon="users"
+     *   variant="primary"
+     *   action-label="View All"
+     *   clickable>
+     *   <p>You have 24 active users</p>
+     * </sg-card>
+     * ```
+     * ### With Custom Slots
+     * ```html
+     * <sg-card variant="gradient">
+     *   <img slot="media" src="image.jpg" alt="Cover" />
+     *   <div slot="header">
+     *     <h3>Custom Header</h3>
+     *   </div>
+     *   <p>Content here</p>
+     *   <div slot="footer">
+     *     <sg-button variant="primary">Action</sg-button>
+     *   </div>
+     * </sg-card>
+     * ```
+     */
+    interface SgCard {
+        /**
+          * Label for the action button in footer
+         */
+        "actionLabel": string;
+        /**
+          * Variant for the action button
+          * @default 'primary'
+         */
+        "actionVariant": 'primary' | 'secondary' | 'ghost';
+        /**
+          * Card title displayed in the header
+         */
+        "cardTitle": string;
+        /**
+          * Makes the entire card clickable
+          * @default false
+         */
+        "clickable": boolean;
+        /**
+          * Disables the card (reduces opacity, no interactions)
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Removes shadow from the card
+          * @default false
+         */
+        "flat": boolean;
+        /**
+          * Optional header text (displays above title with accent background)
+         */
+        "header": string;
+        /**
+          * Adds hover elevation effect
+          * @default false
+         */
+        "hoverable": boolean;
+        /**
+          * URL for navigation (makes card a link)
+         */
+        "href": string;
+        /**
+          * Icon name to display (uses sg-icon internally)
+         */
+        "icon": string;
+        /**
+          * Icon color (CSS color value)
+         */
+        "iconColor": string;
+        /**
+          * Icon size in pixels
+          * @default 48
+         */
+        "iconSize": number | string;
+        /**
+          * Applies loading state with skeleton effect
+          * @default false
+         */
+        "loading": boolean;
+        /**
+          * Size preset for padding and typography
+          * @default 'md'
+         */
+        "size": CardSize;
+        /**
+          * Card subtitle displayed below the title
+         */
+        "subtitle": string;
+        /**
+          * Target for href link
+          * @default '_self'
+         */
+        "target": string;
+        /**
+          * Visual variant of the card
+          * @default 'default'
+         */
+        "variant": CardVariant;
+    }
+    /**
+     * @component sg-context-menu
+     * @description Floating context menu that appears on right-click or programmatically.
+     * Automatically closes on Escape key, click outside, or item selection.
+     * @example <sg-context-menu id="myMenu"></sg-context-menu>
+     * <script>
+     *   const menu = document.getElementById('myMenu');
+     *   menu.items = [
+     *     { id: 'edit', label: 'Edit', icon: 'edit' },
+     *     { id: 'delete', label: 'Delete', icon: 'delete', danger: true }
+     *   ];
+     *   document.addEventListener('contextmenu', (e) => {
+     *     e.preventDefault();
+     *     menu.show(e.clientX, e.clientY);
+     *   });
+     * </script>
+     */
+    interface SgContextMenu {
+        /**
+          * Close the context menu
+         */
+        "close": () => Promise<void>;
+        /**
+          * Menu items to display
+          * @default []
+         */
+        "items": ContextMenuItem[];
+        /**
+          * Show the context menu at the specified position
+         */
+        "show": (x: number, y: number) => Promise<void>;
+    }
+    /**
+     * @component sg-date-picker
+     * @description Calendar date picker with full i18n support.
+     * Works as a standalone component or can integrate with form systems.
+     * @example <sg-date-picker
+     *   value="2024-01-15"
+     *   placeholder="Select date..."
+     *   locale="es"
+     * ></sg-date-picker>
+     */
+    interface SgDatePicker {
+        /**
+          * Align dropdown to right
+          * @default false
+         */
+        "alignRight": boolean;
+        /**
+          * Allow clearing the date
+          * @default true
+         */
+        "clearable": boolean;
+        /**
+          * Close the date picker
+         */
+        "close": () => Promise<void>;
+        /**
+          * Disable the date picker
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Show error state
+          * @default false
+         */
+        "hasError": boolean;
+        /**
+          * Locale for date formatting ('es' | 'en')
+          * @default 'es'
+         */
+        "locale": 'es' | 'en';
+        /**
+          * Maximum selectable date (ISO format)
+         */
+        "maxDate"?: string;
+        /**
+          * Minimum selectable date (ISO format)
+         */
+        "minDate"?: string;
+        /**
+          * Open the date picker
+         */
+        "open": () => Promise<void>;
+        /**
+          * Placeholder text for input
+          * @default 'Seleccionar fecha...'
+         */
+        "placeholder": string;
+        /**
+          * Current date value in ISO format (YYYY-MM-DD)
+          * @default null
+         */
+        "value": string | null;
+    }
+    /**
      * @example ### Angular
      * ```html
      * <sg-dropdown align="start" position="bottom">
@@ -467,6 +771,46 @@ export namespace Components {
         "toggle": () => Promise<void>;
     }
     /**
+     * @component sg-form-section
+     * @description Section container for forms with title, icon and step indicators.
+     * Provides consistent visual structure for form sections.
+     * @example <sg-form-section section-title="Personal Information" step-number="1" total-steps="3" icon-bg-class="bg-blue-100">
+     *   <sg-icon slot="icon" name="user"></sg-icon>
+     *   <sg-input label="Name"></sg-input>
+     *   <sg-input label="Email" type="email"></sg-input>
+     * </sg-form-section>
+     */
+    interface SgFormSection {
+        /**
+          * Whether section is initially collapsed (only if collapsible)
+          * @default false
+         */
+        "collapsed": boolean;
+        /**
+          * Whether section is collapsible
+          * @default false
+         */
+        "collapsible": boolean;
+        /**
+          * CSS class for icon background color
+          * @default 'bg-blue-100'
+         */
+        "iconBgClass": string;
+        /**
+          * Title of the section
+          * @default ''
+         */
+        "sectionTitle": string;
+        /**
+          * Current step number (optional)
+         */
+        "stepNumber"?: number;
+        /**
+          * Total number of steps (optional)
+         */
+        "totalSteps"?: number;
+    }
+    /**
      * @component sg-icon
      * @description SVG Icon component for SageBox - A flexible, accessible icon system
      * @example <!-- Basic usage with built-in icons -->
@@ -551,6 +895,11 @@ export namespace Components {
          */
         "rotate"?: number;
         /**
+          * Show a placeholder when the icon is not found. Useful during development to visualize missing icons.
+          * @default true
+         */
+        "showPlaceholder": boolean;
+        /**
           * Size of the icon in pixels
           * @default 24
          */
@@ -572,6 +921,272 @@ export namespace Components {
           * Width of the icon (overrides size)
          */
         "width"?: number | string;
+    }
+    /**
+     * @component sg-info-field
+     * @description Display label-value pairs with automatic formatting based on type.
+     * Supports text, dates, status badges, currency, booleans, arrays and custom formatters.
+     * @example <sg-info-field label="Name" value="John Doe"></sg-info-field>
+     * <sg-info-field label="Created" value="2024-01-15" type="date"></sg-info-field>
+     * <sg-info-field label="Status" value="active" type="status"></sg-info-field>
+     * <sg-info-field label="Price" value="99.99" type="currency"></sg-info-field>
+     */
+    interface SgInfoField {
+        /**
+          * Currency symbol for currency type
+          * @default '€'
+         */
+        "currencySymbol": string;
+        /**
+          * Placeholder text when value is empty
+          * @default 'No especificado'
+         */
+        "emptyText": string;
+        /**
+          * Boolean text for false value
+          * @default 'No'
+         */
+        "falseText": string;
+        /**
+          * Label text for the field
+          * @default ''
+         */
+        "label": string;
+        /**
+          * Date format locale
+          * @default 'es-ES'
+         */
+        "locale": string;
+        /**
+          * Custom status map for status type
+          * @default {     active: { label: 'Activo', bgColor: '#dcfce7', textColor: '#166534' },     inactive: { label: 'Inactivo', bgColor: '#fee2e2', textColor: '#991b1b' },     pending: { label: 'Pendiente', bgColor: '#fef3c7', textColor: '#92400e' },     draft: { label: 'Borrador', bgColor: '#f3f4f6', textColor: '#374151' },     completed: { label: 'Completado', bgColor: '#dbeafe', textColor: '#1e40af' },     cancelled: { label: 'Cancelado', bgColor: '#fce7f3', textColor: '#9d174d' },   }
+         */
+        "statusMap": Record<string, StatusMapItem>;
+        /**
+          * Boolean text for true value
+          * @default 'Sí'
+         */
+        "trueText": string;
+        /**
+          * Type of value formatting
+          * @default 'text'
+         */
+        "type": InfoFieldType;
+        /**
+          * Value to display (can be string, number, boolean, array, etc.)
+         */
+        "value": any;
+    }
+    /**
+     * @component sg-input
+     * @description A versatile input component with validation, icons, and multiple variants.
+     * Supports all standard HTML input types with enhanced styling and accessibility.
+     * @example <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      VANILLA HTML / JS
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-input placeholder="Enter your name"></sg-input>
+     * <sg-input type="email" label="Email" required></sg-input>
+     * <sg-input type="password" label="Password" leading-icon="lock"></sg-input>
+     * <sg-input label="Username" helper-text="Choose a unique username"></sg-input>
+     * <sg-input label="Email" validation-state="error" error-message="Invalid email format"></sg-input>
+     * <script>
+     *   document.querySelector('sg-input').addEventListener('sgInput', (e) => {
+     *     console.log('Value changed:', e.detail.value);
+     *   });
+     * </script>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      ANGULAR
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-input
+     *   label="Email"
+     *   type="email"
+     *   [attr.value]="email"
+     *   [attr.validation-state]="emailError ? 'error' : 'default'"
+     *   [attr.error-message]="emailError"
+     *   (sgInput)="onEmailChange($event)">
+     * </sg-input>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      REACT
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-input
+     *   label="Search"
+     *   type="search"
+     *   leading-icon="search"
+     *   clearable
+     *   onSgInput={(e) => setSearch(e.detail.value)}
+     * />
+     * @fires sgInput - Emitted when the input value changes
+     * @fires sgChange - Emitted when the input loses focus after value change
+     * @fires sgFocus - Emitted when the input gains focus
+     * @fires sgBlur - Emitted when the input loses focus
+     * @fires sgClear - Emitted when the clear button is clicked
+     * @cssprop --sg-input-bg - Input background color
+     * @cssprop --sg-input-color - Input text color
+     * @cssprop --sg-input-border-color - Input border color
+     * @cssprop --sg-input-border-radius - Input border radius
+     * @cssprop --sg-input-focus-ring - Focus ring color
+     */
+    interface SgInput {
+        /**
+          * Autocomplete attribute
+          * @attr autocomplete
+         */
+        "autocomplete"?: string;
+        /**
+          * Autofocus attribute
+          * @attr autofocus
+          * @default false
+         */
+        "autofocus": boolean;
+        /**
+          * Clears the input value
+         */
+        "clear": () => Promise<void>;
+        /**
+          * Show clear button when input has value
+          * @attr clearable
+          * @default false
+         */
+        "clearable": boolean;
+        /**
+          * Whether the input is disabled
+          * @attr disabled
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Error message (displayed when validation-state is 'error')
+          * @attr error-message
+         */
+        "errorMessage"?: string;
+        /**
+          * Returns the native input element
+         */
+        "getInputElement": () => Promise<HTMLInputElement | undefined>;
+        /**
+          * Helper text displayed below the input
+          * @attr helper-text
+         */
+        "helperText"?: string;
+        /**
+          * Label text displayed above the input
+          * @attr label
+         */
+        "label"?: string;
+        /**
+          * Leading icon name (from sg-icon)
+          * @attr leading-icon
+         */
+        "leadingIcon"?: string;
+        /**
+          * Maximum value for number/date inputs
+          * @attr max
+         */
+        "max"?: string | number;
+        /**
+          * Maximum length for text inputs
+          * @attr maxlength
+         */
+        "maxlength"?: number;
+        /**
+          * Minimum value for number/date inputs
+          * @attr min
+         */
+        "min"?: string | number;
+        /**
+          * Minimum length for text inputs
+          * @attr minlength
+         */
+        "minlength"?: number;
+        /**
+          * Input name attribute
+          * @attr name
+         */
+        "name"?: string;
+        /**
+          * Options for select type (array of {value, label} or JSON string)
+          * @attr options
+         */
+        "options"?: SelectOption[] | string;
+        /**
+          * Pattern for validation (regex)
+          * @attr pattern
+         */
+        "pattern"?: string;
+        /**
+          * Placeholder text
+          * @attr placeholder
+         */
+        "placeholder"?: string;
+        /**
+          * Whether the input is readonly
+          * @attr readonly
+          * @default false
+         */
+        "readonly": boolean;
+        /**
+          * Whether the input is required
+          * @attr required
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * Selects all text in the input
+         */
+        "select": () => Promise<void>;
+        /**
+          * Placeholder option for select (shown when no value selected)
+          * @attr select-placeholder
+         */
+        "selectPlaceholder"?: string;
+        /**
+          * Removes focus from the input
+         */
+        "setBlur": () => Promise<void>;
+        /**
+          * Sets focus on the input
+         */
+        "setFocus": () => Promise<void>;
+        /**
+          * Input size variant
+          * @attr size
+          * @default 'md'
+         */
+        "size": InputSize;
+        /**
+          * Step value for number inputs
+          * @attr step
+         */
+        "step"?: string | number;
+        /**
+          * Trailing icon name (from sg-icon)
+          * @attr trailing-icon
+         */
+        "trailingIcon"?: string;
+        /**
+          * Input type
+          * @attr type
+          * @default 'text'
+         */
+        "type": InputType;
+        /**
+          * Validation state
+          * @attr validation-state
+          * @default 'default'
+         */
+        "validationState": ValidationState;
+        /**
+          * Input value
+          * @attr value
+          * @default ''
+         */
+        "value": string;
+        /**
+          * Visual variant
+          * @attr variant
+          * @default 'default'
+         */
+        "variant": InputVariant;
     }
     /**
      * @component sg-modal
@@ -689,6 +1304,264 @@ export namespace Components {
         "size": ModalSize;
     }
     /**
+     * @component sg-option
+     * @description Option element for sg-select component
+     * @example <sg-select label="Choose">
+     *   <sg-option value="1">Option 1</sg-option>
+     *   <sg-option value="2" disabled>Option 2 (disabled)</sg-option>
+     *   <sg-option value="3" icon="mdi:star">Option 3 with icon</sg-option>
+     * </sg-select>
+     */
+    interface SgOption {
+        /**
+          * Description text
+         */
+        "description"?: string;
+        /**
+          * Whether option is disabled
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Icon name
+         */
+        "icon"?: string;
+        /**
+          * Option value
+         */
+        "value": string;
+    }
+    /**
+     * @component sg-option-group
+     * @description Group of options for sg-select component
+     * @example <sg-select label="Choose">
+     *   <sg-option-group label="Group A">
+     *     <sg-option value="1">Option 1</sg-option>
+     *     <sg-option value="2">Option 2</sg-option>
+     *   </sg-option-group>
+     *   <sg-option-group label="Group B">
+     *     <sg-option value="3">Option 3</sg-option>
+     *   </sg-option-group>
+     * </sg-select>
+     */
+    interface SgOptionGroup {
+        /**
+          * Whether all options in group are disabled
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Group label
+         */
+        "label": string;
+    }
+    /**
+     * @component sg-search-box
+     * @description Search input component with search and clear buttons.
+     * Supports Enter key to trigger search and emits events for search actions.
+     * @example <sg-search-box 
+     *   placeholder="Search users..." 
+     *   search-button-label="Find"
+     *   clear-button-label="Clear"
+     * ></sg-search-box>
+     */
+    interface SgSearchBox {
+        /**
+          * Label for clear button
+          * @default 'Limpiar'
+         */
+        "clearButtonLabel": string;
+        /**
+          * Icon name for clear button
+          * @default 'delete'
+         */
+        "clearIcon": string;
+        /**
+          * Disable the search box
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Hide clear button
+          * @default false
+         */
+        "hideClearButton": boolean;
+        /**
+          * Hide search button
+          * @default false
+         */
+        "hideSearchButton": boolean;
+        /**
+          * Placeholder text for the input
+          * @default 'Buscar...'
+         */
+        "placeholder": string;
+        /**
+          * Label for search button
+          * @default 'Buscar'
+         */
+        "searchButtonLabel": string;
+        /**
+          * Icon name for search button
+          * @default 'view'
+         */
+        "searchIcon": string;
+        /**
+          * Size variant: 'sm' | 'md' | 'lg'
+          * @default 'md'
+         */
+        "size": 'sm' | 'md' | 'lg';
+        /**
+          * Current search term value
+          * @default ''
+         */
+        "value": string;
+    }
+    /**
+     * @component sg-select
+     * @description Advanced select/combobox component with search, multi-select, async loading, and more.
+     * @example <!-- Basic usage -->
+     * <sg-select label="Country" placeholder="Select a country">
+     *   <sg-option value="us">United States</sg-option>
+     *   <sg-option value="uk">United Kingdom</sg-option>
+     *   <sg-option value="es">Spain</sg-option>
+     * </sg-select>
+     * <!-- With search -->
+     * <sg-select label="Search countries" searchable>
+     *   <sg-option value="us">United States</sg-option>
+     *   <sg-option value="uk">United Kingdom</sg-option>
+     * </sg-select>
+     * <!-- Multi-select -->
+     * <sg-select label="Select tags" multiple>
+     *   <sg-option value="react">React</sg-option>
+     *   <sg-option value="vue">Vue</sg-option>
+     *   <sg-option value="angular">Angular</sg-option>
+     * </sg-select>
+     * @fires sgChange - Emitted when selection changes
+     * @fires sgSearch - Emitted when search query changes (for async loading)
+     * @fires sgOpen - Emitted when dropdown opens
+     * @fires sgClose - Emitted when dropdown closes
+     */
+    interface SgSelect {
+        /**
+          * Enable async loading (use sgSearch event)
+          * @default false
+         */
+        "async": boolean;
+        "clear": () => Promise<void>;
+        /**
+          * Allow clearing selection
+          * @default false
+         */
+        "clearable": boolean;
+        "close": () => Promise<void>;
+        /**
+          * Close dropdown after selection (single select)
+          * @default true
+         */
+        "closeOnSelect": boolean;
+        /**
+          * Allow creating new options
+          * @default false
+         */
+        "creatable": boolean;
+        /**
+          * Create option text template (use {query} placeholder)
+          * @default 'Create "{query}"'
+         */
+        "createText": string;
+        /**
+          * Disabled state
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Error message
+         */
+        "errorMessage"?: string;
+        /**
+          * Helper text below the select
+         */
+        "helperText"?: string;
+        /**
+          * Label text
+         */
+        "label"?: string;
+        /**
+          * Show loading indicator
+          * @default false
+         */
+        "loading": boolean;
+        /**
+          * Loading text
+          * @default 'Loading...'
+         */
+        "loadingText": string;
+        /**
+          * Maximum selections for multi-select
+         */
+        "maxSelections"?: number;
+        /**
+          * Allow multiple selections
+          * @default false
+         */
+        "multiple": boolean;
+        /**
+          * No results text
+          * @default 'No results found'
+         */
+        "noResultsText": string;
+        "open": () => Promise<void>;
+        /**
+          * Options passed as array (alternative to slots)
+         */
+        "options"?: SelectOption1[] | string;
+        /**
+          * Placeholder text
+         */
+        "placeholder"?: string;
+        /**
+          * Required field
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * Search debounce delay in ms
+          * @default 300
+         */
+        "searchDelay": number;
+        /**
+          * Enable search/filter functionality
+          * @default false
+         */
+        "searchable": boolean;
+        /**
+          * Size variant
+          * @default 'md'
+         */
+        "size": SelectSize;
+        "toggle": () => Promise<void>;
+        /**
+          * Validation state
+          * @default 'default'
+         */
+        "validationState": ValidationState1;
+        /**
+          * Current value (single select) or values (multi-select as JSON array)
+         */
+        "value"?: string;
+        /**
+          * Array of selected values for multi-select
+          * @default []
+         */
+        "values": string[];
+        /**
+          * Visual variant
+          * @default 'default'
+         */
+        "variant": SelectVariant;
+    }
+    /**
      * @component sg-skeleton
      * @description Skeleton loading placeholder component for SageBox
      * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
@@ -717,6 +1590,73 @@ export namespace Components {
          */
         "width": string;
     }
+    /**
+     * @component sg-stats-card
+     * @description A card component for displaying statistics and metrics with icon and optional breakdown.
+     * @example ```html
+     * <sg-stats-card
+     *   title="Total Users"
+     *   value="1,234"
+     *   description="Active this month"
+     *   icon="users"
+     *   color="primary">
+     * </sg-stats-card>
+     * ```
+     */
+    interface SgStatsCard {
+        /**
+          * Animation delay in ms (for staggered animations)
+          * @default 0
+         */
+        "animationDelay": number;
+        /**
+          * Card title/label
+          * @default ''
+         */
+        "cardTitle": string;
+        /**
+          * Color theme
+          * @default 'primary'
+         */
+        "color": StatsCardColor;
+        /**
+          * Description text below the value
+          * @default ''
+         */
+        "description": string;
+        /**
+          * Icon name (uses sg-icon)
+         */
+        "icon": string;
+        /**
+          * Show loading skeleton
+          * @default false
+         */
+        "loading": boolean;
+        /**
+          * Additional stats breakdown (JSON string or array)
+         */
+        "stats": string | StatItem[];
+        /**
+          * Trend indicator: 'up', 'down', or percentage like '+12%'
+         */
+        "trend": string;
+        /**
+          * Whether trend is positive (green) or negative (red)
+          * @default true
+         */
+        "trendPositive": boolean;
+        /**
+          * Unit suffix for the value
+          * @default ''
+         */
+        "unit": string;
+        /**
+          * Main value to display
+          * @default ''
+         */
+        "value": string | number;
+    }
     interface SgThemeToggle {
         /**
           * Size of the toggle button
@@ -729,6 +1669,94 @@ export namespace Components {
          */
         "theme": ThemeMode;
     }
+    /**
+     * @component sg-tooltip
+     * @description A tooltip component for displaying contextual information on hover, focus, or click.
+     * @example ### Basic Usage
+     * ```html
+     * <sg-tooltip text="This is a tooltip">
+     *   <button>Hover me</button>
+     * </sg-tooltip>
+     * ```
+     * ### With Position
+     * ```html
+     * <sg-tooltip text="Top tooltip" position="top">...</sg-tooltip>
+     * <sg-tooltip text="Right tooltip" position="right">...</sg-tooltip>
+     * ```
+     * ### With Trigger
+     * ```html
+     * <sg-tooltip text="Click to show" trigger="click">...</sg-tooltip>
+     * ```
+     */
+    interface SgTooltip {
+        /**
+          * Show arrow pointer
+          * @default true
+         */
+        "arrow": boolean;
+        /**
+          * Disable the tooltip
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Hide the tooltip programmatically
+         */
+        "hide": () => Promise<void>;
+        /**
+          * Delay before hiding (ms)
+          * @default 100
+         */
+        "hideDelay": number;
+        /**
+          * Interactive tooltip (can hover over tooltip content)
+          * @default false
+         */
+        "interactive": boolean;
+        /**
+          * Maximum width of tooltip
+          * @default '250px'
+         */
+        "maxWidth": string;
+        /**
+          * Keep tooltip visible (for manual control)
+          * @default false
+         */
+        "open": boolean;
+        /**
+          * Position of the tooltip relative to trigger
+          * @default 'top'
+         */
+        "position": TooltipPosition;
+        /**
+          * Show the tooltip programmatically
+         */
+        "show": () => Promise<void>;
+        /**
+          * Delay before showing (ms)
+          * @default 200
+         */
+        "showDelay": number;
+        /**
+          * Tooltip text content
+          * @default ''
+         */
+        "text": string;
+        /**
+          * Toggle tooltip visibility
+         */
+        "toggle": () => Promise<void>;
+        /**
+          * How to trigger the tooltip
+          * @default 'hover'
+         */
+        "trigger": TooltipTrigger;
+        /**
+          * Visual variant
+          * @default 'default'
+         */
+        "variant": TooltipVariant;
+    }
 }
 export interface SgArticleEditorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -738,17 +1766,45 @@ export interface SgButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSgButtonElement;
 }
+export interface SgCardCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSgCardElement;
+}
+export interface SgContextMenuCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSgContextMenuElement;
+}
+export interface SgDatePickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSgDatePickerElement;
+}
 export interface SgDropdownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSgDropdownElement;
+}
+export interface SgInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSgInputElement;
 }
 export interface SgModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSgModalElement;
 }
+export interface SgSearchBoxCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSgSearchBoxElement;
+}
+export interface SgSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSgSelectElement;
+}
 export interface SgThemeToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSgThemeToggleElement;
+}
+export interface SgTooltipCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSgTooltipElement;
 }
 declare global {
     interface HTMLSgArticleEditorElementEventMap {
@@ -818,6 +1874,39 @@ declare global {
         prototype: HTMLSgBadgeElement;
         new (): HTMLSgBadgeElement;
     };
+    /**
+     * @component sg-breadcrumb
+     * @description Navigation breadcrumb component showing the current page location within a hierarchy.
+     * @example ```html
+     * <sg-breadcrumb>
+     *   <sg-breadcrumb-item href="/">Home</sg-breadcrumb-item>
+     *   <sg-breadcrumb-item href="/products">Products</sg-breadcrumb-item>
+     *   <sg-breadcrumb-item active>Details</sg-breadcrumb-item>
+     * </sg-breadcrumb>
+     * ```
+     */
+    interface HTMLSgBreadcrumbElement extends Components.SgBreadcrumb, HTMLStencilElement {
+    }
+    var HTMLSgBreadcrumbElement: {
+        prototype: HTMLSgBreadcrumbElement;
+        new (): HTMLSgBreadcrumbElement;
+    };
+    /**
+     * @component sg-breadcrumb-item
+     * @description Individual breadcrumb item. Must be used inside sg-breadcrumb.
+     * @example ```html
+     * <sg-breadcrumb-item href="/home">
+     *   <sg-icon slot="icon" name="home" size="14"></sg-icon>
+     *   Home
+     * </sg-breadcrumb-item>
+     * ```
+     */
+    interface HTMLSgBreadcrumbItemElement extends Components.SgBreadcrumbItem, HTMLStencilElement {
+    }
+    var HTMLSgBreadcrumbItemElement: {
+        prototype: HTMLSgBreadcrumbItemElement;
+        new (): HTMLSgBreadcrumbItemElement;
+    };
     interface HTMLSgButtonElementEventMap {
         "sgClick": MouseEvent;
     }
@@ -881,6 +1970,122 @@ declare global {
         prototype: HTMLSgButtonElement;
         new (): HTMLSgButtonElement;
     };
+    interface HTMLSgCardElementEventMap {
+        "sgClick": void;
+        "sgAction": void;
+    }
+    /**
+     * @component sg-card
+     * @description A flexible card component with multiple variants, optional header/footer, icons and actions.
+     * Framework-agnostic: works with Angular, React, Vue, and vanilla JS.
+     * @example ### Basic Usage
+     * ```html
+     * <sg-card title="Card Title" subtitle="Card subtitle">
+     *   <p>Card content goes here</p>
+     * </sg-card>
+     * ```
+     * ### With Icon and Action
+     * ```html
+     * <sg-card
+     *   title="Users"
+     *   subtitle="Manage your team"
+     *   icon="users"
+     *   variant="primary"
+     *   action-label="View All"
+     *   clickable>
+     *   <p>You have 24 active users</p>
+     * </sg-card>
+     * ```
+     * ### With Custom Slots
+     * ```html
+     * <sg-card variant="gradient">
+     *   <img slot="media" src="image.jpg" alt="Cover" />
+     *   <div slot="header">
+     *     <h3>Custom Header</h3>
+     *   </div>
+     *   <p>Content here</p>
+     *   <div slot="footer">
+     *     <sg-button variant="primary">Action</sg-button>
+     *   </div>
+     * </sg-card>
+     * ```
+     */
+    interface HTMLSgCardElement extends Components.SgCard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSgCardElementEventMap>(type: K, listener: (this: HTMLSgCardElement, ev: SgCardCustomEvent<HTMLSgCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSgCardElementEventMap>(type: K, listener: (this: HTMLSgCardElement, ev: SgCardCustomEvent<HTMLSgCardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSgCardElement: {
+        prototype: HTMLSgCardElement;
+        new (): HTMLSgCardElement;
+    };
+    interface HTMLSgContextMenuElementEventMap {
+        "itemClick": string;
+        "menuClose": void;
+    }
+    /**
+     * @component sg-context-menu
+     * @description Floating context menu that appears on right-click or programmatically.
+     * Automatically closes on Escape key, click outside, or item selection.
+     * @example <sg-context-menu id="myMenu"></sg-context-menu>
+     * <script>
+     *   const menu = document.getElementById('myMenu');
+     *   menu.items = [
+     *     { id: 'edit', label: 'Edit', icon: 'edit' },
+     *     { id: 'delete', label: 'Delete', icon: 'delete', danger: true }
+     *   ];
+     *   document.addEventListener('contextmenu', (e) => {
+     *     e.preventDefault();
+     *     menu.show(e.clientX, e.clientY);
+     *   });
+     * </script>
+     */
+    interface HTMLSgContextMenuElement extends Components.SgContextMenu, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSgContextMenuElementEventMap>(type: K, listener: (this: HTMLSgContextMenuElement, ev: SgContextMenuCustomEvent<HTMLSgContextMenuElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSgContextMenuElementEventMap>(type: K, listener: (this: HTMLSgContextMenuElement, ev: SgContextMenuCustomEvent<HTMLSgContextMenuElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSgContextMenuElement: {
+        prototype: HTMLSgContextMenuElement;
+        new (): HTMLSgContextMenuElement;
+    };
+    interface HTMLSgDatePickerElementEventMap {
+        "sgChange": string | null;
+    }
+    /**
+     * @component sg-date-picker
+     * @description Calendar date picker with full i18n support.
+     * Works as a standalone component or can integrate with form systems.
+     * @example <sg-date-picker
+     *   value="2024-01-15"
+     *   placeholder="Select date..."
+     *   locale="es"
+     * ></sg-date-picker>
+     */
+    interface HTMLSgDatePickerElement extends Components.SgDatePicker, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSgDatePickerElementEventMap>(type: K, listener: (this: HTMLSgDatePickerElement, ev: SgDatePickerCustomEvent<HTMLSgDatePickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSgDatePickerElementEventMap>(type: K, listener: (this: HTMLSgDatePickerElement, ev: SgDatePickerCustomEvent<HTMLSgDatePickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSgDatePickerElement: {
+        prototype: HTMLSgDatePickerElement;
+        new (): HTMLSgDatePickerElement;
+    };
     interface HTMLSgDropdownElementEventMap {
         "sgOpen": void;
         "sgClose": void;
@@ -935,6 +2140,22 @@ declare global {
         new (): HTMLSgDropdownElement;
     };
     /**
+     * @component sg-form-section
+     * @description Section container for forms with title, icon and step indicators.
+     * Provides consistent visual structure for form sections.
+     * @example <sg-form-section section-title="Personal Information" step-number="1" total-steps="3" icon-bg-class="bg-blue-100">
+     *   <sg-icon slot="icon" name="user"></sg-icon>
+     *   <sg-input label="Name"></sg-input>
+     *   <sg-input label="Email" type="email"></sg-input>
+     * </sg-form-section>
+     */
+    interface HTMLSgFormSectionElement extends Components.SgFormSection, HTMLStencilElement {
+    }
+    var HTMLSgFormSectionElement: {
+        prototype: HTMLSgFormSectionElement;
+        new (): HTMLSgFormSectionElement;
+    };
+    /**
      * @component sg-icon
      * @description SVG Icon component for SageBox - A flexible, accessible icon system
      * @example <!-- Basic usage with built-in icons -->
@@ -955,6 +2176,91 @@ declare global {
     var HTMLSgIconElement: {
         prototype: HTMLSgIconElement;
         new (): HTMLSgIconElement;
+    };
+    /**
+     * @component sg-info-field
+     * @description Display label-value pairs with automatic formatting based on type.
+     * Supports text, dates, status badges, currency, booleans, arrays and custom formatters.
+     * @example <sg-info-field label="Name" value="John Doe"></sg-info-field>
+     * <sg-info-field label="Created" value="2024-01-15" type="date"></sg-info-field>
+     * <sg-info-field label="Status" value="active" type="status"></sg-info-field>
+     * <sg-info-field label="Price" value="99.99" type="currency"></sg-info-field>
+     */
+    interface HTMLSgInfoFieldElement extends Components.SgInfoField, HTMLStencilElement {
+    }
+    var HTMLSgInfoFieldElement: {
+        prototype: HTMLSgInfoFieldElement;
+        new (): HTMLSgInfoFieldElement;
+    };
+    interface HTMLSgInputElementEventMap {
+        "sgInput": { value: string; event: InputEvent };
+        "sgChange": { value: string };
+        "sgFocus": void;
+        "sgBlur": void;
+        "sgClear": void;
+    }
+    /**
+     * @component sg-input
+     * @description A versatile input component with validation, icons, and multiple variants.
+     * Supports all standard HTML input types with enhanced styling and accessibility.
+     * @example <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      VANILLA HTML / JS
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-input placeholder="Enter your name"></sg-input>
+     * <sg-input type="email" label="Email" required></sg-input>
+     * <sg-input type="password" label="Password" leading-icon="lock"></sg-input>
+     * <sg-input label="Username" helper-text="Choose a unique username"></sg-input>
+     * <sg-input label="Email" validation-state="error" error-message="Invalid email format"></sg-input>
+     * <script>
+     *   document.querySelector('sg-input').addEventListener('sgInput', (e) => {
+     *     console.log('Value changed:', e.detail.value);
+     *   });
+     * </script>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      ANGULAR
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-input
+     *   label="Email"
+     *   type="email"
+     *   [attr.value]="email"
+     *   [attr.validation-state]="emailError ? 'error' : 'default'"
+     *   [attr.error-message]="emailError"
+     *   (sgInput)="onEmailChange($event)">
+     * </sg-input>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      REACT
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-input
+     *   label="Search"
+     *   type="search"
+     *   leading-icon="search"
+     *   clearable
+     *   onSgInput={(e) => setSearch(e.detail.value)}
+     * />
+     * @fires sgInput - Emitted when the input value changes
+     * @fires sgChange - Emitted when the input loses focus after value change
+     * @fires sgFocus - Emitted when the input gains focus
+     * @fires sgBlur - Emitted when the input loses focus
+     * @fires sgClear - Emitted when the clear button is clicked
+     * @cssprop --sg-input-bg - Input background color
+     * @cssprop --sg-input-color - Input text color
+     * @cssprop --sg-input-border-color - Input border color
+     * @cssprop --sg-input-border-radius - Input border radius
+     * @cssprop --sg-input-focus-ring - Focus ring color
+     */
+    interface HTMLSgInputElement extends Components.SgInput, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSgInputElementEventMap>(type: K, listener: (this: HTMLSgInputElement, ev: SgInputCustomEvent<HTMLSgInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSgInputElementEventMap>(type: K, listener: (this: HTMLSgInputElement, ev: SgInputCustomEvent<HTMLSgInputElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSgInputElement: {
+        prototype: HTMLSgInputElement;
+        new (): HTMLSgInputElement;
     };
     interface HTMLSgModalElementEventMap {
         "sgOpen": void;
@@ -1037,6 +2343,115 @@ declare global {
         new (): HTMLSgModalElement;
     };
     /**
+     * @component sg-option
+     * @description Option element for sg-select component
+     * @example <sg-select label="Choose">
+     *   <sg-option value="1">Option 1</sg-option>
+     *   <sg-option value="2" disabled>Option 2 (disabled)</sg-option>
+     *   <sg-option value="3" icon="mdi:star">Option 3 with icon</sg-option>
+     * </sg-select>
+     */
+    interface HTMLSgOptionElement extends Components.SgOption, HTMLStencilElement {
+    }
+    var HTMLSgOptionElement: {
+        prototype: HTMLSgOptionElement;
+        new (): HTMLSgOptionElement;
+    };
+    /**
+     * @component sg-option-group
+     * @description Group of options for sg-select component
+     * @example <sg-select label="Choose">
+     *   <sg-option-group label="Group A">
+     *     <sg-option value="1">Option 1</sg-option>
+     *     <sg-option value="2">Option 2</sg-option>
+     *   </sg-option-group>
+     *   <sg-option-group label="Group B">
+     *     <sg-option value="3">Option 3</sg-option>
+     *   </sg-option-group>
+     * </sg-select>
+     */
+    interface HTMLSgOptionGroupElement extends Components.SgOptionGroup, HTMLStencilElement {
+    }
+    var HTMLSgOptionGroupElement: {
+        prototype: HTMLSgOptionGroupElement;
+        new (): HTMLSgOptionGroupElement;
+    };
+    interface HTMLSgSearchBoxElementEventMap {
+        "sgInput": string;
+        "sgSearch": string;
+        "sgClear": void;
+    }
+    /**
+     * @component sg-search-box
+     * @description Search input component with search and clear buttons.
+     * Supports Enter key to trigger search and emits events for search actions.
+     * @example <sg-search-box 
+     *   placeholder="Search users..." 
+     *   search-button-label="Find"
+     *   clear-button-label="Clear"
+     * ></sg-search-box>
+     */
+    interface HTMLSgSearchBoxElement extends Components.SgSearchBox, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSgSearchBoxElementEventMap>(type: K, listener: (this: HTMLSgSearchBoxElement, ev: SgSearchBoxCustomEvent<HTMLSgSearchBoxElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSgSearchBoxElementEventMap>(type: K, listener: (this: HTMLSgSearchBoxElement, ev: SgSearchBoxCustomEvent<HTMLSgSearchBoxElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSgSearchBoxElement: {
+        prototype: HTMLSgSearchBoxElement;
+        new (): HTMLSgSearchBoxElement;
+    };
+    interface HTMLSgSelectElementEventMap {
+        "sgChange": { value: string | string[]; option?: SelectOption1 };
+        "sgSearch": { query: string };
+        "sgOpen": void;
+        "sgClose": void;
+        "sgCreate": { value: string };
+    }
+    /**
+     * @component sg-select
+     * @description Advanced select/combobox component with search, multi-select, async loading, and more.
+     * @example <!-- Basic usage -->
+     * <sg-select label="Country" placeholder="Select a country">
+     *   <sg-option value="us">United States</sg-option>
+     *   <sg-option value="uk">United Kingdom</sg-option>
+     *   <sg-option value="es">Spain</sg-option>
+     * </sg-select>
+     * <!-- With search -->
+     * <sg-select label="Search countries" searchable>
+     *   <sg-option value="us">United States</sg-option>
+     *   <sg-option value="uk">United Kingdom</sg-option>
+     * </sg-select>
+     * <!-- Multi-select -->
+     * <sg-select label="Select tags" multiple>
+     *   <sg-option value="react">React</sg-option>
+     *   <sg-option value="vue">Vue</sg-option>
+     *   <sg-option value="angular">Angular</sg-option>
+     * </sg-select>
+     * @fires sgChange - Emitted when selection changes
+     * @fires sgSearch - Emitted when search query changes (for async loading)
+     * @fires sgOpen - Emitted when dropdown opens
+     * @fires sgClose - Emitted when dropdown closes
+     */
+    interface HTMLSgSelectElement extends Components.SgSelect, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSgSelectElementEventMap>(type: K, listener: (this: HTMLSgSelectElement, ev: SgSelectCustomEvent<HTMLSgSelectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSgSelectElementEventMap>(type: K, listener: (this: HTMLSgSelectElement, ev: SgSelectCustomEvent<HTMLSgSelectElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSgSelectElement: {
+        prototype: HTMLSgSelectElement;
+        new (): HTMLSgSelectElement;
+    };
+    /**
      * @component sg-skeleton
      * @description Skeleton loading placeholder component for SageBox
      * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
@@ -1048,6 +2463,25 @@ declare global {
     var HTMLSgSkeletonElement: {
         prototype: HTMLSgSkeletonElement;
         new (): HTMLSgSkeletonElement;
+    };
+    /**
+     * @component sg-stats-card
+     * @description A card component for displaying statistics and metrics with icon and optional breakdown.
+     * @example ```html
+     * <sg-stats-card
+     *   title="Total Users"
+     *   value="1,234"
+     *   description="Active this month"
+     *   icon="users"
+     *   color="primary">
+     * </sg-stats-card>
+     * ```
+     */
+    interface HTMLSgStatsCardElement extends Components.SgStatsCard, HTMLStencilElement {
+    }
+    var HTMLSgStatsCardElement: {
+        prototype: HTMLSgStatsCardElement;
+        new (): HTMLSgStatsCardElement;
     };
     interface HTMLSgThemeToggleElementEventMap {
         "sgThemeChange": ThemeMode;
@@ -1066,15 +2500,66 @@ declare global {
         prototype: HTMLSgThemeToggleElement;
         new (): HTMLSgThemeToggleElement;
     };
+    interface HTMLSgTooltipElementEventMap {
+        "sgShow": void;
+        "sgHide": void;
+    }
+    /**
+     * @component sg-tooltip
+     * @description A tooltip component for displaying contextual information on hover, focus, or click.
+     * @example ### Basic Usage
+     * ```html
+     * <sg-tooltip text="This is a tooltip">
+     *   <button>Hover me</button>
+     * </sg-tooltip>
+     * ```
+     * ### With Position
+     * ```html
+     * <sg-tooltip text="Top tooltip" position="top">...</sg-tooltip>
+     * <sg-tooltip text="Right tooltip" position="right">...</sg-tooltip>
+     * ```
+     * ### With Trigger
+     * ```html
+     * <sg-tooltip text="Click to show" trigger="click">...</sg-tooltip>
+     * ```
+     */
+    interface HTMLSgTooltipElement extends Components.SgTooltip, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSgTooltipElementEventMap>(type: K, listener: (this: HTMLSgTooltipElement, ev: SgTooltipCustomEvent<HTMLSgTooltipElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSgTooltipElementEventMap>(type: K, listener: (this: HTMLSgTooltipElement, ev: SgTooltipCustomEvent<HTMLSgTooltipElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSgTooltipElement: {
+        prototype: HTMLSgTooltipElement;
+        new (): HTMLSgTooltipElement;
+    };
     interface HTMLElementTagNameMap {
         "sg-article-editor": HTMLSgArticleEditorElement;
         "sg-badge": HTMLSgBadgeElement;
+        "sg-breadcrumb": HTMLSgBreadcrumbElement;
+        "sg-breadcrumb-item": HTMLSgBreadcrumbItemElement;
         "sg-button": HTMLSgButtonElement;
+        "sg-card": HTMLSgCardElement;
+        "sg-context-menu": HTMLSgContextMenuElement;
+        "sg-date-picker": HTMLSgDatePickerElement;
         "sg-dropdown": HTMLSgDropdownElement;
+        "sg-form-section": HTMLSgFormSectionElement;
         "sg-icon": HTMLSgIconElement;
+        "sg-info-field": HTMLSgInfoFieldElement;
+        "sg-input": HTMLSgInputElement;
         "sg-modal": HTMLSgModalElement;
+        "sg-option": HTMLSgOptionElement;
+        "sg-option-group": HTMLSgOptionGroupElement;
+        "sg-search-box": HTMLSgSearchBoxElement;
+        "sg-select": HTMLSgSelectElement;
         "sg-skeleton": HTMLSgSkeletonElement;
+        "sg-stats-card": HTMLSgStatsCardElement;
         "sg-theme-toggle": HTMLSgThemeToggleElement;
+        "sg-tooltip": HTMLSgTooltipElement;
     }
 }
 declare namespace LocalJSX {
@@ -1321,6 +2806,83 @@ declare namespace LocalJSX {
         "variant"?: "primary" | "secondary" | "success" | "warning" | "error" | "info" | "neutral" | "purple" | "cyan";
     }
     /**
+     * @component sg-breadcrumb
+     * @description Navigation breadcrumb component showing the current page location within a hierarchy.
+     * @example ```html
+     * <sg-breadcrumb>
+     *   <sg-breadcrumb-item href="/">Home</sg-breadcrumb-item>
+     *   <sg-breadcrumb-item href="/products">Products</sg-breadcrumb-item>
+     *   <sg-breadcrumb-item active>Details</sg-breadcrumb-item>
+     * </sg-breadcrumb>
+     * ```
+     */
+    interface SgBreadcrumb {
+        /**
+          * Collapse items on mobile (show only first and last)
+          * @default false
+         */
+        "collapsible"?: boolean;
+        /**
+          * Custom separator character (overrides separator prop)
+         */
+        "customSeparator"?: string;
+        /**
+          * Maximum items to show before collapsing (when collapsible)
+          * @default 4
+         */
+        "maxItems"?: number;
+        /**
+          * Separator style between items
+          * @default 'chevron'
+         */
+        "separator"?: BreadcrumbSeparator;
+        /**
+          * Show home icon for first item
+          * @default false
+         */
+        "showHomeIcon"?: boolean;
+        /**
+          * Size variant
+          * @default 'md'
+         */
+        "size"?: BreadcrumbSize;
+    }
+    /**
+     * @component sg-breadcrumb-item
+     * @description Individual breadcrumb item. Must be used inside sg-breadcrumb.
+     * @example ```html
+     * <sg-breadcrumb-item href="/home">
+     *   <sg-icon slot="icon" name="home" size="14"></sg-icon>
+     *   Home
+     * </sg-breadcrumb-item>
+     * ```
+     */
+    interface SgBreadcrumbItem {
+        /**
+          * Whether this is the current/active page
+          * @default false
+         */
+        "active"?: boolean;
+        /**
+          * Disable the item
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * URL to navigate to
+         */
+        "href"?: string;
+        /**
+          * Icon name to display (uses sg-icon)
+         */
+        "icon"?: string;
+        /**
+          * Target for the link
+          * @default '_self'
+         */
+        "target"?: string;
+    }
+    /**
      * @component sg-button
      * @description A versatile button component with multiple variants, sizes, and states.
      * Framework-agnostic: works with Angular, React, Vue, and vanilla JS without wrappers.
@@ -1428,6 +2990,221 @@ declare namespace LocalJSX {
         "variant"?: ButtonVariant;
     }
     /**
+     * @component sg-card
+     * @description A flexible card component with multiple variants, optional header/footer, icons and actions.
+     * Framework-agnostic: works with Angular, React, Vue, and vanilla JS.
+     * @example ### Basic Usage
+     * ```html
+     * <sg-card title="Card Title" subtitle="Card subtitle">
+     *   <p>Card content goes here</p>
+     * </sg-card>
+     * ```
+     * ### With Icon and Action
+     * ```html
+     * <sg-card
+     *   title="Users"
+     *   subtitle="Manage your team"
+     *   icon="users"
+     *   variant="primary"
+     *   action-label="View All"
+     *   clickable>
+     *   <p>You have 24 active users</p>
+     * </sg-card>
+     * ```
+     * ### With Custom Slots
+     * ```html
+     * <sg-card variant="gradient">
+     *   <img slot="media" src="image.jpg" alt="Cover" />
+     *   <div slot="header">
+     *     <h3>Custom Header</h3>
+     *   </div>
+     *   <p>Content here</p>
+     *   <div slot="footer">
+     *     <sg-button variant="primary">Action</sg-button>
+     *   </div>
+     * </sg-card>
+     * ```
+     */
+    interface SgCard {
+        /**
+          * Label for the action button in footer
+         */
+        "actionLabel"?: string;
+        /**
+          * Variant for the action button
+          * @default 'primary'
+         */
+        "actionVariant"?: 'primary' | 'secondary' | 'ghost';
+        /**
+          * Card title displayed in the header
+         */
+        "cardTitle"?: string;
+        /**
+          * Makes the entire card clickable
+          * @default false
+         */
+        "clickable"?: boolean;
+        /**
+          * Disables the card (reduces opacity, no interactions)
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Removes shadow from the card
+          * @default false
+         */
+        "flat"?: boolean;
+        /**
+          * Optional header text (displays above title with accent background)
+         */
+        "header"?: string;
+        /**
+          * Adds hover elevation effect
+          * @default false
+         */
+        "hoverable"?: boolean;
+        /**
+          * URL for navigation (makes card a link)
+         */
+        "href"?: string;
+        /**
+          * Icon name to display (uses sg-icon internally)
+         */
+        "icon"?: string;
+        /**
+          * Icon color (CSS color value)
+         */
+        "iconColor"?: string;
+        /**
+          * Icon size in pixels
+          * @default 48
+         */
+        "iconSize"?: number | string;
+        /**
+          * Applies loading state with skeleton effect
+          * @default false
+         */
+        "loading"?: boolean;
+        /**
+          * Emitted when the action button is clicked
+         */
+        "onSgAction"?: (event: SgCardCustomEvent<void>) => void;
+        /**
+          * Emitted when the card is clicked (if clickable)
+         */
+        "onSgClick"?: (event: SgCardCustomEvent<void>) => void;
+        /**
+          * Size preset for padding and typography
+          * @default 'md'
+         */
+        "size"?: CardSize;
+        /**
+          * Card subtitle displayed below the title
+         */
+        "subtitle"?: string;
+        /**
+          * Target for href link
+          * @default '_self'
+         */
+        "target"?: string;
+        /**
+          * Visual variant of the card
+          * @default 'default'
+         */
+        "variant"?: CardVariant;
+    }
+    /**
+     * @component sg-context-menu
+     * @description Floating context menu that appears on right-click or programmatically.
+     * Automatically closes on Escape key, click outside, or item selection.
+     * @example <sg-context-menu id="myMenu"></sg-context-menu>
+     * <script>
+     *   const menu = document.getElementById('myMenu');
+     *   menu.items = [
+     *     { id: 'edit', label: 'Edit', icon: 'edit' },
+     *     { id: 'delete', label: 'Delete', icon: 'delete', danger: true }
+     *   ];
+     *   document.addEventListener('contextmenu', (e) => {
+     *     e.preventDefault();
+     *     menu.show(e.clientX, e.clientY);
+     *   });
+     * </script>
+     */
+    interface SgContextMenu {
+        /**
+          * Menu items to display
+          * @default []
+         */
+        "items"?: ContextMenuItem[];
+        /**
+          * Emitted when a menu item is clicked
+         */
+        "onItemClick"?: (event: SgContextMenuCustomEvent<string>) => void;
+        /**
+          * Emitted when menu is closed
+         */
+        "onMenuClose"?: (event: SgContextMenuCustomEvent<void>) => void;
+    }
+    /**
+     * @component sg-date-picker
+     * @description Calendar date picker with full i18n support.
+     * Works as a standalone component or can integrate with form systems.
+     * @example <sg-date-picker
+     *   value="2024-01-15"
+     *   placeholder="Select date..."
+     *   locale="es"
+     * ></sg-date-picker>
+     */
+    interface SgDatePicker {
+        /**
+          * Align dropdown to right
+          * @default false
+         */
+        "alignRight"?: boolean;
+        /**
+          * Allow clearing the date
+          * @default true
+         */
+        "clearable"?: boolean;
+        /**
+          * Disable the date picker
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Show error state
+          * @default false
+         */
+        "hasError"?: boolean;
+        /**
+          * Locale for date formatting ('es' | 'en')
+          * @default 'es'
+         */
+        "locale"?: 'es' | 'en';
+        /**
+          * Maximum selectable date (ISO format)
+         */
+        "maxDate"?: string;
+        /**
+          * Minimum selectable date (ISO format)
+         */
+        "minDate"?: string;
+        /**
+          * Emitted when date changes
+         */
+        "onSgChange"?: (event: SgDatePickerCustomEvent<string | null>) => void;
+        /**
+          * Placeholder text for input
+          * @default 'Seleccionar fecha...'
+         */
+        "placeholder"?: string;
+        /**
+          * Current date value in ISO format (YYYY-MM-DD)
+          * @default null
+         */
+        "value"?: string | null;
+    }
+    /**
      * @example ### Angular
      * ```html
      * <sg-dropdown align="start" position="bottom">
@@ -1529,6 +3306,46 @@ declare namespace LocalJSX {
         "size"?: 'sm' | 'md' | 'lg';
     }
     /**
+     * @component sg-form-section
+     * @description Section container for forms with title, icon and step indicators.
+     * Provides consistent visual structure for form sections.
+     * @example <sg-form-section section-title="Personal Information" step-number="1" total-steps="3" icon-bg-class="bg-blue-100">
+     *   <sg-icon slot="icon" name="user"></sg-icon>
+     *   <sg-input label="Name"></sg-input>
+     *   <sg-input label="Email" type="email"></sg-input>
+     * </sg-form-section>
+     */
+    interface SgFormSection {
+        /**
+          * Whether section is initially collapsed (only if collapsible)
+          * @default false
+         */
+        "collapsed"?: boolean;
+        /**
+          * Whether section is collapsible
+          * @default false
+         */
+        "collapsible"?: boolean;
+        /**
+          * CSS class for icon background color
+          * @default 'bg-blue-100'
+         */
+        "iconBgClass"?: string;
+        /**
+          * Title of the section
+          * @default ''
+         */
+        "sectionTitle"?: string;
+        /**
+          * Current step number (optional)
+         */
+        "stepNumber"?: number;
+        /**
+          * Total number of steps (optional)
+         */
+        "totalSteps"?: number;
+    }
+    /**
      * @component sg-icon
      * @description SVG Icon component for SageBox - A flexible, accessible icon system
      * @example <!-- Basic usage with built-in icons -->
@@ -1592,6 +3409,11 @@ declare namespace LocalJSX {
          */
         "rotate"?: number;
         /**
+          * Show a placeholder when the icon is not found. Useful during development to visualize missing icons.
+          * @default true
+         */
+        "showPlaceholder"?: boolean;
+        /**
           * Size of the icon in pixels
           * @default 24
          */
@@ -1613,6 +3435,272 @@ declare namespace LocalJSX {
           * Width of the icon (overrides size)
          */
         "width"?: number | string;
+    }
+    /**
+     * @component sg-info-field
+     * @description Display label-value pairs with automatic formatting based on type.
+     * Supports text, dates, status badges, currency, booleans, arrays and custom formatters.
+     * @example <sg-info-field label="Name" value="John Doe"></sg-info-field>
+     * <sg-info-field label="Created" value="2024-01-15" type="date"></sg-info-field>
+     * <sg-info-field label="Status" value="active" type="status"></sg-info-field>
+     * <sg-info-field label="Price" value="99.99" type="currency"></sg-info-field>
+     */
+    interface SgInfoField {
+        /**
+          * Currency symbol for currency type
+          * @default '€'
+         */
+        "currencySymbol"?: string;
+        /**
+          * Placeholder text when value is empty
+          * @default 'No especificado'
+         */
+        "emptyText"?: string;
+        /**
+          * Boolean text for false value
+          * @default 'No'
+         */
+        "falseText"?: string;
+        /**
+          * Label text for the field
+          * @default ''
+         */
+        "label"?: string;
+        /**
+          * Date format locale
+          * @default 'es-ES'
+         */
+        "locale"?: string;
+        /**
+          * Custom status map for status type
+          * @default {     active: { label: 'Activo', bgColor: '#dcfce7', textColor: '#166534' },     inactive: { label: 'Inactivo', bgColor: '#fee2e2', textColor: '#991b1b' },     pending: { label: 'Pendiente', bgColor: '#fef3c7', textColor: '#92400e' },     draft: { label: 'Borrador', bgColor: '#f3f4f6', textColor: '#374151' },     completed: { label: 'Completado', bgColor: '#dbeafe', textColor: '#1e40af' },     cancelled: { label: 'Cancelado', bgColor: '#fce7f3', textColor: '#9d174d' },   }
+         */
+        "statusMap"?: Record<string, StatusMapItem>;
+        /**
+          * Boolean text for true value
+          * @default 'Sí'
+         */
+        "trueText"?: string;
+        /**
+          * Type of value formatting
+          * @default 'text'
+         */
+        "type"?: InfoFieldType;
+        /**
+          * Value to display (can be string, number, boolean, array, etc.)
+         */
+        "value"?: any;
+    }
+    /**
+     * @component sg-input
+     * @description A versatile input component with validation, icons, and multiple variants.
+     * Supports all standard HTML input types with enhanced styling and accessibility.
+     * @example <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      VANILLA HTML / JS
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-input placeholder="Enter your name"></sg-input>
+     * <sg-input type="email" label="Email" required></sg-input>
+     * <sg-input type="password" label="Password" leading-icon="lock"></sg-input>
+     * <sg-input label="Username" helper-text="Choose a unique username"></sg-input>
+     * <sg-input label="Email" validation-state="error" error-message="Invalid email format"></sg-input>
+     * <script>
+     *   document.querySelector('sg-input').addEventListener('sgInput', (e) => {
+     *     console.log('Value changed:', e.detail.value);
+     *   });
+     * </script>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      ANGULAR
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-input
+     *   label="Email"
+     *   type="email"
+     *   [attr.value]="email"
+     *   [attr.validation-state]="emailError ? 'error' : 'default'"
+     *   [attr.error-message]="emailError"
+     *   (sgInput)="onEmailChange($event)">
+     * </sg-input>
+     * <!-- ═══════════════════════════════════════════════════════════════════════════════
+     *      REACT
+     *      ═══════════════════════════════════════════════════════════════════════════════ -->
+     * <sg-input
+     *   label="Search"
+     *   type="search"
+     *   leading-icon="search"
+     *   clearable
+     *   onSgInput={(e) => setSearch(e.detail.value)}
+     * />
+     * @fires sgInput - Emitted when the input value changes
+     * @fires sgChange - Emitted when the input loses focus after value change
+     * @fires sgFocus - Emitted when the input gains focus
+     * @fires sgBlur - Emitted when the input loses focus
+     * @fires sgClear - Emitted when the clear button is clicked
+     * @cssprop --sg-input-bg - Input background color
+     * @cssprop --sg-input-color - Input text color
+     * @cssprop --sg-input-border-color - Input border color
+     * @cssprop --sg-input-border-radius - Input border radius
+     * @cssprop --sg-input-focus-ring - Focus ring color
+     */
+    interface SgInput {
+        /**
+          * Autocomplete attribute
+          * @attr autocomplete
+         */
+        "autocomplete"?: string;
+        /**
+          * Autofocus attribute
+          * @attr autofocus
+          * @default false
+         */
+        "autofocus"?: boolean;
+        /**
+          * Show clear button when input has value
+          * @attr clearable
+          * @default false
+         */
+        "clearable"?: boolean;
+        /**
+          * Whether the input is disabled
+          * @attr disabled
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Error message (displayed when validation-state is 'error')
+          * @attr error-message
+         */
+        "errorMessage"?: string;
+        /**
+          * Helper text displayed below the input
+          * @attr helper-text
+         */
+        "helperText"?: string;
+        /**
+          * Label text displayed above the input
+          * @attr label
+         */
+        "label"?: string;
+        /**
+          * Leading icon name (from sg-icon)
+          * @attr leading-icon
+         */
+        "leadingIcon"?: string;
+        /**
+          * Maximum value for number/date inputs
+          * @attr max
+         */
+        "max"?: string | number;
+        /**
+          * Maximum length for text inputs
+          * @attr maxlength
+         */
+        "maxlength"?: number;
+        /**
+          * Minimum value for number/date inputs
+          * @attr min
+         */
+        "min"?: string | number;
+        /**
+          * Minimum length for text inputs
+          * @attr minlength
+         */
+        "minlength"?: number;
+        /**
+          * Input name attribute
+          * @attr name
+         */
+        "name"?: string;
+        /**
+          * Emitted when the input loses focus
+         */
+        "onSgBlur"?: (event: SgInputCustomEvent<void>) => void;
+        /**
+          * Emitted when the input loses focus after value change
+         */
+        "onSgChange"?: (event: SgInputCustomEvent<{ value: string }>) => void;
+        /**
+          * Emitted when the clear button is clicked
+         */
+        "onSgClear"?: (event: SgInputCustomEvent<void>) => void;
+        /**
+          * Emitted when the input gains focus
+         */
+        "onSgFocus"?: (event: SgInputCustomEvent<void>) => void;
+        /**
+          * Emitted when the input value changes
+         */
+        "onSgInput"?: (event: SgInputCustomEvent<{ value: string; event: InputEvent }>) => void;
+        /**
+          * Options for select type (array of {value, label} or JSON string)
+          * @attr options
+         */
+        "options"?: SelectOption[] | string;
+        /**
+          * Pattern for validation (regex)
+          * @attr pattern
+         */
+        "pattern"?: string;
+        /**
+          * Placeholder text
+          * @attr placeholder
+         */
+        "placeholder"?: string;
+        /**
+          * Whether the input is readonly
+          * @attr readonly
+          * @default false
+         */
+        "readonly"?: boolean;
+        /**
+          * Whether the input is required
+          * @attr required
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * Placeholder option for select (shown when no value selected)
+          * @attr select-placeholder
+         */
+        "selectPlaceholder"?: string;
+        /**
+          * Input size variant
+          * @attr size
+          * @default 'md'
+         */
+        "size"?: InputSize;
+        /**
+          * Step value for number inputs
+          * @attr step
+         */
+        "step"?: string | number;
+        /**
+          * Trailing icon name (from sg-icon)
+          * @attr trailing-icon
+         */
+        "trailingIcon"?: string;
+        /**
+          * Input type
+          * @attr type
+          * @default 'text'
+         */
+        "type"?: InputType;
+        /**
+          * Validation state
+          * @attr validation-state
+          * @default 'default'
+         */
+        "validationState"?: ValidationState;
+        /**
+          * Input value
+          * @attr value
+          * @default ''
+         */
+        "value"?: string;
+        /**
+          * Visual variant
+          * @attr variant
+          * @default 'default'
+         */
+        "variant"?: InputVariant;
     }
     /**
      * @component sg-modal
@@ -1729,6 +3817,277 @@ declare namespace LocalJSX {
         "size"?: ModalSize;
     }
     /**
+     * @component sg-option
+     * @description Option element for sg-select component
+     * @example <sg-select label="Choose">
+     *   <sg-option value="1">Option 1</sg-option>
+     *   <sg-option value="2" disabled>Option 2 (disabled)</sg-option>
+     *   <sg-option value="3" icon="mdi:star">Option 3 with icon</sg-option>
+     * </sg-select>
+     */
+    interface SgOption {
+        /**
+          * Description text
+         */
+        "description"?: string;
+        /**
+          * Whether option is disabled
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Icon name
+         */
+        "icon"?: string;
+        /**
+          * Option value
+         */
+        "value": string;
+    }
+    /**
+     * @component sg-option-group
+     * @description Group of options for sg-select component
+     * @example <sg-select label="Choose">
+     *   <sg-option-group label="Group A">
+     *     <sg-option value="1">Option 1</sg-option>
+     *     <sg-option value="2">Option 2</sg-option>
+     *   </sg-option-group>
+     *   <sg-option-group label="Group B">
+     *     <sg-option value="3">Option 3</sg-option>
+     *   </sg-option-group>
+     * </sg-select>
+     */
+    interface SgOptionGroup {
+        /**
+          * Whether all options in group are disabled
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Group label
+         */
+        "label": string;
+    }
+    /**
+     * @component sg-search-box
+     * @description Search input component with search and clear buttons.
+     * Supports Enter key to trigger search and emits events for search actions.
+     * @example <sg-search-box 
+     *   placeholder="Search users..." 
+     *   search-button-label="Find"
+     *   clear-button-label="Clear"
+     * ></sg-search-box>
+     */
+    interface SgSearchBox {
+        /**
+          * Label for clear button
+          * @default 'Limpiar'
+         */
+        "clearButtonLabel"?: string;
+        /**
+          * Icon name for clear button
+          * @default 'delete'
+         */
+        "clearIcon"?: string;
+        /**
+          * Disable the search box
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Hide clear button
+          * @default false
+         */
+        "hideClearButton"?: boolean;
+        /**
+          * Hide search button
+          * @default false
+         */
+        "hideSearchButton"?: boolean;
+        /**
+          * Emitted when clear button is clicked
+         */
+        "onSgClear"?: (event: SgSearchBoxCustomEvent<void>) => void;
+        /**
+          * Emitted when search term changes
+         */
+        "onSgInput"?: (event: SgSearchBoxCustomEvent<string>) => void;
+        /**
+          * Emitted when search is triggered (button click or Enter)
+         */
+        "onSgSearch"?: (event: SgSearchBoxCustomEvent<string>) => void;
+        /**
+          * Placeholder text for the input
+          * @default 'Buscar...'
+         */
+        "placeholder"?: string;
+        /**
+          * Label for search button
+          * @default 'Buscar'
+         */
+        "searchButtonLabel"?: string;
+        /**
+          * Icon name for search button
+          * @default 'view'
+         */
+        "searchIcon"?: string;
+        /**
+          * Size variant: 'sm' | 'md' | 'lg'
+          * @default 'md'
+         */
+        "size"?: 'sm' | 'md' | 'lg';
+        /**
+          * Current search term value
+          * @default ''
+         */
+        "value"?: string;
+    }
+    /**
+     * @component sg-select
+     * @description Advanced select/combobox component with search, multi-select, async loading, and more.
+     * @example <!-- Basic usage -->
+     * <sg-select label="Country" placeholder="Select a country">
+     *   <sg-option value="us">United States</sg-option>
+     *   <sg-option value="uk">United Kingdom</sg-option>
+     *   <sg-option value="es">Spain</sg-option>
+     * </sg-select>
+     * <!-- With search -->
+     * <sg-select label="Search countries" searchable>
+     *   <sg-option value="us">United States</sg-option>
+     *   <sg-option value="uk">United Kingdom</sg-option>
+     * </sg-select>
+     * <!-- Multi-select -->
+     * <sg-select label="Select tags" multiple>
+     *   <sg-option value="react">React</sg-option>
+     *   <sg-option value="vue">Vue</sg-option>
+     *   <sg-option value="angular">Angular</sg-option>
+     * </sg-select>
+     * @fires sgChange - Emitted when selection changes
+     * @fires sgSearch - Emitted when search query changes (for async loading)
+     * @fires sgOpen - Emitted when dropdown opens
+     * @fires sgClose - Emitted when dropdown closes
+     */
+    interface SgSelect {
+        /**
+          * Enable async loading (use sgSearch event)
+          * @default false
+         */
+        "async"?: boolean;
+        /**
+          * Allow clearing selection
+          * @default false
+         */
+        "clearable"?: boolean;
+        /**
+          * Close dropdown after selection (single select)
+          * @default true
+         */
+        "closeOnSelect"?: boolean;
+        /**
+          * Allow creating new options
+          * @default false
+         */
+        "creatable"?: boolean;
+        /**
+          * Create option text template (use {query} placeholder)
+          * @default 'Create "{query}"'
+         */
+        "createText"?: string;
+        /**
+          * Disabled state
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Error message
+         */
+        "errorMessage"?: string;
+        /**
+          * Helper text below the select
+         */
+        "helperText"?: string;
+        /**
+          * Label text
+         */
+        "label"?: string;
+        /**
+          * Show loading indicator
+          * @default false
+         */
+        "loading"?: boolean;
+        /**
+          * Loading text
+          * @default 'Loading...'
+         */
+        "loadingText"?: string;
+        /**
+          * Maximum selections for multi-select
+         */
+        "maxSelections"?: number;
+        /**
+          * Allow multiple selections
+          * @default false
+         */
+        "multiple"?: boolean;
+        /**
+          * No results text
+          * @default 'No results found'
+         */
+        "noResultsText"?: string;
+        "onSgChange"?: (event: SgSelectCustomEvent<{ value: string | string[]; option?: SelectOption1 }>) => void;
+        "onSgClose"?: (event: SgSelectCustomEvent<void>) => void;
+        "onSgCreate"?: (event: SgSelectCustomEvent<{ value: string }>) => void;
+        "onSgOpen"?: (event: SgSelectCustomEvent<void>) => void;
+        "onSgSearch"?: (event: SgSelectCustomEvent<{ query: string }>) => void;
+        /**
+          * Options passed as array (alternative to slots)
+         */
+        "options"?: SelectOption1[] | string;
+        /**
+          * Placeholder text
+         */
+        "placeholder"?: string;
+        /**
+          * Required field
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * Search debounce delay in ms
+          * @default 300
+         */
+        "searchDelay"?: number;
+        /**
+          * Enable search/filter functionality
+          * @default false
+         */
+        "searchable"?: boolean;
+        /**
+          * Size variant
+          * @default 'md'
+         */
+        "size"?: SelectSize;
+        /**
+          * Validation state
+          * @default 'default'
+         */
+        "validationState"?: ValidationState1;
+        /**
+          * Current value (single select) or values (multi-select as JSON array)
+         */
+        "value"?: string;
+        /**
+          * Array of selected values for multi-select
+          * @default []
+         */
+        "values"?: string[];
+        /**
+          * Visual variant
+          * @default 'default'
+         */
+        "variant"?: SelectVariant;
+    }
+    /**
      * @component sg-skeleton
      * @description Skeleton loading placeholder component for SageBox
      * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
@@ -1757,6 +4116,73 @@ declare namespace LocalJSX {
          */
         "width"?: string;
     }
+    /**
+     * @component sg-stats-card
+     * @description A card component for displaying statistics and metrics with icon and optional breakdown.
+     * @example ```html
+     * <sg-stats-card
+     *   title="Total Users"
+     *   value="1,234"
+     *   description="Active this month"
+     *   icon="users"
+     *   color="primary">
+     * </sg-stats-card>
+     * ```
+     */
+    interface SgStatsCard {
+        /**
+          * Animation delay in ms (for staggered animations)
+          * @default 0
+         */
+        "animationDelay"?: number;
+        /**
+          * Card title/label
+          * @default ''
+         */
+        "cardTitle"?: string;
+        /**
+          * Color theme
+          * @default 'primary'
+         */
+        "color"?: StatsCardColor;
+        /**
+          * Description text below the value
+          * @default ''
+         */
+        "description"?: string;
+        /**
+          * Icon name (uses sg-icon)
+         */
+        "icon"?: string;
+        /**
+          * Show loading skeleton
+          * @default false
+         */
+        "loading"?: boolean;
+        /**
+          * Additional stats breakdown (JSON string or array)
+         */
+        "stats"?: string | StatItem[];
+        /**
+          * Trend indicator: 'up', 'down', or percentage like '+12%'
+         */
+        "trend"?: string;
+        /**
+          * Whether trend is positive (green) or negative (red)
+          * @default true
+         */
+        "trendPositive"?: boolean;
+        /**
+          * Unit suffix for the value
+          * @default ''
+         */
+        "unit"?: string;
+        /**
+          * Main value to display
+          * @default ''
+         */
+        "value"?: string | number;
+    }
     interface SgThemeToggle {
         /**
           * Emitted when the theme changes
@@ -1773,15 +4199,113 @@ declare namespace LocalJSX {
          */
         "theme"?: ThemeMode;
     }
+    /**
+     * @component sg-tooltip
+     * @description A tooltip component for displaying contextual information on hover, focus, or click.
+     * @example ### Basic Usage
+     * ```html
+     * <sg-tooltip text="This is a tooltip">
+     *   <button>Hover me</button>
+     * </sg-tooltip>
+     * ```
+     * ### With Position
+     * ```html
+     * <sg-tooltip text="Top tooltip" position="top">...</sg-tooltip>
+     * <sg-tooltip text="Right tooltip" position="right">...</sg-tooltip>
+     * ```
+     * ### With Trigger
+     * ```html
+     * <sg-tooltip text="Click to show" trigger="click">...</sg-tooltip>
+     * ```
+     */
+    interface SgTooltip {
+        /**
+          * Show arrow pointer
+          * @default true
+         */
+        "arrow"?: boolean;
+        /**
+          * Disable the tooltip
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Delay before hiding (ms)
+          * @default 100
+         */
+        "hideDelay"?: number;
+        /**
+          * Interactive tooltip (can hover over tooltip content)
+          * @default false
+         */
+        "interactive"?: boolean;
+        /**
+          * Maximum width of tooltip
+          * @default '250px'
+         */
+        "maxWidth"?: string;
+        /**
+          * Emitted when tooltip is hidden
+         */
+        "onSgHide"?: (event: SgTooltipCustomEvent<void>) => void;
+        /**
+          * Emitted when tooltip is shown
+         */
+        "onSgShow"?: (event: SgTooltipCustomEvent<void>) => void;
+        /**
+          * Keep tooltip visible (for manual control)
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * Position of the tooltip relative to trigger
+          * @default 'top'
+         */
+        "position"?: TooltipPosition;
+        /**
+          * Delay before showing (ms)
+          * @default 200
+         */
+        "showDelay"?: number;
+        /**
+          * Tooltip text content
+          * @default ''
+         */
+        "text"?: string;
+        /**
+          * How to trigger the tooltip
+          * @default 'hover'
+         */
+        "trigger"?: TooltipTrigger;
+        /**
+          * Visual variant
+          * @default 'default'
+         */
+        "variant"?: TooltipVariant;
+    }
     interface IntrinsicElements {
         "sg-article-editor": SgArticleEditor;
         "sg-badge": SgBadge;
+        "sg-breadcrumb": SgBreadcrumb;
+        "sg-breadcrumb-item": SgBreadcrumbItem;
         "sg-button": SgButton;
+        "sg-card": SgCard;
+        "sg-context-menu": SgContextMenu;
+        "sg-date-picker": SgDatePicker;
         "sg-dropdown": SgDropdown;
+        "sg-form-section": SgFormSection;
         "sg-icon": SgIcon;
+        "sg-info-field": SgInfoField;
+        "sg-input": SgInput;
         "sg-modal": SgModal;
+        "sg-option": SgOption;
+        "sg-option-group": SgOptionGroup;
+        "sg-search-box": SgSearchBox;
+        "sg-select": SgSelect;
         "sg-skeleton": SgSkeleton;
+        "sg-stats-card": SgStatsCard;
         "sg-theme-toggle": SgThemeToggle;
+        "sg-tooltip": SgTooltip;
     }
 }
 export { LocalJSX as JSX };
@@ -1830,6 +4354,29 @@ declare module "@stencil/core" {
              */
             "sg-badge": LocalJSX.SgBadge & JSXBase.HTMLAttributes<HTMLSgBadgeElement>;
             /**
+             * @component sg-breadcrumb
+             * @description Navigation breadcrumb component showing the current page location within a hierarchy.
+             * @example ```html
+             * <sg-breadcrumb>
+             *   <sg-breadcrumb-item href="/">Home</sg-breadcrumb-item>
+             *   <sg-breadcrumb-item href="/products">Products</sg-breadcrumb-item>
+             *   <sg-breadcrumb-item active>Details</sg-breadcrumb-item>
+             * </sg-breadcrumb>
+             * ```
+             */
+            "sg-breadcrumb": LocalJSX.SgBreadcrumb & JSXBase.HTMLAttributes<HTMLSgBreadcrumbElement>;
+            /**
+             * @component sg-breadcrumb-item
+             * @description Individual breadcrumb item. Must be used inside sg-breadcrumb.
+             * @example ```html
+             * <sg-breadcrumb-item href="/home">
+             *   <sg-icon slot="icon" name="home" size="14"></sg-icon>
+             *   Home
+             * </sg-breadcrumb-item>
+             * ```
+             */
+            "sg-breadcrumb-item": LocalJSX.SgBreadcrumbItem & JSXBase.HTMLAttributes<HTMLSgBreadcrumbItemElement>;
+            /**
              * @component sg-button
              * @description A versatile button component with multiple variants, sizes, and states.
              * Framework-agnostic: works with Angular, React, Vue, and vanilla JS without wrappers.
@@ -1877,6 +4424,72 @@ declare module "@stencil/core" {
              */
             "sg-button": LocalJSX.SgButton & JSXBase.HTMLAttributes<HTMLSgButtonElement>;
             /**
+             * @component sg-card
+             * @description A flexible card component with multiple variants, optional header/footer, icons and actions.
+             * Framework-agnostic: works with Angular, React, Vue, and vanilla JS.
+             * @example ### Basic Usage
+             * ```html
+             * <sg-card title="Card Title" subtitle="Card subtitle">
+             *   <p>Card content goes here</p>
+             * </sg-card>
+             * ```
+             * ### With Icon and Action
+             * ```html
+             * <sg-card
+             *   title="Users"
+             *   subtitle="Manage your team"
+             *   icon="users"
+             *   variant="primary"
+             *   action-label="View All"
+             *   clickable>
+             *   <p>You have 24 active users</p>
+             * </sg-card>
+             * ```
+             * ### With Custom Slots
+             * ```html
+             * <sg-card variant="gradient">
+             *   <img slot="media" src="image.jpg" alt="Cover" />
+             *   <div slot="header">
+             *     <h3>Custom Header</h3>
+             *   </div>
+             *   <p>Content here</p>
+             *   <div slot="footer">
+             *     <sg-button variant="primary">Action</sg-button>
+             *   </div>
+             * </sg-card>
+             * ```
+             */
+            "sg-card": LocalJSX.SgCard & JSXBase.HTMLAttributes<HTMLSgCardElement>;
+            /**
+             * @component sg-context-menu
+             * @description Floating context menu that appears on right-click or programmatically.
+             * Automatically closes on Escape key, click outside, or item selection.
+             * @example <sg-context-menu id="myMenu"></sg-context-menu>
+             * <script>
+             *   const menu = document.getElementById('myMenu');
+             *   menu.items = [
+             *     { id: 'edit', label: 'Edit', icon: 'edit' },
+             *     { id: 'delete', label: 'Delete', icon: 'delete', danger: true }
+             *   ];
+             *   document.addEventListener('contextmenu', (e) => {
+             *     e.preventDefault();
+             *     menu.show(e.clientX, e.clientY);
+             *   });
+             * </script>
+             */
+            "sg-context-menu": LocalJSX.SgContextMenu & JSXBase.HTMLAttributes<HTMLSgContextMenuElement>;
+            /**
+             * @component sg-date-picker
+             * @description Calendar date picker with full i18n support.
+             * Works as a standalone component or can integrate with form systems.
+             * @example <sg-date-picker
+             *   value="2024-01-15"
+             *   placeholder="Select date..."
+             *   locale="es"
+             * ></sg-date-picker>
+             */
+            "sg-date-picker": LocalJSX.SgDatePicker & JSXBase.HTMLAttributes<HTMLSgDatePickerElement>;
+            /**
              * @example ### Angular
              * ```html
              * <sg-dropdown align="start" position="bottom">
@@ -1912,6 +4525,17 @@ declare module "@stencil/core" {
              */
             "sg-dropdown": LocalJSX.SgDropdown & JSXBase.HTMLAttributes<HTMLSgDropdownElement>;
             /**
+             * @component sg-form-section
+             * @description Section container for forms with title, icon and step indicators.
+             * Provides consistent visual structure for form sections.
+             * @example <sg-form-section section-title="Personal Information" step-number="1" total-steps="3" icon-bg-class="bg-blue-100">
+             *   <sg-icon slot="icon" name="user"></sg-icon>
+             *   <sg-input label="Name"></sg-input>
+             *   <sg-input label="Email" type="email"></sg-input>
+             * </sg-form-section>
+             */
+            "sg-form-section": LocalJSX.SgFormSection & JSXBase.HTMLAttributes<HTMLSgFormSectionElement>;
+            /**
              * @component sg-icon
              * @description SVG Icon component for SageBox - A flexible, accessible icon system
              * @example <!-- Basic usage with built-in icons -->
@@ -1928,6 +4552,66 @@ declare module "@stencil/core" {
              * <sg-icon name="my-icon" json-src="/assets/icons.json"></sg-icon>
              */
             "sg-icon": LocalJSX.SgIcon & JSXBase.HTMLAttributes<HTMLSgIconElement>;
+            /**
+             * @component sg-info-field
+             * @description Display label-value pairs with automatic formatting based on type.
+             * Supports text, dates, status badges, currency, booleans, arrays and custom formatters.
+             * @example <sg-info-field label="Name" value="John Doe"></sg-info-field>
+             * <sg-info-field label="Created" value="2024-01-15" type="date"></sg-info-field>
+             * <sg-info-field label="Status" value="active" type="status"></sg-info-field>
+             * <sg-info-field label="Price" value="99.99" type="currency"></sg-info-field>
+             */
+            "sg-info-field": LocalJSX.SgInfoField & JSXBase.HTMLAttributes<HTMLSgInfoFieldElement>;
+            /**
+             * @component sg-input
+             * @description A versatile input component with validation, icons, and multiple variants.
+             * Supports all standard HTML input types with enhanced styling and accessibility.
+             * @example <!-- ═══════════════════════════════════════════════════════════════════════════════
+             *      VANILLA HTML / JS
+             *      ═══════════════════════════════════════════════════════════════════════════════ -->
+             * <sg-input placeholder="Enter your name"></sg-input>
+             * <sg-input type="email" label="Email" required></sg-input>
+             * <sg-input type="password" label="Password" leading-icon="lock"></sg-input>
+             * <sg-input label="Username" helper-text="Choose a unique username"></sg-input>
+             * <sg-input label="Email" validation-state="error" error-message="Invalid email format"></sg-input>
+             * <script>
+             *   document.querySelector('sg-input').addEventListener('sgInput', (e) => {
+             *     console.log('Value changed:', e.detail.value);
+             *   });
+             * </script>
+             * <!-- ═══════════════════════════════════════════════════════════════════════════════
+             *      ANGULAR
+             *      ═══════════════════════════════════════════════════════════════════════════════ -->
+             * <sg-input
+             *   label="Email"
+             *   type="email"
+             *   [attr.value]="email"
+             *   [attr.validation-state]="emailError ? 'error' : 'default'"
+             *   [attr.error-message]="emailError"
+             *   (sgInput)="onEmailChange($event)">
+             * </sg-input>
+             * <!-- ═══════════════════════════════════════════════════════════════════════════════
+             *      REACT
+             *      ═══════════════════════════════════════════════════════════════════════════════ -->
+             * <sg-input
+             *   label="Search"
+             *   type="search"
+             *   leading-icon="search"
+             *   clearable
+             *   onSgInput={(e) => setSearch(e.detail.value)}
+             * />
+             * @fires sgInput - Emitted when the input value changes
+             * @fires sgChange - Emitted when the input loses focus after value change
+             * @fires sgFocus - Emitted when the input gains focus
+             * @fires sgBlur - Emitted when the input loses focus
+             * @fires sgClear - Emitted when the clear button is clicked
+             * @cssprop --sg-input-bg - Input background color
+             * @cssprop --sg-input-color - Input text color
+             * @cssprop --sg-input-border-color - Input border color
+             * @cssprop --sg-input-border-radius - Input border radius
+             * @cssprop --sg-input-focus-ring - Focus ring color
+             */
+            "sg-input": LocalJSX.SgInput & JSXBase.HTMLAttributes<HTMLSgInputElement>;
             /**
              * @component sg-modal
              * @description A modern modal dialog component built on the native HTML <dialog> element.
@@ -1991,6 +4675,67 @@ declare module "@stencil/core" {
              */
             "sg-modal": LocalJSX.SgModal & JSXBase.HTMLAttributes<HTMLSgModalElement>;
             /**
+             * @component sg-option
+             * @description Option element for sg-select component
+             * @example <sg-select label="Choose">
+             *   <sg-option value="1">Option 1</sg-option>
+             *   <sg-option value="2" disabled>Option 2 (disabled)</sg-option>
+             *   <sg-option value="3" icon="mdi:star">Option 3 with icon</sg-option>
+             * </sg-select>
+             */
+            "sg-option": LocalJSX.SgOption & JSXBase.HTMLAttributes<HTMLSgOptionElement>;
+            /**
+             * @component sg-option-group
+             * @description Group of options for sg-select component
+             * @example <sg-select label="Choose">
+             *   <sg-option-group label="Group A">
+             *     <sg-option value="1">Option 1</sg-option>
+             *     <sg-option value="2">Option 2</sg-option>
+             *   </sg-option-group>
+             *   <sg-option-group label="Group B">
+             *     <sg-option value="3">Option 3</sg-option>
+             *   </sg-option-group>
+             * </sg-select>
+             */
+            "sg-option-group": LocalJSX.SgOptionGroup & JSXBase.HTMLAttributes<HTMLSgOptionGroupElement>;
+            /**
+             * @component sg-search-box
+             * @description Search input component with search and clear buttons.
+             * Supports Enter key to trigger search and emits events for search actions.
+             * @example <sg-search-box 
+             *   placeholder="Search users..." 
+             *   search-button-label="Find"
+             *   clear-button-label="Clear"
+             * ></sg-search-box>
+             */
+            "sg-search-box": LocalJSX.SgSearchBox & JSXBase.HTMLAttributes<HTMLSgSearchBoxElement>;
+            /**
+             * @component sg-select
+             * @description Advanced select/combobox component with search, multi-select, async loading, and more.
+             * @example <!-- Basic usage -->
+             * <sg-select label="Country" placeholder="Select a country">
+             *   <sg-option value="us">United States</sg-option>
+             *   <sg-option value="uk">United Kingdom</sg-option>
+             *   <sg-option value="es">Spain</sg-option>
+             * </sg-select>
+             * <!-- With search -->
+             * <sg-select label="Search countries" searchable>
+             *   <sg-option value="us">United States</sg-option>
+             *   <sg-option value="uk">United Kingdom</sg-option>
+             * </sg-select>
+             * <!-- Multi-select -->
+             * <sg-select label="Select tags" multiple>
+             *   <sg-option value="react">React</sg-option>
+             *   <sg-option value="vue">Vue</sg-option>
+             *   <sg-option value="angular">Angular</sg-option>
+             * </sg-select>
+             * @fires sgChange - Emitted when selection changes
+             * @fires sgSearch - Emitted when search query changes (for async loading)
+             * @fires sgOpen - Emitted when dropdown opens
+             * @fires sgClose - Emitted when dropdown closes
+             */
+            "sg-select": LocalJSX.SgSelect & JSXBase.HTMLAttributes<HTMLSgSelectElement>;
+            /**
              * @component sg-skeleton
              * @description Skeleton loading placeholder component for SageBox
              * @example <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
@@ -1998,7 +4743,41 @@ declare module "@stencil/core" {
              * <sg-skeleton variant="circle" width="48px" height="48px"></sg-skeleton>
              */
             "sg-skeleton": LocalJSX.SgSkeleton & JSXBase.HTMLAttributes<HTMLSgSkeletonElement>;
+            /**
+             * @component sg-stats-card
+             * @description A card component for displaying statistics and metrics with icon and optional breakdown.
+             * @example ```html
+             * <sg-stats-card
+             *   title="Total Users"
+             *   value="1,234"
+             *   description="Active this month"
+             *   icon="users"
+             *   color="primary">
+             * </sg-stats-card>
+             * ```
+             */
+            "sg-stats-card": LocalJSX.SgStatsCard & JSXBase.HTMLAttributes<HTMLSgStatsCardElement>;
             "sg-theme-toggle": LocalJSX.SgThemeToggle & JSXBase.HTMLAttributes<HTMLSgThemeToggleElement>;
+            /**
+             * @component sg-tooltip
+             * @description A tooltip component for displaying contextual information on hover, focus, or click.
+             * @example ### Basic Usage
+             * ```html
+             * <sg-tooltip text="This is a tooltip">
+             *   <button>Hover me</button>
+             * </sg-tooltip>
+             * ```
+             * ### With Position
+             * ```html
+             * <sg-tooltip text="Top tooltip" position="top">...</sg-tooltip>
+             * <sg-tooltip text="Right tooltip" position="right">...</sg-tooltip>
+             * ```
+             * ### With Trigger
+             * ```html
+             * <sg-tooltip text="Click to show" trigger="click">...</sg-tooltip>
+             * ```
+             */
+            "sg-tooltip": LocalJSX.SgTooltip & JSXBase.HTMLAttributes<HTMLSgTooltipElement>;
         }
     }
 }

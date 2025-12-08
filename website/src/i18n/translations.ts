@@ -21,6 +21,30 @@ export const translations = {
       gettingStarted: 'Primeros pasos',
       theming: 'Temas',
       changelog: 'Cambios',
+      items: {
+        button: 'Button',
+        badge: 'Badge',
+        icon: 'Icon',
+        card: 'Card',
+        tooltip: 'Tooltip',
+        breadcrumb: 'Breadcrumb',
+        input: 'Input',
+        select: 'Select',
+        dropdown: 'Dropdown',
+        'stats-card': 'Stats Card',
+        skeleton: 'Skeleton',
+        'article-editor': 'Article Editor',
+        'theme-toggle': 'Theme Toggle',
+      },
+      groups: {
+        general: 'General',
+        navigation: 'Navegación',
+        form: 'Formularios',
+        'data display': 'Visualización',
+        feedback: 'Feedback',
+        content: 'Contenido',
+        utils: 'Utilidades',
+      },
     },
     // Common
     common: {
@@ -136,12 +160,93 @@ export const translations = {
         name: 'Article Editor',
         description: 'Editor de artículos con soporte para Markdown.',
       },
+      // Input
+      input: {
+        name: 'Input',
+        description: 'Campo de entrada de texto con validación, iconos y múltiples variantes.',
+        basic: 'Básico',
+        sizes: 'Tamaños',
+        variants: 'Variantes',
+        withIcons: 'Con iconos',
+        validation: 'Estados de validación',
+        states: 'Estados',
+        types: 'Tipos de input',
+        selectBasic: 'Select básico',
+        usage: 'Uso básico',
+        withValidation: 'Con validación',
+        javascript: 'JavaScript',
+      },
+      // Select
+      select: {
+        name: 'Select',
+        description: 'Componente select avanzado con búsqueda, selección múltiple y más.',
+        basic: 'Básico',
+        sizes: 'Tamaños',
+        withSearch: 'Con búsqueda',
+        multiple: 'Selección múltiple',
+        clearable: 'Clearable',
+        creatable: 'Crear nuevas opciones',
+        usage: 'Uso básico',
+        withSearchUsage: 'Con búsqueda',
+        multiSelect: 'Multi-select',
+        javascript: 'JavaScript',
+      },
+      // Card
+      card: {
+        name: 'Card',
+        description: 'Contenedor flexible para mostrar contenido agrupado.',
+        basic: 'Básico',
+        variants: 'Variantes de color',
+        withIcon: 'Con icono',
+        withAction: 'Con acción',
+        hoverable: 'Hoverable y Clickable',
+        special: 'Variantes especiales',
+        loading: 'Estado de carga',
+      },
+      // Breadcrumb
+      breadcrumb: {
+        name: 'Breadcrumb',
+        description: 'Navegación jerárquica que muestra la ubicación actual.',
+        basic: 'Básico',
+        separators: 'Separadores',
+        sizes: 'Tamaños',
+        withIcons: 'Con iconos',
+        disabled: 'Item deshabilitado',
+      },
+      // Tooltip
+      tooltip: {
+        name: 'Tooltip',
+        description: 'Información contextual que aparece al interactuar con un elemento.',
+        basic: 'Básico',
+        positions: 'Posiciones',
+        variants: 'Variantes de color',
+        triggers: 'Modos de activación',
+        noArrow: 'Sin flecha',
+        longContent: 'Contenido largo',
+        withIcons: 'Con iconos',
+      },
+      // Stats Card
+      statsCard: {
+        name: 'Stats Card',
+        description: 'Tarjeta para mostrar estadísticas y métricas.',
+        basic: 'Básico',
+        colors: 'Colores',
+        moreColors: 'Más colores',
+        withTrend: 'Con tendencia',
+        withWatermark: 'Con watermark',
+        staggered: 'Animaciones escalonadas',
+        loading: 'Estado de carga',
+      },
     },
     // Footer
     footer: {
       madeWith: 'Hecho con',
       by: 'por',
       rights: 'Todos los derechos reservados.',
+    },
+    // About
+    about: {
+      title: 'Sobre SageBox',
     },
     // Design Tokens page
     tokens: {
@@ -193,6 +298,30 @@ export const translations = {
       gettingStarted: 'Getting Started',
       theming: 'Theming',
       changelog: 'Changelog',
+      items: {
+        button: 'Button',
+        badge: 'Badge',
+        icon: 'Icon',
+        card: 'Card',
+        tooltip: 'Tooltip',
+        breadcrumb: 'Breadcrumb',
+        input: 'Input',
+        select: 'Select',
+        dropdown: 'Dropdown',
+        'stats-card': 'Stats Card',
+        skeleton: 'Skeleton',
+        'article-editor': 'Article Editor',
+        'theme-toggle': 'Theme Toggle',
+      },
+      groups: {
+        general: 'General',
+        navigation: 'Navigation',
+        form: 'Form',
+        'data display': 'Data Display',
+        feedback: 'Feedback',
+        content: 'Content',
+        utils: 'Utils',
+      },
     },
     // Common
     common: {
@@ -308,12 +437,93 @@ export const translations = {
         name: 'Article Editor',
         description: 'Article editor with Markdown support.',
       },
+      // Input
+      input: {
+        name: 'Input',
+        description: 'Text input field with validation, icons and multiple variants.',
+        basic: 'Basic',
+        sizes: 'Sizes',
+        variants: 'Variants',
+        withIcons: 'With icons',
+        validation: 'Validation states',
+        states: 'States',
+        types: 'Input types',
+        selectBasic: 'Basic select',
+        usage: 'Basic usage',
+        withValidation: 'With validation',
+        javascript: 'JavaScript',
+      },
+      // Select
+      select: {
+        name: 'Select',
+        description: 'Advanced select component with search, multi-select and more.',
+        basic: 'Basic',
+        sizes: 'Sizes',
+        withSearch: 'With search',
+        multiple: 'Multiple selection',
+        clearable: 'Clearable',
+        creatable: 'Create new options',
+        usage: 'Basic usage',
+        withSearchUsage: 'With search',
+        multiSelect: 'Multi-select',
+        javascript: 'JavaScript',
+      },
+      // Card
+      card: {
+        name: 'Card',
+        description: 'Flexible container for displaying grouped content.',
+        basic: 'Basic',
+        variants: 'Color variants',
+        withIcon: 'With icon',
+        withAction: 'With action',
+        hoverable: 'Hoverable and Clickable',
+        special: 'Special variants',
+        loading: 'Loading state',
+      },
+      // Breadcrumb
+      breadcrumb: {
+        name: 'Breadcrumb',
+        description: 'Hierarchical navigation showing current location.',
+        basic: 'Basic',
+        separators: 'Separators',
+        sizes: 'Sizes',
+        withIcons: 'With icons',
+        disabled: 'Disabled item',
+      },
+      // Tooltip
+      tooltip: {
+        name: 'Tooltip',
+        description: 'Contextual information that appears on element interaction.',
+        basic: 'Basic',
+        positions: 'Positions',
+        variants: 'Color variants',
+        triggers: 'Trigger modes',
+        noArrow: 'No arrow',
+        longContent: 'Long content',
+        withIcons: 'With icons',
+      },
+      // Stats Card
+      statsCard: {
+        name: 'Stats Card',
+        description: 'Card for displaying statistics and metrics.',
+        basic: 'Basic',
+        colors: 'Colors',
+        moreColors: 'More colors',
+        withTrend: 'With trend',
+        withWatermark: 'With watermark',
+        staggered: 'Staggered animations',
+        loading: 'Loading state',
+      },
     },
     // Footer
     footer: {
       madeWith: 'Made with',
       by: 'by',
       rights: 'All rights reserved.',
+    },
+    // About
+    about: {
+      title: 'About SageBox',
     },
     // Design Tokens page
     tokens: {
@@ -374,7 +584,7 @@ export function useTranslations(lang: Language = defaultLang) {
 export function t(lang: Language, path: string): string {
   const keys = path.split('.');
   let value: any = translations[lang] || translations[defaultLang];
-  
+
   for (const key of keys) {
     if (value && typeof value === 'object' && key in value) {
       value = value[key];
@@ -382,6 +592,6 @@ export function t(lang: Language, path: string): string {
       return path; // Return path if translation not found
     }
   }
-  
+
   return typeof value === 'string' ? value : path;
 }

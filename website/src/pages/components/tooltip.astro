@@ -1,0 +1,279 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import Playground from '../../components/Playground.astro';
+
+const props = [
+  { name: 'content', type: 'string', default: 'undefined', description: 'Texto del tooltip' },
+  { name: 'position', type: "'top' | 'bottom' | 'left' | 'right'", default: "'top'", description: 'Posición del tooltip' },
+  { name: 'trigger', type: "'hover' | 'click' | 'focus' | 'manual'", default: "'hover'", description: 'Modo de activación' },
+  { name: 'variant', type: "'default' | 'primary' | 'success' | 'warning' | 'error'", default: "'default'", description: 'Variante de color' },
+  { name: 'delay', type: 'number', default: '200', description: 'Delay en ms antes de mostrar' },
+  { name: 'hide-delay', type: 'number', default: '100', description: 'Delay en ms antes de ocultar' },
+  { name: 'arrow', type: 'boolean', default: 'true', description: 'Muestra la flecha del tooltip' },
+  { name: 'max-width', type: 'string', default: "'250px'", description: 'Ancho máximo del tooltip' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Desactiva el tooltip' },
+  { name: 'visible', type: 'boolean', default: 'false', description: 'Control manual de visibilidad' },
+  { name: 'interactive', type: 'boolean', default: 'false', description: 'Permite interactuar con el contenido' },
+];
+
+const events = [
+  { name: 'sgShow', type: 'CustomEvent<void>', description: 'Emitido cuando el tooltip se muestra' },
+  { name: 'sgHide', type: 'CustomEvent<void>', description: 'Emitido cuando el tooltip se oculta' },
+];
+
+const slots = [{ name: '(default)', description: 'Elemento que activa el tooltip' }];
+---
+
+<ComponentLayout
+  title="Tooltip"
+  tag="sg-tooltip"
+  packageName="tooltip"
+  description="Muestra información contextual al hacer hover, click o focus sobre un elemento. Soporta múltiples posiciones, variantes y modos de activación."
+  props={props}
+  events={events}
+  slots={slots}
+>
+  <Fragment slot="examples">
+    <DemoBox
+      label="Básico"
+      code={`<sg-tooltip content="This is a tooltip">
+  <sg-button>Hover me</sg-button>
+</sg-tooltip>`}
+    >
+      <sg-tooltip content="This is a helpful tooltip message">
+        <sg-button>Hover me</sg-button>
+      </sg-tooltip>
+    </DemoBox>
+
+    <DemoBox
+      label="Posiciones"
+      code={`<sg-tooltip content="Top" position="top">...</sg-tooltip>
+<sg-tooltip content="Bottom" position="bottom">...</sg-tooltip>
+<sg-tooltip content="Left" position="left">...</sg-tooltip>
+<sg-tooltip content="Right" position="right">...</sg-tooltip>`}
+    >
+      <div style="display: flex; justify-content: center; gap: 1rem; padding: 2rem 0;">
+        <sg-tooltip content="I'm on top!" position="top">
+          <sg-button variant="secondary">Top</sg-button>
+        </sg-tooltip>
+        <sg-tooltip content="I'm on bottom!" position="bottom">
+          <sg-button variant="secondary">Bottom</sg-button>
+        </sg-tooltip>
+        <sg-tooltip content="I'm on left!" position="left">
+          <sg-button variant="secondary">Left</sg-button>
+        </sg-tooltip>
+        <sg-tooltip content="I'm on right!" position="right">
+          <sg-button variant="secondary">Right</sg-button>
+        </sg-tooltip>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Variantes de color"
+      code={`<sg-tooltip variant="default" content="Default">...</sg-tooltip>
+<sg-tooltip variant="primary" content="Primary">...</sg-tooltip>
+<sg-tooltip variant="success" content="Success">...</sg-tooltip>
+<sg-tooltip variant="warning" content="Warning">...</sg-tooltip>
+<sg-tooltip variant="error" content="Error">...</sg-tooltip>`}
+    >
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; padding: 1rem 0;">
+        <sg-tooltip content="Default tooltip" variant="default">
+          <sg-button size="sm" variant="secondary">Default</sg-button>
+        </sg-tooltip>
+        <sg-tooltip content="Primary tooltip" variant="primary">
+          <sg-button size="sm" variant="primary">Primary</sg-button>
+        </sg-tooltip>
+        <sg-tooltip content="Success tooltip" variant="success">
+          <sg-button size="sm" variant="secondary">Success</sg-button>
+        </sg-tooltip>
+        <sg-tooltip content="Warning tooltip" variant="warning">
+          <sg-button size="sm" variant="secondary">Warning</sg-button>
+        </sg-tooltip>
+        <sg-tooltip content="Error tooltip" variant="error">
+          <sg-button size="sm" variant="secondary">Error</sg-button>
+        </sg-tooltip>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Trigger modes"
+      code={`<sg-tooltip trigger="hover" content="Hover to show">...</sg-tooltip>
+<sg-tooltip trigger="click" content="Click to toggle">...</sg-tooltip>
+<sg-tooltip trigger="focus" content="Focus to show">...</sg-tooltip>`}
+    >
+      <div style="display: flex; justify-content: center; gap: 1rem; padding: 1rem 0;">
+        <sg-tooltip trigger="hover" content="I appear on hover">
+          <sg-button variant="secondary">Hover</sg-button>
+        </sg-tooltip>
+        <sg-tooltip trigger="click" content="I toggle on click!">
+          <sg-button variant="secondary">Click</sg-button>
+        </sg-tooltip>
+        <sg-tooltip trigger="focus" content="I appear when focused">
+          <sg-input placeholder="Focus me" style="width: 140px;"></sg-input>
+        </sg-tooltip>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Sin flecha"
+      code={`<sg-tooltip content="No arrow tooltip" arrow={false}>
+  <sg-button>No Arrow</sg-button>
+</sg-tooltip>`}
+    >
+      <div style="display: flex; justify-content: center; gap: 1rem; padding: 1rem 0;">
+        <sg-tooltip content="I have an arrow" arrow="true">
+          <sg-button variant="secondary">With Arrow</sg-button>
+        </sg-tooltip>
+        <sg-tooltip content="I don't have an arrow" arrow="false">
+          <sg-button variant="secondary">No Arrow</sg-button>
+        </sg-tooltip>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Contenido largo con max-width"
+      code={`<sg-tooltip
+  content="This is a longer tooltip message that will wrap automatically when it exceeds the maximum width setting"
+  max-width="200px">
+  <sg-button>Long content</sg-button>
+</sg-tooltip>`}
+    >
+      <div style="display: flex; justify-content: center; padding: 1rem 0;">
+        <sg-tooltip
+          content="This is a longer tooltip message that demonstrates text wrapping. It will automatically wrap when it exceeds the maximum width setting."
+          max-width="200px"
+        >
+          <sg-button variant="primary">Hover for long content</sg-button>
+        </sg-tooltip>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Con iconos"
+      code={`<sg-tooltip content="Settings and preferences">
+  <sg-icon name="cog" size="24" style="cursor: pointer;"></sg-icon>
+</sg-tooltip>`}
+    >
+      <div style="display: flex; justify-content: center; gap: 2rem; padding: 1rem 0;">
+        <sg-tooltip content="View settings">
+          <sg-icon name="cog" size="24" style="cursor: pointer; color: var(--text-muted);"></sg-icon>
+        </sg-tooltip>
+        <sg-tooltip content="Get help" variant="primary">
+          <sg-icon name="info-circle" size="24" style="cursor: pointer; color: var(--primary);"></sg-icon>
+        </sg-tooltip>
+        <sg-tooltip content="Warning: Action required" variant="warning">
+          <sg-icon name="exclamation-triangle" size="24" style="cursor: pointer; color: var(--warning);"></sg-icon>
+        </sg-tooltip>
+      </div>
+    </DemoBox>
+
+    <div class="playground-section">
+      <h3><sg-icon name="code" size="20"></sg-icon> Playground</h3>
+      <p>Edita el código y ve los cambios en tiempo real:</p>
+      <Playground
+        code={`<sg-tooltip
+  content="Customizable tooltip! Try changing position, variant, and trigger props."
+  position="top"
+  variant="primary"
+  trigger="hover"
+  delay="200"
+  arrow="true">
+  <sg-button variant="primary">
+    Hover me!
+  </sg-button>
+</sg-tooltip>`}
+        height="160px"
+      />
+    </div>
+  </Fragment>
+
+  <Fragment slot="usage">
+    <div class="usage-block">
+      <h3>Control manual con JavaScript</h3>
+      <CodeBlock
+        filename="manual-control.js"
+        code={`const tooltip = document.querySelector('sg-tooltip');
+
+// Control manual de visibilidad
+tooltip.trigger = 'manual';
+tooltip.visible = true;
+
+// Escuchar eventos
+tooltip.addEventListener('sgShow', () => {
+  console.log('Tooltip shown');
+});
+
+tooltip.addEventListener('sgHide', () => {
+  console.log('Tooltip hidden');
+});`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>Tooltip interactivo</h3>
+      <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem;">
+        Usa <code>interactive</code> para permitir que el usuario interactúe con el contenido del tooltip:
+      </p>
+      <CodeBlock
+        filename="interactive.html"
+        code={`<sg-tooltip
+  content="<a href='/docs'>View docs</a>"
+  interactive>
+  <sg-button>Hover and click link</sg-button>
+</sg-tooltip>`}
+      />
+    </div>
+
+    <div class="usage-block">
+      <h3>Accesibilidad</h3>
+      <p style="color: var(--text-muted); font-size: 0.875rem; margin: 0;">
+        El tooltip automáticamente agrega los atributos ARIA apropiados para accesibilidad. El contenido se anuncia a lectores de pantalla cuando se
+        muestra.
+      </p>
+    </div>
+  </Fragment>
+</ComponentLayout>
+
+<style>
+  .usage-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .usage-block h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    color: var(--text);
+  }
+  .usage-block code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    background: var(--surface-raised);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    color: var(--primary);
+  }
+
+  .playground-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .playground-section h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .playground-section p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+</style>

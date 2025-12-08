@@ -1,0 +1,367 @@
+/**
+ * SageBox Input Component
+ * A versatile input with variants, sizes, validation, and icons
+ *
+ * Uses global design tokens from @sage-box/core:
+ * --ui-color-*, --ui-text, --ui-border, --ui-radius-*, --ui-font-*
+ */
+
+:host {
+  display: block;
+  font-family: var(--ui-font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * LABEL
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.input-label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ui-text, #1f2937);
+}
+
+.required-mark {
+  color: var(--ui-error, #ef4444);
+  margin-left: 0.125rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * INPUT WRAPPER
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: var(--sg-input-bg, var(--ui-bg, #ffffff));
+  border: 1.5px solid var(--sg-input-border-color, var(--ui-border, #d1d5db));
+  border-radius: var(--sg-input-border-radius, var(--ui-radius-md, 0.5rem));
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-wrapper:hover:not(:focus-within) {
+  border-color: var(--ui-border-strong, #9ca3af);
+}
+
+/* Focus state */
+:host(.sg-input--focused) .input-wrapper {
+  border-color: var(--sg-input-focus-ring, var(--ui-accent, #3b82f6));
+  box-shadow: 0 0 0 3px var(--ui-color-primary-100, rgba(59, 130, 246, 0.2));
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * INPUT FIELD
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.input-field {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: 0 0.75rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: var(--sg-input-color, var(--ui-text, #1f2937));
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.input-field::placeholder {
+  color: var(--ui-text-muted, #9ca3af);
+}
+
+.input-field::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* Number input arrows */
+.input-field::-webkit-outer-spin-button,
+.input-field::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-field[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * SIZE VARIANTS
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+:host(.sg-input--sm) .input-wrapper {
+  height: 2rem;
+  min-height: 2rem;
+}
+
+:host(.sg-input--sm) .input-field {
+  padding: 0 0.625rem;
+  font-size: 0.8125rem;
+}
+
+:host(.sg-input--sm) .input-icon {
+  padding: 0 0.5rem;
+}
+
+:host(.sg-input--md) .input-wrapper {
+  height: 2.5rem;
+  min-height: 2.5rem;
+}
+
+:host(.sg-input--md) .input-field {
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+}
+
+:host(.sg-input--lg) .input-wrapper {
+  height: 3rem;
+  min-height: 3rem;
+}
+
+:host(.sg-input--lg) .input-field {
+  padding: 0 1rem;
+  font-size: 1rem;
+}
+
+:host(.sg-input--lg) .input-label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * VISUAL VARIANTS
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Filled */
+:host(.sg-input--filled) .input-wrapper {
+  background: var(--ui-bg-tertiary, #f3f4f6);
+  border-color: transparent;
+}
+
+:host(.sg-input--filled) .input-wrapper:hover:not(:focus-within) {
+  background: var(--ui-bg-secondary, #e5e7eb);
+}
+
+:host(.sg-input--filled.sg-input--focused) .input-wrapper {
+  background: var(--ui-bg, #ffffff);
+  border-color: var(--ui-accent, #3b82f6);
+}
+
+/* Outline (default) - already styled above */
+
+/* Underline */
+:host(.sg-input--underline) .input-wrapper {
+  border-radius: 0;
+  border: none;
+  border-bottom: 2px solid var(--ui-border, #d1d5db);
+  background: transparent;
+}
+
+:host(.sg-input--underline) .input-wrapper:hover:not(:focus-within) {
+  border-bottom-color: var(--ui-border-strong, #9ca3af);
+}
+
+:host(.sg-input--underline.sg-input--focused) .input-wrapper {
+  border-bottom-color: var(--ui-accent, #3b82f6);
+  box-shadow: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * VALIDATION STATES
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Success */
+:host(.sg-input--success) .input-wrapper {
+  border-color: var(--ui-success, #22c55e);
+}
+
+:host(.sg-input--success.sg-input--focused) .input-wrapper {
+  box-shadow: 0 0 0 3px var(--ui-color-success-100, rgba(34, 197, 94, 0.2));
+}
+
+/* Warning */
+:host(.sg-input--warning) .input-wrapper {
+  border-color: var(--ui-warning, #f59e0b);
+}
+
+:host(.sg-input--warning.sg-input--focused) .input-wrapper {
+  box-shadow: 0 0 0 3px var(--ui-color-warning-100, rgba(245, 158, 11, 0.2));
+}
+
+/* Error */
+:host(.sg-input--error) .input-wrapper {
+  border-color: var(--ui-error, #ef4444);
+}
+
+:host(.sg-input--error.sg-input--focused) .input-wrapper {
+  box-shadow: 0 0 0 3px var(--ui-color-error-100, rgba(239, 68, 68, 0.2));
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ICONS
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ui-text-muted, #9ca3af);
+}
+
+.input-icon--leading {
+  padding-left: 0.75rem;
+}
+
+.input-icon--trailing {
+  padding-right: 0.75rem;
+}
+
+/* Adjust input padding when icons present */
+:host(.sg-input--has-leading-icon) .input-field {
+  padding-left: 0.5rem;
+}
+
+:host(.sg-input--has-trailing-icon) .input-field {
+  padding-right: 0.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ACTION BUTTONS (Clear, Password Toggle)
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.input-clear,
+.input-toggle-password {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-right: 0.25rem;
+  padding: 0;
+  color: var(--ui-text-muted, #9ca3af);
+  background: transparent;
+  border: none;
+  border-radius: var(--ui-radius-sm, 0.25rem);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.input-clear:hover,
+.input-toggle-password:hover {
+  color: var(--ui-text, #1f2937);
+  background: var(--ui-bg-tertiary, rgba(0, 0, 0, 0.05));
+}
+
+.input-clear:active,
+.input-toggle-password:active {
+  transform: scale(0.95);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * HELPER TEXT
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.input-helper {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--ui-text-secondary, #6b7280);
+}
+
+.input-helper--error {
+  color: var(--ui-error, #ef4444);
+}
+
+.input-helper--success {
+  color: var(--ui-success, #22c55e);
+}
+
+.input-helper--warning {
+  color: var(--ui-warning, #f59e0b);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * DISABLED STATE
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+:host(.sg-input--disabled) {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+:host(.sg-input--disabled) .input-wrapper {
+  background: var(--ui-bg-secondary, #f3f4f6);
+  cursor: not-allowed;
+}
+
+:host(.sg-input--disabled) .input-field {
+  cursor: not-allowed;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * READONLY STATE
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+:host(.sg-input--readonly) .input-wrapper {
+  background: var(--ui-bg-secondary, #f9fafb);
+}
+
+:host(.sg-input--readonly) .input-field {
+  cursor: default;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * SELECT TYPE
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+:host(.sg-input--select) .input-wrapper {
+  cursor: pointer;
+}
+
+.input-field--select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  padding-right: 2.5rem;
+}
+
+.input-field--select::-ms-expand {
+  display: none;
+}
+
+.input-icon--select-arrow {
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+:host(.sg-input--focused) .input-icon--select-arrow {
+  transform: rotate(180deg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * DARK MODE
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --sg-input-bg: var(--ui-bg, #1f2937);
+    --sg-input-border-color: var(--ui-border, #374151);
+    --sg-input-color: var(--ui-text, #f9fafb);
+  }
+}
+
+[data-theme='dark'] :host,
+:host([data-theme='dark']) {
+  --sg-input-bg: var(--ui-bg, #1f2937);
+  --sg-input-border-color: var(--ui-border, #374151);
+  --sg-input-color: var(--ui-text, #f9fafb);
+}

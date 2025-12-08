@@ -82,6 +82,26 @@ svg {
   fill: var(--icon-color, currentColor);
 }
 
+/* Placeholder state - shown when icon is not found */
+:host(.icon--placeholder) {
+  opacity: 0.7;
+  cursor: help;
+}
+
+:host(.icon--placeholder) svg {
+  animation: placeholder-pulse 2s ease-in-out infinite;
+}
+
+@keyframes placeholder-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
 /* Error state */
 :host(.icon--error) {
   opacity: 0.5;

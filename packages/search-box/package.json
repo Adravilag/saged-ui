@@ -1,0 +1,33 @@
+{
+  "name": "@sage-box/search-box",
+  "version": "0.1.1",
+  "description": "SageBox Search Box - Search input with search and clear buttons",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/components/search-box/search-box.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/search-box/search-box.esm.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "dev": "stencil build --dev --watch"
+  },
+  "dependencies": {
+    "@sage-box/core": "^0.1.0"
+  },
+  "devDependencies": {
+    "@stencil/core": "^4.38.1"
+  },
+  "keywords": [
+    "stencil",
+    "web-components",
+    "search-box",
+    "sagebox"
+  ],
+  "license": "MIT"
+}
+

@@ -1,6 +1,6 @@
 {
     "name":  "@sage-box/skeleton",
-    "version":  "0.1.0",
+    "version": "0.1.1",
     "description":  "Skeleton component for SageBox - Loading placeholder animations",
     "main":  "dist/index.cjs.js",
     "module":  "dist/index.js",
@@ -52,3 +52,4 @@
                           "access":  "public"
                       }
 }
+

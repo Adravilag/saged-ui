@@ -1,0 +1,102 @@
+---
+import ComponentLayout from '../../layouts/ComponentLayout.astro';
+import DemoBox from '../../components/DemoBox.astro';
+
+const props = [
+  { name: 'section-title', type: 'string', default: "''", description: 'Título de la sección' },
+  { name: 'step-number', type: 'number', default: 'undefined', description: 'Número del paso actual' },
+  { name: 'total-steps', type: 'number', default: 'undefined', description: 'Total de pasos' },
+  { name: 'icon-bg-class', type: 'string', default: "'bg-blue-100'", description: 'Clase CSS para el fondo del icono' },
+  { name: 'collapsible', type: 'boolean', default: 'false', description: 'Hace la sección colapsable' },
+  { name: 'collapsed', type: 'boolean', default: 'false', description: 'Estado inicial colapsado' },
+];
+
+const slots = [
+  { name: 'icon', description: 'Icono para el header de la sección' },
+  { name: '(default)', description: 'Contenido de la sección (campos del formulario)' },
+];
+---
+
+<ComponentLayout
+  title="Form Section"
+  tag="sg-form-section"
+  packageName="form-section"
+  description="Contenedor para secciones de formulario con título, icono y indicador de pasos. Proporciona consistencia visual en formularios multi-paso."
+  props={props}
+  slots={slots}
+>
+  <Fragment slot="examples">
+    <DemoBox
+      label="Básico"
+      code={`<sg-form-section section-title="Información Personal">
+  <sg-input label="Nombre" placeholder="Tu nombre"></sg-input>
+  <sg-input label="Email" type="email" placeholder="tu@email.com"></sg-input>
+</sg-form-section>`}
+    >
+      <sg-form-section section-title="Información Personal">
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <sg-input label="Nombre" placeholder="Tu nombre"></sg-input>
+          <sg-input label="Email" type="email" placeholder="tu@email.com"></sg-input>
+        </div>
+      </sg-form-section>
+    </DemoBox>
+
+    <DemoBox
+      label="Con icono y pasos"
+      code={`<sg-form-section
+  section-title="Datos de Contacto"
+  step-number="1"
+  total-steps="3"
+  icon-bg-class="bg-blue-100">
+  <sg-icon slot="icon" name="user" size="20"></sg-icon>
+  <sg-input label="Teléfono"></sg-input>
+  <sg-input label="Dirección"></sg-input>
+</sg-form-section>`}
+    >
+      <sg-form-section section-title="Datos de Contacto" step-number="1" total-steps="3" icon-bg-class="bg-blue-100">
+        <sg-icon slot="icon" name="user" size="20"></sg-icon>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <sg-input label="Teléfono" placeholder="+34 600 000 000"></sg-input>
+          <sg-input label="Dirección" placeholder="Tu dirección"></sg-input>
+        </div>
+      </sg-form-section>
+    </DemoBox>
+
+    <DemoBox
+      label="Colores de fondo"
+      code={`<sg-form-section section-title="Datos" icon-bg-class="bg-green-100">
+  <sg-icon slot="icon" name="check" size="20"></sg-icon>
+</sg-form-section>
+<sg-form-section section-title="Alertas" icon-bg-class="bg-red-100">
+  <sg-icon slot="icon" name="alert" size="20"></sg-icon>
+</sg-form-section>`}
+    >
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <sg-form-section section-title="Datos Verificados" icon-bg-class="bg-green-100">
+          <sg-icon slot="icon" name="check" size="20"></sg-icon>
+          <p style="margin: 0; color: var(--text-muted);">Tu información ha sido verificada.</p>
+        </sg-form-section>
+        <sg-form-section section-title="Alertas Pendientes" icon-bg-class="bg-red-100">
+          <sg-icon slot="icon" name="alert" size="20"></sg-icon>
+          <p style="margin: 0; color: var(--text-muted);">Tienes 3 alertas pendientes.</p>
+        </sg-form-section>
+      </div>
+    </DemoBox>
+
+    <DemoBox
+      label="Colapsable"
+      code={`<sg-form-section
+  section-title="Información Adicional"
+  collapsible="true"
+  collapsed="false">
+  <sg-icon slot="icon" name="info" size="20"></sg-icon>
+  <p>Esta sección se puede colapsar.</p>
+</sg-form-section>`}
+    >
+      <sg-form-section section-title="Información Adicional" collapsible="true" collapsed="false">
+        <sg-icon slot="icon" name="info" size="20"></sg-icon>
+        <p style="margin: 0; color: var(--text-muted);">Esta sección se puede colapsar haciendo click en el header.</p>
+      </sg-form-section>
+    </DemoBox>
+  </Fragment>
+</ComponentLayout>

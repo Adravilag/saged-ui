@@ -26,40 +26,53 @@ const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
 
     <!-- Theme initialization - must run before body renders to prevent flash -->
     <script is:inline>
-      (function() {
-        var THEME_KEY = 'sage-theme';
-        var LANG_KEY = 'sage-lang';
-        var theme = 'light'; // Default to light
+      // Initialize theme immediately
+      (function () {
+        const THEME_KEY = 'sage-theme';
+        const LANG_KEY = 'sage-lang';
 
-        try {
-          var saved = localStorage.getItem(THEME_KEY);
-          if (saved === 'light' || saved === 'dark') {
-            theme = saved;
-          }
-        } catch (e) {}
+        function applyTheme() {
+          let theme = 'light';
+          try {
+            const saved = localStorage.getItem(THEME_KEY);
+            if (saved === 'light' || saved === 'dark') {
+              theme = saved;
+            }
+          } catch (e) {}
+          document.documentElement.setAttribute('data-theme', theme);
+        }
 
-        document.documentElement.setAttribute('data-theme', theme);
+        function applyLang() {
+          try {
+            const lang = localStorage.getItem(LANG_KEY) || 'es';
+            document.documentElement.setAttribute('lang', lang);
+          } catch (e) {}
+        }
 
-        // Get saved language
-        try {
-          var lang = localStorage.getItem(LANG_KEY) || 'es';
-          document.documentElement.setAttribute('lang', lang);
-        } catch (e) {}
+        applyTheme();
+        applyLang();
 
-        // Expose helper for theme toggle
-        window.__setTheme = function(t) {
+        // Expose helpers
+        window.__setTheme = function (t) {
           document.documentElement.setAttribute('data-theme', t);
-          try { localStorage.setItem(THEME_KEY, t); } catch(e) {}
+          try {
+            localStorage.setItem(THEME_KEY, t);
+          } catch (e) {}
         };
 
-        // Expose helper for language
-        window.__setLang = function(l) {
+        window.__setLang = function (l) {
           document.documentElement.setAttribute('lang', l);
-          try { localStorage.setItem(LANG_KEY, l); } catch(e) {}
+          try {
+            localStorage.setItem(LANG_KEY, l);
+          } catch (e) {}
         };
 
-        window.__getLang = function() {
-          try { return localStorage.getItem(LANG_KEY) || 'es'; } catch(e) { return 'es'; }
+        window.__getLang = function () {
+          try {
+            return localStorage.getItem(LANG_KEY) || 'es';
+          } catch (e) {
+            return 'es';
+          }
         };
       })();
     </script>
@@ -67,7 +80,10 @@ const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Styles - SageBox components -->
     <link rel="stylesheet" href={`${base}dist/sagebox.css`} />
@@ -75,7 +91,7 @@ const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
     <!-- Theme tokens - inline to ensure immediate availability -->
     <style is:inline>
       :root,
-      [data-theme="light"] {
+      [data-theme='light'] {
         --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         --font-mono: 'Fira Code', 'SF Mono', 'Cascadia Code', 'JetBrains Mono', Consolas, monospace;
         --bg: #f8fafc;
@@ -100,10 +116,10 @@ const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
         --success: #059669;
         --warning: #f59e0b;
         --danger: #ef4444;
-        --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
-        --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
-        --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         --radius-xs: 4px;
         --radius-sm: 6px;
         --radius-md: 8px;
@@ -114,7 +130,7 @@ const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
         --transition-slow: 0.3s ease;
       }
 
-      [data-theme="dark"] {
+      [data-theme='dark'] {
         --bg: #080d16;
         --surface: #111827;
         --surface-elevated: #1f2937;
@@ -137,10 +153,10 @@ const base = baseRaw.endsWith('/') ? baseRaw : `${baseRaw}/`;
         --success: #34d399;
         --warning: #fbbf24;
         --danger: #f87171;
-        --shadow-xs: 0 1px 2px rgba(0,0,0,0.3);
-        --shadow-sm: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
-        --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3);
-        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4), 0 4px 6px -2px rgba(0,0,0,0.3);
+        --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
       }
     </style>
   </head>

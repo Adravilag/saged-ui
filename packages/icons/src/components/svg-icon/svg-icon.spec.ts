@@ -155,8 +155,9 @@ describe('sg-icon', () => {
       components: [SgIcon],
       html: `<sg-icon name="non-existent-icon"></sg-icon>`,
     });
-    // Should render nothing (null)
-    expect(page.root?.shadowRoot?.children.length).toBe(0);
+    // Component renders a placeholder SVG with "?" for missing icons
+    expect(page.root).toHaveClass('icon--placeholder');
+    expect(page.root.getAttribute('title')).toContain('not found');
   });
 
   it('renders with width and height override', async () => {

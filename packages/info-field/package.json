@@ -1,0 +1,33 @@
+{
+  "name": "@sage-box/info-field",
+  "version": "0.1.1",
+  "description": "SageBox Info Field - Display label-value pairs with automatic formatting",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/components/info-field/info-field.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/info-field/info-field.esm.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "dev": "stencil build --dev --watch"
+  },
+  "dependencies": {
+    "@sage-box/core": "^0.1.0"
+  },
+  "devDependencies": {
+    "@stencil/core": "^4.38.1"
+  },
+  "keywords": [
+    "stencil",
+    "web-components",
+    "info-field",
+    "sagebox"
+  ],
+  "license": "MIT"
+}
+

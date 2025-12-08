@@ -1,0 +1,39 @@
+{
+  "name": "@sage-box/select",
+  "version": "0.1.1",
+  "description": "SageBox Select - Advanced select/combobox component with search, multi-select, and async loading",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "dev": "stencil build --dev --watch",
+    "test": "stencil test --spec",
+    "test:watch": "stencil test --spec --watchAll"
+  },
+  "dependencies": {
+    "@sage-box/core": "^0.1.0",
+    "@sage-box/icons": "^0.1.0"
+  },
+  "devDependencies": {
+    "@stencil/core": "^4.38.3"
+  },
+  "keywords": [
+    "sagebox",
+    "web-components",
+    "stencil",
+    "select",
+    "combobox",
+    "dropdown",
+    "multi-select",
+    "autocomplete"
+  ],
+  "license": "MIT"
+}
+

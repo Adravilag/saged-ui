@@ -185,6 +185,13 @@ export class SgIcon {
    */
   @Prop() decorative: boolean = false;
 
+  /**
+   * Show a placeholder when the icon is not found.
+   * Useful during development to visualize missing icons.
+   * @default true
+   */
+  @Prop() showPlaceholder: boolean = true;
+
   @State() customSvg: string | null = null;
   @State() loadError: boolean = false;
   @State() jsonLoading: boolean = false;
@@ -511,10 +518,10 @@ export class SgIcon {
       );
     }
 
-    // 2. No icon found - render error or nothing
+    // 2. No icon found - render placeholder or nothing
     if (!icon) {
-      // Log warning when icon is not found
-      if (this.name) {
+      // Log warning when icon is not found (only in development)
+      if (this.name && typeof process !== 'undefined' && process.env?.NODE_ENV !== 'production') {
         const userIcons = getUserIcons();
         const userIconCount = Object.keys(userIcons).length;
         const builtinIconCount = Object.keys(builtinIcons).length;
@@ -526,11 +533,41 @@ export class SgIcon {
           `\n  - Available builtin icons: ${Object.keys(builtinIcons).slice(0, 10).join(', ')}...`
         );
       }
-      if (this.loadError) {
+
+      // Show placeholder when icon not found
+      if (this.showPlaceholder || this.loadError) {
         return (
-          <Host class={{ ...hostClasses, 'icon--error': true }} style={hostStyle}>
+          <Host
+            class={{ ...hostClasses, 'icon--placeholder': !this.loadError, 'icon--error': this.loadError }}
+            style={hostStyle}
+            title={this.name ? `Icon not found: ${this.name}` : 'Icon not found'}
+          >
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill={effectiveColor} />
+              {/* Placeholder: dashed square with question mark */}
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="2"
+                fill="none"
+                stroke={effectiveColor}
+                stroke-width="1.5"
+                stroke-dasharray="3 2"
+                opacity="0.5"
+              />
+              <text
+                x="12"
+                y="16"
+                text-anchor="middle"
+                font-size="12"
+                font-family="system-ui, sans-serif"
+                font-weight="500"
+                fill={effectiveColor}
+                opacity="0.6"
+              >
+                ?
+              </text>
             </svg>
           </Host>
         );
