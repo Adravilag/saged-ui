@@ -17,6 +17,7 @@ www/
 .stencil/
 .astro/
 **/.astro/
+docs/public/sagebox/
 
 # Packages build outputs
 packages/*/dist/
