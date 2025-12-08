@@ -213,7 +213,7 @@
     "vite": "^6.4.1"
   },
   "dependencies": {
-    "commander": "^12.1.0"
+    "commander": "^14.0.2"
   },
   "keywords": [
     "sagebox",
