@@ -254,5 +254,8 @@
     "*.{css,json,md}": [
       "prettier --write"
     ]
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.34.9"
   }
 }
