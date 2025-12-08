@@ -50,8 +50,13 @@ Thumbs.db
 
 # Test
 *.spec.d.ts
+playwright-report/
+test-results/
 
 # Temporary
 tmp/
 temp/
 *.tmp
+
+# Storybook
+storybook-static/
